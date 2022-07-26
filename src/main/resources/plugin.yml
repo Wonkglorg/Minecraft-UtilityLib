@@ -1,0 +1,9 @@
+name: UtilityLib
+version: '${project.version}'
+main: com.wonkglorg.utilitylib.UtilityLib
+api-version: 1.19
+authors: [ Wonkglorg ]
+description: Utility library for minecraft plugins
+commands:
+  test:
+    description: does stuff
