@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,5 +100,9 @@ public abstract class Config extends YamlConfiguration
 			e.printStackTrace();
 			Logger.logWarn("Error saving data to " + name + "!");
 		}
+	}
+	@Override
+	public @NotNull String getName(){
+		return name;
 	}
 }
