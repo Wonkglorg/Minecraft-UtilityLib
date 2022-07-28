@@ -39,4 +39,14 @@ public class WeightedRandomPicker<T>
 		}
 		return null;
 	}
+	
+	public List<Entry> getEntries()
+	{
+		return entries;
+	}
+	
+	public double getAccumulatedWeight()
+	{
+		return accumulatedWeight;
+	}
 }
