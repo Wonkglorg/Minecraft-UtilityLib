@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.utils.inventory;
 
 import com.wonkglorg.utilitylib.utils.builder.ItemBuilder;
-import com.wonkglorg.utilitylib.utils.message.Color;
+import com.wonkglorg.utilitylib.utils.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -71,7 +71,7 @@ public abstract class InventoryGUI implements Listener {
 	 * @param name The name of the inventory
 	 */
 	public InventoryGUI(int size, String name, JavaPlugin plugin) {
-		this(Bukkit.createInventory(null, size, Color.color(name)),plugin);
+		this(Bukkit.createInventory(null, size, Message.color(name)),plugin);
 	}
 	
 	public abstract void addComponents();

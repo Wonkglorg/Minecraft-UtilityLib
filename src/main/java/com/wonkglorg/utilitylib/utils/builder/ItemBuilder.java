@@ -2,7 +2,7 @@ package com.wonkglorg.utilitylib.utils.builder;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.wonkglorg.utilitylib.utils.message.Color;
+import com.wonkglorg.utilitylib.utils.message.Message;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -90,6 +90,13 @@ public class ItemBuilder implements Cloneable
 		this(material, amount, name, description, 0, null, null, null);
 	}
 	
+	public ItemBuilder(ItemStack item){
+		meta = item.getItemMeta();
+		material = item.getType();
+		amount = item.getAmount();
+	}
+	//Eddit COLOR.COLOR to Message.color
+	
 	public ItemStack build()
 	{
 		if(item == null)
@@ -109,12 +116,12 @@ public class ItemBuilder implements Cloneable
 		
 		if(name != null)
 		{
-			meta.displayName(Color.color(name));
+			meta.displayName(Message.color(name));
 		}
 		
 		if(lore != null)
 		{
-			meta.lore(Color.color(lore));
+			meta.lore(Message.color(lore));
 		}
 		
 		meta.setUnbreakable(unbreakable);

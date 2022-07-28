@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.utils.item;
 
-import com.wonkglorg.utilitylib.utils.message.Color;
+import com.wonkglorg.utilitylib.utils.message.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,7 +39,7 @@ public class ItemUtility
 	public static ItemStack rename(ItemStack item, String name)
 	{
 		ItemMeta meta = item.getItemMeta();
-		meta.displayName(Color.color(name));
+		meta.displayName(Message.color(name));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -67,7 +67,7 @@ public class ItemUtility
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = new ArrayList<>();
-		lore.add(Color.color(line));
+		lore.add(Message.color(line));
 		meta.lore(lore);
 		item.setItemMeta(meta);
 		return item;
@@ -83,7 +83,7 @@ public class ItemUtility
 	public static ItemStack setLore(ItemStack item, List<String> lore)
 	{
 		ItemMeta meta = item.getItemMeta();
-		meta.lore(Color.color(lore));
+		meta.lore(Message.color(lore));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -100,7 +100,7 @@ public class ItemUtility
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = meta.lore();
 		lore = lore == null ? new ArrayList<>() : lore;
-		lore.add(Color.color(line));
+		lore.add(Message.color(line));
 		meta.lore(lore);
 		item.setItemMeta(meta);
 		return item;
@@ -120,7 +120,7 @@ public class ItemUtility
 		lore = lore == null ? new ArrayList<>() : lore;
 		for(String line : lines)
 		{
-			lore.add(Color.color(line));
+			lore.add(Message.color(line));
 		}
 		meta.lore(lore);
 		item.setItemMeta(meta);
@@ -142,7 +142,7 @@ public class ItemUtility
 		{
 			return item;
 		}
-		lore.remove(Color.color(line));
+		lore.remove(Message.color(line));
 		meta.lore(lore);
 		item.setItemMeta(meta);
 		return item;
@@ -690,8 +690,8 @@ public class ItemUtility
 		UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
 		Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
 		ItemMeta meta = mobHead.getItemMeta();
-		meta.displayName(Color.color(name));
-		meta.lore(Color.color(List.of(description)));
+		meta.displayName(Message.color(name));
+		meta.lore(Message.color(List.of(description)));
 		mobHead.setItemMeta(meta);
 		
 		return mobHead;

@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.abstraction;
 
 import com.wonkglorg.utilitylib.utils.builder.ItemBuilder;
-import com.wonkglorg.utilitylib.utils.message.Color;
+import com.wonkglorg.utilitylib.utils.message.Message;
 import com.wonkglorg.utilitylib.utils.inventory.MenuUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -77,7 +77,7 @@ public abstract class Menu implements InventoryHolder
 	 */
 	public void open()
 	{
-		inventory = Bukkit.createInventory(this, getSlots(), Color.color(getMenuName()));
+		inventory = Bukkit.createInventory(this, getSlots(), Message.color(getMenuName()));
 		
 		this.setMenuItems();
 		
