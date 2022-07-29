@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Abstract class to manage configs
  */
-public abstract class Config extends YamlConfiguration
+public class Config extends YamlConfiguration
 {
 	
 	protected JavaPlugin main;
