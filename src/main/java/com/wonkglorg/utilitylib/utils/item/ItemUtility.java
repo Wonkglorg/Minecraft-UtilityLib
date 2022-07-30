@@ -683,7 +683,7 @@ public class ItemUtility
 	public static ItemStack createCustomHead(String texture, String name, String... description)
 	{
 		ItemStack mobHead = new ItemStack(Material.PLAYER_HEAD, 1, (byte) SkullType.PLAYER.ordinal());
-		if(texture.contains(" ") || texture.length()<30)
+		if(texture == null || texture.isEmpty() || texture.contains(" "))
 		{
 			texture = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWM5MGNhNTA3M2M0OWI4OThhNmY4Y2RiYzcyZTZhY2EwYTQyNWVjODNiYzQzNTVlM2I4MzRmZDg1OTI4MmJkZCJ9fX0=";
 		}

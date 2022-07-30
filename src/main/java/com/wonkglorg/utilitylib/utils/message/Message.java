@@ -1,9 +1,9 @@
 package com.wonkglorg.utilitylib.utils.message;
 
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent.Builder;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
@@ -16,7 +16,6 @@ public class Message
 {
 	private static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
 	
-	
 	/**
 	 * Strips a text from all its color components and returns
 	 * the stripped text
@@ -27,6 +26,21 @@ public class Message
 	public static String decolor(@NotNull String text)
 	{
 		return PlainTextComponentSerializer.plainText().serialize(LegacyComponentSerializer.legacySection().deserialize(text));
+	}
+	
+	public static Component toComponent(@NotNull String text)
+	{
+		return Component.text().append(Component.text(text)).build();
+	}
+	
+	public static Component toComponent(@NotNull String... text)
+	{
+		Builder builder = Component.text();
+		for(String s : text)
+		{
+			builder.append(Component.text(s));
+		}
+		return builder.build();
 	}
 	
 	/**
@@ -49,10 +63,21 @@ public class Message
 				i++;
 				if(texts[i].charAt(0) == '#')
 				{
-					component.append(Component.text(texts[i].substring(7),TextColor.fromHexString(texts[i].substring(0,7))));
+					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 				} else
 				{
 					component.append(LegacyComponentSerializer.legacy('&').deserialize(texts[i]));
+				}
+				if(texts[i].charAt(0) == 'b')
+				{
+					component.decoration(TextDecoration.BOLD, true);
+				}
+				if(texts[i].charAt(0) == 'i')
+				{
+					if(texts[i].charAt(0) == 'b')
+					{
+						component.decoration(TextDecoration.ITALIC, true);
+					}
 				}
 			} else
 			{
