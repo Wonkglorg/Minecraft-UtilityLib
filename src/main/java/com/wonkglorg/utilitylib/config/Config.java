@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.abstraction;
+package com.wonkglorg.utilitylib.config;
 
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
@@ -33,14 +33,15 @@ public class Config extends YamlConfiguration
 	 * Gets a section of the config at the set path.
 	 *
 	 * @param path path inside yml config.
+	 * @param deep deep search to get children of children
 	 * @return {@link Set} of results.
 	 */
-	public Set<String> getSection(String path)
+	public Set<String> getSection(String path,boolean deep)
 	{
 		ConfigurationSection section = getConfigurationSection(path);
 		if(section != null)
 		{
-			return section.getKeys(false);
+			return section.getKeys(deep);
 		}
 		return new HashSet<>();
 	}
