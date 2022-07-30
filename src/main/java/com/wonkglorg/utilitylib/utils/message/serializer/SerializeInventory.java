@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.serializer;
+package com.wonkglorg.utilitylib.utils.message.serializer;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
