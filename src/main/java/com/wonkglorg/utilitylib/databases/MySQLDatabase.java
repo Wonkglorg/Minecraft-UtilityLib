@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.databases;
 
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -41,7 +42,7 @@ public abstract class MySQLDatabase
 	{
 		try
 		{
-			connection = DriverManager.getConnection("jdbc:mysql://" + URL, USERNAME, PASSWORD);
+			connection = DriverManager.getConnection("jdbc:mysql://" + URL + "/" + DATABASE_NAME, USERNAME, PASSWORD);
 			
 		} catch(SQLException e)
 		{
