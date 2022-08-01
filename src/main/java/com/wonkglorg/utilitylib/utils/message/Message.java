@@ -9,7 +9,9 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Message
@@ -28,6 +30,17 @@ public class Message
 		return PlainTextComponentSerializer.plainText().serialize(LegacyComponentSerializer.legacySection().deserialize(text));
 	}
 	
+	/**
+	 * Reformates dates to dd/MM/yyyy HH:mm:ss
+	 * @param date
+	 * @return reformated date
+	 */
+	public String date(Date date)
+	{
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //HH:mm:ss
+		
+		return format.format(date);
+	}
 	public static Component toComponent(@NotNull String text)
 	{
 		return Component.text().append(Component.text(text)).build();
