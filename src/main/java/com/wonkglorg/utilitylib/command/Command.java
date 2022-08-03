@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class Command implements TabExecutor
 {
 	protected JavaPlugin main;
-	private String name;
+	private final String name;
 	
 	public Command(@NotNull JavaPlugin main, @NotNull String name)
 	{
@@ -46,7 +46,6 @@ public abstract class Command implements TabExecutor
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering the command.
 	 * @param args Following arguments to main command.
-	 *
 	 * @return List of Strings to display for the current argument, returns list of players if null.
 	 */
 	public abstract List<String> tabComplete(@NotNull Player player, String[] args);
@@ -78,7 +77,8 @@ public abstract class Command implements TabExecutor
 		
 	}
 	
-	public String getName(){
-	return name;
+	public String getName()
+	{
+		return name;
 	}
 }
