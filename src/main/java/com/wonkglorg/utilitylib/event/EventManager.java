@@ -25,6 +25,16 @@ public class EventManager
 		listeners.addAll(List.of(listener));
 	}
 	
+	public void add(List<Listener> listener)
+	{
+		listeners.addAll(listener);
+	}
+	
+	public void add(Listener listener)
+	{
+		listeners.add(listener);
+	}
+	
 	public void initialize()
 	{
 		for(Listener listener : listeners)

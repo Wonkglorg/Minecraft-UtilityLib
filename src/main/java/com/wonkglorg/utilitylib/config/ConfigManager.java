@@ -7,12 +7,22 @@ public class ConfigManager
 {
 	private final List<Config> configs = new ArrayList<>();
 	
-	public void addConfig(Config config)
+	public void add(Config config)
 	{
 		configs.add(config);
 	}
 	
-	public void loadConfigs()
+	public void add(Config... config)
+	{
+		configs.addAll(List.of(config));
+	}
+	
+	public void add(List<Config> config)
+	{
+		configs.addAll(config);
+	}
+	
+	public void load()
 	{
 		for(Config config : configs)
 		{
@@ -20,7 +30,7 @@ public class ConfigManager
 		}
 	}
 	
-	public void saveConfigs()
+	public void save()
 	{
 		for(Config config : configs)
 		{
