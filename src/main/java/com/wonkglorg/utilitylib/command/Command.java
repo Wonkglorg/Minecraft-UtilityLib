@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.abstraction;
+package com.wonkglorg.utilitylib.command;
 
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.command.CommandSender;
@@ -14,11 +14,14 @@ import java.util.List;
 public abstract class Command implements TabExecutor
 {
 	protected JavaPlugin main;
+	private String name;
 	
 	public Command(@NotNull JavaPlugin main, @NotNull String name)
 	{
 		this.main = main;
 		PluginCommand pluginCommand = main.getCommand(name);
+		this.name = name;
+		
 		if(pluginCommand != null)
 		{
 			pluginCommand.setExecutor(this);
@@ -73,5 +76,9 @@ public abstract class Command implements TabExecutor
 		}
 		return null;
 		
+	}
+	
+	public String getName(){
+	return name;
 	}
 }
