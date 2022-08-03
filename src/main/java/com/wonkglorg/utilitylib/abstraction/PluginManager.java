@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,10 @@ public abstract class PluginManager
 	 */
 	protected final EventManager eventManager;
 	
+	protected final List<Command> commandList;
+	protected final List<Config> configList;
+	protected final List<Listener> eventList;
+	
 	/**
 	 * Instantiates a new Plugin manager.
 	 *
@@ -39,6 +44,10 @@ public abstract class PluginManager
 		commandManager = new CommandManager();
 		configManager = new ConfigManager();
 		eventManager = new EventManager(plugin);
+		
+		commandList = new ArrayList<>();
+		configList = new ArrayList<>();
+		eventList = new ArrayList<>();
 		
 		eventManager.add(events());
 		commandManager.add(commands());
