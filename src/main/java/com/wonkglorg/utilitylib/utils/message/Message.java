@@ -32,10 +32,9 @@ public class Message
 	
 	/**
 	 * Reformates dates to dd/MM/yyyy HH:mm:ss
-	 * @param date
-	 * @return reformated date
+	 * @return reformatted date
 	 */
-	public String date(Date date)
+	public static String date(Date date)
 	{
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); //HH:mm:ss
 		

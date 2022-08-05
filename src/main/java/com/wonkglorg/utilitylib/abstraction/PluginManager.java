@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,10 +29,6 @@ public abstract class PluginManager
 	 */
 	protected final EventManager eventManager;
 	
-	protected final List<Command> commandList;
-	protected final List<Config> configList;
-	protected final List<Listener> eventList;
-	
 	/**
 	 * Instantiates a new Plugin manager.
 	 *
@@ -45,38 +40,34 @@ public abstract class PluginManager
 		configManager = new ConfigManager();
 		eventManager = new EventManager(plugin);
 		
-		commandList = new ArrayList<>();
-		configList = new ArrayList<>();
-		eventList = new ArrayList<>();
-		
 		eventManager.add(events());
 		commandManager.add(commands());
 		configManager.add(configs());
 	}
 	
 	/**
-	 * Events list.
+	 * Add listener events to ht list  be added in the {@link EventManager} and automatically assigned.
 	 *
 	 * @return list of listeners
 	 */
 	protected abstract List<Listener> events();
 	
 	/**
-	 * Register all commands
+	 * Add all commands to be registered in the {@link CommandManager}.
 	 *
 	 * @return list of commands
 	 */
 	protected abstract List<Command> commands();
 	
 	/**
-	 * Register all configs
+	 * Add all configs to be assigned and handled by the {@link ConfigManager}
 	 *
 	 * @return list of configs
 	 */
 	protected abstract List<Config> configs();
 	
 	/**
-	 * Gets config manager.
+	 * Gets {@link ConfigManager}.
 	 *
 	 * @return the config manager
 	 */
@@ -86,7 +77,7 @@ public abstract class PluginManager
 	}
 	
 	/**
-	 * Gets command manager.
+	 * Gets {@link CommandManager}.
 	 *
 	 * @return the command manager
 	 */
@@ -96,7 +87,7 @@ public abstract class PluginManager
 	}
 	
 	/**
-	 * Gets event manager.
+	 * Gets {@link EventManager}.
 	 *
 	 * @return the event manager
 	 */
