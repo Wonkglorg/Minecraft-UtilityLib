@@ -138,7 +138,6 @@ public class Message
 		
 		return result;
 	}
-	
 	/**
 	 * Sends a text to the player.
 	 *
