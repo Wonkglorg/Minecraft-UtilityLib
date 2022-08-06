@@ -4,8 +4,10 @@ import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.command.CommandManager;
 import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.config.ConfigManager;
+import com.wonkglorg.utilitylib.customrecipe.RecipeManager;
 import com.wonkglorg.utilitylib.event.EventManager;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,6 +31,8 @@ public abstract class PluginManager
 	 */
 	protected final EventManager eventManager;
 	
+	protected final RecipeManager recipeManager;
+	
 	/**
 	 * Instantiates a new Plugin manager.
 	 *
@@ -39,10 +43,18 @@ public abstract class PluginManager
 		commandManager = new CommandManager();
 		configManager = new ConfigManager();
 		eventManager = new EventManager(plugin);
+		recipeManager = new RecipeManager();
 		
 		eventManager.add(events());
 		commandManager.add(commands());
 		configManager.add(configs());
+		recipeManager.add(recipes());
+	}
+	
+	public void initializeAll(){
+		eventManager.initialize();
+		recipeManager.initialize();
+		configManager.load();
 	}
 	
 	/**
@@ -66,6 +78,7 @@ public abstract class PluginManager
 	 */
 	protected abstract List<Config> configs();
 	
+	protected abstract List<Recipe> recipes();
 	/**
 	 * Gets {@link ConfigManager}.
 	 *
