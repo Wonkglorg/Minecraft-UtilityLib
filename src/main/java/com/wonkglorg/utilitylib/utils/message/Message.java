@@ -103,41 +103,38 @@ public class Message
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		for(int i = 0; i < texts.length; i++)
 		{
-			if(texts[i].equalsIgnoreCase("&"))
-			{
-				i++;
-				if(texts[i].charAt(0) != '#')
-				{
-					if(texts[i].charAt(0) == 'r')
-					{
-						decorationMap.replaceAll((d, v) -> false);
-					} else
-					{
-						TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
-						if(decoration != null)
-						{
-							decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
-						} else
-						{
-							component.append(Component.text(texts[i].substring(1)));
-						}
-						TextComponent inputComponent = Component.text(texts[i].substring(1));
-						TextComponent outputComponent;
-						outputComponent = inputComponent;
-						for(TextDecoration decoration1 : decorationMap.keySet())
-						{
-							outputComponent = inputComponent.decoration(decoration1, decorationMap.get(decoration1));
-						}
-						component.append(outputComponent);
-					}
-				} else
-				{
-					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
-				}
-			} else
+			if(!texts[i].equalsIgnoreCase("&"))
 			{
 				component.append(Component.text(texts[i]));
 			}
+			i++;
+			if(texts[i].charAt(0) == '#')
+			{
+				component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
+				continue;
+			}
+			if(texts[i].charAt(0) == 'r')
+			{
+				decorationMap.replaceAll((d, v) -> false);
+			} else
+			{
+				TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
+				if(decoration != null)
+				{
+					decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
+				}
+			}
+			TextComponent inputComponent = Component.text(texts[i].substring(1));
+			Builder outputComponent = Component.text();
+			outputComponent.append(inputComponent);
+			for(TextDecoration decoration1 : decorationMap.keySet())
+			{
+				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
+			}
+			
+			System.out.println(outputComponent);
+			System.out.println(decorationMap);
+			component.append(outputComponent.build());
 		}
 		return component;
 	}
