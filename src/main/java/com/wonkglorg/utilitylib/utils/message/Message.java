@@ -17,6 +17,7 @@ import java.util.List;
 public class Message
 {
 	private static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
+	private static final List<TextDecoration> decorationList = new ArrayList<>();
 	
 	/**
 	 * Strips a text from all its color components and returns
@@ -32,6 +33,7 @@ public class Message
 	
 	/**
 	 * Reformates dates to dd/MM/yyyy HH:mm:ss
+	 *
 	 * @return reformatted date
 	 */
 	public static String date(Date date)
@@ -40,6 +42,7 @@ public class Message
 		
 		return format.format(date);
 	}
+	
 	public static Component toComponent(@NotNull String text)
 	{
 		return Component.text().append(Component.text(text)).build();
@@ -121,13 +124,24 @@ public class Message
 				if(texts[i].equalsIgnoreCase("&"))
 				{
 					i++;
-					if(texts[i].charAt(0) == '#')
+					if(texts[i].charAt(0) != '#')
 					{
-						component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
-					} else
-					{
-						component.append(LegacyComponentSerializer.legacy('&').deserialize(texts[i]));
+						TextDecoration decoration = ChatColor.StringToComponent(texts[i]);
+						if(decoration != null)
+						{
+							boolean containsDecoration = decorationList.contains(decoration);
+							component.append().decoration(decoration, !containsDecoration);
+							if(containsDecoration)
+							{
+								decorationList.remove(decoration);
+							} else
+							{
+								decorationList.add(decoration);
+							}
+							continue;
+						}
 					}
+					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 				} else
 				{
 					component.append(Component.text(texts[i]));
@@ -138,6 +152,7 @@ public class Message
 		
 		return result;
 	}
+	
 	/**
 	 * Sends a text to the player.
 	 *
