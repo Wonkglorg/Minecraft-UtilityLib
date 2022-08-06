@@ -138,10 +138,10 @@ public class Message
 							{
 								decorationList.add(decoration);
 							}
-							continue;
 						}
+					}else{
+						component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 					}
-					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 				} else
 				{
 					component.append(Component.text(texts[i]));
