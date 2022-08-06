@@ -98,51 +98,41 @@ public class Message
 		return result;
 	}
 	
-	/**
-	 * Logic to convert Text into component
-	 * Converts Color and Style to components
-	 *
-	 * @param texts input text
-	 * @param component builder to add to
-	 * @return builder
-	 */
 	private static Builder convertToComponent(String[] texts, Builder component)
 	{
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		for(int i = 0; i < texts.length; i++)
 		{
-			if(!texts[i].equalsIgnoreCase("&"))
+			if(texts[i].equalsIgnoreCase("&"))
+			{
+				i++;
+				if(texts[i].charAt(0) != '#')
+				{
+					TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
+					TextComponent inputComponent = Component.text(texts[i].substring(1));
+					TextComponent outputComponent = null;
+					if(decoration != null)
+					{
+						boolean containsDecoration = decorationMap.getOrDefault(decoration, false);
+						decorationMap.put(decoration, !containsDecoration);
+						for(TextDecoration decoration1 : decorationMap.keySet())
+						{
+							outputComponent = inputComponent.decoration(decoration1, decorationMap.get(decoration1));
+						}
+						System.out.println(texts[i]);
+						component.append(outputComponent);
+					} else
+					{
+						component.append(Component.text(texts[i].substring(1)));
+					}
+				} else
+				{
+					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
+				}
+			} else
 			{
 				component.append(Component.text(texts[i]));
-				continue;
 			}
-			i++;
-			if(texts[i].charAt(0) == '#')
-			{
-				component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
-				continue;
-			}
-			
-			TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
-			
-			if(decoration == null)
-			{
-				component.append(Component.text(texts[i].substring(1)));
-			}
-			
-			TextComponent inputComponent = Component.text(texts[i].substring(1));
-			TextComponent outputComponent;
-			
-			outputComponent = inputComponent;
-			
-			decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
-			
-			for(TextDecoration decoration1 : decorationMap.keySet())
-			{
-				outputComponent = inputComponent.decoration(decoration1, decorationMap.get(decoration1));
-			}
-			component.append(outputComponent);
-			
 		}
 		return component;
 	}
