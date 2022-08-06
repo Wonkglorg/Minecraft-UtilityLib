@@ -51,6 +51,4 @@ public abstract class RecipeBuilder
 		Recipe recipe = build();
 		Bukkit.addRecipe(recipe);
 	}
-
-	
 }
