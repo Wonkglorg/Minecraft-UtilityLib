@@ -108,22 +108,27 @@ public class Message
 				i++;
 				if(texts[i].charAt(0) != '#')
 				{
-					TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
-					TextComponent inputComponent = Component.text(texts[i].substring(1));
-					TextComponent outputComponent = null;
-					if(decoration != null)
+					if(texts[i].charAt(0) == 'r')
 					{
-						boolean containsDecoration = decorationMap.getOrDefault(decoration, false);
-						decorationMap.put(decoration, !containsDecoration);
+						decorationMap.replaceAll((d, v) -> false);
+					} else
+					{
+						TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
+						if(decoration != null)
+						{
+							decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
+						} else
+						{
+							component.append(Component.text(texts[i].substring(1)));
+						}
+						TextComponent inputComponent = Component.text(texts[i].substring(1));
+						TextComponent outputComponent;
+						outputComponent = inputComponent;
 						for(TextDecoration decoration1 : decorationMap.keySet())
 						{
 							outputComponent = inputComponent.decoration(decoration1, decorationMap.get(decoration1));
 						}
-						System.out.println(texts[i]);
 						component.append(outputComponent);
-					} else
-					{
-						component.append(Component.text(texts[i].substring(1)));
 					}
 				} else
 				{
