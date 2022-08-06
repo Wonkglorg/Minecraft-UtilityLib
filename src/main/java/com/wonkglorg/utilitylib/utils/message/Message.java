@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.utils.message;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -12,12 +13,13 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Message
 {
 	private static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
-	private static final List<TextDecoration> decorationList = new ArrayList<>();
 	
 	/**
 	 * Strips a text from all its color components and returns
@@ -68,31 +70,37 @@ public class Message
 	 */
 	public static Component color(@NotNull String text)
 	{
-		Builder component = Component.text();
+		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
+		Builder component = Component.text();
 		
 		for(int i = 0; i < texts.length; i++)
 		{
 			if(texts[i].equalsIgnoreCase("&"))
 			{
 				i++;
-				if(texts[i].charAt(0) == '#')
+				if(texts[i].charAt(0) != '#')
 				{
-					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
+					TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
+					TextComponent inputComponent = Component.text(texts[i].substring(1));
+					TextComponent outputComponent = null;
+					if(decoration != null)
+					{
+						boolean containsDecoration = decorationMap.getOrDefault(decoration, false);
+						decorationMap.put(decoration, !containsDecoration);
+						for(TextDecoration decoration1 : decorationMap.keySet())
+						{
+							outputComponent = inputComponent.decoration(decoration1,decorationMap.get(decoration1));
+						}
+						System.out.println(texts[i]);
+						component.append(outputComponent);
+					} else
+					{
+						component.append(Component.text(texts[i].substring(1)));
+					}
 				} else
 				{
-					component.append(LegacyComponentSerializer.legacy('&').deserialize(texts[i]));
-				}
-				if(texts[i].charAt(0) == 'b')
-				{
-					component.decoration(TextDecoration.BOLD, true);
-				}
-				if(texts[i].charAt(0) == 'i')
-				{
-					if(texts[i].charAt(0) == 'b')
-					{
-						component.decoration(TextDecoration.ITALIC, true);
-					}
+					component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 				}
 			} else
 			{
@@ -116,6 +124,7 @@ public class Message
 		List<Component> result = new ArrayList<>();
 		for(String s : stringArray)
 		{
+			Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 			String[] texts = s.split(String.format(WITH_DELIMITER, "&"));
 			Builder component = Component.text();
 			
@@ -126,20 +135,25 @@ public class Message
 					i++;
 					if(texts[i].charAt(0) != '#')
 					{
-						TextDecoration decoration = ChatColor.StringToComponent(texts[i]);
+						TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
+						TextComponent inputComponent = Component.text(texts[i].substring(1));
+						TextComponent outputComponent = null;
 						if(decoration != null)
 						{
-							boolean containsDecoration = decorationList.contains(decoration);
-							component.append().decoration(decoration, !containsDecoration);
-							if(containsDecoration)
+							boolean containsDecoration = decorationMap.getOrDefault(decoration, false);
+							decorationMap.put(decoration, !containsDecoration);
+							for(TextDecoration decoration1 : decorationMap.keySet())
 							{
-								decorationList.remove(decoration);
-							} else
-							{
-								decorationList.add(decoration);
+								outputComponent = inputComponent.decoration(decoration1,decorationMap.get(decoration1));
 							}
+							System.out.println(texts[i]);
+							component.append(outputComponent);
+						} else
+						{
+							component.append(Component.text(texts[i].substring(1)));
 						}
-					}else{
+					} else
+					{
 						component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
 					}
 				} else

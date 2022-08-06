@@ -10,8 +10,7 @@ public class ChatColor
 	private static final String preset = "&";
 	private static final Map<String, TextDecoration> decorationMap = new HashMap<>();
 	
-	public ChatColor()
-	{
+	static {
 		decorationMap.put(Bold(), TextDecoration.BOLD);
 		decorationMap.put(Italic(), TextDecoration.ITALIC);
 		decorationMap.put(Obfuscated(), TextDecoration.OBFUSCATED);
