@@ -128,7 +128,6 @@ public class Message
 			if(decoration == null)
 			{
 				component.append(Component.text(texts[i].substring(1)));
-				continue;
 			}
 			
 			TextComponent inputComponent = Component.text(texts[i].substring(1));
