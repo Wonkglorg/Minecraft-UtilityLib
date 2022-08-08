@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class ChatColor
 {
+	//maybe convert to enum? not sure
 	private static final String preset = "&";
 	
 	/**

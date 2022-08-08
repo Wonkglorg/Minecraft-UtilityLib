@@ -132,8 +132,6 @@ public class Message
 				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
 			}
 			
-			System.out.println(outputComponent);
-			System.out.println(decorationMap);
 			component.append(outputComponent.build());
 		}
 		return component;
