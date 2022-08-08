@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.config;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class ConfigManager
 {
 	private final List<Config> configs = new ArrayList<>();

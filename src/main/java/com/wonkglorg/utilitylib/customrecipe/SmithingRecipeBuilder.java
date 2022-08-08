@@ -7,6 +7,7 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.SmithingRecipe;
 
+@SuppressWarnings("unused")
 public class SmithingRecipeBuilder extends RecipeBuilder
 {
 	

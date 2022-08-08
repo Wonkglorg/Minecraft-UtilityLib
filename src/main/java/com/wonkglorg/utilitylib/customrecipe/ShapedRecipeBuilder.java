@@ -8,6 +8,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class ShapedRecipeBuilder extends RecipeBuilder
 {
 	private Map<Character, ItemStack> ingredientMap;

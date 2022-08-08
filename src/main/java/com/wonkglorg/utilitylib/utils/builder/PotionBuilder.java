@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionType;
 
 import java.util.List;
 import java.util.Map;
-
+@SuppressWarnings("unused")
 public class PotionBuilder extends ItemBuilder
 {
 	/**

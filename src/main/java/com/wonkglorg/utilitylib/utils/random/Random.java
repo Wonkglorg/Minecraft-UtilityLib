@@ -5,6 +5,7 @@ import org.bukkit.util.Vector;
 /**
  * The type Random.
  */
+@SuppressWarnings("unused")
 public class Random
 {
 	/**

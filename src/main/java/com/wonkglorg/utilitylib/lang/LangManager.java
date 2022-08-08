@@ -9,6 +9,7 @@ import java.util.Locale;
 /**
  * The type Lang manager.
  */
+@SuppressWarnings("unused")
 public class LangManager
 {
 	private final List<Lang> langList = new ArrayList<>();

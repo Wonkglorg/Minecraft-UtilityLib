@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * Unique to each Player when opening a menu, stores data.
  */
+@SuppressWarnings("unused")
 public class MenuUtility
 {
 	

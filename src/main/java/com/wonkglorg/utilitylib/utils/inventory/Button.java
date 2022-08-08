@@ -11,6 +11,7 @@ import java.util.function.BiConsumer;
  * @author Redempt
  *
  */
+@SuppressWarnings("unused")
 public abstract class Button
 {
 	

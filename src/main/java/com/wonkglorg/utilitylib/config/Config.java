@@ -15,6 +15,7 @@ import java.util.Set;
 /**
  * Abstract class to manage configs
  */
+@SuppressWarnings("unused")
 public class Config extends YamlConfiguration
 {
 	

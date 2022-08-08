@@ -6,6 +6,7 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.SmokingRecipe;
 
+@SuppressWarnings("unused")
 public class SmokingRecipeBuilder extends RecipeBuilder
 {
 	public SmokingRecipeBuilder(NamespacedKey key, ItemStack result)

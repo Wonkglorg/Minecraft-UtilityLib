@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 /**
  * @author Redempt
  */
+@SuppressWarnings("unused")
 public abstract class InventoryGUI implements Listener {
 	
 	/**

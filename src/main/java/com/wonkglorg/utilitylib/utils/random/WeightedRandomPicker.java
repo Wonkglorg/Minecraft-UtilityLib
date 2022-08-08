@@ -9,6 +9,7 @@ import java.util.Random;
  *
  * @param <T> the type parameter
  */
+@SuppressWarnings("unused")
 public class WeightedRandomPicker<T>
 {
 	

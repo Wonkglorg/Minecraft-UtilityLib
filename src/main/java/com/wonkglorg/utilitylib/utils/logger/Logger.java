@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.utils.logger;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class Logger
 {
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();

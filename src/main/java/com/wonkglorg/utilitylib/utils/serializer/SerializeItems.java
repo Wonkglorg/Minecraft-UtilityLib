@@ -12,6 +12,7 @@ import java.io.IOException;
 /**
  * Serialize Single or multiple Items into Base64
  */
+@SuppressWarnings("unused")
 public class SerializeItems
 {
 	/**

@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * The type Plugin manager.
  */
+@SuppressWarnings("unused")
 public abstract class PluginManager
 {
 	/**

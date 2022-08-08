@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.BiPredicate;
 
+@SuppressWarnings("unused")
 public class ItemUtility
 {
 	

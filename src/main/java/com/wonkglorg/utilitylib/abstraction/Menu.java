@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("unused")
 public abstract class Menu implements InventoryHolder
 {
 	protected MenuUtility menuUtility;

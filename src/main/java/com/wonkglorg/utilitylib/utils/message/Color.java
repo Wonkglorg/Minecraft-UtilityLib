@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.utils.message;
 
+@SuppressWarnings("unused")
 public enum Color
 {
 	YELLOW("&#FFFF00"),

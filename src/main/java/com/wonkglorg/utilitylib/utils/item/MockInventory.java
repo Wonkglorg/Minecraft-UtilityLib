@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 class MockInventory implements Inventory
 {
 	

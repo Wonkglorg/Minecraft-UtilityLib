@@ -1,8 +1,10 @@
 package com.wonkglorg.utilitylib.abstraction;
 
+
 /**
  * The interface Main.
  */
+@SuppressWarnings("unused")
 public interface Main
 {
 	

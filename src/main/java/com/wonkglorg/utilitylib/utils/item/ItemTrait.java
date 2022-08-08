@@ -6,6 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
+@SuppressWarnings("unused")
 public enum ItemTrait
 {
 	

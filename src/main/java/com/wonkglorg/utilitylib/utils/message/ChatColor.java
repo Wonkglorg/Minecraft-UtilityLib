@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * The type Chat color.
  */
+@SuppressWarnings("unused")
 public class ChatColor
 {
 	//maybe convert to enum? not sure

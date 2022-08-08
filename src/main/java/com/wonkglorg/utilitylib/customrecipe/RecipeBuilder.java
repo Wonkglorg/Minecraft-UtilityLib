@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
+@SuppressWarnings("unused")
 public abstract class RecipeBuilder
 {
 
@@ -27,11 +28,9 @@ public abstract class RecipeBuilder
 	 * Set the recipe result
 	 *
 	 * @param result {@link ItemStack}
-	 * @return the RecipeBuilder
 	 */
-	public RecipeBuilder result(NamespacedKey key, ItemStack result) {
+	public void result(NamespacedKey key, ItemStack result) {
 		initRecipe(key, result);
-		return this;
 	}
 	
 	/**

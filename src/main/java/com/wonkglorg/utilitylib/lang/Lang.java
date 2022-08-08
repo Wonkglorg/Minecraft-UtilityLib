@@ -8,6 +8,7 @@ import java.util.Locale;
 /**
  * Implement this for a lang enum.
  */
+@SuppressWarnings("unused")
 public interface Lang
 {
 	

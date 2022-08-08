@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
+@SuppressWarnings("unused")
 public class ShapelessRecipeBuilder extends RecipeBuilder
 {
 	

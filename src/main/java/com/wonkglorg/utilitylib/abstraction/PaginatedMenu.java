@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Creates a paginated menu which allows for multipage selection.
  */
+@SuppressWarnings("unused")
 public abstract class PaginatedMenu extends Menu
 {
 	

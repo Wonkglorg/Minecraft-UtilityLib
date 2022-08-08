@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.StonecuttingRecipe;
 
+@SuppressWarnings("unused")
 public class StoneCuttingRecipeBuilder extends RecipeBuilder
 {
 	public StoneCuttingRecipeBuilder(NamespacedKey key, ItemStack result)
