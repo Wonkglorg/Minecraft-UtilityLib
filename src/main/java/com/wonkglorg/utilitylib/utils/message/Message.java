@@ -106,6 +106,7 @@ public class Message
 			if(!texts[i].equalsIgnoreCase("&"))
 			{
 				component.append(Component.text(texts[i]));
+				continue;
 			}
 			i++;
 			if(texts[i].charAt(0) == '#')
