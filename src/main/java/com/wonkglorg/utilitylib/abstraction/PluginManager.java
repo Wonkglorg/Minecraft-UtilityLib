@@ -11,13 +11,11 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
  * The type Plugin manager.
  */
 @SuppressWarnings("unused")
-public abstract class PluginManager
+public class PluginManager
 {
 	/**
 	 * The Config manager.
@@ -45,41 +43,35 @@ public abstract class PluginManager
 		configManager = new ConfigManager();
 		eventManager = new EventManager(plugin);
 		recipeManager = new RecipeManager();
-		
-		eventManager.add(events());
-		commandManager.add(commands());
-		configManager.add(configs());
-		recipeManager.add(recipes());
 	}
 	
-	public void initializeAll(){
-		eventManager.initialize();
-		recipeManager.initialize();
+	public void initializeAll()
+	{
 		configManager.load();
+		eventManager.registerAll();
+		recipeManager.registerAll();
 	}
 	
-	/**
-	 * Add listener events to ht list  be added in the {@link EventManager} and automatically assigned.
-	 *
-	 * @return list of listeners
-	 */
-	protected abstract List<Listener> events();
+	public void addEvent(Listener listener)
+	{
+		eventManager.add(listener);
+	}
 	
-	/**
-	 * Add all commands to be registered in the {@link CommandManager}.
-	 *
-	 * @return list of commands
-	 */
-	protected abstract List<Command> commands();
+	public void addCommand(Command command)
+	{
+		commandManager.add(command);
+	}
 	
-	/**
-	 * Add all configs to be assigned and handled by the {@link ConfigManager}
-	 *
-	 * @return list of configs
-	 */
-	protected abstract List<Config> configs();
+	public void addConfig(Config config)
+	{
+		configManager.add(config);
+	}
 	
-	protected abstract List<Recipe> recipes();
+	public void addRecipe(Recipe recipe)
+	{
+		recipeManager.add(recipe);
+	}
+	
 	/**
 	 * Gets {@link ConfigManager}.
 	 *

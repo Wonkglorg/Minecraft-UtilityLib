@@ -52,7 +52,7 @@ public class RecipeManager
 		recipes.remove(recipe);
 	}
 	
-	public void initialize()
+	public void registerAll()
 	{
 		for(Recipe recipe : recipes)
 		{

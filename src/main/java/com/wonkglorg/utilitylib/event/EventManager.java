@@ -35,7 +35,7 @@ public class EventManager
 		listeners.add(listener);
 	}
 	
-	public void initialize()
+	public void registerAll()
 	{
 		for(Listener listener : listeners)
 		{

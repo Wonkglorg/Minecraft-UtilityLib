@@ -10,16 +10,31 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * Abstract Command Class.
+ *
+ * Allows for easy command creation with added tab completion.
+ */
 public abstract class Command implements TabExecutor
 {
-	protected JavaPlugin main;
+	/**
+	 * The main plugin to register the command to
+	 */
+	protected JavaPlugin plugin;
 	private final String name;
 	
-	public Command(@NotNull JavaPlugin main, @NotNull String name)
+	/**
+	 * Instantiates a new Command.
+	 *
+	 * @param plugin the plugin
+	 * @param name the name
+	 */
+	public Command(@NotNull JavaPlugin plugin, @NotNull String name)
 	{
-		this.main = main;
-		PluginCommand pluginCommand = main.getCommand(name);
+		this.plugin = plugin;
+		PluginCommand pluginCommand = plugin.getCommand(name);
 		this.name = name;
 		
 		if(pluginCommand != null)
@@ -77,8 +92,39 @@ public abstract class Command implements TabExecutor
 		
 	}
 	
+	/**
+	 * Returns the name of the command.
+	 *
+	 * @return the name
+	 */
 	public String getName()
 	{
 		return name;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return name;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj == null)
+		{
+			return false;
+		}
+		if(obj.getClass() != this.getClass())
+		{
+			return false;
+		}
+		return Objects.equals(this.name, ((Command) obj).getName());
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return 53 * 2 + this.name.hashCode();
 	}
 }
