@@ -45,10 +45,25 @@ public class PluginManager
 		recipeManager = new RecipeManager();
 	}
 	
-	public void initializeAll()
+	public void registerAll()
 	{
 		configManager.load();
 		eventManager.registerAll();
+		recipeManager.registerAll();
+	}
+	
+	public void registerEvents()
+	{
+		eventManager.registerAll();
+	}
+	
+	public void registerConfig()
+	{
+		configManager.load();
+	}
+	
+	public void registerRecipes()
+	{
 		recipeManager.registerAll();
 	}
 	
