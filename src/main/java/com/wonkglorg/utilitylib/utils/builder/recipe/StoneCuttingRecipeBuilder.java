@@ -1,9 +1,10 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.StonecuttingRecipe;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class StoneCuttingRecipeBuilder extends RecipeBuilder
@@ -19,7 +20,7 @@ public class StoneCuttingRecipeBuilder extends RecipeBuilder
 	}
 	
 	@Override
-	protected void initRecipe(NamespacedKey key, ItemStack result)
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{

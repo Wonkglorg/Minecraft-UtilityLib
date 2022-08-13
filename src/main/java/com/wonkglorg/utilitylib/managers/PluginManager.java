@@ -1,11 +1,7 @@
-package com.wonkglorg.utilitylib.abstraction;
+package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
-import com.wonkglorg.utilitylib.command.CommandManager;
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.config.ConfigManager;
-import com.wonkglorg.utilitylib.customrecipe.RecipeManager;
-import com.wonkglorg.utilitylib.event.EventManager;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;

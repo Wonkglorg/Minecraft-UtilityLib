@@ -1,25 +1,50 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * The type Recipe builder.
+ */
 @SuppressWarnings("unused")
 public abstract class RecipeBuilder
 {
-
+	
+	/**
+	 * The Recipe.
+	 */
 	protected Recipe recipe;
 	
+	/**
+	 * Instantiates a new Recipe builder.
+	 */
 	protected RecipeBuilder() {
 	}
 	
-	protected RecipeBuilder(NamespacedKey key, ItemStack result) {
+	/**
+	 * Instantiates a new Recipe builder.
+	 *
+	 * @param key the key
+	 * @param result the result
+	 */
+	protected RecipeBuilder(@NotNull final NamespacedKey key, @NotNull final ItemStack result) {
 		result(key, result);
 	}
 	
-	protected abstract void initRecipe(NamespacedKey key, ItemStack result);
+	/**
+	 * Init recipe.
+	 *
+	 * @param key the key
+	 * @param result the result
+	 */
+	protected abstract void initRecipe(@NotNull final NamespacedKey key, @NotNull final ItemStack result);
 	
+	/**
+	 * Validate init.
+	 */
 	protected void validateInit() {
 		if (recipe == null) { throw new IllegalStateException("Recipe not yet initiated"); }
 	}
@@ -27,9 +52,10 @@ public abstract class RecipeBuilder
 	/**
 	 * Set the recipe result
 	 *
+	 * @param key the key
 	 * @param result {@link ItemStack}
 	 */
-	public void result(NamespacedKey key, ItemStack result) {
+	public void result(@NotNull final NamespacedKey key, @NotNull final ItemStack result) {
 		initRecipe(key, result);
 	}
 	

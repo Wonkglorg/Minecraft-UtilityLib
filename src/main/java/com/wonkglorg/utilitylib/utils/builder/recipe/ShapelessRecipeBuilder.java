@@ -1,10 +1,11 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class ShapelessRecipeBuilder extends RecipeBuilder
@@ -28,7 +29,7 @@ public class ShapelessRecipeBuilder extends RecipeBuilder
 	}
 	
 	@Override
-	protected void initRecipe(NamespacedKey key, ItemStack result)
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{

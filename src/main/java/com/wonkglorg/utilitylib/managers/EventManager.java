@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.event;
+package com.wonkglorg.utilitylib.managers;
 
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;

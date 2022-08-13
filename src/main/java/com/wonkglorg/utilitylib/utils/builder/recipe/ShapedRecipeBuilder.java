@@ -1,11 +1,11 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
@@ -18,13 +18,13 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param result result {@link ItemStack}
 	 */
-	public ShapedRecipeBuilder(NamespacedKey key, ItemStack result)
+	public ShapedRecipeBuilder(@NotNull final NamespacedKey key, ItemStack result)
 	{
 		super(key, result);
 	}
 	
 	@Override
-	protected void initRecipe(NamespacedKey key, ItemStack result)
+	protected void initRecipe(@NotNull final NamespacedKey key, @NotNull final ItemStack result)
 	{
 		if(recipe == null)
 		{
@@ -49,7 +49,7 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 	 * @param row3 Third row of the recipe
 	 * @return the ShapedRecipeBuilder
 	 */
-	public ShapedRecipeBuilder withShape(String row1, String row2, String row3)
+	public ShapedRecipeBuilder withShape(@NotNull final String row1, @NotNull final String row2, @NotNull final String row3)
 	{
 		validateInit();
 		getRecipe().shape(row1, row2, row3);
@@ -63,7 +63,7 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 	 * @param ingredient ingredient {@link Material}
 	 * @return the ShapedRecipeBuilder
 	 */
-	public ShapedRecipeBuilder addIngredient(char key, Material ingredient)
+	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final Material ingredient)
 	{
 		validateInit();
 		getRecipe().setIngredient(key, ingredient);
@@ -77,10 +77,10 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 	 * @param ingredient ingredient {@link ItemStack}
 	 * @return the ShapedRecipeBuilder
 	 */
-	public ShapedRecipeBuilder addIngredient(char key, ItemStack ingredient)
+	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final ItemStack ingredient)
 	{
 		validateInit();
-		getRecipe().setIngredient(key,ingredient);
+		getRecipe().setIngredient(key, ingredient);
 		return this;
 	}
 	

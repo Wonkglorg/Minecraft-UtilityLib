@@ -108,7 +108,7 @@ public class SerializeItems
 	 * @return {@link ItemStack}.
 	 * @throws IOException String can not be converted from Base64.
 	 */
-	public static ItemStack itemFromBase64(String data) throws IOException
+	public static ItemStack itemFromBase64(String data)
 	{
 		try
 		{
@@ -123,7 +123,16 @@ public class SerializeItems
 			return item;
 		} catch(ClassNotFoundException e)
 		{
-			throw new IOException("Unable to decode class type.", e);
+			try
+			{
+				throw new IOException("Unable to decode class type.", e);
+			} catch(IOException ex)
+			{
+				throw new RuntimeException(ex);
+			}
+		} catch(IOException e)
+		{
+			throw new RuntimeException(e);
 		}
 		
 	}

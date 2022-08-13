@@ -1,19 +1,21 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.SmokingRecipe;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class FurnaceRecipeBuilder extends RecipeBuilder
+public class SmokingRecipeBuilder extends RecipeBuilder
 {
-	
-	public FurnaceRecipeBuilder(NamespacedKey key, ItemStack result)
+	public SmokingRecipeBuilder(NamespacedKey key, ItemStack result)
 	{
 		super(key, result);
 	}
-	protected void initRecipe(NamespacedKey key, ItemStack result)
+	@Override
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{
@@ -22,9 +24,9 @@ public class FurnaceRecipeBuilder extends RecipeBuilder
 	}
 	
 	
-	private FurnaceRecipe getRecipe()
+	private SmokingRecipe getRecipe()
 	{
-		return (FurnaceRecipe) this.recipe;
+		return (SmokingRecipe) this.recipe;
 	}
 	
 	/**
@@ -34,27 +36,27 @@ public class FurnaceRecipeBuilder extends RecipeBuilder
 	 * @param input the item to be smelted
 	 * @return the ShapedRecipeBuilder
 	 */
-	public FurnaceRecipeBuilder setInput(ItemStack input)
+	public SmokingRecipeBuilder setInput(ItemStack input)
 	{
 		validateInit();
 		getRecipe().setInput(input.getType());
 		return this;
 	}
 	
-	public FurnaceRecipeBuilder setInput(Material input)
+	public SmokingRecipeBuilder setInput(Material input)
 	{
 		validateInit();
 		getRecipe().setInput(input);
 		return this;
 	}
 	
-	public FurnaceRecipeBuilder setCookTime(int ticks){
+	public SmokingRecipeBuilder setCookTime(int ticks){
 		validateInit();
 		getRecipe().setCookingTime(ticks);
 		return this;
 	}
 	
-	public FurnaceRecipeBuilder setCookTime(float experience){
+	public SmokingRecipeBuilder setCookTime(float experience){
 		validateInit();
 		getRecipe().setExperience(experience);
 		return this;

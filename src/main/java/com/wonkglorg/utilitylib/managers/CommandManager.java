@@ -1,5 +1,6 @@
-package com.wonkglorg.utilitylib.command;
+package com.wonkglorg.utilitylib.managers;
 
+import com.wonkglorg.utilitylib.command.Command;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;

@@ -5,8 +5,6 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,22 +14,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @SuppressWarnings("unused")
 public class Message
 {
 	private static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
-	
-	/**
-	 * Strips a text from all its color components and returns
-	 * the stripped text
-	 *
-	 * @param text Text to decoler.
-	 * @return Decolored text.
-	 */
-	public static String decolor(@NotNull String text)
-	{
-		return PlainTextComponentSerializer.plainText().serialize(LegacyComponentSerializer.legacySection().deserialize(text));
-	}
 	
 	/**
 	 * Reformates dates to dd/MM/yyyy HH:mm:ss
@@ -70,7 +57,6 @@ public class Message
 	 */
 	public static Component color(@NotNull String text)
 	{
-		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
 		Builder component = Component.text();
 		
@@ -82,13 +68,13 @@ public class Message
 	 * default minecraft color codes or hex values
 	 * usage: "& #xxxxxx".
 	 *
-	 * @param stringArray Array of strings to be colored.
+	 * @param stringList Array of strings to be colored.
 	 * @return Color converted text.
 	 */
-	public static List<Component> color(@NotNull List<String> stringArray)
+	public static List<Component> color(@NotNull List<String> stringList)
 	{
 		List<Component> result = new ArrayList<>();
-		for(String s : stringArray)
+		for(String s : stringList)
 		{
 			String[] texts = s.split(String.format(WITH_DELIMITER, "&"));
 			Builder component = Component.text();
@@ -96,6 +82,58 @@ public class Message
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Strips a text from all its color components and returns
+	 * the stripped text
+	 *
+	 * @param text Text to decoler.
+	 * @return Decolored text.
+	 */
+	public static String decolor(@NotNull String text)
+	{
+		String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
+		return convertToDecolor(texts);
+	}
+	
+	/**
+	 * Strips a text array from all its color components and returns
+	 * the stripped text array
+	 *
+	 * @param stringList String list to decoler.
+	 * @return Decolored text.
+	 */
+	public static List<String> decolor(@NotNull List<String> stringList)
+	{
+		List<String> result = new ArrayList<>();
+		for(String s : stringList)
+		{
+			String[] texts = s.split(String.format(WITH_DELIMITER, "&"));
+			result.add(convertToDecolor(texts));
+		}
+		return result;
+	}
+	
+	private static String convertToDecolor(String[] texts)
+	{
+		StringBuilder builder = new StringBuilder();
+		for(int i = 0; i < texts.length; i++)
+		{
+			if(!texts[i].equalsIgnoreCase("&"))
+			{
+				builder.append(texts[i]);
+				continue;
+			}
+			i++;
+			if(texts[i].charAt(0) == '#')
+			{
+				builder.append(texts[i].substring(7));
+				continue;
+			}
+			builder.append(texts[i].substring(1));
+		}
+		return builder.toString();
 	}
 	
 	private static Builder convertToComponent(String[] texts, Builder component)

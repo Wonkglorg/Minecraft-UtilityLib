@@ -1,4 +1,6 @@
-package com.wonkglorg.utilitylib.config;
+package com.wonkglorg.utilitylib.managers;
+
+import com.wonkglorg.utilitylib.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;

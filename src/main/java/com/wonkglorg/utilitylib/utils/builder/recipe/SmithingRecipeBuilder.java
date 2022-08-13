@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.customrecipe;
+package com.wonkglorg.utilitylib.utils.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.SmithingRecipe;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class SmithingRecipeBuilder extends RecipeBuilder
@@ -23,7 +24,7 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 	private Material addition;
 	
 	@Override
-	protected void initRecipe(NamespacedKey key, ItemStack result)
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{
