@@ -139,6 +139,7 @@ public class Message
 	private static Builder convertToComponent(String[] texts, Builder component)
 	{
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
+		TextColor textColor = null;
 		for(int i = 0; i < texts.length; i++)
 		{
 			if(!texts[i].equalsIgnoreCase("&"))
@@ -149,12 +150,22 @@ public class Message
 			i++;
 			if(texts[i].charAt(0) == '#')
 			{
-				component.append(Component.text(texts[i].substring(7), TextColor.fromHexString(texts[i].substring(0, 7))));
+				textColor = TextColor.fromHexString(texts[i].substring(0, 7));
+				TextComponent inputComponent = Component.text(texts[i].substring(7), textColor);
+				Builder outputComponent = Component.text();
+				outputComponent.append(inputComponent);
+				for(TextDecoration decoration1 : decorationMap.keySet())
+				{
+					outputComponent.decoration(decoration1, decorationMap.get(decoration1));
+				}
+				
+				component.append(outputComponent.build());
 				continue;
 			}
 			if(texts[i].charAt(0) == 'r')
 			{
-				decorationMap.put(TextDecoration.ITALIC,false);
+				decorationMap.put(TextDecoration.ITALIC, false);
+				textColor = null;
 				decorationMap.replaceAll((d, v) -> false);
 			} else
 			{
@@ -164,7 +175,11 @@ public class Message
 					decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
 				}
 			}
-			TextComponent inputComponent = Component.text(texts[i].substring(1));
+			
+			TextComponent inputComponent;
+			
+			inputComponent = textColor != null ? Component.text(texts[i].substring(1)).color(textColor) : Component.text(texts[i].substring(1));
+			
 			Builder outputComponent = Component.text();
 			outputComponent.append(inputComponent);
 			for(TextDecoration decoration1 : decorationMap.keySet())
