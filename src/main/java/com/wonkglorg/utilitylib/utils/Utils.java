@@ -3,12 +3,14 @@ package com.wonkglorg.utilitylib.utils;
 import com.sun.source.util.Plugin;
 import com.wonkglorg.utilitylib.utils.builder.CooldownBuilder;
 import com.wonkglorg.utilitylib.utils.builder.TimerBuilder;
-import com.wonkglorg.utilitylib.utils.message.Message;	
+import com.wonkglorg.utilitylib.utils.entity.EntityUtil;
+import com.wonkglorg.utilitylib.utils.message.Message;
 import com.wonkglorg.utilitylib.utils.serializer.SerializeItems;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -16,9 +18,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.naming.Name;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -39,12 +43,12 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public abstract class Utils extends Message
+public class Utils extends Message
 {
 	
 	
 	// EDIT AND MOVE STUFF FROM THIS FILE JUST TEMPORARY AND CLEAN UP
-	private final List<UUID> teleportPlayers = new ArrayList<>();
+	private static final List<UUID> teleportPlayers = new ArrayList<>();
 	
 	/**
 	 * Allows to encode an itemstack in base64
@@ -52,7 +56,7 @@ public abstract class Utils extends Message
 	 * @param item - ItemStack
 	 * @return the encoded item
 	 */
-	protected String encode(ItemStack item)
+	public static String encode(ItemStack item)
 	{
 		return SerializeItems.itemToBase64(item);
 	}
@@ -63,7 +67,7 @@ public abstract class Utils extends Message
 	 * @param item - the encoded itemstack
 	 * @return the decoded item
 	 */
-	protected ItemStack decode(String item)
+	public static ItemStack decode(String item)
 	{
 		return SerializeItems.itemFromBase64(item);
 	}
@@ -75,7 +79,7 @@ public abstract class Utils extends Message
 	 * @param b
 	 * @return number between a and b
 	 */
-	protected int getNumberBetween(int a, int b)
+	public static int getNumberBetween(int a, int b)
 	{
 		return ThreadLocalRandom.current().nextInt(a, b);
 	}
@@ -86,7 +90,7 @@ public abstract class Utils extends Message
 	 * @param player
 	 * @return true if the player's inventory is full
 	 */
-	protected boolean hasInventoryFull(Player player)
+	public static boolean hasInventoryFull(Player player)
 	{
 		int slot = 0;
 		PlayerInventory inventory = player.getInventory();
@@ -108,7 +112,7 @@ public abstract class Utils extends Message
 	 * @param player
 	 * @param item
 	 */
-	protected void give(Player player, ItemStack item)
+	public static void give(Player player, ItemStack item)
 	{
 		if(hasInventoryFull(player))
 		{
@@ -124,7 +128,7 @@ public abstract class Utils extends Message
 	 *
 	 * @return boolean
 	 */
-	protected boolean hasDisplayName(ItemStack itemStack)
+	public static boolean hasDisplayName(ItemStack itemStack)
 	{
 		return itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName();
 	}
@@ -136,9 +140,9 @@ public abstract class Utils extends Message
 	 * @param name
 	 * @return true if the item name is the same as string
 	 */
-	protected boolean compareLocation(ItemStack itemStack, String name)
+	public static boolean compareLocation(ItemStack itemStack, String name)
 	{
-		return this.hasDisplayName(itemStack) && itemStack.getItemMeta().getDisplayName().equals(name);
+		return hasDisplayName(itemStack) && itemStack.getItemMeta().getDisplayName().equals(name);
 	}
 	
 	/**
@@ -148,9 +152,9 @@ public abstract class Utils extends Message
 	 * @param name
 	 * @return true if the item name contains the string
 	 */
-	protected boolean contains(ItemStack itemStack, String name)
+	public static boolean contains(ItemStack itemStack, String name)
 	{
-		return this.hasDisplayName(itemStack) && itemStack.getItemMeta().getDisplayName().contains(name);
+		return hasDisplayName(itemStack) && itemStack.getItemMeta().getDisplayName().contains(name);
 	}
 	
 	/**
@@ -158,7 +162,7 @@ public abstract class Utils extends Message
 	 *
 	 * @param player
 	 */
-	protected void removeItemInMainHand(Player player)
+	public static void removeItemInMainHand(Player player)
 	{
 		removeItemInMainHand(player, 64);
 	}
@@ -168,7 +172,7 @@ public abstract class Utils extends Message
 	 *
 	 * @param player
 	 */
-	protected void removeItemInMOffHand(Player player)
+	public static void removeItemInMOffHand(Player player)
 	{
 		removeItemInOffHand(player, 64);
 	}
@@ -179,7 +183,7 @@ public abstract class Utils extends Message
 	 * @param player
 	 * @param amount of items to withdraw
 	 */
-	protected void removeItemInMainHand(Player player, int amount)
+	public static void removeItemInMainHand(Player player, int amount)
 	{
 		ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
 		if(itemInMainHand.getAmount() > amount)
@@ -199,7 +203,7 @@ public abstract class Utils extends Message
 	 * @param player
 	 * @param amount of items to withdraw
 	 */
-	protected void removeItemInOffHand(Player player, int amount)
+	public static void removeItemInOffHand(Player player, int amount)
 	{
 		ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
 		if(itemInMainHand.getAmount() > amount)
@@ -220,7 +224,7 @@ public abstract class Utils extends Message
 	 * @param l2 location
 	 * @return true if both rentals are the same
 	 */
-	protected boolean compareLocation(Location l, Location l2)
+	public static boolean compareLocation(Location l, Location l2)
 	{
 		return (l.getBlockX() == l2.getBlockX()) &&
 			   (l.getBlockY() == l2.getBlockY()) &&
@@ -235,7 +239,7 @@ public abstract class Utils extends Message
 	 * @param delay before the teleportation of the player
 	 * @param location where the player will be teleported
 	 */
-	protected void teleport(Player player, int delay, Location location)
+	public static void teleport(Player player, int delay, Location location)
 	{
 		teleport(player, delay, location, null);
 	}
@@ -248,7 +252,7 @@ public abstract class Utils extends Message
 	 * @param location where the player will be teleported
 	 * @param cmd executed when the player is teleported or not
 	 */
-	protected void teleport(Player player, int delay, Location location, Consumer<Boolean> cmd)
+	public static void teleport(Player player, int delay, Location location, Consumer<Boolean> cmd)
 	{
 		if(teleportPlayers.contains(player.getUniqueId()))
 		{
@@ -306,7 +310,7 @@ public abstract class Utils extends Message
 	 * @param decimal
 	 * @return formatting current duplicate
 	 */
-	protected String format(double decimal)
+	public static String format(double decimal)
 	{
 		return format(decimal, "#.##");
 	}
@@ -318,52 +322,18 @@ public abstract class Utils extends Message
 	 * @param format
 	 * @return formatting current double according to the given format
 	 */
-	protected String format(double decimal, String format)
+	public static String format(double decimal, String format)
 	{
 		DecimalFormat decimalFormat = new DecimalFormat(format);
 		return decimalFormat.format(decimal);
 	}
 	
-	/**
-	 * Remove a certain number of items from a player's inventory
-	 *
-	 * @param player - Player who will have items removed
-	 * @param amount - Number of items to remove
-	 * @param itemStack - ItemStack to be removed
-	 */
-	protected void removeItems(Player player, int amount, ItemStack itemStack)
-	{
-		int slot = 0;
-		for(ItemStack is : player.getInventory().getContents())
-		{
-			if(is != null && is.isSimilar(itemStack) && amount > 0)
-			{
-				int currentAmount = is.getAmount() - amount;
-				amount -= is.getAmount();
-				if(currentAmount <= 0)
-				{
-					if(slot == 40)
-					{
-						player.getInventory().setItemInOffHand(null);
-					} else
-					{
-						player.getInventory().removeItem(is);
-					}
-				} else
-				{
-					is.setAmount(currentAmount);
-				}
-			}
-			slot++;
-		}
-		player.updateInventory();
-	}
 	
 	/**
 	 * @param delay
 	 * @param runnable
 	 */
-	protected void schedule(long delay, Runnable runnable)
+	public static void schedule(long delay, Runnable runnable)
 	{
 		new Timer().schedule(new TimerTask()
 		{
@@ -383,7 +353,7 @@ public abstract class Utils extends Message
 	 * @param string
 	 * @return
 	 */
-	protected String name(String string)
+	public static String name(String string)
 	{
 		String name = string.replace("_", " ").toLowerCase();
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -393,7 +363,7 @@ public abstract class Utils extends Message
 	 * @param string
 	 * @return
 	 */
-	protected String name(Material string)
+	public static String name(Material string)
 	{
 		String name = string.name().replace("_", " ").toLowerCase();
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -403,7 +373,7 @@ public abstract class Utils extends Message
 	 * @param items
 	 * @return
 	 */
-	protected int getMaxPage(Collection<?> items)
+	public static int getMaxPage(Collection<?> items)
 	{
 		return (items.size() / 45) + 1;
 	}
@@ -413,7 +383,7 @@ public abstract class Utils extends Message
 	 * @param a
 	 * @return
 	 */
-	protected int getMaxPage(Collection<?> items, int a)
+	public static int getMaxPage(Collection<?> items, int a)
 	{
 		return (items.size() / a) + 1;
 	}
@@ -423,7 +393,7 @@ public abstract class Utils extends Message
 	 * @param total
 	 * @return
 	 */
-	protected double percent(double value, double total)
+	public static double percent(double value, double total)
 	{
 		return (double) ((value * 100) / total);
 	}
@@ -433,7 +403,7 @@ public abstract class Utils extends Message
 	 * @param percent
 	 * @return
 	 */
-	protected double percentNum(double total, double percent)
+	public static double percentNum(double total, double percent)
 	{
 		return (double) (total * (percent / 100));
 	}
@@ -445,7 +415,7 @@ public abstract class Utils extends Message
 	 * @param count
 	 * @param runnable
 	 */
-	protected void schedule(JavaPlugin plugin, long delay, int count, Runnable runnable)
+	public static void schedule(JavaPlugin plugin, long delay, int count, Runnable runnable)
 	{
 		new Timer().scheduleAtFixedRate(new TimerTask()
 		{
@@ -474,12 +444,12 @@ public abstract class Utils extends Message
 		}, 0, delay);
 	}
 	
-	protected TimerTask scheduleFix(JavaPlugin plugin, long delay, BiConsumer<TimerTask, Boolean> consumer)
+	public static TimerTask scheduleFix(JavaPlugin plugin, long delay, BiConsumer<TimerTask, Boolean> consumer)
 	{
-		return this.scheduleFix(plugin, delay, delay, consumer);
+		return scheduleFix(plugin, delay, delay, consumer);
 	}
 	
-	protected TimerTask scheduleFix(JavaPlugin plugin, long startAt, long delay, BiConsumer<TimerTask, Boolean> consumer)
+	public static TimerTask scheduleFix(JavaPlugin plugin, long startAt, long delay, BiConsumer<TimerTask, Boolean> consumer)
 	{
 		TimerTask task = new TimerTask()
 		{
@@ -505,7 +475,7 @@ public abstract class Utils extends Message
 	 * @param element
 	 * @return element
 	 */
-	protected <T> T randomElement(List<T> element)
+	public static <T> T randomElement(List<T> element)
 	{
 		if(element.size() == 0)
 		{
@@ -523,7 +493,7 @@ public abstract class Utils extends Message
 	 * @param flagString
 	 * @return
 	 */
-	protected ItemFlag getFlag(String flagString)
+	public static ItemFlag getFlag(String flagString)
 	{
 		for(ItemFlag flag : ItemFlag.values())
 		{
@@ -535,11 +505,12 @@ public abstract class Utils extends Message
 		return null;
 	}
 	
+	
 	/**
 	 * @param list
 	 * @return
 	 */
-	protected <T> List<T> reverse(List<T> list)
+	public static <T> List<T> reverse(List<T> list)
 	{
 		List<T> tmpList = new ArrayList<>();
 		for(int index = list.size() - 1; index != -1; index--)
@@ -553,7 +524,7 @@ public abstract class Utils extends Message
 	 * @param price
 	 * @return
 	 */
-	protected String price(long price)
+	public static String price(long price)
 	{
 		return String.format("%,d", price);
 	}
@@ -562,7 +533,7 @@ public abstract class Utils extends Message
 	 * @param value
 	 * @return
 	 */
-	protected String getDisplayBalance(double value)
+	public static String getDisplayBalance(double value)
 	{
 		if(value < 10000)
 		{
@@ -586,7 +557,7 @@ public abstract class Utils extends Message
 	 * @param value
 	 * @return
 	 */
-	protected String getDisplayBalance(long value)
+	public static String getDisplayBalance(long value)
 	{
 		if(value < 10000)
 		{
@@ -613,7 +584,7 @@ public abstract class Utils extends Message
 	 * @param material
 	 * @return
 	 */
-	protected int count(Inventory inventory, Material material)
+	public static int count(Inventory inventory, Material material)
 	{
 		int count = 0;
 		for(ItemStack itemStack : inventory.getContents())
@@ -633,7 +604,7 @@ public abstract class Utils extends Message
 	 * @param itemStack
 	 * @return
 	 */
-	protected int count(Inventory inventory, ItemStack itemStack)
+	public static int count(Inventory inventory, ItemStack itemStack)
 	{
 		int count = 0;
 		for(ItemStack contents : inventory.getContents())
@@ -646,7 +617,7 @@ public abstract class Utils extends Message
 		return count;
 	}
 	
-	protected Enchantment enchantFromString(String str)
+	public static Enchantment enchantFromString(String str)
 	{
 		for(Enchantment enchantment : Enchantment.values())
 		{
@@ -662,7 +633,7 @@ public abstract class Utils extends Message
 	 * @param direction
 	 * @return
 	 */
-	protected BlockFace getClosestFace(float direction)
+	public static BlockFace getClosestFace(float direction)
 	{
 		
 		direction = direction % 360;
@@ -691,7 +662,7 @@ public abstract class Utils extends Message
 	 * @param price
 	 * @return
 	 */
-	protected String betterPrice(long price)
+	public static String betterPrice(long price)
 	{
 		StringBuilder betterPrice = new StringBuilder();
 		String[] splitPrice = String.valueOf(price).split("");
@@ -712,21 +683,11 @@ public abstract class Utils extends Message
 	}
 	
 	/**
-	 * @param enchantment
-	 * @param itemStack
-	 * @return
-	 */
-	protected boolean hasEnchant(Enchantment enchantment, ItemStack itemStack)
-	{
-		return itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants() && itemStack.getItemMeta().hasEnchant(enchantment);
-	}
-	
-	/**
 	 * @param player
 	 * @param cooldown
 	 * @return
 	 */
-	protected String timerFormat(Player player, String cooldown)
+	public static String timerFormat(Player player, String cooldown)
 	{
 		return TimerBuilder.getStringTime(CooldownBuilder.getCooldownPlayer(cooldown, player) / 1000);
 	}
@@ -736,7 +697,7 @@ public abstract class Utils extends Message
 	 * @param cooldown
 	 * @return
 	 */
-	protected boolean isCooldown(Player player, String cooldown)
+	public static boolean isCooldown(Player player, String cooldown)
 	{
 		return isCooldown(player, cooldown, 0);
 	}
@@ -747,7 +708,7 @@ public abstract class Utils extends Message
 	 * @param timer
 	 * @return
 	 */
-	protected boolean isCooldown(Player player, String cooldown, int timer)
+	public static boolean isCooldown(Player player, String cooldown, int timer)
 	{
 		if(CooldownBuilder.isCooldown(cooldown, player))
 		{
@@ -767,7 +728,7 @@ public abstract class Utils extends Message
 	 * @param l
 	 * @return
 	 */
-	protected String format(long l)
+	public static String format(long l)
 	{
 		return format(l, ' ');
 	}
@@ -777,7 +738,7 @@ public abstract class Utils extends Message
 	 * @param c
 	 * @return
 	 */
-	protected String format(long l, char c)
+	public static String format(long l, char c)
 	{
 		DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
 		DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
@@ -790,7 +751,7 @@ public abstract class Utils extends Message
 	 * @param configuration
 	 * @return
 	 */
-	protected PotionEffectType getPotion(String configuration)
+	public static PotionEffectType getPotion(String configuration)
 	{
 		for(PotionEffectType effectType : PotionEffectType.values())
 		{
@@ -807,7 +768,7 @@ public abstract class Utils extends Message
 	 *
 	 * @param runnable
 	 */
-	protected void runAsync(Plugin plugin, Runnable runnable)
+	public static void runAsync(Plugin plugin, Runnable runnable)
 	{
 		//Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
 	}
@@ -818,7 +779,7 @@ public abstract class Utils extends Message
 	 * @param second
 	 * @return string
 	 */
-	protected String getStringTime(long second)
+	public static String getStringTime(long second)
 	{
 		return TimerBuilder.getStringTime(second);
 	}
@@ -829,7 +790,7 @@ public abstract class Utils extends Message
 	 *
 	 * @param player
 	 */
-	protected void clearPlayer(Player player)
+	public static void clearPlayer(Player player)
 	{
 		player.getInventory().clear();
 		player.getInventory().setBoots(null);
@@ -852,7 +813,7 @@ public abstract class Utils extends Message
 	 * @param player
 	 * @return boolean
 	 */
-	protected boolean inventoryHasItem(Player player)
+	public static boolean inventoryHasItem(Player player)
 	{
 		
 		ItemStack itemStack = player.getInventory().getBoots();

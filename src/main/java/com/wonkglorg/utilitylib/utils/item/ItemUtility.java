@@ -236,7 +236,6 @@ public class ItemUtility
 		item.setItemMeta(meta);
 		return item;
 	}
-	
 	/**
 	 * Add an attribute to the item
 	 *
@@ -530,6 +529,51 @@ public class ItemUtility
 	public static void give(Player player, ItemStack... items)
 	{
 		player.getInventory().addItem(items).values().forEach(i -> player.getWorld().dropItem(player.getLocation(), i));
+	}
+	
+	/**
+	 * Remove a certain number of items from a player's inventory
+	 *
+	 * @param player - Player who will have items removed
+	 * @param amount - Number of items to remove
+	 * @param itemStack - ItemStack to be removed
+	 */
+	public static void removeItems(Player player, int amount, ItemStack itemStack)
+	{
+		int slot = 0;
+		for(ItemStack inventoryItem : player.getInventory().getContents())
+		{
+			if(inventoryItem != null && inventoryItem.isSimilar(itemStack) && amount > 0)
+			{
+				int currentAmount = inventoryItem.getAmount() - amount;
+				amount -= inventoryItem.getAmount();
+				if(currentAmount <= 0)
+				{
+					if(slot == 40)
+					{
+						player.getInventory().setItemInOffHand(null);
+					} else
+					{
+						player.getInventory().removeItem(inventoryItem);
+					}
+				} else
+				{
+					inventoryItem.setAmount(currentAmount);
+				}
+			}
+			slot++;
+		}
+		player.updateInventory();
+	}
+	
+	/**
+	 * @param enchantment
+	 * @param itemStack
+	 * @return
+	 */
+	public static boolean hasEnchant(Enchantment enchantment, ItemStack itemStack)
+	{
+		return itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants() && itemStack.getItemMeta().hasEnchant(enchantment);
 	}
 	
 	/**

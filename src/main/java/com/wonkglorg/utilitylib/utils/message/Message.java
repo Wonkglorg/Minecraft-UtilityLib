@@ -154,6 +154,7 @@ public class Message
 			}
 			if(texts[i].charAt(0) == 'r')
 			{
+				decorationMap.put(TextDecoration.ITALIC,false);
 				decorationMap.replaceAll((d, v) -> false);
 			} else
 			{
