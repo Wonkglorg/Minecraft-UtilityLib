@@ -20,7 +20,7 @@ public class MenuUtility
 	 *
 	 * @param player the player
 	 */
-	private MenuUtility(Player player)
+	public MenuUtility(Player player)
 	{
 		this.owner = player;
 	}
