@@ -15,12 +15,18 @@ public class MenuUtility
 	
 	private final Player owner;
 	
+	/**
+	 * Instantiates a new Menu utility.
+	 *
+	 * @param player the player
+	 */
 	public MenuUtility(Player player)
 	{
 		this.owner = player;
 	}
 	
 	/**
+	 * Gets owner.
 	 *
 	 * @return {@link Player} owning the menu.
 	 */
@@ -50,6 +56,36 @@ public class MenuUtility
 		{
 			return menuUtilityMap.get(player);
 		}
+	}
+	
+	/**
+	 * Get MenuUtility map.
+	 *
+	 * @return MenuUtility map
+	 */
+	public static Map<Player,MenuUtility> getMenuUtilityMap(){
+		return menuUtilityMap;
+	}
+	
+	/**
+	 * Add entry to MenuUtility map.
+	 *
+	 * @param player the player
+	 * @param menuUtility the MenuUtility instance
+	 */
+	public static void addEntry(Player player, MenuUtility menuUtility){
+		menuUtilityMap.put(player,menuUtility);
+	}
+	
+	/**
+	 * Remove entry from MenuUtility map.
+	 * Returns true if removed, false if nothing changed.
+	 *
+	 * @param player the player
+	 * @return the boolean
+	 */
+	public static boolean removeEntry(Player player){
+		return menuUtilityMap.remove(player) != null;
 	}
 	
 }
