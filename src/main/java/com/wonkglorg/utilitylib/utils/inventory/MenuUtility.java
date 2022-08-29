@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Unique to each Player when opening a menu, stores data.
@@ -12,7 +14,6 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class MenuUtility
 {
-	
 	private final Player owner;
 	
 	/**
@@ -23,6 +24,7 @@ public class MenuUtility
 	public MenuUtility(Player player)
 	{
 		this.owner = player;
+		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 	}
 	
 	/**
@@ -63,7 +65,8 @@ public class MenuUtility
 	 *
 	 * @return MenuUtility map
 	 */
-	public static Map<Player,MenuUtility> getMenuUtilityMap(){
+	public static Map<Player, MenuUtility> getMenuUtilityMap()
+	{
 		return menuUtilityMap;
 	}
 	
@@ -73,8 +76,9 @@ public class MenuUtility
 	 * @param player the player
 	 * @param menuUtility the MenuUtility instance
 	 */
-	public static void addEntry(Player player, MenuUtility menuUtility){
-		menuUtilityMap.put(player,menuUtility);
+	public static void addEntry(Player player, MenuUtility menuUtility)
+	{
+		menuUtilityMap.put(player, menuUtility);
 	}
 	
 	/**
@@ -84,7 +88,8 @@ public class MenuUtility
 	 * @param player the player
 	 * @return the boolean
 	 */
-	public static boolean removeEntry(Player player){
+	public static boolean removeEntry(Player player)
+	{
 		return menuUtilityMap.remove(player) != null;
 	}
 	
