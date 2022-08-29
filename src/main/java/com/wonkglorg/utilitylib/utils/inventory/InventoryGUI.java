@@ -503,4 +503,8 @@ public abstract class InventoryGUI implements Listener {
 		}
 	}
 	
+	public JavaPlugin getPlugin()
+	{
+		return plugin;
+	}
 }
