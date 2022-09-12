@@ -37,9 +37,35 @@ public class Config extends YamlConfiguration
 	 * @param deep deep search to get children of children
 	 * @return {@link Set} of results.
 	 */
-	public Set<String> getSection(String path,boolean deep)
+	public Set<String> getSection(String path, boolean deep)
 	{
 		ConfigurationSection section = getConfigurationSection(path);
+		if(section != null)
+		{
+			return section.getKeys(deep);
+		}
+		return new HashSet<>();
+	}
+	
+	public Set<String> getSection(boolean deep, String path)
+	{
+		ConfigurationSection section = getConfigurationSection(path);
+		if(section != null)
+		{
+			return section.getKeys(deep);
+		}
+		return new HashSet<>();
+	}
+	
+	public Set<String> getSection(boolean deep, String... path)
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+		for(String s : path)
+		{
+			stringBuilder.append(s);
+			stringBuilder.append(".");
+		}
+		ConfigurationSection section = getConfigurationSection(removeLastChar(stringBuilder.toString()));
 		if(section != null)
 		{
 			return section.getKeys(deep);
@@ -103,8 +129,19 @@ public class Config extends YamlConfiguration
 			Logger.logWarn("Error saving data to " + name + "!");
 		}
 	}
+	
 	@Override
-	public @NotNull String getName(){
+	public @NotNull String getName()
+	{
 		return name;
+	}
+	
+	private String removeLastChar(String str)
+	{
+		if(str != null && str.length() > 0 && str.charAt(str.length() - 1) == '.')
+		{
+			str = str.substring(0, str.length() - 1);
+		}
+		return str;
 	}
 }
