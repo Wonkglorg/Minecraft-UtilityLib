@@ -3,14 +3,12 @@ package com.wonkglorg.utilitylib.utils;
 import com.sun.source.util.Plugin;
 import com.wonkglorg.utilitylib.utils.builder.CooldownBuilder;
 import com.wonkglorg.utilitylib.utils.builder.TimerBuilder;
-import com.wonkglorg.utilitylib.utils.entity.EntityUtil;
 import com.wonkglorg.utilitylib.utils.message.Message;
 import com.wonkglorg.utilitylib.utils.serializer.SerializeItems;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -18,11 +16,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.naming.Name;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -45,7 +41,6 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public class Utils extends Message
 {
-	
 	
 	// EDIT AND MOVE STUFF FROM THIS FILE JUST TEMPORARY AND CLEAN UP
 	private static final List<UUID> teleportPlayers = new ArrayList<>();
@@ -328,7 +323,6 @@ public class Utils extends Message
 		return decimalFormat.format(decimal);
 	}
 	
-	
 	/**
 	 * @param delay
 	 * @param runnable
@@ -505,7 +499,6 @@ public class Utils extends Message
 		return null;
 	}
 	
-	
 	/**
 	 * @param list
 	 * @return
@@ -575,6 +568,32 @@ public class Utils extends Message
 		{
 			return "too much";
 		}
+	}
+	
+	public static long convertDateToMilliseconds(String... array)
+	{
+		long time_in_ms = 0;
+		
+		for(String s : array)
+		{
+			for(Date date : Date.values())
+			{
+				if(s.endsWith(date.getPreset()))
+				{
+					long numbers = Long.parseLong(s.replace(date.getPreset(), ""));
+					
+					time_in_ms = numbers * date.getToMilliseconds();
+				}
+			}
+		}
+		return time_in_ms;
+	}
+	
+	public static String getDateFromLong(Date biggest, long milliseconds, boolean accurate){
+		
+		//find way to convert to
+		
+	return null;
 	}
 	
 	/**
@@ -714,7 +733,7 @@ public class Utils extends Message
 		{
 			//USE NEW ACTIONBAR FROM ADVNETURE API
 			//ActionBar.sendActionBar(player,
-					//String.format(".", timerFormat(player, cooldown));
+			//String.format(".", timerFormat(player, cooldown));
 			return true;
 		}
 		if(timer > 0)

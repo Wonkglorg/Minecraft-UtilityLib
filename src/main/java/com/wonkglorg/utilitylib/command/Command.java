@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * Allows for easy command creation with added tab completion.
  */
-public abstract class Command implements TabExecutor
+public abstract class Command extends Arguments implements TabExecutor
 {
 	/**
 	 * The main plugin to register the command to
