@@ -81,9 +81,8 @@ public class SerializeItems
 	 */
 	public static ItemStack[] itemStackArrayFromBase64(String data) throws IOException
 	{
-		try
+		try(ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data)))
 		{
-			ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
 			BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
 			ItemStack[] items = new ItemStack[dataInput.readInt()];
 			
@@ -110,9 +109,8 @@ public class SerializeItems
 	 */
 	public static ItemStack itemFromBase64(String data)
 	{
-		try
+		try(ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data)))
 		{
-			ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
 			BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
 			ItemStack item;
 			

@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -24,7 +23,6 @@ public class MenuUtility
 	public MenuUtility(Player player)
 	{
 		this.owner = player;
-		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 	}
 	
 	/**
@@ -48,16 +46,15 @@ public class MenuUtility
 	public static MenuUtility get(@NotNull Player player)
 	{
 		MenuUtility playerMenuUtility;
+		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
 			playerMenuUtility = new MenuUtility(player);
 			menuUtilityMap.put(player, playerMenuUtility);
 			
 			return playerMenuUtility;
-		} else
-		{
-			return menuUtilityMap.get(player);
 		}
+		return menuUtilityMap.get(player);
 	}
 	
 	/**

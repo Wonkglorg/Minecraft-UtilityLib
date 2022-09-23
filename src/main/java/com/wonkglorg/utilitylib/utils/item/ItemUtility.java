@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.SkullType;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -236,6 +237,7 @@ public class ItemUtility
 		item.setItemMeta(meta);
 		return item;
 	}
+	
 	/**
 	 * Add an attribute to the item
 	 *
@@ -743,20 +745,52 @@ public class ItemUtility
 	}
 	
 	//https://api.mojang.com/users/profiles/minecraft/INSERT PLAYER NAME HERE
+	/**
+	 * Gets player head from {@link UUID}
+	 *
+	 * @param uuid {@link UUID} from a specific {@link org.bukkit.OfflinePlayer}
+	 * @param name Name of the skull returns name of player if not specified
+	 * @param description description of the skull
+	 * @return {@link ItemStack}.
+	 */
+	public static ItemStack createPlayerHead(UUID uuid, String name, String... description)
+	{
+		
+		ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		
+		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+		String playerName = offlinePlayer.getName();
+		
+		String cName = name != null ? name : offlinePlayer.getName();
+		if(cName == null)
+		{
+			cName = "Player Head";
+		}
+		
+		List<Component> descriptionList = new ArrayList<>();
+		for(String line : description)
+		{
+			descriptionList.add(Message.color(line));
+		}
+		
+		meta.setOwningPlayer(offlinePlayer);
+		meta.displayName(Message.color(cName));
+		meta.lore(descriptionList);
+		
+		item.setItemMeta(meta);
+		return item;
+	}
 	
 	/**
 	 * Gets player head from {@link UUID}
 	 *
-	 * @param uuid {@link UUID} from a specific {@link org.bukkit.entity.Player}
+	 * @param uuid {@link UUID} from a specific {@link org.bukkit.OfflinePlayer}
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack createPlayerHead(UUID uuid)
 	{
-		ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-		SkullMeta meta = (SkullMeta) item.getItemMeta();
-		meta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
-		meta.displayName();
-		item.setItemMeta(meta);
-		return item;
+		return createPlayerHead(uuid,null);
 	}
+	
 }

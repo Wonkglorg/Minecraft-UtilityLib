@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
  */
 public class PaginationGui {
 	
-	private InventoryGUI gui;
+	private final InventoryGUI gui;
 	private int page = 1;
-	private List<IntConsumer> buttons = new ArrayList<>();
-	private Map<Object, IntConsumer> items = new HashMap<>();
-	private Set<Integer> slots = new TreeSet<>();
+	private final List<IntConsumer> buttons = new ArrayList<>();
+	private final Map<Object, IntConsumer> items = new HashMap<>();
+	private final Set<Integer> slots = new TreeSet<>();
 	private Runnable onUpdate = () -> {};
 	private ItemStack fillerItem;
 
