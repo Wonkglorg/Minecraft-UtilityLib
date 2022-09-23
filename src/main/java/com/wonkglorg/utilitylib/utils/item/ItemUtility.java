@@ -737,8 +737,12 @@ public class ItemUtility
 		UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
 		Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
 		ItemMeta meta = mobHead.getItemMeta();
-		meta.displayName(Message.color(name));
-		meta.lore(Message.color(List.of(description)));
+		if(name != null){
+			meta.displayName(Message.color(name));
+		}
+		if(description != null){
+			meta.lore(Message.color(List.of(description)));
+		}
 		mobHead.setItemMeta(meta);
 		
 		return mobHead;
@@ -767,16 +771,9 @@ public class ItemUtility
 		{
 			cName = "Player Head";
 		}
-		
-		List<Component> descriptionList = new ArrayList<>();
-		for(String line : description)
-		{
-			descriptionList.add(Message.color(line));
-		}
-		
 		meta.setOwningPlayer(offlinePlayer);
 		meta.displayName(Message.color(cName));
-		meta.lore(descriptionList);
+		meta.lore(Message.color(List.of(description)));
 		
 		item.setItemMeta(meta);
 		return item;
