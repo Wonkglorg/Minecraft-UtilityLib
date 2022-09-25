@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class PaginationGui {
 	
-	private final InventoryGUI gui;
+	protected final InventoryGUI gui;
 	private int page = 1;
 	private final List<IntConsumer> buttons = new ArrayList<>();
 	private final Map<Object, IntConsumer> items = new HashMap<>();

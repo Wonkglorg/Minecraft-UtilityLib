@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.abstraction;
 
 import com.wonkglorg.utilitylib.utils.builder.ItemBuilder;
+import com.wonkglorg.utilitylib.utils.inventory.InventoryGUI;
 import com.wonkglorg.utilitylib.utils.inventory.MenuUtility;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
