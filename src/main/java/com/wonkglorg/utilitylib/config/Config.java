@@ -30,6 +30,13 @@ public class Config extends YamlConfiguration
 		file = new File(main.getDataFolder(), name);
 	}
 	
+	public Config(JavaPlugin main, String name,String path)
+	{
+		this.main = main;
+		this.name = name;
+		file = new File(main.getDataFolder().getPath() + File.pathSeparator + path, name);
+	}
+	
 	/**
 	 * Gets a section of the config at the set path.
 	 *

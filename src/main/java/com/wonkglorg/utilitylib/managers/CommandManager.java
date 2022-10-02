@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.managers;
 import com.wonkglorg.utilitylib.command.Command;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,10 +43,7 @@ public class CommandManager
 	 */
 	public void add(@NotNull final Command... commands)
 	{
-		for(Command command : commands)
-		{
-			commandMap.put(command.getName(), command);
-		}
+		Arrays.asList(commands).forEach(command -> commandMap.put(command.getName(), command));
 	}
 	
 	/**
@@ -55,10 +53,7 @@ public class CommandManager
 	 */
 	public void add(@NotNull final List<Command> commands)
 	{
-		for(Command command : commands)
-		{
-			commandMap.put(command.getName(), command);
-		}
+		commands.forEach(command -> commandMap.put(command.getName(), command));
 	}
 	
 	/**

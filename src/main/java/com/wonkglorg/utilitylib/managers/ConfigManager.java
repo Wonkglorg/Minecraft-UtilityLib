@@ -27,18 +27,12 @@ public class ConfigManager implements Manager
 	
 	public void load()
 	{
-		for(Config config : configs)
-		{
-			config.loadConfig();
-		}
+		configs.forEach(Config::loadConfig);
 	}
 	
 	public void save()
 	{
-		for(Config config : configs)
-		{
-			config.saveConfig();
-		}
+		configs.forEach(Config::saveConfig);
 	}
 	
 	public Config getConfig(String name)

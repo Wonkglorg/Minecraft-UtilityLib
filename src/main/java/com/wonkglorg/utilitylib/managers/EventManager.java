@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @SuppressWarnings("unused")
 public class EventManager
 {
@@ -37,9 +38,6 @@ public class EventManager
 	
 	public void registerAll()
 	{
-		for(Listener listener : listeners)
-		{
-			pluginManager.registerEvents(listener, plugin);
-		}
+		listeners.forEach(listeners -> pluginManager.registerEvents(listeners, plugin));
 	}
 }

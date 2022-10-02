@@ -2,10 +2,13 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 /**
  * The type Plugin manager.
@@ -28,6 +31,8 @@ public class PluginManager
 	
 	protected final RecipeManager recipeManager;
 	
+	protected final LangManager langManager;
+	
 	/**
 	 * Instantiates a new Plugin manager.
 	 *
@@ -39,11 +44,16 @@ public class PluginManager
 		configManager = new ConfigManager();
 		eventManager = new EventManager(plugin);
 		recipeManager = new RecipeManager();
+		langManager = new LangManager();
 	}
 	
 	public void registerAll()
 	{
 		configManager.load();
+		if(langManager.getDefaultLang()== null){
+			Logger.logWarn("Default lang has not been set!");
+		}
+		langManager.load();
 		eventManager.registerAll();
 		recipeManager.registerAll();
 	}
@@ -61,6 +71,11 @@ public class PluginManager
 	public void registerRecipes()
 	{
 		recipeManager.registerAll();
+	}
+	
+	public void registerLangs()
+	{
+		langManager.load();
 	}
 	
 	public void addEvent(Listener listener)
@@ -81,6 +96,16 @@ public class PluginManager
 	public void addRecipe(Recipe recipe)
 	{
 		recipeManager.add(recipe);
+	}
+	
+	public void addLang(Locale locale, Config config)
+	{
+		langManager.addLanguage(locale, config);
+	}
+	
+	public void setDefaultLang(Locale locale, Config config)
+	{
+		langManager.setDefaultLang(locale, config);
 	}
 	
 	/**
