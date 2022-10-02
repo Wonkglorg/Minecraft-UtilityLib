@@ -17,6 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -49,6 +50,12 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>com.wonkglorg:*</directory>
+				<excludes>
+					<exclude>META-INF/*.MF</exclude>
+				</excludes>
 			</resource>
 		</resources>
 	</build>
