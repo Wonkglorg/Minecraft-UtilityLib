@@ -45,6 +45,8 @@ public class MenuUtility
 	 */
 	public static MenuUtility get(@NotNull Player player)
 	{
+		
+		//find way to make menuUtulity get method more variable
 		MenuUtility playerMenuUtility;
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 		if(!(menuUtilityMap.containsKey(player)))

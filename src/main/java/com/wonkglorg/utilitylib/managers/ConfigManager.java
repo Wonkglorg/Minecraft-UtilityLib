@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class ConfigManager
+public class ConfigManager implements Manager
 {
 	private final List<Config> configs = new ArrayList<>();
 	
