@@ -2,13 +2,19 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class LangManager implements Manager
 {
@@ -19,8 +25,15 @@ public class LangManager implements Manager
 	private Locale defaultLang;
 	private boolean loaded = false;
 	
+	Map<String, String> replacerMap = new HashMap<>();
+	
 	public LangManager()
 	{
+	}
+	
+	public void autoReplacer(String replace, String with)
+	{
+		replacerMap.put(replace, with);
 	}
 	
 	public LangManager(Locale defaultLang, Config defaultConfig)
@@ -80,7 +93,7 @@ public class LangManager implements Manager
 		}
 	}
 	
-	public String getValue(Locale locale, String message)
+	public String getValue(@NotNull final Locale locale, @NotNull final String message)
 	{
 		if(!loaded)
 		{
@@ -90,7 +103,17 @@ public class LangManager implements Manager
 		
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
-		return config != null ? config.getString(message) : message;
+		String editString = config != null ? config.getString(message) : message;
+		
+		final List<String> keys = replacerMap.keySet().stream().toList();
+		final List<String> values = replacerMap.values().stream().toList();
+		
+		for(int i = 0;i<keys.size();i++){
+			editString = editString.replace(keys.get(i),values.get(i));
+		}
+		
+		return editString;
+		
 	}
 	
 }
