@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,6 +74,7 @@ public class LangManager implements Manager
 	
 	public void addAllLangFilesFromPath(JavaPlugin javaPlugin, String path)
 	{
+		//Add dictionary to get a wider range of possible yml naming for langs
 		for(File file : Objects.requireNonNull(Path.of(javaPlugin.getDataFolder().getPath() + File.pathSeparator + path).toFile().listFiles()))
 		{
 			if(!file.isFile())
@@ -89,7 +91,7 @@ public class LangManager implements Manager
 		}
 	}
 	
-	public String getValue(@NotNull final Locale locale, @NotNull final String message)
+	public String getValue(@NotNull final Locale locale, @NotNull final String message, @NotNull final String defaultValue)
 	{
 		if(!loaded)
 		{
@@ -99,7 +101,7 @@ public class LangManager implements Manager
 		
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
-		String editString = config != null ? config.getString(message) : message;
+		String editString = config != null ? config.getString(message) : defaultValue;
 		
 		final List<String> keys = replacerMap.keySet().stream().toList();
 		final List<String> values = replacerMap.values().stream().toList();
@@ -112,5 +114,11 @@ public class LangManager implements Manager
 		return editString;
 		
 	}
+	
+	public String getValue(@NotNull final Locale locale, @NotNull final String message)
+	{
+		return getValue(locale, message, message);
+	}
+	
 	
 }

@@ -21,20 +21,23 @@ public class Config extends YamlConfiguration
 	
 	protected JavaPlugin main;
 	protected String name;
+	protected String subPathName;
 	protected File file;
 	
 	public Config(JavaPlugin main, String name)
 	{
 		this.main = main;
-		this.name = name;
+		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
 		file = new File(main.getDataFolder(), name);
 	}
 	
-	public Config(JavaPlugin main, String name,String path)
+	public Config(JavaPlugin main, String name, String path)
 	{
 		this.main = main;
-		this.name = name;
-		file = new File(main.getDataFolder().getPath() + File.pathSeparator + path, name);
+		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
+		this.subPathName = path + this.name;
+		//path = path.startsWith(File.pathSeparator) ? path : File.pathSeparator + path;
+		file = new File(main.getDataFolder(), subPathName);
 	}
 	
 	/**
@@ -99,7 +102,7 @@ public class Config extends YamlConfiguration
 		if(!file.exists())
 		{
 			file.getParentFile().mkdirs();
-			main.saveResource(name, false);
+			main.saveResource(subPathName, false);
 		}
 	}
 	
