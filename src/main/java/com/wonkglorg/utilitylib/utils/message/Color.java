@@ -3,31 +3,39 @@ package com.wonkglorg.utilitylib.utils.message;
 @SuppressWarnings("unused")
 public enum Color
 {
-	YELLOW("&#FFFF00"),
-	LIME("&#32CD32"),
-	GREEN("&#00FF00"),
-	DARK_GREEN("&#013220"),
-	CYAN("&#00FFFF"),
-	BLUE("&#0000FF"),
-	DARK_PURPLE("&#301934"),
-	PURPLE("&#800080"),
-	PINK("&#FFC0CB"),
-	MAGENTA("&#FF00FF"),
-	RED("&#ff0000"),
-	ORANGE("&#FFA500"),
-	GOLD("&#FFD700"),
-	BLACK("&#000000"),
-	WHITE("&#FFFFFF"),
-	DARK_GRAY("&#a9a9a9"),
-	LIGHT_GRAY("&#eedd82"),
-	GRAY("&#808080");
+	BLACK("000000"),
+	DARK_BLUE("0000AA"),
+	DARK_GREEN("00AA00"),
+	DARK_AQUA("00AAAA"),
+	DARK_RED("AA0000"),
+	DARK_PURPLE("AA00AA"),
+	GOLD("FFAA00"),
+	GRAY("FFAA00"),
+	DARK_GRAY("555555"),
+	BLUE("5555FF"),
+	GREEN("55FF55"),
+	AQUA("55FFFF"),
+	RED("FF5555"),
+	LIGHT_PURPLE("FF55FF"),
+	YELLOW("FFFF55"),
+	WHITE("FFFFFF"),
+	
+	;
 	
 	private final String hexColor;
-	Color(final String hexColor){
+	
+	Color(final String hexColor)
+	{
 		this.hexColor = hexColor;
 	}
+	
 	public String getHexColor()
 	{
-		return hexColor;
+		return "#" + hexColor;
+	}
+	
+	public String getColor()
+	{
+		return "&#" + hexColor;
 	}
 }

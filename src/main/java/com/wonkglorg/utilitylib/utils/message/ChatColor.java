@@ -4,6 +4,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The type Chat color.
@@ -22,6 +23,7 @@ public class ChatColor
 	 */
 	public static String HexColor(String hex)
 	{
+		hex = hex.startsWith("#") ? hex : "#" + hex;
 		return preset + hex;
 	}
 	
@@ -74,106 +76,50 @@ public class ChatColor
 	 * The constant Underlined.
 	 */
 	public static String Underlined = preset + "u";
+	public static String BLACK = Color.BLACK.getColor();
+	public static String DARK_BLUE = Color.DARK_BLUE.getColor();
+	public static String DARK_GREEN = Color.DARK_GREEN.getColor();
+	public static String DARK_AQUA = Color.DARK_AQUA.getColor();
+	public static String DARK_RED = Color.DARK_RED.getColor();
+	public static String DARK_PURPLE = Color.DARK_PURPLE.getColor();
+	public static String GOLD = Color.GOLD.getColor();
+	public static String GRAY = Color.GRAY.getColor();
+	public static String DARK_GRAY = Color.DARK_GRAY.getColor();
+	public static String BLUE = Color.BLUE.getColor();
+	public static String GREEN = Color.GREEN.getColor();
+	public static String AQUA = Color.AQUA.getColor();
+	public static String RED = Color.RED.getColor();
+	public static String LIGHT_PURPLE = Color.LIGHT_PURPLE.getColor();
+	public static String YELLOW = Color.YELLOW.getColor();
+	public static String WHITE = Color.WHITE.getColor();
 	
-	/**
-	 * The constant YELLOW.
-	 */
-	public static String YELLOW = Color.YELLOW.getHexColor();
-	
-	/**
-	 * The constant LIME.
-	 */
-	public static String LIME = Color.LIME.getHexColor();
-	
-	/**
-	 * The constant GREEN.
-	 */
-	public static String GREEN = Color.GREEN.getHexColor();
-	
-	/**
-	 * The constant DARK_GREEN.
-	 */
-	public static String DARK_GREEN = Color.DARK_GREEN.getHexColor();
-	
-	/**
-	 * The constant CYAN.
-	 */
-	public static String CYAN = Color.CYAN.getHexColor();
-	
-	/**
-	 * The constant BLUE.
-	 */
-	public static String BLUE = Color.BLUE.getHexColor();
-	
-	/**
-	 * The constant DARK_PURPLE.
-	 */
-	public static String DARK_PURPLE = Color.DARK_PURPLE.getHexColor();
-	
-	/**
-	 * The constant PURPLE.
-	 */
-	public static String PURPLE = Color.PURPLE.getHexColor();
-	
-	/**
-	 * The constant PINK.
-	 */
-	public static String PINK = Color.PINK.getHexColor();
-	
-	/**
-	 * The constant MAGENTA.
-	 */
-	public static String MAGENTA = Color.MAGENTA.getHexColor();
-	
-	/**
-	 * The constant RED.
-	 */
-	public static String RED = Color.RED.getHexColor();
-	
-	/**
-	 * The constant ORANGE.
-	 */
-	public static String ORANGE = Color.ORANGE.getHexColor();
-	
-	/**
-	 * The constant GOLD.
-	 */
-	public static String GOLD = Color.GOLD.getHexColor();
-	
-	/**
-	 * The constant BLACK.
-	 */
-	public static String BLACK = Color.BLACK.getHexColor();
-	
-	/**
-	 * The constant WHITE.
-	 */
-	public static String WHITE = Color.WHITE.getHexColor();
-	
-	/**
-	 * The constant DARK_GRAY.
-	 */
-	public static String DARK_GRAY = Color.DARK_GRAY.getHexColor();
-	
-	/**
-	 * The constant LIGHT_GRAY.
-	 */
-	public static String LIGHT_GRAY = Color.LIGHT_GRAY.getHexColor();
-	
-	/**
-	 * The constant GRAY.
-	 */
-	public static String GRAY = Color.GRAY.getHexColor();
-	
-	private static final Map<String, TextDecoration> decorationMap = new HashMap<>();
+	private static final Map<Character, TextDecoration> decorationMap = new HashMap<>();
+	private static final Map<Character, String> textColorMap = new HashMap<>();
 	
 	static
 	{
-		decorationMap.put(Bold, TextDecoration.BOLD);
-		decorationMap.put(Italic, TextDecoration.ITALIC);
-		decorationMap.put(Obfuscated, TextDecoration.OBFUSCATED);
-		decorationMap.put(Underlined, TextDecoration.UNDERLINED);
-		decorationMap.put(StrikeThrough, TextDecoration.STRIKETHROUGH);
+		decorationMap.put(Bold.charAt(1), TextDecoration.BOLD);
+		decorationMap.put(Italic.charAt(1), TextDecoration.ITALIC);
+		decorationMap.put(Obfuscated.charAt(1), TextDecoration.OBFUSCATED);
+		decorationMap.put(Underlined.charAt(1), TextDecoration.UNDERLINED);
+		decorationMap.put(StrikeThrough.charAt(1), TextDecoration.STRIKETHROUGH);
+		
+		textColorMap.put('0', BLACK);
+		textColorMap.put('1', DARK_BLUE);
+		textColorMap.put('2', DARK_GREEN);
+		textColorMap.put('3', DARK_AQUA);
+		textColorMap.put('4', DARK_RED);
+		textColorMap.put('5', DARK_PURPLE);
+		textColorMap.put('6', GOLD);
+		textColorMap.put('7', GRAY);
+		textColorMap.put('8', DARK_GRAY);
+		textColorMap.put('9', BLUE);
+		textColorMap.put('a', GREEN);
+		textColorMap.put('b', AQUA);
+		textColorMap.put('c', RED);
+		textColorMap.put('d', LIGHT_PURPLE);
+		textColorMap.put('e', YELLOW);
+		textColorMap.put('f', WHITE);
 	}
 	
 	/**
@@ -182,9 +128,24 @@ public class ChatColor
 	 * @param s the s
 	 * @return the text decoration
 	 */
-	public static TextDecoration StringToComponent(String s)
+	public static TextDecoration charToComponent(char s)
 	{
-		s = s.startsWith(preset) ? s : preset + s;
 		return decorationMap.get(s);
 	}
+	
+	public static String charToColor(Character s)
+	{
+		return textColorMap.get(s).replace(preset, "");
+	}
+	
+	public static Set<Character> colorCharacters()
+	{
+		return textColorMap.keySet();
+	}
+	
+	public static Set<Character> decorationCharacters()
+	{
+		return decorationMap.keySet();
+	}
+	
 }

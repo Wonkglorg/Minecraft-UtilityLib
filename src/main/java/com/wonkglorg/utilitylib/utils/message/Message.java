@@ -162,17 +162,25 @@ public class Message
 				component.append(outputComponent.build());
 				continue;
 			}
-			if(texts[i].charAt(0) == 'r')
+			char value = texts[i].charAt(0);
+			if(value == 'r')
 			{
 				decorationMap.put(TextDecoration.ITALIC, false);
 				textColor = null;
 				decorationMap.replaceAll((d, v) -> false);
 			} else
 			{
-				TextDecoration decoration = ChatColor.StringToComponent(String.valueOf(texts[i].charAt(0)));
-				if(decoration != null)
+				if(ChatColor.colorCharacters().contains(value))
 				{
-					decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
+					textColor = TextColor.fromHexString(ChatColor.charToColor(value));
+				}
+				if(ChatColor.decorationCharacters().contains(value))
+				{
+					TextDecoration decoration = ChatColor.charToComponent(value);
+					if(decoration != null)
+					{
+						decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
+					}
 				}
 			}
 			
