@@ -1,7 +1,6 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class LangManager implements Manager
 {
@@ -75,7 +73,9 @@ public class LangManager implements Manager
 	public void addAllLangFilesFromPath(JavaPlugin javaPlugin, String path)
 	{
 		//Add dictionary to get a wider range of possible yml naming for langs
-		for(File file : Objects.requireNonNull(Path.of(javaPlugin.getDataFolder().getPath() + File.pathSeparator + path).toFile().listFiles()))
+		
+		
+		for(File file : Path.of(javaPlugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles())
 		{
 			if(!file.isFile())
 			{
