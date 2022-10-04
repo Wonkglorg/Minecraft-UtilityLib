@@ -102,9 +102,11 @@ public class LangManager implements Manager
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
 		String editString = config != null ? config.getString(message) : defaultValue;
+		editString = editString != null ? editString : defaultValue;
 		
 		final List<String> keys = replacerMap.keySet().stream().toList();
 		final List<String> values = replacerMap.values().stream().toList();
+		
 		
 		for(int i = 0; i < keys.size(); i++)
 		{
