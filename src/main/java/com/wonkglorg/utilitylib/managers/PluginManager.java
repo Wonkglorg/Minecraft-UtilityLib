@@ -137,4 +137,14 @@ public class PluginManager
 	{
 		return eventManager;
 	}
+	
+	/**
+	 * Gets {@link LangManager}.
+	 *
+	 * @return the lang manager
+	 */
+	public LangManager getLangManager()
+	{
+		return langManager;
+	}
 }
