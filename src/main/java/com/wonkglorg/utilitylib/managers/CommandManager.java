@@ -19,7 +19,7 @@ public class CommandManager
 	/**
 	 * Command Map holding all assigned commands and their name
 	 */
-	protected Map<String, Command> commandMap;
+	protected final Map<String, Command> commandMap;
 	
 	public CommandManager()
 	{
