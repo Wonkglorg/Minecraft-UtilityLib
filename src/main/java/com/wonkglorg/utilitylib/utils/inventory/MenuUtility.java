@@ -13,14 +13,14 @@ import java.util.function.Predicate;
 @SuppressWarnings("unused")
 public class MenuUtility
 {
-	private final Player owner;
+	protected final Player owner;
 	
 	/**
 	 * Instantiates a new Menu utility.
 	 *
 	 * @param player the player
 	 */
-	public MenuUtility(Player player)
+	private MenuUtility(Player player)
 	{
 		this.owner = player;
 	}
@@ -43,7 +43,7 @@ public class MenuUtility
 	 * @param player {@link Player} opening the menu.
 	 * @return MenuUtility linked to the {@link Player}.
 	 */
-	public static MenuUtility get(@NotNull Player player)
+	public static MenuUtility get(@NotNull Player player, MenuUtility menuUtility)
 	{
 		
 		//find way to make menuUtulity get method more variable
@@ -51,12 +51,22 @@ public class MenuUtility
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
-			playerMenuUtility = new MenuUtility(player);
+			playerMenuUtility = menuUtility != null ? menuUtility : new MenuUtility(player){};
 			menuUtilityMap.put(player, playerMenuUtility);
 			
 			return playerMenuUtility;
 		}
 		return menuUtilityMap.get(player);
+	}
+	/**
+	 * Loads the MenuUtility for the specified {@link Player} or creates a new one if there is non.
+	 *
+	 * @param player {@link Player} opening the menu.
+	 * @return MenuUtility linked to the {@link Player}.
+	 */
+	public static MenuUtility get(@NotNull Player player)
+	{
+		return get(player, null);
 	}
 	
 	/**
