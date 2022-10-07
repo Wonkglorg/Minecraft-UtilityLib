@@ -1,6 +1,8 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.utils.logger.Logger;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,8 +76,13 @@ public class LangManager implements Manager
 	{
 		//Add dictionary to get a wider range of possible yml naming for langs
 		
-		
-		for(File file : Path.of(javaPlugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles())
+		File[] files = Path.of(javaPlugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
+		if(files == null)
+		{
+			Logger.logWarn("No available language files loaded");
+			return;
+		}
+		for(File file : files)
 		{
 			if(!file.isFile())
 			{
@@ -85,13 +92,14 @@ public class LangManager implements Manager
 			{
 				if(locale.getDisplayName().equalsIgnoreCase(file.getName()))
 				{
+					Logger.log(locale.getDisplayName() + " has been loaded!");
 					langMap.put(locale, new Config(javaPlugin, file.getName(), file.getParent()));
 				}
 			}
 		}
 	}
 	
-	public String getValue(@NotNull final Locale locale, @NotNull final String message, @NotNull final String defaultValue)
+	public String getValue(@NotNull final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
 	{
 		if(!loaded)
 		{
@@ -101,12 +109,11 @@ public class LangManager implements Manager
 		
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
-		String editString = config != null ? config.getString(message) : defaultValue;
+		String editString = config != null ? config.getString(value) : defaultValue;
 		editString = editString != null ? editString : defaultValue;
 		
 		final List<String> keys = replacerMap.keySet().stream().toList();
 		final List<String> values = replacerMap.values().stream().toList();
-		
 		
 		for(int i = 0; i < keys.size(); i++)
 		{
@@ -117,10 +124,14 @@ public class LangManager implements Manager
 		
 	}
 	
-	public String getValue(@NotNull final Locale locale, @NotNull final String message)
+	public String getValue(Player player, String value)
 	{
-		return getValue(locale, message, message);
+		return getValue(player.locale(), value);
 	}
 	
+	public String getValue(@NotNull final Locale locale, @NotNull final String value)
+	{
+		return getValue(locale, value, value);
+	}
 	
 }
