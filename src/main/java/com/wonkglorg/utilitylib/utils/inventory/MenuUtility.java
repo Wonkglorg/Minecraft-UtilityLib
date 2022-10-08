@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  * Unique to each Player when opening a menu, stores data.
  */
 @SuppressWarnings("unused")
-public class MenuUtility
+public abstract class MenuUtility
 {
 	protected final Player owner;
 	
@@ -20,7 +20,7 @@ public class MenuUtility
 	 *
 	 * @param player the player
 	 */
-	private MenuUtility(Player player)
+	public MenuUtility(Player player)
 	{
 		this.owner = player;
 	}
@@ -46,7 +46,7 @@ public class MenuUtility
 	public static MenuUtility get(@NotNull Player player, MenuUtility menuUtility)
 	{
 		
-		//find way to make menuUtulity get method more variable
+		//find way to make menuUtility get method more variable
 		MenuUtility playerMenuUtility;
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 		if(!(menuUtilityMap.containsKey(player)))
@@ -58,6 +58,7 @@ public class MenuUtility
 		}
 		return menuUtilityMap.get(player);
 	}
+	
 	/**
 	 * Loads the MenuUtility for the specified {@link Player} or creates a new one if there is non.
 	 *
