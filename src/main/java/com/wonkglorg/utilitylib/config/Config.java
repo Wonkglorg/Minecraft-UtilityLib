@@ -28,6 +28,7 @@ public class Config extends YamlConfiguration
 	{
 		this.main = main;
 		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
+		this.subPathName = this.name;
 		file = new File(main.getDataFolder(), name);
 	}
 	
