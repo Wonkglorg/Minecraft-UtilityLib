@@ -11,9 +11,10 @@ import java.util.function.Predicate;
  * Unique to each Player when opening a menu, stores data.
  */
 @SuppressWarnings("unused")
-public abstract class MenuUtility
+public class MenuUtility
 {
 	protected final Player owner;
+	
 	
 	/**
 	 * Instantiates a new Menu utility.
@@ -51,7 +52,7 @@ public abstract class MenuUtility
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
-			playerMenuUtility = menuUtility != null ? menuUtility : new MenuUtility(player){};
+			playerMenuUtility = menuUtility != null ?  menuUtility : new MenuUtility(player);
 			menuUtilityMap.put(player, playerMenuUtility);
 			
 			return playerMenuUtility;

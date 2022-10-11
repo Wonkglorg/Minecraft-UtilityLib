@@ -238,7 +238,6 @@ public class Utils extends Message
 	{
 		teleport(player, delay, location, null);
 	}
-	
 	/**
 	 * Teleport a player to a given location with a given delay
 	 *

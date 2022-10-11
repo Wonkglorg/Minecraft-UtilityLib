@@ -26,6 +26,11 @@ public abstract class Command extends Arguments implements TabExecutor
 	private final String name;
 	
 	/**
+	 * whether the command is type able from console
+	 */
+	abstract boolean allowConsole();
+	
+	/**
 	 * Instantiates a new Command.
 	 *
 	 * @param plugin the plugin
@@ -48,16 +53,16 @@ public abstract class Command extends Arguments implements TabExecutor
 	}
 	
 	/**
-	 * Logic when executing the command
+	 * Executes when the player finished writing the command and presses enter
 	 *
-	 * @param player {@link org.bukkit.entity.Player} entering command.
+	 * @param player {@link org.bukkit.entity.Player} entering command can be null if allow console is true
 	 * @param args Following arguments to main command
 	 * @return False if command arguments are wrong.
 	 */
-	public abstract boolean execute(@NotNull Player player, String[] args);
+	public abstract boolean execute(Player player, String[] args);
 	
 	/**
-	 * Autocompletion on command args
+	 * Code block executes whenever a player types arguments after the command
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering the command.
 	 * @param args Following arguments to main command.
@@ -75,6 +80,10 @@ public abstract class Command extends Arguments implements TabExecutor
 		{
 			super.args = args;
 			return execute(player, args);
+		}
+		if(allowConsole()){
+			super.args = args;
+			return execute(null,args);
 		}
 		return true;
 	}

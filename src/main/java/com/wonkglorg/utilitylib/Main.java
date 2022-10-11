@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.abstraction;
+package com.wonkglorg.utilitylib;
 
 
 /**

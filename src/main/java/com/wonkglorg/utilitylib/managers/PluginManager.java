@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
-import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.config.ConfigYML;
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -88,7 +88,7 @@ public class PluginManager
 		commandManager.add(command);
 	}
 	
-	public void addConfig(Config config)
+	public void addConfig(ConfigYML config)
 	{
 		configManager.add(config);
 	}
@@ -98,12 +98,12 @@ public class PluginManager
 		recipeManager.add(recipe);
 	}
 	
-	public void addLang(Locale locale, Config config)
+	public void addLang(Locale locale, ConfigYML config)
 	{
 		langManager.addLanguage(locale, config);
 	}
 	
-	public void setDefaultLang(Locale locale, Config config)
+	public void setDefaultLang(Locale locale, ConfigYML config)
 	{
 		langManager.setDefaultLang(locale, config);
 	}

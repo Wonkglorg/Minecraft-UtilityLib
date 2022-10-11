@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.config.ConfigYML;
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,12 +49,12 @@ public class LangManager implements Manager
 	public void addLanguage(Locale locale, Config languageConfig)
 	{
 		langMap.put(locale, languageConfig);
-		languageConfig.loadConfig();
+		languageConfig.load();
 	}
 	
 	public void load()
 	{
-		langMap.values().forEach(Config::loadConfig);
+		langMap.values().forEach(Config::load);
 	}
 	
 	public Config getDefaultLang()
@@ -69,7 +70,7 @@ public class LangManager implements Manager
 	
 	public void save()
 	{
-		langMap.values().forEach(Config::saveConfig);
+		langMap.values().forEach(Config::save);
 	}
 	
 	public void addAllLangFilesFromPath(JavaPlugin javaPlugin, String path)
@@ -93,7 +94,7 @@ public class LangManager implements Manager
 				if(locale.getDisplayName().equalsIgnoreCase(file.getName()))
 				{
 					Logger.log(locale.getDisplayName() + " has been loaded!");
-					langMap.put(locale, new Config(javaPlugin, file.getName(), file.getParent()));
+					langMap.put(locale, new ConfigYML(javaPlugin, file.getName(), file.getParent()));
 				}
 			}
 		}
@@ -109,7 +110,7 @@ public class LangManager implements Manager
 		
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
-		String editString = config != null ? config.getString(value) : defaultValue;
+		String editString = config != null ? config.getStringValue(value) : defaultValue;
 		editString = editString != null ? editString : defaultValue;
 		
 		final List<String> keys = replacerMap.keySet().stream().toList();
