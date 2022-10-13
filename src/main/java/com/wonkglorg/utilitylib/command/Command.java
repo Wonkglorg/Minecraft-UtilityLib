@@ -26,11 +26,6 @@ public abstract class Command extends Arguments implements TabExecutor
 	private final String name;
 	
 	/**
-	 * whether the command is type able from console
-	 */
-	abstract boolean allowConsole();
-	
-	/**
 	 * Instantiates a new Command.
 	 *
 	 * @param plugin the plugin
@@ -51,6 +46,11 @@ public abstract class Command extends Arguments implements TabExecutor
 			Logger.logFatal("Command " + name + " could not be loaded missing plugin.yml implementations");
 		}
 	}
+	
+	/**
+	 * whether the command is type able from console
+	 */
+	public abstract boolean allowConsole();
 	
 	/**
 	 * Executes when the player finished writing the command and presses enter
