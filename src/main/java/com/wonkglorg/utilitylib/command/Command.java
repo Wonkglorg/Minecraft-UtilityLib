@@ -96,6 +96,7 @@ public abstract class Command extends Arguments implements TabExecutor
 	{
 		if(sender instanceof Player player)
 		{
+			super.args = args;
 			return tabComplete(player, args);
 		}
 		return null;
