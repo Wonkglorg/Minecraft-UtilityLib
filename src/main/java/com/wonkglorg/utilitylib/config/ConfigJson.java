@@ -48,7 +48,7 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
-	public void setSection(String path, String value)
+	public void set(String path, Object value)
 	{
 	
 	}

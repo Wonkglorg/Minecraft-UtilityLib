@@ -56,12 +56,11 @@ public interface Config
 	boolean contains(String path);
 	
 	/**
-	 * Sets value for a specific section.
-	 *
-	 * @param path
-	 * @param value
+	 * Sets a data value type as the value at a specific path, if the path does not yet exist create it
+	 * @param path Path to put
+	 * @param value Value to set
 	 */
-	void setSection(String path, String value);
+	void set(String path,Object value);
 	
 	/**
 	 * Loads config from file.

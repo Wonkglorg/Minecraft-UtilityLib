@@ -5,7 +5,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,48 +86,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 			return section.getKeys(deep);
 		}
 		return new HashSet<>();
-	}
-	
-	@Override
-	public String getString(@NotNull String path)
-	{
-		return super.getString(path);
-	}
-	
-	@Override
-	public int getInt(@NotNull String path)
-	{
-		return super.getInt(path);
-	}
-	
-	@Override
-	public double getDouble(@NotNull String path)
-	{
-		return super.getDouble(path);
-	}
-	
-	@Override
-	public long getLong(@NotNull String path)
-	{
-		return super.getLong(path);
-	}
-	
-	@Override
-	public boolean getBoolean(@NotNull String path)
-	{
-		return super.getBoolean(path);
-	}
-	
-	@Override
-	public boolean contains(@NotNull String path)
-	{
-		return super.contains(path);
-	}
-	
-	@Override
-	public void setSection(String path, String value)
-	{
-		set(path, value);
 	}
 	
 	@Override
