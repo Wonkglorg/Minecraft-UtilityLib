@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.config;
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -71,6 +72,14 @@ public class ConfigYML extends YamlConfiguration implements Config
 		file = new File(main.getDataFolder(), this.path);
 	}
 	
+	public ConfigYML(JavaPlugin main, String name, String path)
+	{
+		this.main = main;
+		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
+		this.path = path + name;
+		file = new File(main.getDataFolder(), this.path);
+	}
+	
 	/**
 	 * Gets a section of the config at the set path.
 	 *
@@ -86,6 +95,31 @@ public class ConfigYML extends YamlConfiguration implements Config
 			return section.getKeys(deep);
 		}
 		return new HashSet<>();
+	}
+	
+	@Override
+	public void updateFiles()
+	{
+		File existingConfigFile = new File(main.getDataFolder(), path);
+		FileConfiguration existingFileConfiguration = YamlConfiguration.loadConfiguration(existingConfigFile);
+		
+		for(String section : getConfigurationSection("").getKeys(true))
+		{
+			if(existingFileConfiguration.get(section) != null)
+			{
+				continue;
+			}
+			
+			existingFileConfiguration.set(section, get(section));
+		}
+		
+		try
+		{
+			existingFileConfiguration.save(existingConfigFile);
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -162,7 +196,10 @@ public class ConfigYML extends YamlConfiguration implements Config
 		{
 			boolean ignored = file.getParentFile().mkdirs();
 			main.saveResource(path, false);
+			return;
 		}
+		updateFiles();
+		
 	}
 	
 	private String removeLastChar(String str)

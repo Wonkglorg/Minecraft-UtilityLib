@@ -54,6 +54,12 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
+	public void updateFiles()
+	{
+	
+	}
+	
+	@Override
 	public void load()
 	{
 	

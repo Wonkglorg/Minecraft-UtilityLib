@@ -62,6 +62,8 @@ public interface Config
 	 */
 	void set(String path,Object value);
 	
+	void updateFiles();
+	
 	/**
 	 * Loads config from file.
 	 */
