@@ -113,6 +113,18 @@ public class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	@Override
+	public boolean getBooleanValue(String path)
+	{
+		return getBoolean(path);
+	}
+	
+	@Override
+	public boolean containsValue(String path)
+	{
+		return contains(path);
+	}
+	
+	@Override
 	public void setSection(String path, String value)
 	{
 		set(path, value);

@@ -35,6 +35,18 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
+	public boolean getBooleanValue(String path)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean containsValue(String path)
+	{
+		return false;
+	}
+	
+	@Override
 	public void setSection(String path, String value)
 	{
 	

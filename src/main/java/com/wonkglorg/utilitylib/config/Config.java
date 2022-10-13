@@ -20,6 +20,9 @@ public interface Config
 	
 	long getLongValue(String path);
 	
+	boolean getBooleanValue(String path);
+	
+	boolean containsValue(String path);
 	//get world and get player etc?
 	
 	/**
