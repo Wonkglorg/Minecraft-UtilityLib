@@ -125,6 +125,11 @@ public class LangManager implements Manager
 		
 	}
 	
+	public Map<Locale, Config> getAllLangs()
+	{
+		return langMap;
+	}
+	
 	public String getValue(Player player, String value)
 	{
 		return getValue(player.locale(), value);
