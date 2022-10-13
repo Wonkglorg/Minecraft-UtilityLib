@@ -66,7 +66,19 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
+	public void silentLoad()
+	{
+	
+	}
+	
+	@Override
 	public void save()
+	{
+	
+	}
+	
+	@Override
+	public void silentSave()
 	{
 	
 	}

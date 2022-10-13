@@ -3,7 +3,6 @@ package com.wonkglorg.utilitylib.config;
 import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,7 +33,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	/**
 	 * The File.
 	 */
-	protected final File file;
+	protected File file;
 	
 	/**
 	 * Creates a new config object which represents a yml file
@@ -68,7 +67,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 			pathBuilder.append(File.separator);
 		}
 		this.path = pathBuilder + this.name;
-		//path = path.startsWith(File.pathSeparator) ? path : File.pathSeparator + path;
 		file = new File(main.getDataFolder(), this.path);
 	}
 	
@@ -76,7 +74,8 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 		this.main = main;
 		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
-		this.path = path + name;
+		path = path.startsWith(File.separator) ? path.replaceFirst(File.separator, "") : path;
+		this.path = path.endsWith(File.separator) ? path + name : path + File.separator + name;
 		file = new File(main.getDataFolder(), this.path);
 	}
 	
@@ -100,6 +99,14 @@ public class ConfigYML extends YamlConfiguration implements Config
 	@Override
 	public void updateFiles()
 	{
+	
+	}
+	/*
+	@Override
+	public void updateFiles()
+	{
+		//not updating? Find solution
+		
 		File existingConfigFile = new File(main.getDataFolder(), path);
 		FileConfiguration existingFileConfiguration = YamlConfiguration.loadConfiguration(existingConfigFile);
 		
@@ -115,12 +122,16 @@ public class ConfigYML extends YamlConfiguration implements Config
 		
 		try
 		{
+			//System.out.println("Saving override config " + existingConfigFile.getName());
 			existingFileConfiguration.save(existingConfigFile);
+			file = existingConfigFile;
 		} catch(IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	 */
 	
 	@Override
 	public void load()
@@ -138,6 +149,20 @@ public class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	@Override
+	public void silentLoad()
+	{
+		checkFile();
+		try
+		{
+			load(file);
+		} catch(InvalidConfigurationException | IOException e)
+		{
+			e.printStackTrace();
+			Logger.logWarn("Error loading data from " + name + "!");
+		}
+	}
+	
+	@Override
 	public void save()
 	{
 		checkFile();
@@ -145,6 +170,20 @@ public class ConfigYML extends YamlConfiguration implements Config
 		{
 			save(file);
 			Logger.log("Saved data to " + name + "!");
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+			Logger.logWarn("Error saving data to " + name + "!");
+		}
+	}
+	
+	@Override
+	public void silentSave()
+	{
+		checkFile();
+		try
+		{
+			save(file);
 		} catch(IOException e)
 		{
 			e.printStackTrace();
@@ -194,8 +233,8 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			boolean ignored = file.getParentFile().mkdirs();
 			main.saveResource(path, false);
+			boolean ignored = file.getParentFile().mkdirs();
 			return;
 		}
 		updateFiles();

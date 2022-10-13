@@ -57,10 +57,11 @@ public interface Config
 	
 	/**
 	 * Sets a data value type as the value at a specific path, if the path does not yet exist create it
+	 *
 	 * @param path Path to put
 	 * @param value Value to set
 	 */
-	void set(String path,Object value);
+	void set(String path, Object value);
 	
 	void updateFiles();
 	
@@ -70,9 +71,19 @@ public interface Config
 	void load();
 	
 	/**
+	 * Loads config without Log message
+	 */
+	void silentLoad();
+	
+	/**
 	 * Saves config to file.
 	 */
 	void save();
+	
+	/**
+	 * Saves config without log message
+	 */
+	void silentSave();
 	
 	/**
 	 * Returns the name of the config
