@@ -130,6 +130,18 @@ public class LangManager implements Manager
 		return langMap;
 	}
 	
+	public Config getLangByFileName(String name)
+	{
+		for(Config config : langMap.values())
+		{
+			if(config.name().equalsIgnoreCase(name))
+			{
+				return config;
+			}
+		}
+		return null;
+	}
+	
 	public String getValue(Player player, String value)
 	{
 		return getValue(player.locale(), value);

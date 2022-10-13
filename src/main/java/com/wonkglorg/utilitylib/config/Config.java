@@ -41,7 +41,13 @@ public interface Config
 	
 	/**
 	 * Returns the name of the config
-	 * @return
+	 * @return Config file name
 	 */
 	String name();
+	
+	/**
+	 * Returns the path of the config including the name
+	 * @return Config file path
+	 */
+	String path();
 }

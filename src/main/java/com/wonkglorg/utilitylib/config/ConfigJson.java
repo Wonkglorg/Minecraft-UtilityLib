@@ -58,6 +58,12 @@ public class ConfigJson implements Config
 		return null;
 	}
 	
+	@Override
+	public String path()
+	{
+		return null;
+	}
+	
 	//Add json compatablity
 	
 	

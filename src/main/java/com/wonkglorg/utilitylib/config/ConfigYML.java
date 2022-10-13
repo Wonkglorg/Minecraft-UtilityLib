@@ -148,12 +148,16 @@ public class ConfigYML extends YamlConfiguration implements Config
 		}
 	}
 	
-
-	
 	@Override
 	public String name()
 	{
-		return null;
+		return name;
+	}
+	
+	@Override
+	public String path()
+	{
+		return path;
 	}
 	
 	/**
