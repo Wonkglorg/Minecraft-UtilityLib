@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,39 +90,39 @@ public class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	@Override
-	public String getStringValue(String path)
+	public String getString(@NotNull String path)
 	{
-		return getString(path);
+		return super.getString(path);
 	}
 	
 	@Override
-	public int getIntValue(String path)
+	public int getInt(@NotNull String path)
 	{
-		return getInt(path);
+		return super.getInt(path);
 	}
 	
 	@Override
-	public double getDoubleValue(String path)
+	public double getDouble(@NotNull String path)
 	{
-		return getDouble(path);
+		return super.getDouble(path);
 	}
 	
 	@Override
-	public long getLongValue(String path)
+	public long getLong(@NotNull String path)
 	{
-		return getLong(path);
+		return super.getLong(path);
 	}
 	
 	@Override
-	public boolean getBooleanValue(String path)
+	public boolean getBoolean(@NotNull String path)
 	{
-		return getBoolean(path);
+		return super.getBoolean(path);
 	}
 	
 	@Override
-	public boolean containsValue(String path)
+	public boolean contains(@NotNull String path)
 	{
-		return contains(path);
+		return super.contains(path);
 	}
 	
 	@Override

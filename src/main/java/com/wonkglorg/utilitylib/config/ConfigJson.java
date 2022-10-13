@@ -4,6 +4,7 @@ import java.util.Set;
 
 public class ConfigJson implements Config
 {
+	
 	@Override
 	public Set<String> getSection(String path, boolean deep)
 	{
@@ -11,37 +12,37 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
-	public String getStringValue(String path)
+	public String getString(String path)
 	{
 		return null;
 	}
 	
 	@Override
-	public int getIntValue(String path)
+	public int getInt(String path)
 	{
 		return 0;
 	}
 	
 	@Override
-	public double getDoubleValue(String path)
+	public double getDouble(String path)
 	{
 		return 0;
 	}
 	
 	@Override
-	public long getLongValue(String path)
+	public long getLong(String path)
 	{
 		return 0;
 	}
 	
 	@Override
-	public boolean getBooleanValue(String path)
+	public boolean getBoolean(String path)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean containsValue(String path)
+	public boolean contains(String path)
 	{
 		return false;
 	}
@@ -75,8 +76,4 @@ public class ConfigJson implements Config
 	{
 		return null;
 	}
-	
-	//Add json compatablity
-	
-	
 }

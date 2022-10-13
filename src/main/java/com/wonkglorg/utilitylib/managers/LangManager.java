@@ -110,7 +110,7 @@ public class LangManager implements Manager
 		
 		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		
-		String editString = config != null ? config.getStringValue(value) : defaultValue;
+		String editString = config != null ? config.getString(value) : defaultValue;
 		editString = editString != null ? editString : defaultValue;
 		
 		final List<String> keys = replacerMap.keySet().stream().toList();
