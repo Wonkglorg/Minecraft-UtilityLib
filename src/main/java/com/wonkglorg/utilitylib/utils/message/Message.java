@@ -210,7 +210,7 @@ public class Message
 	public static void msgPlayer(Player player, @NotNull String... text)
 	{
 		if(player == null){
-			Logger.log(text);
+			//Logger.log(text);
 			return;
 		}
 		for(String string : text)
