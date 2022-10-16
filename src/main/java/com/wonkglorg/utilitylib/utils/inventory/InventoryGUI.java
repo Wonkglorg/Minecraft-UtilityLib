@@ -182,6 +182,16 @@ public abstract class InventoryGUI implements Listener
 	}
 	
 	/**
+	 * Remove a button from the inventory
+	 * @param slot Slot to be removed
+	 */
+	public void removeButton(int slot)
+	{
+		inventory.setItem(slot, new ItemStack(Material.AIR));
+		buttons.remove(slot);
+	}
+	
+	/**
 	 * @return All the ItemButtons in this GUI
 	 */
 	public List<Button> getButtons()
