@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.utils.message;
 
+import com.wonkglorg.utilitylib.utils.logger.Logger;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;
@@ -206,8 +207,12 @@ public class Message
 	 * @param player Player to message.
 	 * @param text Text to send.
 	 */
-	public static void msgPlayer(@NotNull Player player, @NotNull String... text)
+	public static void msgPlayer(Player player, @NotNull String... text)
 	{
+		if(player == null){
+			Logger.log(text);
+			return;
+		}
 		for(String string : text)
 		{
 			player.sendMessage(Message.color(string));
