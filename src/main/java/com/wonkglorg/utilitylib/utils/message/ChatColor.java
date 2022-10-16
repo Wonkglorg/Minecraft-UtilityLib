@@ -143,6 +143,27 @@ public class ChatColor
 		return textColorMap.keySet();
 	}
 	
+	public static java.awt.Color gradient(double max, double min, double current, java.awt.Color start, java.awt.Color end)
+	{
+		double percent = calculatePercent(min, max, current);
+		
+		return mixColors(start, end, percent);
+	}
+	
+	private static double calculatePercent(double min, double max, double current)
+	{
+		return (current - min) / (max - min);
+	}
+	
+	private static java.awt.Color mixColors(java.awt.Color color1, java.awt.Color color2, double percent)
+	{
+		double inverse_percent = 1.0 - percent;
+		int redPart = (int) (color1.getRed() * percent + color2.getRed() * inverse_percent);
+		int greenPart = (int) (color1.getGreen() * percent + color2.getGreen() * inverse_percent);
+		int bluePart = (int) (color1.getBlue() * percent + color2.getBlue() * inverse_percent);
+		return new java.awt.Color(redPart, greenPart, bluePart);
+	}
+	
 	public static Set<Character> decorationCharacters()
 	{
 		return decorationMap.keySet();
