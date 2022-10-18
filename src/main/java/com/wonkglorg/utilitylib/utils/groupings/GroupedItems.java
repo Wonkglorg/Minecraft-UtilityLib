@@ -3,11 +3,39 @@ package com.wonkglorg.utilitylib.utils.groupings;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public class GroupedItems
 {
+	
+	private static final Set<Material> helmets = new HashSet<>();
+	private static final Set<Material> chestPlate = new HashSet<>();
+	private static final Set<Material> leggings = new HashSet<>();
+	private static final Set<Material> boots = new HashSet<>();
+	static {
+		for(Material material :Material.values()){
+			String stringMaterial = material.toString().toLowerCase();
+			if(stringMaterial.contains("helmet")){
+				helmets.add(material);
+			}
+			if(stringMaterial.contains("chestplate"))
+			{
+				chestPlate.add(material);
+			}
+			if(stringMaterial.contains("leggings")){
+			leggings.add(material);
+			}
+			if(stringMaterial.contains("boots")){
+				boots.add(material);
+			}
+		}
+		
+		
+	}
 	//ARMOR
 	public static List<Material> getHelmets()
 	{
@@ -166,6 +194,31 @@ public class GroupedItems
 	
 	//SLABS
 	
+	public static Collection<Material> getSlabWood(){
+return null;
+	}
+	public static List<Material> getSlabStone(){
+		List<Material> materials = new ArrayList<>();
+		for(Material material : Material.values()){
+		if(material.toString().contains("slab")){
+		
+		}
+		}
+		return null;
+	}
+	
+	public static List<Material> getSlabs(){
+	return null;
+	}
+	
+	public static Set<Material> getArmorLoop(){
+		Set<Material> armor = new HashSet<>();
+		armor.addAll(helmets);
+		armor.addAll(chestPlate);
+		armor.addAll(leggings);
+		armor.addAll(boots);
+		return armor;
+	}
 	//STAIRS
 	
 	//DOORS
