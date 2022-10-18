@@ -132,7 +132,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	 */
-	
 	@Override
 	public void load()
 	{

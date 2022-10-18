@@ -58,6 +58,7 @@ public class ItemUtility
 		return rename(item, name);
 	}
 	
+	
 	/**
 	 * Set a single line of lore for an ItemStack
 	 *
