@@ -16,26 +16,43 @@ public class GroupedItems
 	private static final Set<Material> chestPlate = new HashSet<>();
 	private static final Set<Material> leggings = new HashSet<>();
 	private static final Set<Material> boots = new HashSet<>();
-	static {
-		for(Material material :Material.values()){
+	
+	private static final Set<Material> slabs = new HashSet<>();
+	private static final Set<Material> stair = new HashSet<>();
+	
+	static
+	{
+		for(Material material : Material.values())
+		{
 			String stringMaterial = material.toString().toLowerCase();
-			if(stringMaterial.contains("helmet")){
+			if(stringMaterial.contains("helmet"))
+			{
 				helmets.add(material);
 			}
 			if(stringMaterial.contains("chestplate"))
 			{
 				chestPlate.add(material);
 			}
-			if(stringMaterial.contains("leggings")){
-			leggings.add(material);
+			if(stringMaterial.contains("leggings"))
+			{
+				leggings.add(material);
 			}
-			if(stringMaterial.contains("boots")){
+			if(stringMaterial.contains("boots"))
+			{
 				boots.add(material);
+			}
+			if(stringMaterial.contains("slab"))
+			{
+				slabs.add(material);
+			}
+			if(stringMaterial.contains("stair"))
+			{
+				stair.add(material);
 			}
 		}
 		
-		
 	}
+	
 	//ARMOR
 	public static List<Material> getHelmets()
 	{
@@ -188,30 +205,39 @@ public class GroupedItems
 	
 	//WOOD
 	
-	
 	//BLOCKS
-	
 	
 	//SLABS
 	
-	public static Collection<Material> getSlabWood(){
-return null;
+	public static Collection<Material> getSlabWood()
+	{
+		return null;
 	}
-	public static List<Material> getSlabStone(){
+	
+	public static List<Material> getSlabStone()
+	{
 		List<Material> materials = new ArrayList<>();
-		for(Material material : Material.values()){
-		if(material.toString().contains("slab")){
-		
-		}
+		for(Material material : Material.values())
+		{
+			if(material.toString().contains("slab"))
+			{
+			
+			}
 		}
 		return null;
 	}
 	
-	public static List<Material> getSlabs(){
-	return null;
+	public static Set<Material> getSlabs()
+	{
+		return slabs;
 	}
 	
-	public static Set<Material> getArmorLoop(){
+	public static Set<Material> getStairs()
+	{
+		return stair;
+	}
+	public static Set<Material> getArmorLoop()
+	{
 		Set<Material> armor = new HashSet<>();
 		armor.addAll(helmets);
 		armor.addAll(chestPlate);

@@ -58,7 +58,6 @@ public class ItemUtility
 		return rename(item, name);
 	}
 	
-	
 	/**
 	 * Set a single line of lore for an ItemStack
 	 *
@@ -730,6 +729,19 @@ public class ItemUtility
 	 */
 	public static ItemStack createCustomHead(String texture, String name, String... description)
 	{
+		return createCustomHead(texture, name, List.of(description));
+	}
+	
+	/**
+	 * Creates a custom playerHead from a Texture String.
+	 * Only enter exact value
+	 *
+	 * @param texture Texture string of the head.
+	 * @param name Name of the head.
+	 * @return {@link ItemStack}.
+	 */
+	public static ItemStack createCustomHead(String texture, String name, List<String> description)
+	{
 		ItemStack mobHead = new ItemStack(Material.PLAYER_HEAD, 1, (byte) SkullType.PLAYER.ordinal());
 		if(texture == null || texture.isEmpty() || texture.contains(" "))
 		{
@@ -738,11 +750,13 @@ public class ItemUtility
 		UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
 		Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
 		ItemMeta meta = mobHead.getItemMeta();
-		if(name != null){
+		if(name != null)
+		{
 			meta.displayName(Message.color(name));
 		}
-		if(description != null){
-			meta.lore(Message.color(List.of(description)));
+		if(description != null)
+		{
+			meta.lore(Message.color(description));
 		}
 		mobHead.setItemMeta(meta);
 		
@@ -750,6 +764,7 @@ public class ItemUtility
 	}
 	
 	//https://api.mojang.com/users/profiles/minecraft/INSERT PLAYER NAME HERE
+	
 	/**
 	 * Gets player head from {@link UUID}
 	 *
@@ -788,7 +803,7 @@ public class ItemUtility
 	 */
 	public static ItemStack createPlayerHead(UUID uuid)
 	{
-		return createPlayerHead(uuid,null);
+		return createPlayerHead(uuid, null);
 	}
 	
 }
