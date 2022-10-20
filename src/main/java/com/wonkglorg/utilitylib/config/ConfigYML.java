@@ -99,6 +99,19 @@ public class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	@Override
+	public String removeLastDirectoryPath(@NotNull String path, int offset)
+	{
+		String[] parts = path.split("\\.");
+		StringBuilder builder = new StringBuilder();
+		builder.append(parts[0]);
+		for(int i = 1; i < parts.length - offset; i++)
+		{
+			builder.append(".").append(parts[i]);
+		}
+		return builder.toString();
+	}
+	
+	@Override
 	public void updateFiles()
 	{
 	

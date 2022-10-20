@@ -20,6 +20,12 @@ public class ConfigJson implements Config
 	}
 	
 	@Override
+	public String removeLastDirectoryPath(@NotNull String path, int offset)
+	{
+		return null;
+	}
+	
+	@Override
 	public String getString(@NotNull String path)
 	{
 		return null;

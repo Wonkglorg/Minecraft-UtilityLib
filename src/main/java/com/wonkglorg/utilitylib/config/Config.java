@@ -22,6 +22,8 @@ public interface Config
 	 */
 	Set<String> getSection(@NotNull String path, boolean deep);
 	
+	String removeLastDirectoryPath(@NotNull String path, int offset);
+	
 	@Nullable
 	String getString(@NotNull String path);
 	

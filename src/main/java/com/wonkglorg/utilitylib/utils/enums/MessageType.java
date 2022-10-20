@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.enums;
+package com.wonkglorg.utilitylib.utils.enums;
 
 public enum MessageType
 {

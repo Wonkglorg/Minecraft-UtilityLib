@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.utils.builder;
 
-import com.wonkglorg.utilitylib.enums.MessageEnums;
+import com.wonkglorg.utilitylib.utils.enums.MessageEnums;
 
 public class TimerBuilder
 {
