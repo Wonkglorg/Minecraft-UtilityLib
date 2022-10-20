@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,6 +69,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 		}
 		this.path = pathBuilder + this.name;
 		file = new File(main.getDataFolder(), this.path);
+		
 	}
 	
 	public ConfigYML(JavaPlugin main, String name, String path)
@@ -86,7 +88,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	 * @param deep deep search to get children of children
 	 * @return {@link Set} of results.
 	 */
-	public Set<String> getSection(String path, boolean deep)
+	public Set<String> getSection(@NotNull String path, boolean deep)
 	{
 		ConfigurationSection section = getConfigurationSection(path);
 		if(section != null)
@@ -101,6 +103,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 	
 	}
+	
 	/*
 	@Override
 	public void updateFiles()
