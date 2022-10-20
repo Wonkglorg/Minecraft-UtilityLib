@@ -3,10 +3,12 @@ package com.wonkglorg.utilitylib.config;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.module.Configuration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,6 +56,7 @@ public interface Config
 	 */
 	boolean getBoolean(@NotNull String path);
 	
+	String getParentPath(String path);
 	List<Map<?, ?>> getMapList(@NotNull String path);
 	List<String> getComments(@NotNull String path);
 	String getCurrentPath();

@@ -6,6 +6,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,6 +99,12 @@ public class ConfigYML extends YamlConfiguration implements Config
 		return new HashSet<>();
 	}
 	
+	/**
+	 * Moves to the parent directory of a path
+	 * @param path
+	 * @param offset
+	 * @return
+	 */
 	@Override
 	public String removeLastDirectoryPath(@NotNull String path, int offset)
 	{
@@ -109,6 +116,12 @@ public class ConfigYML extends YamlConfiguration implements Config
 			builder.append(".").append(parts[i]);
 		}
 		return builder.toString();
+	}
+	
+	@Override
+	public @Nullable String getParentPath(@NotNull String path)
+	{
+		return getConfigurationSection(path).getParent().getCurrentPath();
 	}
 	
 	@Override
