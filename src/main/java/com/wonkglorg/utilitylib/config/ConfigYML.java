@@ -121,6 +121,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	@Override
 	public @Nullable String getParentPath(@NotNull String path)
 	{
+		//
 		return getConfigurationSection(path).getParent().getCurrentPath();
 	}
 	
