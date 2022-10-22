@@ -7,7 +7,7 @@ import java.util.Set;
 public class GroupedEntities
 {
 	
-	private static Set<EntityType> passive()
+	public static Set<EntityType> passive()
 	{
 		return Set.of(EntityType.ALLAY,
 				EntityType.AXOLOTL,
@@ -41,18 +41,18 @@ public class GroupedEntities
 				EntityType.WANDERING_TRADER);
 	}
 	
-	private static Set<EntityType> animals()
+	public static Set<EntityType> animals()
 	{
 		return null;
 	
 	}
 	
-	private static Set<EntityType> tamable()
+	public static Set<EntityType> tamable()
 	{
 		return null;
 	}
 	
-	private static Set<EntityType> neutral()
+	public static Set<EntityType> neutral()
 	{
 		return Set.of(EntityType.BEE,
 				EntityType.CAVE_SPIDER,
@@ -70,7 +70,7 @@ public class GroupedEntities
 				EntityType.ZOMBIFIED_PIGLIN);
 	}
 	
-	private static Set<EntityType> hostile()
+	public static Set<EntityType> hostile()
 	{
 		return Set.of(EntityType.BLAZE,
 				EntityType.CREEPER,
@@ -102,22 +102,22 @@ public class GroupedEntities
 				EntityType.ZOMBIE_VILLAGER);
 	}
 	
-	private static Set<EntityType> boss()
+	public static Set<EntityType> boss()
 	{
 		return Set.of(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN);
 	}
 	
-	private static Set<EntityType> aquatic()
+	public static Set<EntityType> aquatic()
 	{
 		return null;
 	}
 	
-	private static Set<EntityType> fish()
+	public static Set<EntityType> fish()
 	{
 		return Set.of(EntityType.SALMON, EntityType.COD, EntityType.PUFFERFISH, EntityType.TROPICAL_FISH);
 	}
 	
-	private static Set<EntityType> undead()
+	public static Set<EntityType> undead()
 	{
 		return Set.of(EntityType.DROWNED,
 				EntityType.HUSK,
@@ -133,7 +133,7 @@ public class GroupedEntities
 				EntityType.ZOMBIE_VILLAGER);
 	}
 	
-	private static Set<EntityType> projectile()
+	public static Set<EntityType> projectile()
 	{
 		return Set.of(EntityType.ARROW,
 				EntityType.FIREWORK,
@@ -150,7 +150,7 @@ public class GroupedEntities
 				EntityType.DRAGON_FIREBALL);
 	}
 	
-	private static Set<EntityType> projectilePlayer()
+	public static Set<EntityType> projectilePlayer()
 	{
 		
 		return Set.of(EntityType.ARROW,
@@ -165,7 +165,7 @@ public class GroupedEntities
 				EntityType.ENDER_SIGNAL);
 	}
 	
-	private static Set<EntityType> objects()
+	public static Set<EntityType> objects()
 	{
 		return null;
 	}
