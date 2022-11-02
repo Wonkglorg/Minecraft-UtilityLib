@@ -19,9 +19,9 @@ public class Random
 	{
 		double speed = velocity.length();
 		Vector direction = new Vector(velocity.getX() / speed, velocity.getY() / speed, velocity.getZ() / speed);
-		return new Vector(direction.getX() + (Math.random() - 0.5) / spray,
-				direction.getY() + (Math.random() - 0.5) / spray,
-				direction.getZ() + (Math.random() - 0.5) / spray).normalize().multiply(speed);
+		return new Vector(direction.getX() + (Math.random() - 0.5) * spray,
+				direction.getY() + (Math.random() - 0.5) * spray,
+				direction.getZ() + (Math.random() - 0.5) * spray).normalize().multiply(speed);
 	}
 	
 	/**
