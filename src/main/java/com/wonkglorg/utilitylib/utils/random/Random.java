@@ -2,6 +2,9 @@ package com.wonkglorg.utilitylib.utils.random;
 
 import org.bukkit.util.Vector;
 
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * The type Random.
  */
@@ -35,6 +38,38 @@ public class Random
 	{
 		double speed = velocity.length() + Math.random() * randSpeed;
 		return new Vector(velocity.getX(), velocity.getY(), velocity.getZ()).normalize().multiply(speed);
+	}
+	
+	/**
+	 * Allows to obtain a random number between a and b
+	 *
+	 * @param a
+	 * @param b
+	 * @return number between a and b
+	 */
+	public static int getNumberBetween(int a, int b)
+	{
+		return ThreadLocalRandom.current().nextInt(a, b);
+	}
+	
+	/**
+	 * Get random element from list
+	 *
+	 * @param element
+	 * @return element
+	 */
+	public static <T> T randomElement(List<T> element)
+	{
+		if(element.size() == 0)
+		{
+			return null;
+		}
+		if(element.size() == 1)
+		{
+			return element.get(0);
+		}
+		java.util.Random random = new java.util.Random();
+		return element.get(random.nextInt(element.size()));
 	}
 	
 }

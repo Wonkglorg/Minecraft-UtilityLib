@@ -2,9 +2,7 @@ package com.wonkglorg.utilitylib.managers;
 
 public interface Manager
 {
+	void onShutdown();
 	
-	void load();
-	
-	void save();
-	
+	void onStartup();
 }

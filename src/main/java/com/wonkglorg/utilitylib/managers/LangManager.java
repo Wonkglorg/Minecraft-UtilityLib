@@ -55,6 +55,11 @@ public class LangManager implements Manager
 	public void load()
 	{
 		langMap.values().forEach(Config::load);
+		
+		if(defaultLang == null)
+		{
+			Logger.logWarn("No default language selected");
+		}
 	}
 	
 	public Config getDefaultLang()
@@ -71,6 +76,18 @@ public class LangManager implements Manager
 	public void save()
 	{
 		langMap.values().forEach(Config::save);
+	}
+	
+	@Override
+	public void onShutdown()
+	{
+		save();
+	}
+	
+	@Override
+	public void onStartup()
+	{
+		load();
 	}
 	
 	public void addAllLangFilesFromPath(JavaPlugin javaPlugin, String path)

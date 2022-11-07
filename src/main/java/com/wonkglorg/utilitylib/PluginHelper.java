@@ -5,7 +5,7 @@ package com.wonkglorg.utilitylib;
  * The interface Main.
  */
 @SuppressWarnings("unused")
-public interface Main
+public interface PluginHelper
 {
 	
 	/**
@@ -22,4 +22,6 @@ public interface Main
 	 * Register all configs
 	 */
 	void configs();
+	void langs();
+	void recipes();
 }

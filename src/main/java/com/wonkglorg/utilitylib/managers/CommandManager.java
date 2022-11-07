@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
+import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import java.util.Map;
  * Helps to access and manage commands.
  */
 @SuppressWarnings("unused")
-public class CommandManager
+public class CommandManager implements Manager
 {
 	/**
 	 * Command Map holding all assigned commands and their name
@@ -37,7 +38,7 @@ public class CommandManager
 	}
 	
 	/**
-	 * Add.
+	 * Adds an array of commands to the manager
 	 *
 	 * @param commands the commands
 	 */
@@ -75,5 +76,17 @@ public class CommandManager
 	public Map<String, Command> getCommands()
 	{
 		return commandMap;
+	}
+	
+	@Override
+	public void onShutdown()
+	{
+	
+	}
+	
+	@Override
+	public void onStartup()
+	{
+		Logger.log("Successfully loaded " + commandMap.size() + " commands!");
 	}
 }

@@ -1,15 +1,16 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
-
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * The type Plugin manager.
@@ -17,96 +18,70 @@ import java.util.Locale;
 @SuppressWarnings("unused")
 public class PluginManager
 {
-	/**
-	 * The Config manager.
-	 */
-	protected final ConfigManager configManager;
-	/**
-	 * The Command manager.
-	 */
-	protected final CommandManager commandManager;
-	/**
-	 * The Event manager.
-	 */
-	protected final EventManager eventManager;
 	
-	protected final RecipeManager recipeManager;
-	
-	protected final LangManager langManager;
+	protected final Map<ManagerValues, Manager> managerMap = new HashMap<>();
 	
 	/**
-	 * Instantiates a new Plugin manager.
+	 * PluginManager is designed to make handling and using different types of common classes like configs, commands,events,languages,recipes easier
+	 * once all classes are added call onStartup and onShutdown respectively, otherwise things might break
 	 *
 	 * @param plugin the plugin
 	 */
 	public PluginManager(@NotNull JavaPlugin plugin)
 	{
-		commandManager = new CommandManager();
-		configManager = new ConfigManager();
-		eventManager = new EventManager(plugin);
-		recipeManager = new RecipeManager();
-		langManager = new LangManager();
-	}
-	
-	public void registerAll()
-	{
-		configManager.load();
-		if(langManager.getDefaultLang()== null){
-			Logger.logWarn("Default lang has not been set!");
+		for(ManagerValues managerValues : ManagerValues.values())
+		{
+			if(managerValues.getManager() == null)
+			{
+				continue;
+			}
+			managerMap.put(managerValues, managerValues.getManager());
 		}
-		langManager.load();
-		eventManager.registerAll();
-		recipeManager.registerAll();
+		managerMap.put(ManagerValues.EVENT, new EventManager(plugin));
+		
 	}
 	
-	public void registerEvents()
+	public void onStartup()
 	{
-		eventManager.registerAll();
+		managerMap.values().forEach(Manager::onStartup);
 	}
 	
-	public void registerConfig()
+	public void onShutdown()
 	{
-		configManager.load();
+		managerMap.values().forEach(Manager::onShutdown);
 	}
 	
-	public void registerRecipes()
+	public void add(Listener... listener)
 	{
-		recipeManager.registerAll();
+		getEventManager().add(listener);
 	}
 	
-	public void registerLangs()
+	public void add(Command... command)
 	{
-		langManager.load();
+		getCommandManager().add(command);
 	}
 	
-	public void addEvent(Listener listener)
+	public void add(Config... config)
 	{
-		eventManager.add(listener);
+		getConfigManager().add(config);
 	}
 	
-	public void addCommand(Command command)
+	public void add(Recipe recipe)
 	{
-		commandManager.add(command);
+		getRecipeManager().add(recipe);
 	}
-	
-	public void addConfig(Config config)
-	{
-		configManager.add(config);
-	}
-	
-	public void addRecipe(Recipe recipe)
-	{
-		recipeManager.add(recipe);
+	public void add(Enchantment enchantment){
+		getEnchantManager().add(enchantment);
 	}
 	
 	public void addLang(Locale locale, Config config)
 	{
-		langManager.addLanguage(locale, config);
+		getLangManager().addLanguage(locale,config);
 	}
 	
-	public void setDefaultLang(Locale locale, Config config)
+	public void addDefaultLang(Locale locale, Config config)
 	{
-		langManager.setDefaultLang(locale, config);
+		getLangManager().setDefaultLang(locale,config);
 	}
 	
 	/**
@@ -116,7 +91,7 @@ public class PluginManager
 	 */
 	public ConfigManager getConfigManager()
 	{
-		return configManager;
+		return (ConfigManager) managerMap.get(ManagerValues.CONFIG);
 	}
 	
 	/**
@@ -126,7 +101,7 @@ public class PluginManager
 	 */
 	public CommandManager getCommandManager()
 	{
-		return commandManager;
+		return (CommandManager) managerMap.get(ManagerValues.COMMAND);
 	}
 	
 	/**
@@ -136,7 +111,7 @@ public class PluginManager
 	 */
 	public EventManager getEventManager()
 	{
-		return eventManager;
+		return (EventManager) managerMap.get(ManagerValues.EVENT);
 	}
 	
 	/**
@@ -146,6 +121,14 @@ public class PluginManager
 	 */
 	public LangManager getLangManager()
 	{
-		return langManager;
+		return (LangManager) managerMap.get(ManagerValues.LANG);
+	}
+	
+	public RecipeManager getRecipeManager(){
+		return (RecipeManager) managerMap.get(ManagerValues.RECIPE);
+	}
+	
+	public EnchantmentManager getEnchantManager(){
+		return (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
 	}
 }

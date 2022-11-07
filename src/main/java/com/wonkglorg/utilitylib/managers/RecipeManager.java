@@ -9,23 +9,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class RecipeManager
+public class RecipeManager implements Manager
 {
 	List<Recipe> recipes;
-	
-	public RecipeManager()
-	{
-		this.recipes = new ArrayList<>();
-	}
-	
-	public void add(@NotNull final Recipe recipe)
-	{
-		if(recipes == null)
-		{
-			recipes = new ArrayList<>();
-		}
-		recipes.add(recipe);
-	}
 	
 	public void add(@NotNull final Recipe... recipe)
 	{
@@ -36,14 +22,6 @@ public class RecipeManager
 		recipes.addAll(List.of(recipe));
 	}
 	
-	public void add(@NotNull final List<Recipe> recipe)
-	{
-		if(recipes == null)
-		{
-			recipes = new ArrayList<>();
-		}
-		recipes.addAll(recipe);
-	}
 	
 	public void remove(@NotNull final Recipe recipe)
 	{
@@ -54,12 +32,24 @@ public class RecipeManager
 		recipes.remove(recipe);
 	}
 	
-	public void registerAll()
+	public void load()
 	{
 		for(Recipe recipe : recipes)
 		{
 			Bukkit.getServer().addRecipe(recipe);
 		}
+	}
+	
+	@Override
+	public void onShutdown()
+	{
+		recipes.forEach(this::remove);
+	}
+	
+	@Override
+	public void onStartup()
+	{
+		load();
 	}
 	
 }

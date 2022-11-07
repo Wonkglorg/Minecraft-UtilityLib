@@ -222,6 +222,18 @@ public class ItemUtility
 		return item;
 	}
 	
+	public static Enchantment enchantFromString(String str)
+	{
+		for(Enchantment enchantment : Enchantment.values())
+		{
+			if(enchantment.getName().equalsIgnoreCase(str))
+			{
+				return enchantment;
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Add an attribute to the item
 	 *
@@ -793,6 +805,16 @@ public class ItemUtility
 		
 		item.setItemMeta(meta);
 		return item;
+	}
+	
+	/**
+	 * Allows to check if an itemstack has a display name
+	 *
+	 * @return boolean
+	 */
+	public static boolean hasDisplayName(ItemStack itemStack)
+	{
+		return itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName();
 	}
 	
 	/**
