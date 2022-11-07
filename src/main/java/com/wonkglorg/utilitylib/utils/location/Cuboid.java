@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils;
+package com.wonkglorg.utilitylib.utils.location;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;

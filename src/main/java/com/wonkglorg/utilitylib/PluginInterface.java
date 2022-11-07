@@ -5,7 +5,7 @@ package com.wonkglorg.utilitylib;
  * The interface Main.
  */
 @SuppressWarnings("unused")
-public interface PluginHelper
+public interface PluginInterface
 {
 	
 	/**

@@ -12,12 +12,13 @@ import java.util.TreeSet;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 
+
 /**
  * A panel in an InventoryGUI which can be used to paginate items and buttons
  * @author Redempt
  */
+@SuppressWarnings("unused")
 public class PaginationGui {
-	
 	protected final InventoryGUI gui;
 	private int page = 1;
 	private final List<IntConsumer> buttons = new ArrayList<>();

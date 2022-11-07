@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.utils.location;
 
-import com.wonkglorg.utilitylib.utils.Cuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
