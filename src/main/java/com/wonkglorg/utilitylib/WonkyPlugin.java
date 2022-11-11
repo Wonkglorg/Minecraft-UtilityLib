@@ -5,7 +5,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class WonkyPlugin extends JavaPlugin implements PluginInterface
 {
-	protected final PluginManager manager = new PluginManager(this);
+	private static PluginManager manager;
+	
+	public WonkyPlugin()
+	{
+		manager = new PluginManager(this);
+	}
 	
 	public abstract void pluginEnable();
 	
@@ -71,7 +76,7 @@ public abstract class WonkyPlugin extends JavaPlugin implements PluginInterface
 		recipe();
 	}
 	
-	public PluginManager getManager()
+	public static PluginManager getManager()
 	{
 		return manager;
 	}
