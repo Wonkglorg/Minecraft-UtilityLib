@@ -9,6 +9,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Abstract class with methods to easier handle and get different values from command arguments
+ */
 @SuppressWarnings("unused")
 public abstract class Arguments
 {

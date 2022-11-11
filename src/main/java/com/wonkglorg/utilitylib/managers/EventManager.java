@@ -27,6 +27,17 @@ public class EventManager implements Manager
 		listeners.addAll(List.of(listener));
 	}
 	
+	public void add(@NotNull List<Listener> listener)
+	{
+		listeners.addAll(listener);
+	}
+	
+	public void add(@NotNull Listener listener)
+	{
+		listeners.add(listener);
+	}
+	
+	
 	public void load()
 	{
 		listeners.forEach(listeners -> pluginManager.registerEvents(listeners, plugin));

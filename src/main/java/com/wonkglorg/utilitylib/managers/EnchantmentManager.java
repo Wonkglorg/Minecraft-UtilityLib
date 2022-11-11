@@ -18,6 +18,16 @@ public class EnchantmentManager implements Manager
 		enchantmentList.addAll(List.of(enchantment));
 	}
 	
+	public void add(@NotNull List<Enchantment> enchantment)
+	{
+		enchantmentList.addAll(enchantment);
+	}
+	
+	public void add(@NotNull Enchantment enchantment)
+	{
+		enchantmentList.add(enchantment);
+	}
+	
 	@Override
 	public void onShutdown()
 	{

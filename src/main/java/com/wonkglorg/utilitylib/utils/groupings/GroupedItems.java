@@ -245,6 +245,16 @@ public class GroupedItems
 		armor.addAll(boots);
 		return armor;
 	}
+	
+	
+	public static Set<Material> getWoodMaterials(){
+		Set<Material> woodStuff = new HashSet<>();
+		for(Material material : Material.values()){
+			if(material.name().startsWith("OAK") || material.name().startsWith("SPRUCE")){
+				woodStuff.add(material);
+			}
+		}
+	}
 	//STAIRS
 	
 	//DOORS
