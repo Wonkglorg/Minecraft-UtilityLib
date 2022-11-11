@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public class RecipeManager implements Manager
 {
-	List<Recipe> recipes;
+	List<Recipe> recipes = new ArrayList<>();
 	
 	public void add(@NotNull final Recipe... recipe)
 	{
