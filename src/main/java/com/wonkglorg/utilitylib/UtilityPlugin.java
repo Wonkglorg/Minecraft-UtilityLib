@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib;
 import com.wonkglorg.utilitylib.managers.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("unused")
 public abstract class UtilityPlugin extends JavaPlugin implements PluginInterface
 {
 	protected static PluginManager manager;
@@ -12,19 +13,45 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		manager = new PluginManager(this);
 	}
 	
-	public abstract void pluginEnable();
+	/**
+	 * Executes on plugin startup
+	 */
+	public abstract void pluginStartup();
 	
-	public abstract void pluginDisable();
+	/**
+	 * Executes on plugin shutdown
+	 */
+	public abstract void pluginShutdown();
 	
+	/**
+	 * add all events in this field using manager.add();
+	 */
 	public abstract void event();
 	
+	/**
+	 * add all commands in this field using manager.add();
+	 */
 	public abstract void command();
 	
+	/**
+	 * add all configs in this field using manager.add();
+	 */
 	public abstract void config();
 	
+	/**
+	 * add all langs in this field using manager.add();
+	 */
 	public abstract void lang();
 	
+	/**
+	 * add all recipes in this field using manager.add();
+	 */
 	public abstract void recipe();
+	
+	/**
+	 * add all enchants in this field using manager.add();
+	 */
+	public abstract void enchant();
 	
 	@Override
 	public void onEnable()
@@ -34,15 +61,16 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		events();
 		commands();
 		recipes();
+		enchants();
 		
 		manager.onStartup();
-		pluginEnable();
+		pluginStartup();
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		pluginDisable();
+		pluginShutdown();
 		manager.onShutdown();
 	}
 	
@@ -74,6 +102,12 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	public void recipes()
 	{
 		recipe();
+	}
+	
+	@Override
+	public void enchants()
+	{
+		enchant();
 	}
 	
 	public static PluginManager getManager()
