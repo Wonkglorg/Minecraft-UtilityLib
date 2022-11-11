@@ -254,6 +254,7 @@ public class GroupedItems
 				woodStuff.add(material);
 			}
 		}
+		return null;
 	}
 	//STAIRS
 	
