@@ -3,11 +3,11 @@ package com.wonkglorg.utilitylib;
 import com.wonkglorg.utilitylib.managers.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class WonkyPlugin extends JavaPlugin implements PluginInterface
+public abstract class UtilityPlugin extends JavaPlugin implements PluginInterface
 {
-	private static PluginManager manager;
+	protected static PluginManager manager;
 	
-	public WonkyPlugin()
+	public UtilityPlugin()
 	{
 		manager = new PluginManager(this);
 	}
