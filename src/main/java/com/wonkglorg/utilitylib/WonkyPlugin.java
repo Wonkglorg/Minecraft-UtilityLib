@@ -7,27 +7,27 @@ public abstract class WonkyPlugin extends JavaPlugin implements PluginInterface
 {
 	protected final PluginManager manager = new PluginManager(this);
 	
-	abstract void pluginEnable();
+	public abstract void pluginEnable();
 	
-	abstract void pluginDisable();
+	public abstract void pluginDisable();
 	
-	abstract void event();
+	public abstract void event();
 	
-	abstract void command();
+	public abstract void command();
 	
-	abstract void config();
+	public abstract void config();
 	
-	abstract void lang();
+	public abstract void lang();
 	
-	abstract void recipe();
+	public abstract void recipe();
 	
 	@Override
 	public void onEnable()
 	{
+		langs();
+		configs();
 		events();
 		commands();
-		configs();
-		langs();
 		recipes();
 		
 		manager.onStartup();
