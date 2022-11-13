@@ -37,6 +37,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	 */
 	protected File file;
 	
+	
 	/**
 	 * Creates a new config object which represents a yml file
 	 *

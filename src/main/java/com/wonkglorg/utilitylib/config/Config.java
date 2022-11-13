@@ -56,6 +56,12 @@ public interface Config
 	 */
 	boolean getBoolean(@NotNull String path);
 	
+	List<String> getStringList(@NotNull String path);
+	List<Integer> getIntegerList(@NotNull String path);
+	List<Double> getDoubleList(@NotNull String path);
+	List<Character> getCharacterList(@NotNull String path);
+	List<Long> getLongList(@NotNull String path);
+	List<Boolean> getBooleanList(@NotNull String path);
 	String getParentPath(String path);
 	List<Map<?, ?>> getMapList(@NotNull String path);
 	List<String> getComments(@NotNull String path);
