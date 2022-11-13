@@ -53,9 +53,15 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	 */
 	public abstract void enchant();
 	
+	/**
+	 * loads contents before anything else in the plugin, no configs are loaded yet
+	 */
+	public abstract void loadBefore();
+	
 	@Override
 	public void onEnable()
 	{
+		loadBefore();
 		langs();
 		configs();
 		events();

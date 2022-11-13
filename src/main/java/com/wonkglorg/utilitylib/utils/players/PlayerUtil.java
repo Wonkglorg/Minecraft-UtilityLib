@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-
+@SuppressWarnings("unused")
 public class PlayerUtil
 {
 	
@@ -108,6 +108,90 @@ public class PlayerUtil
 			}
 		}
 		return slot == 0;
+	}
+	
+	/**
+	 * Give the player the specified items, dropping them on the ground if there is not enough room
+	 *
+	 * @param player The player to give the items to
+	 * @param items The items to be given
+	 */
+	public static void give(Player player, ItemStack... items)
+	{
+		player.getInventory().addItem(items).values().forEach(i -> player.getWorld().dropItem(player.getLocation(), i));
+	}
+	
+	/**
+	 * Gives the player the specified amount of the specified item, dropping them on the ground if there is not enough room
+	 *
+	 * @param player The player to give the items to
+	 * @param item The item to be given to the player
+	 * @param amount The amount the player should be given
+	 */
+	public static void give(Player player, ItemStack item, int amount)
+	{
+		if(amount < 1)
+		{
+			throw new IllegalArgumentException("Amount must be greater than 0");
+		}
+		int stackSize = item.getType().getMaxStackSize();
+		while(amount > stackSize)
+		{
+			ItemStack clone = item.clone();
+			clone.setAmount(stackSize);
+			give(player, clone);
+			amount -= stackSize;
+		}
+		ItemStack clone = item.clone();
+		clone.setAmount(amount);
+		give(player, clone);
+	}
+	
+	/**
+	 * Gives the player the specified amount of the specified item type, dropping them on the ground if there is not enough room
+	 *
+	 * @param player The player to give the items to
+	 * @param type The item type to be given to the player
+	 * @param amount The amount the player should be given
+	 */
+	public static void give(Player player, Material type, int amount)
+	{
+		give(player, new ItemStack(type), amount);
+	}
+	
+	/**
+	 * Remove a certain number of items from a player's inventory
+	 *
+	 * @param player - Player who will have items removed
+	 * @param amount - Number of items to remove
+	 * @param itemStack - ItemStack to be removed
+	 */
+	public static void removeItems(Player player, int amount, ItemStack itemStack)
+	{
+		int slot = 0;
+		for(ItemStack inventoryItem : player.getInventory().getContents())
+		{
+			if(inventoryItem != null && inventoryItem.isSimilar(itemStack) && amount > 0)
+			{
+				int currentAmount = inventoryItem.getAmount() - amount;
+				amount -= inventoryItem.getAmount();
+				if(currentAmount <= 0)
+				{
+					if(slot == 40)
+					{
+						player.getInventory().setItemInOffHand(null);
+					} else
+					{
+						player.getInventory().removeItem(inventoryItem);
+					}
+				} else
+				{
+					inventoryItem.setAmount(currentAmount);
+				}
+			}
+			slot++;
+		}
+		player.updateInventory();
 	}
 	
 	/**

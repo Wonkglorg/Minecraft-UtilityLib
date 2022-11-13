@@ -11,7 +11,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -28,11 +27,11 @@ import java.util.UUID;
 import java.util.function.BiPredicate;
 
 @SuppressWarnings("unused")
-public class ItemUtility
+public class ItemUtil
 {
 	
 	/**
-	 * Renames an ItemStack, functionally identical to {@link ItemUtility#setName(ItemStack, String)} but kept for legacy reasons
+	 * Renames an ItemStack, functionally identical to {@link ItemUtil#setName(ItemStack, String)} but kept for legacy reasons
 	 *
 	 * @param item The ItemStack to be renamed
 	 * @param name The name to give the ItemStack
@@ -531,53 +530,7 @@ public class ItemUtility
 	 */
 	public static int countAndRemove(Inventory inv, Material type)
 	{
-		return countAndRemove(inv, new ItemStack(type), Integer.MAX_VALUE, (a, b) -> ItemUtility.compare(a, b, ItemTrait.TYPE));
-	}
-	
-	/**
-	 * Give the player the specified items, dropping them on the ground if there is not enough room
-	 *
-	 * @param player The player to give the items to
-	 * @param items The items to be given
-	 */
-	public static void give(Player player, ItemStack... items)
-	{
-		player.getInventory().addItem(items).values().forEach(i -> player.getWorld().dropItem(player.getLocation(), i));
-	}
-	
-	/**
-	 * Remove a certain number of items from a player's inventory
-	 *
-	 * @param player - Player who will have items removed
-	 * @param amount - Number of items to remove
-	 * @param itemStack - ItemStack to be removed
-	 */
-	public static void removeItems(Player player, int amount, ItemStack itemStack)
-	{
-		int slot = 0;
-		for(ItemStack inventoryItem : player.getInventory().getContents())
-		{
-			if(inventoryItem != null && inventoryItem.isSimilar(itemStack) && amount > 0)
-			{
-				int currentAmount = inventoryItem.getAmount() - amount;
-				amount -= inventoryItem.getAmount();
-				if(currentAmount <= 0)
-				{
-					if(slot == 40)
-					{
-						player.getInventory().setItemInOffHand(null);
-					} else
-					{
-						player.getInventory().removeItem(inventoryItem);
-					}
-				} else
-				{
-					inventoryItem.setAmount(currentAmount);
-				}
-			}
-			slot++;
-		}
-		player.updateInventory();
+		return countAndRemove(inv, new ItemStack(type), Integer.MAX_VALUE, (a, b) -> ItemUtil.compare(a, b, ItemTrait.TYPE));
 	}
 	
 	/**
@@ -588,44 +541,6 @@ public class ItemUtility
 	public static boolean hasEnchant(Enchantment enchantment, ItemStack itemStack)
 	{
 		return itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchants() && itemStack.getItemMeta().hasEnchant(enchantment);
-	}
-	
-	/**
-	 * Gives the player the specified amount of the specified item, dropping them on the ground if there is not enough room
-	 *
-	 * @param player The player to give the items to
-	 * @param item The item to be given to the player
-	 * @param amount The amount the player should be given
-	 */
-	public static void give(Player player, ItemStack item, int amount)
-	{
-		if(amount < 1)
-		{
-			throw new IllegalArgumentException("Amount must be greater than 0");
-		}
-		int stackSize = item.getType().getMaxStackSize();
-		while(amount > stackSize)
-		{
-			ItemStack clone = item.clone();
-			clone.setAmount(stackSize);
-			give(player, clone);
-			amount -= stackSize;
-		}
-		ItemStack clone = item.clone();
-		clone.setAmount(amount);
-		give(player, clone);
-	}
-	
-	/**
-	 * Gives the player the specified amount of the specified item type, dropping them on the ground if there is not enough room
-	 *
-	 * @param player The player to give the items to
-	 * @param type The item type to be given to the player
-	 * @param amount The amount the player should be given
-	 */
-	public static void give(Player player, Material type, int amount)
-	{
-		give(player, new ItemStack(type), amount);
 	}
 	
 	/**
