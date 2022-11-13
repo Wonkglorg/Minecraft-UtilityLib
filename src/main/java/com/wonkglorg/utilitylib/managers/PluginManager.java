@@ -2,9 +2,11 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.utils.logger.Logger;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +22,7 @@ public class PluginManager
 {
 	
 	protected final Map<ManagerValues, Manager> managerMap = new HashMap<>();
+	protected final JavaPlugin plugin;
 	
 	/**
 	 * PluginManager is designed to make handling and using different types of common classes like configs, commands,events,languages,recipes easier
@@ -29,6 +32,7 @@ public class PluginManager
 	 */
 	public PluginManager(@NotNull JavaPlugin plugin)
 	{
+		this.plugin = plugin;
 		for(ManagerValues managerValues : ManagerValues.values())
 		{
 			if(managerValues.getManager() == null)
@@ -70,18 +74,53 @@ public class PluginManager
 	{
 		getRecipeManager().add(recipe);
 	}
-	public void add(Enchantment enchantment){
+	
+	public void add(Enchantment enchantment)
+	{
 		getEnchantManager().add(enchantment);
+	}
+	
+	/**
+	 * Check whether the plugin is enabled and exists!
+	 * @param targetPlugin the plugin to check for
+	 * @param shutdown if enabled shutdown plugin on error
+	 * @return is plugin existing
+	 */
+	public boolean checkDepend(Plugin targetPlugin, boolean shutdown)
+	{
+		return checkDepend(targetPlugin.getName(), shutdown);
+	}
+	/**
+	 * Check whether the plugin is enabled and exists!
+	 * @param targetPlugin the plugin to check for
+	 * @param shutdown if enabled shutdown plugin on error
+	 * @return is plugin existing
+	 */
+	public boolean checkDepend(String targetPlugin, boolean shutdown)
+	{
+		Plugin pluginToCheck = plugin.getServer().getPluginManager().getPlugin(targetPlugin);
+		if(pluginToCheck == null || !pluginToCheck.isEnabled())
+		{
+			if(shutdown)
+			{
+				plugin.getServer().getPluginManager().disablePlugin(plugin);
+				return false;
+			}
+			Logger.logWarn("Dependency: " + targetPlugin + " could not be enabled");
+			return false;
+		}
+		Logger.log("Dependency: " + targetPlugin + " loaded successfully!");
+		return true;
 	}
 	
 	public void addLang(Locale locale, Config config)
 	{
-		getLangManager().addLanguage(locale,config);
+		getLangManager().addLanguage(locale, config);
 	}
 	
 	public void addDefaultLang(Locale locale, Config config)
 	{
-		getLangManager().setDefaultLang(locale,config);
+		getLangManager().setDefaultLang(locale, config);
 	}
 	
 	/**
@@ -124,11 +163,13 @@ public class PluginManager
 		return (LangManager) managerMap.get(ManagerValues.LANG);
 	}
 	
-	public RecipeManager getRecipeManager(){
+	public RecipeManager getRecipeManager()
+	{
 		return (RecipeManager) managerMap.get(ManagerValues.RECIPE);
 	}
 	
-	public EnchantmentManager getEnchantManager(){
+	public EnchantmentManager getEnchantManager()
+	{
 		return (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
 	}
 }
