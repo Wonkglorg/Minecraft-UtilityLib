@@ -17,15 +17,17 @@ public class SerializeInventory
 	{
 		boolean convert = false;
 		
-		if(contents != null)
+		if(contents == null)
 		{
-			for(ItemStack item : contents)
+			return null;
+		}
+		
+		for(ItemStack item : contents)
+		{
+			if(item != null)
 			{
-				if(item != null)
-				{
-					convert = true;
-					break;
-				}
+				convert = true;
+				break;
 			}
 		}
 		

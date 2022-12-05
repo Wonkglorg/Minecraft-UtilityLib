@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.utils.builder.recipe;
 
+import com.destroystokyo.paper.ParticleBuilder;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;

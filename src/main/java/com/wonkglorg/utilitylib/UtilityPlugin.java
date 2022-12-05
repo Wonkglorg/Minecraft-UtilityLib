@@ -1,6 +1,8 @@
 package com.wonkglorg.utilitylib;
 
 import com.wonkglorg.utilitylib.managers.PluginManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("unused")
@@ -119,5 +121,25 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	public static PluginManager getManager()
 	{
 		return manager;
+	}
+	
+	public boolean dependencyExists(String pluginName)
+	{
+		String corePlug = null;
+		Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
+		for(Plugin testPlug : plugins)
+		{
+			if(testPlug.getName().contains(pluginName))
+			{
+				corePlug = testPlug.getName();
+				break;
+			}
+		}
+		if(corePlug == null)
+		{
+			return false;
+		}
+		Plugin corePlugin = Bukkit.getPluginManager().getPlugin(corePlug);
+		return corePlugin != null;
 	}
 }

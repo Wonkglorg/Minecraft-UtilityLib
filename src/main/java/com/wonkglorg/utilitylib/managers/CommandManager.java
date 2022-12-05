@@ -1,10 +1,12 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import com.wonkglorg.utilitylib.logger.Logger;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,11 @@ public class CommandManager implements Manager
 	 * Command Map holding all assigned commands and their name
 	 */
 	protected final Map<String, Command> commandMap;
+	private final JavaPlugin plugin;
 	
-	public CommandManager()
+	public CommandManager(JavaPlugin plugin)
 	{
+		this.plugin = plugin;
 		commandMap = new HashMap<>();
 	}
 	
@@ -52,7 +56,7 @@ public class CommandManager implements Manager
 	 *
 	 * @param commands the commands
 	 */
-	public void add(@NotNull final List<Command> commands)
+	public void add(@NotNull final Collection<Command> commands)
 	{
 		commands.forEach(command -> commandMap.put(command.getName(), command));
 	}
@@ -79,14 +83,16 @@ public class CommandManager implements Manager
 	}
 	
 	@Override
-	public void onShutdown()
+	public void onStartup()
 	{
-	
+		if(!commandMap.isEmpty()){
+			Logger.log(plugin, "Loaded " + commandMap.size() + " commands!");
+		}
 	}
 	
 	@Override
-	public void onStartup()
+	public void onShutdown()
 	{
-		Logger.log("Successfully loaded " + commandMap.size() + " commands!");
+	
 	}
 }

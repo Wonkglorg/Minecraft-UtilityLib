@@ -1,7 +1,9 @@
 package com.wonkglorg.utilitylib.managers;
 
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -11,24 +13,22 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public class RecipeManager implements Manager
 {
-	List<Recipe> recipes = new ArrayList<>();
+	private final List<Recipe> recipes = new ArrayList<>();
+	private final JavaPlugin plugin;
+	
+	public RecipeManager(JavaPlugin plugin)
+	{
+		this.plugin = plugin;
+	}
 	
 	public void add(@NotNull final Recipe... recipe)
 	{
-		if(recipes == null)
-		{
-			recipes = new ArrayList<>();
-		}
 		recipes.addAll(List.of(recipe));
 	}
 	
 	
 	public void remove(@NotNull final Recipe recipe)
 	{
-		if(recipes == null)
-		{
-			return;
-		}
 		recipes.remove(recipe);
 	}
 	
@@ -41,15 +41,18 @@ public class RecipeManager implements Manager
 	}
 	
 	@Override
-	public void onShutdown()
-	{
-		recipes.forEach(this::remove);
-	}
-	
-	@Override
 	public void onStartup()
 	{
 		load();
+		if(!recipes.isEmpty()){
+			Logger.log(plugin, "Loaded " + recipes.size() + " recipes!");
+		}
+	}
+	
+	@Override
+	public void onShutdown()
+	{
+		recipes.forEach(this::remove);
 	}
 	
 }

@@ -135,10 +135,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder addLayer(DyeColor color, PatternType patternType)
 	{
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.add(new BannerLayer(color, patternType));
 		return this;
 	}
@@ -152,10 +149,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder replaceColorAt(int index, DyeColor color)
 	{
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
 			bannerLayerList.set(index, new BannerLayer(color, bannerLayerList.get(index).getPatternType()));
@@ -172,10 +166,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder replacePatternAt(int index, PatternType type)
 	{
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
 			bannerLayerList.set(index, new BannerLayer(bannerLayerList.get(index).getDyeColor(), type));
@@ -205,10 +196,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeLastLayer()
 	{
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.remove(bannerLayerList.size() - 1);
 		return this;
 	}
@@ -220,11 +208,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeFirstLayer()
 	{
-		
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.remove(0);
 		return this;
 	}
@@ -237,11 +221,7 @@ public class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeLayerAt(int index)
 	{
-		
-		if(bannerLayerList == null)
-		{
-			bannerLayerList = new ArrayList<>();
-		}
+		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
 			bannerLayerList.remove(index);

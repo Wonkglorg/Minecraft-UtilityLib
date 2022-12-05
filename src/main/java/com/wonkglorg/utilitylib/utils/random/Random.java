@@ -18,7 +18,7 @@ public class Random
 	 * @param spray degree offset from velocity
 	 * @return the vector
 	 */
-	public static Vector RandProjectileSpread(Vector velocity, double spray)
+	public static Vector ProjectileSpread(Vector velocity, double spray)
 	{
 		double speed = velocity.length();
 		Vector direction = new Vector(velocity.getX() / speed, velocity.getY() / speed, velocity.getZ() / speed);
@@ -34,7 +34,7 @@ public class Random
 	 * @param randSpeed the rand speed
 	 * @return the vector
 	 */
-	public static Vector RandProjectileSpeed(Vector velocity, double randSpeed)
+	public static Vector ProjectileSpeed(Vector velocity, double randSpeed)
 	{
 		double speed = velocity.length() + Math.random() * randSpeed;
 		return new Vector(velocity.getX(), velocity.getY(), velocity.getZ()).normalize().multiply(speed);

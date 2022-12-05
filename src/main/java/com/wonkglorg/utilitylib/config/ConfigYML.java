@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.config;
 
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -100,25 +100,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 		return new HashSet<>();
 	}
 	
-	/**
-	 * Moves to the parent directory of a path
-	 * @param path
-	 * @param offset
-	 * @return
-	 */
-	@Override
-	public String removeLastDirectoryPath(@NotNull String path, int offset)
-	{
-		String[] parts = path.split("\\.");
-		StringBuilder builder = new StringBuilder();
-		builder.append(parts[0]);
-		for(int i = 1; i < parts.length - offset; i++)
-		{
-			builder.append(".").append(parts[i]);
-		}
-		return builder.toString();
-	}
-	
 	@Override
 	public @Nullable String getParentPath(@NotNull String path)
 	{
@@ -131,37 +112,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 	
 	}
 	
-	/*
-	@Override
-	public void updateFiles()
-	{
-		//not updating? Find solution
-		
-		File existingConfigFile = new File(main.getDataFolder(), path);
-		FileConfiguration existingFileConfiguration = YamlConfiguration.loadConfiguration(existingConfigFile);
-		
-		for(String section : getConfigurationSection("").getKeys(true))
-		{
-			if(existingFileConfiguration.get(section) != null)
-			{
-				continue;
-			}
-			
-			existingFileConfiguration.set(section, get(section));
-		}
-		
-		try
-		{
-			//System.out.println("Saving override config " + existingConfigFile.getName());
-			existingFileConfiguration.save(existingConfigFile);
-			file = existingConfigFile;
-		} catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	 */
 	@Override
 	public void load()
 	{
@@ -232,28 +182,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 		return path;
 	}
 	
-	/**
-	 * Gets section.
-	 *
-	 * @param deep the deep
-	 * @param path the path
-	 * @return the section
-	 */
-	public Set<String> getSection(boolean deep, String... path)
-	{
-		StringBuilder stringBuilder = new StringBuilder();
-		for(String s : path)
-		{
-			stringBuilder.append(s);
-			stringBuilder.append(".");
-		}
-		ConfigurationSection section = getConfigurationSection(removeLastChar(stringBuilder.toString()));
-		if(section != null)
-		{
-			return section.getKeys(deep);
-		}
-		return new HashSet<>();
-	}
 	
 	/**
 	 * Checks if file exists in path, else create the file and all parent directories needed.
@@ -268,14 +196,5 @@ public class ConfigYML extends YamlConfiguration implements Config
 		}
 		updateFiles();
 		
-	}
-	
-	private String removeLastChar(String str)
-	{
-		if(str != null && str.length() > 0 && str.charAt(str.length() - 1) == '.')
-		{
-			str = str.substring(0, str.length() - 1);
-		}
-		return str;
 	}
 }

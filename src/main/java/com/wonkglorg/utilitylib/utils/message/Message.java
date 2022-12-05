@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.utils.message;
 
-import com.wonkglorg.utilitylib.utils.logger.Logger;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;

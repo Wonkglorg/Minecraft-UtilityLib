@@ -2,7 +2,7 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -33,14 +33,12 @@ public class PluginManager
 	public PluginManager(@NotNull JavaPlugin plugin)
 	{
 		this.plugin = plugin;
-		for(ManagerValues managerValues : ManagerValues.values())
-		{
-			if(managerValues.getManager() == null)
-			{
-				continue;
-			}
-			managerMap.put(managerValues, managerValues.getManager());
-		}
+		
+		managerMap.put(ManagerValues.RECIPE, new RecipeManager(plugin));
+		managerMap.put(ManagerValues.LANG, new LangManager(plugin));
+		managerMap.put(ManagerValues.CONFIG, new ConfigManager(plugin));
+		managerMap.put(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
+		managerMap.put(ManagerValues.COMMAND, new CommandManager(plugin));
 		managerMap.put(ManagerValues.EVENT, new EventManager(plugin));
 		
 	}
@@ -82,6 +80,7 @@ public class PluginManager
 	
 	/**
 	 * Check whether the plugin is enabled and exists!
+	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
 	 * @return is plugin existing
@@ -90,8 +89,10 @@ public class PluginManager
 	{
 		return checkDepend(targetPlugin.getName(), shutdown);
 	}
+	
 	/**
 	 * Check whether the plugin is enabled and exists!
+	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
 	 * @return is plugin existing
@@ -106,10 +107,10 @@ public class PluginManager
 				plugin.getServer().getPluginManager().disablePlugin(plugin);
 				return false;
 			}
-			Logger.logWarn("Dependency: " + targetPlugin + " could not be enabled");
+			Logger.logWarn(plugin, "Dependency: " + targetPlugin + " could not be enabled");
 			return false;
 		}
-		Logger.log("Dependency: " + targetPlugin + " loaded successfully!");
+		Logger.log(plugin, "Dependency: " + targetPlugin + " loaded successfully!");
 		return true;
 	}
 	

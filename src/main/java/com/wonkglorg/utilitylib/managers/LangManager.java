@@ -2,7 +2,7 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.config.ConfigYML;
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
+@SuppressWarnings("unused")
 public class LangManager implements Manager
 {
 	
@@ -22,11 +22,12 @@ public class LangManager implements Manager
 	private final Map<Locale, Config> langMap = new HashMap<>();
 	private Locale defaultLang;
 	private boolean loaded = false;
+	private final JavaPlugin plugin;
+	private final Map<String, String> replacerMap = new HashMap<>();
 	
-	Map<String, String> replacerMap = new HashMap<>();
-	
-	public LangManager()
+	public LangManager(JavaPlugin plugin)
 	{
+		this.plugin = plugin;
 	}
 	
 	public void replace(String replace, String with)
@@ -34,8 +35,9 @@ public class LangManager implements Manager
 		replacerMap.put(replace, with);
 	}
 	
-	public LangManager(Locale defaultLang, Config defaultConfig)
+	public LangManager(Locale defaultLang, Config defaultConfig, JavaPlugin plugin)
 	{
+		this.plugin = plugin;
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
 	}
@@ -52,9 +54,29 @@ public class LangManager implements Manager
 		languageConfig.load();
 	}
 	
+	public void save()
+	{
+		langMap.values().forEach(Config::save);
+	}
+	
+	public void silentSave()
+	{
+		langMap.values().forEach(Config::silentSave);
+	}
+	
+	
 	public void load()
 	{
 		langMap.values().forEach(Config::load);
+		
+		if(defaultLang == null)
+		{
+			Logger.logWarn(plugin,"No default language selected");
+		}
+	}
+	public void silentLoad()
+	{
+		langMap.values().forEach(Config::silentLoad);
 		
 		if(defaultLang == null)
 		{
@@ -73,10 +95,6 @@ public class LangManager implements Manager
 		}
 	}
 	
-	public void save()
-	{
-		langMap.values().forEach(Config::save);
-	}
 	
 	@Override
 	public void onShutdown()

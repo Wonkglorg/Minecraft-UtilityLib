@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.command;
 
-import com.wonkglorg.utilitylib.utils.logger.Logger;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;

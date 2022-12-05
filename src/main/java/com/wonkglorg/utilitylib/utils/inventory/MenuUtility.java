@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class MenuUtility
 {
 	protected final Player owner;
-	
+	private static final Map<Player, MenuUtility> menuUtilityMap = new HashMap<>();
 	
 	/**
 	 * Instantiates a new Menu utility.
@@ -36,8 +36,6 @@ public class MenuUtility
 		return owner;
 	}
 	
-	private static final Map<Player, MenuUtility> menuUtilityMap = new HashMap<>();
-	
 	/**
 	 * Loads the MenuUtility for the specified {@link Player} or creates a new one if there is non.
 	 *
@@ -49,7 +47,7 @@ public class MenuUtility
 		
 		//find way to make menuUtility get method more variable
 		MenuUtility playerMenuUtility;
-		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isOnline));
+		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isValid));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
 			playerMenuUtility = menuUtility != null ?  menuUtility : new MenuUtility(player);
