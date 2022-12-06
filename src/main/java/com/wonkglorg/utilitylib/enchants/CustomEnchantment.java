@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.enchants;
 
-import com.wonkglorg.utilitylib.utils.message.Convert;
-import com.wonkglorg.utilitylib.utils.message.Message;
+import com.wonkglorg.utilitylib.message.Convert;
+import com.wonkglorg.utilitylib.message.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

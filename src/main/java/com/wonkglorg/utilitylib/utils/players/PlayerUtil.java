@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.utils.players;
 
-import com.wonkglorg.utilitylib.utils.message.Message;
+import com.wonkglorg.utilitylib.message.Message;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;

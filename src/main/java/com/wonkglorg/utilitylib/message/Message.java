@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.message;
+package com.wonkglorg.utilitylib.message;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;

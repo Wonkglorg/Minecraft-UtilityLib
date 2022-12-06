@@ -84,6 +84,7 @@ public class ConfigManager implements Manager
 	@Override
 	public void onStartup()
 	{
+		silentSave();
 		silentLoad();
 		if(!configs.isEmpty())
 		{

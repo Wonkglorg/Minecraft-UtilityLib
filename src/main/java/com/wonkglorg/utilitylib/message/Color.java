@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.message;
+package com.wonkglorg.utilitylib.message;
 
 @SuppressWarnings("unused")
 public enum Color
