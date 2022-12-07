@@ -37,7 +37,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 	 */
 	protected File file;
 	
-	
 	/**
 	 * Creates a new config object which represents a yml file
 	 *
@@ -127,6 +126,24 @@ public class ConfigYML extends YamlConfiguration implements Config
 		}
 	}
 	
+	/**
+	 * same as load but with specified plugin for logger message
+	 * @param plugin
+	 */
+	public void load(JavaPlugin plugin)
+	{
+		checkFile();
+		try
+		{
+			load(file);
+			Logger.log(plugin, "Loaded data from " + name + "!");
+		} catch(InvalidConfigurationException | IOException e)
+		{
+			e.printStackTrace();
+			Logger.logWarn(plugin,"Error loading data from " + name + "!");
+		}
+	}
+	
 	@Override
 	public void silentLoad()
 	{
@@ -181,7 +198,6 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 		return path;
 	}
-	
 	
 	/**
 	 * Checks if file exists in path, else create the file and all parent directories needed.

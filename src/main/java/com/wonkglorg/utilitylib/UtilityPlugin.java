@@ -65,14 +65,17 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	{
 		loadBefore();
 		langs();
+		manager.getLangManager().onStartup();
 		configs();
+		manager.getConfigManager().onStartup();
 		events();
+		manager.getEventManager().onStartup();
 		commands();
+		manager.getCommandManager().onStartup();
 		recipes();
+		manager.getRecipeManager().onStartup();
 		enchants();
-		
-		manager.onStartup();
-		pluginStartup();
+		manager.getEnchantManager().onStartup();
 	}
 	
 	@Override

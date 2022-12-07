@@ -67,7 +67,7 @@ public class LangManager implements Manager
 	
 	public void load()
 	{
-		langMap.values().forEach(Config::load);
+		langMap.values().forEach(Config::silentLoad);
 		
 		if(defaultLang == null)
 		{
