@@ -1,13 +1,20 @@
 package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.config.ConfigYML;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
@@ -89,5 +96,27 @@ public class ConfigManager implements Manager
 		{
 			Logger.log(plugin, "Loaded " + configs.size() + " configs!");
 		}
+	}
+	
+	public Map<String, Config> addAllConfigsFromPath(String path)
+	{
+		File[] files = Path.of(plugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
+		Map<String, Config> tempConfigs = new HashMap<>();
+		if(files == null)
+		{
+			return null;
+		}
+		for(File file : files)
+		{
+			if(!file.isFile())
+			{
+				continue;
+			}
+			Config config = new ConfigYML(plugin, file.getName(), file.getParent());
+			configs.add(config);
+			tempConfigs.put(file.getName(), config);
+		}
+		
+		return tempConfigs;
 	}
 }

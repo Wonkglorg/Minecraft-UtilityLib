@@ -128,7 +128,7 @@ public class LangManager implements Manager
 			{
 				if(locale.getDisplayName().equalsIgnoreCase(file.getName()))
 				{
-					Logger.log(locale.getDisplayName() + " has been loaded!");
+					Logger.log(javaPlugin,locale.getDisplayName() + " has been loaded!");
 					langMap.put(locale, new ConfigYML(javaPlugin, file.getName(), file.getParent()));
 				}
 			}

@@ -76,6 +76,7 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		manager.getRecipeManager().onStartup();
 		enchants();
 		manager.getEnchantManager().onStartup();
+		
 	}
 	
 	@Override
