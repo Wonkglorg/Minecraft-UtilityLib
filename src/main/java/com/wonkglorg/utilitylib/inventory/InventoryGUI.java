@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.inventory;
+package com.wonkglorg.utilitylib.inventory;
 
 import com.wonkglorg.utilitylib.utils.builder.ItemBuilder;
 import com.wonkglorg.utilitylib.message.Message;

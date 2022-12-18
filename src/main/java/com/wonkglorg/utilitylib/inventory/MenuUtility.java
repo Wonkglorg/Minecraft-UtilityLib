@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.inventory;
+package com.wonkglorg.utilitylib.inventory;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
