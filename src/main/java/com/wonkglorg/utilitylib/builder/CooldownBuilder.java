@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder;
+package com.wonkglorg.utilitylib.builder;
 
 import org.bukkit.entity.Player;
 

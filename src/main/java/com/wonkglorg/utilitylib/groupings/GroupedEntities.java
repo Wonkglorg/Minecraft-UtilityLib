@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.groupings;
+package com.wonkglorg.utilitylib.groupings;
 
 import org.bukkit.entity.EntityType;
 

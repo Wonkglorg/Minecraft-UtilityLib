@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.item;
+package com.wonkglorg.utilitylib.item;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

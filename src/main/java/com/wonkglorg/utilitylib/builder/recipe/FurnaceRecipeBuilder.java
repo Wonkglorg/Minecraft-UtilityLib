@@ -1,10 +1,10 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
-import com.destroystokyo.paper.ParticleBuilder;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,18 +14,13 @@ import org.jetbrains.annotations.NotNull;
 public class FurnaceRecipeBuilder extends RecipeBuilder
 {
 	
-	/**
-	 * Instantiates a new Furnace recipe builder.
-	 *
-	 * @param key the key
-	 * @param result the result
-	 */
-	public FurnaceRecipeBuilder(@NotNull final NamespacedKey key, @NotNull final ItemStack result)
+	public FurnaceRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		super(key, result);
 	}
 	
-	protected void initRecipe(@NotNull final NamespacedKey key, @NotNull final ItemStack result)
+	@Override
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{
@@ -39,23 +34,23 @@ public class FurnaceRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Sets the input item to be smelted
+	 * Sets the {@link ItemStack} input.
 	 *
-	 * @param input the item to be smelted
-	 * @return the ShapedRecipeBuilder
+	 * @param input {@link ItemStack} to be smelted
+	 * @return {@link CampfireRecipeBuilder}
 	 */
-	public FurnaceRecipeBuilder setInput(@NotNull final ItemStack input)
+	public FurnaceRecipeBuilder setInput(@NotNull final ItemStack... input)
 	{
 		validateInit();
-		getRecipe().setInput(input.getType());
+		getRecipe().setInputChoice(new ExactChoice(input));
 		return this;
 	}
 	
 	/**
-	 * Sets input.
+	 * Sets the {@link Material} to be smelted
 	 *
-	 * @param input the input
-	 * @return the input
+	 * @param input {@link Material} to be smelted
+	 * @return {@link  CampfireRecipeBuilder}
 	 */
 	public FurnaceRecipeBuilder setInput(@NotNull final Material input)
 	{
@@ -65,10 +60,10 @@ public class FurnaceRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Sets cook time.
+	 * Sets the time needed to cook the time
 	 *
-	 * @param ticks the ticks
-	 * @return the cook time
+	 * @param ticks amount in ticks
+	 * @return {@link BlastingRecipeBuilder}
 	 */
 	public FurnaceRecipeBuilder setCookTime(final int ticks)
 	{
@@ -78,15 +73,15 @@ public class FurnaceRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Sets cook time.
+	 * Sets the expirience gained from cooking
 	 *
-	 * @param experience the experience
-	 * @return the cook time
+	 * @param expirience as {@link Float}
+	 * @return {@link CampfireRecipeBuilder}
 	 */
-	public FurnaceRecipeBuilder setCookTime(final float experience)
+	public FurnaceRecipeBuilder setExpirience(final float expirience)
 	{
 		validateInit();
-		getRecipe().setExperience(experience);
+		getRecipe().setExperience(expirience);
 		return this;
 	}
 	

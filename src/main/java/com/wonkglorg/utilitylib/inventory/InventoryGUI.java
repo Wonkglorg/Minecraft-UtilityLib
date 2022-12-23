@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.inventory;
 
-import com.wonkglorg.utilitylib.utils.builder.ItemBuilder;
+import com.wonkglorg.utilitylib.builder.ItemBuilder;
 import com.wonkglorg.utilitylib.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

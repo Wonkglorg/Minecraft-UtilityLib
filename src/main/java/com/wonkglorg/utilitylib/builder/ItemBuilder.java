@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder;
+package com.wonkglorg.utilitylib.builder;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -100,15 +100,9 @@ public class ItemBuilder implements Cloneable
 	
 	public ItemStack build()
 	{
-		if(item == null)
-		{
-			item = new ItemStack(material, amount);
-		}
+		item = item != null ? item : new ItemStack(material, amount);
 		
-		if(meta == null)
-		{
-			meta = item.getItemMeta();
-		}
+		meta = meta != null ? meta : item.getItemMeta();
 		
 		if(flags != null)
 		{

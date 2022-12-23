@@ -1,9 +1,10 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.SmokingRecipe;
 import org.jetbrains.annotations.NotNull;
 

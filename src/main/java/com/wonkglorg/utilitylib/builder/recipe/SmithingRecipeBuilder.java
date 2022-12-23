@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,7 +19,6 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 	
 	private NamespacedKey key;
 	private ItemStack result;
-	
 	private Material base;
 	private Material addition;
 	

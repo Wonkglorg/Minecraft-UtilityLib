@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.item;
+package com.wonkglorg.utilitylib.item;
 
 import com.wonkglorg.utilitylib.message.Message;
 import net.kyori.adventure.text.Component;
@@ -20,7 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -531,7 +530,7 @@ public class ItemUtil
 	 */
 	public static int countAndRemove(Inventory inv, Material type)
 	{
-		return countAndRemove(inv, new ItemStack(type), Integer.MAX_VALUE, (a, b) -> ItemUtil.compare(a, b, ItemTrait.TYPE));
+		return countAndRemove(inv, new ItemStack(type), Integer.MAX_VALUE, (a, b) -> compare(a, b, ItemTrait.TYPE));
 	}
 	
 	/**

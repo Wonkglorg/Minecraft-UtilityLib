@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -11,7 +11,6 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class ShapedRecipeBuilder extends RecipeBuilder
 {
-	private Map<Character, ItemStack> ingredientMap;
 	
 	/**
 	 * Constructs a new ShapedRecipeBuilder for the specified result

@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.item;
+package com.wonkglorg.utilitylib.item;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

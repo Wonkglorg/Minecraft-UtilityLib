@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.builder.recipe;
+package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -10,13 +10,6 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("unused")
 public class ShapelessRecipeBuilder extends RecipeBuilder
 {
-	
-	/**
-	 * Constructs a new ShapelessRecipeBuilder without content
-	 */
-	public ShapelessRecipeBuilder()
-	{
-	}
 	
 	/**
 	 * Constructs a new ShapelessRecipeBuilder for the specified result
