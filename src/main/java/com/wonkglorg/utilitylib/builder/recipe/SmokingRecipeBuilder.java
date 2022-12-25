@@ -57,7 +57,7 @@ public class SmokingRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setCookTime(float experience){
+	public SmokingRecipeBuilder setExpirience(float experience){
 		validateInit();
 		getRecipe().setExperience(experience);
 		return this;
