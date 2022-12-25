@@ -27,7 +27,6 @@ public class CampfireRecipeBuilder extends RecipeBuilder
 	{
 		return (CampfireRecipe) this.recipe;
 	}
-	
 	/**
 	 * Sets the {@link ItemStack} input.
 	 *

@@ -72,6 +72,7 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 		additionItemChoice = new MaterialChoice(material);
 		return this;
 	}
+	
 	/**
 	 * Sets the {@link ItemStack}  put in the second slot of the smithing table.
 	 * Note: if ItemStack is used, the entire ItemStack has to match exactly, with all enchants. nbt values and amount.
@@ -86,7 +87,19 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 *  Whether to copy the nbt of the item set in the first slot to the output item.
+	 * Sets output {@link ItemStack} for the recipe.
+	 * @param itemStack {@link ItemStack}
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder setResult(ItemStack itemStack)
+	{
+		result = itemStack;
+		return this;
+	}
+	
+	/**
+	 * Whether to copy the nbt of the item set in the first slot to the output item.
+	 *
 	 * @param copy True or False
 	 * @return {@link SmithingRecipeBuilder}
 	 */
