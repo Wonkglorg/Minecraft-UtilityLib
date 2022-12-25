@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.SmithingRecipe;
 import org.jetbrains.annotations.NotNull;
@@ -18,9 +19,11 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 	}
 	
 	private NamespacedKey key;
-	private ItemStack result;
-	private Material base;
-	private Material addition;
+	private ItemStack result = new ItemStack(Material.BARRIER);
+	private RecipeChoice baseItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
+	private RecipeChoice additionItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
+	;
+	private boolean copyNbt = false;
 	
 	@Override
 	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
@@ -33,30 +36,70 @@ public class SmithingRecipeBuilder extends RecipeBuilder
 		}
 	}
 	
-	private SmithingRecipe getRecipe()
+	/**
+	 * Sets the {@link ItemStack}  put in the first slot of the smithing table.
+	 * Note: if ItemStack is used, the entire ItemStack has to match exactly, with all enchants. nbt values and amount.
+	 *
+	 * @param itemStack {@link ItemStack}
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder setBase(ItemStack itemStack)
 	{
-		return (SmithingRecipe) this.recipe;
-	}
-	
-	public SmithingRecipeBuilder setBase(Material base)
-	{
-		validateInit();
-		this.base = base;
-		recipe = new SmithingRecipe(key, result, new RecipeChoice.MaterialChoice(this.base), new MaterialChoice(this.addition));
+		baseItemChoice = new ExactChoice(itemStack);
 		return this;
 	}
 	
-	public SmithingRecipeBuilder setAddition(Material addition)
+	/**
+	 * Sets the {@link Material}  put in the first slot of the smithing table
+	 *
+	 * @param material {@link Material}
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder setBase(Material material)
 	{
-		validateInit();
-		this.addition = addition;
-		recipe = new SmithingRecipe(key, result, new RecipeChoice.MaterialChoice(this.base), new MaterialChoice(this.addition));
+		baseItemChoice = new MaterialChoice(material);
+		return this;
+	}
+	
+	/**
+	 * Sets the {@link Material}  put in the second slot of the smithing table
+	 *
+	 * @param material {@link Material}
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder setAddition(Material material)
+	{
+		additionItemChoice = new MaterialChoice(material);
+		return this;
+	}
+	/**
+	 * Sets the {@link ItemStack}  put in the second slot of the smithing table.
+	 * Note: if ItemStack is used, the entire ItemStack has to match exactly, with all enchants. nbt values and amount.
+	 *
+	 * @param itemStack {@link ItemStack}
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder setAddition(ItemStack itemStack)
+	{
+		additionItemChoice = new ExactChoice(itemStack);
+		return this;
+	}
+	
+	/**
+	 *  Whether to copy the nbt of the item set in the first slot to the output item.
+	 * @param copy True or False
+	 * @return {@link SmithingRecipeBuilder}
+	 */
+	public SmithingRecipeBuilder copyNbt(boolean copy)
+	{
+		copyNbt = copy;
 		return this;
 	}
 	
 	@Override
 	public SmithingRecipe build()
 	{
+		recipe = new SmithingRecipe(key, result, baseItemChoice, additionItemChoice, copyNbt);
 		return (SmithingRecipe) super.build();
 	}
 }
