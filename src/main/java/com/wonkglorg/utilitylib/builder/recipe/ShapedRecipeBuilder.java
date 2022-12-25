@@ -68,12 +68,34 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 		getRecipe().setIngredient(key, ingredient);
 		return this;
 	}
-	
+	/**
+	 * Add {@link ShapedRecipeData} to add a recipe to the crafting
+	 *
+	 * @param shapedRecipeData ingredient {@link ShapedRecipeData}
+	 * @return {@link ShapedRecipeBuilder}
+	 */
 	public ShapedRecipeBuilder addIngredient(ShapedRecipeData... shapedRecipeData)
 	{
 		validateInit();
-		for(ShapedRecipeData recipeData : shapedRecipeData){
-			getRecipe().setIngredient(recipeData.character(),recipeData.itemStack());
+		for(ShapedRecipeData recipeData : shapedRecipeData)
+		{
+			getRecipe().setIngredient(recipeData.character(), recipeData.itemStack());
+		}
+		return this;
+	}
+	
+	/**
+	 * Assigns a shape key to an ingredient using {@link java.util.HashMap}
+	 *
+	 * @param ingredients ingredients
+	 * @return {@link ShapedRecipeBuilder}
+	 */
+	public ShapedRecipeBuilder addIngredient(Map<Character, ItemStack> ingredients)
+	{
+		validateInit();
+		for(char character : ingredients.keySet())
+		{
+			getRecipe().setIngredient(character, ingredients.get(character));
 		}
 		return this;
 	}
