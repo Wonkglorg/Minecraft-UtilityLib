@@ -2,10 +2,13 @@ package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public class ShapelessRecipeBuilder extends RecipeBuilder
@@ -35,16 +38,19 @@ public class ShapelessRecipeBuilder extends RecipeBuilder
 		return (ShapelessRecipe) recipe;
 	}
 	
+	
 	/**
 	 * Adds an ingredient to the recipe
 	 *
-	 * @param ingredient ingredient {@link Material}
+	 * @param ingredients ingredient {@link Material}
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(Material ingredient)
+	public ShapelessRecipeBuilder addIngredient(Material... ingredients)
 	{
 		validateInit();
-		getRecipe().addIngredient(ingredient);
+		for(Material ingredient:ingredients){
+			getRecipe().addIngredient(ingredient);
+		}
 		return this;
 	}
 	
@@ -65,13 +71,32 @@ public class ShapelessRecipeBuilder extends RecipeBuilder
 	/**
 	 * Adds an ingredient to the recipe
 	 *
-	 * @param ingredient ingredient {@link ItemStack}
+	 * @param ingredients ingredient {@link Material}
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(ItemStack ingredient)
+	public ShapelessRecipeBuilder addIngredient(Map<Material, Integer> ingredients)
 	{
 		validateInit();
-		getRecipe().addIngredient(ingredient);
+		for(Material material : ingredients.keySet())
+		{
+			getRecipe().addIngredient(ingredients.get(material), material);
+		}
+		return this;
+	}
+	
+	/**
+	 * Adds an ingredient to the recipe
+	 *
+	 * @param ingredients ingredient {@link ItemStack}
+	 * @return the ShapelessRecipeBuilder
+	 */
+	public ShapelessRecipeBuilder addIngredient(ItemStack... ingredients)
+	{
+		validateInit();
+		for(ItemStack ingredient : ingredients)
+		{
+			getRecipe().addIngredient(ingredient);
+		}
 		return this;
 	}
 	
