@@ -68,12 +68,12 @@ public class PluginManager
 		getConfigManager().add(config);
 	}
 	
-	public void add(Recipe recipe)
+	public void add(Recipe... recipe)
 	{
 		getRecipeManager().add(recipe);
 	}
 	
-	public void add(Enchantment enchantment)
+	public void add(Enchantment... enchantment)
 	{
 		getEnchantManager().add(enchantment);
 	}
