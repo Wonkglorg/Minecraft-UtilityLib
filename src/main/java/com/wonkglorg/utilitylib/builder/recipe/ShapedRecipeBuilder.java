@@ -69,6 +69,15 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
+	public ShapedRecipeBuilder addIngredient(ShapedRecipeData... shapedRecipeData)
+	{
+		validateInit();
+		for(ShapedRecipeData recipeData : shapedRecipeData){
+			getRecipe().setIngredient(recipeData.character(),recipeData.itemStack());
+		}
+		return this;
+	}
+	
 	/**
 	 * Assigns a shape key to an ingredient
 	 *
@@ -77,6 +86,20 @@ public class ShapedRecipeBuilder extends RecipeBuilder
 	 * @return the ShapedRecipeBuilder
 	 */
 	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final ItemStack ingredient)
+	{
+		validateInit();
+		getRecipe().setIngredient(key, ingredient);
+		return this;
+	}
+	
+	/**
+	 * Assigns a shape key to an ingredient
+	 *
+	 * @param key key given in the shape
+	 * @param ingredient ingredient {@link ItemStack}
+	 * @return the ShapedRecipeBuilder
+	 */
+	public ShapedRecipeBuilder addIngredients(final char key, @NotNull final ItemStack ingredient)
 	{
 		validateInit();
 		getRecipe().setIngredient(key, ingredient);
