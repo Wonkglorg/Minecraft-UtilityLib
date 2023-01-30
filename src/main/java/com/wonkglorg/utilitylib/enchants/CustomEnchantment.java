@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@SuppressWarnings("unusued")
 public abstract class CustomEnchantment extends Enchantment
 {
 	private final String name;

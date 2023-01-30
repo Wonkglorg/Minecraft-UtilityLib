@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 @SuppressWarnings("unused")
 public class MenuUtility
 {
+	//make method abstract and only leave menuUtility static
 	protected final Player owner;
 	private static final Map<Player, MenuUtility> menuUtilityMap = new HashMap<>();
 	

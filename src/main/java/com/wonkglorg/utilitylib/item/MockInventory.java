@@ -25,8 +25,8 @@ class MockInventory implements Inventory
 {
 	
 	private ItemStack[] items;
-	private InventoryHolder holder;
-	private InventoryType type;
+	private final InventoryHolder holder;
+	private final InventoryType type;
 	
 	public MockInventory(ItemStack[] items, InventoryHolder holder, InventoryType type)
 	{
@@ -83,7 +83,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public ItemStack[] getContents()
+	public ItemStack @NotNull [] getContents()
 	{
 		return items;
 	}
@@ -95,7 +95,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public ItemStack[] getStorageContents()
+	public ItemStack @NotNull [] getStorageContents()
 	{
 		return items;
 	}
@@ -115,7 +115,7 @@ class MockInventory implements Inventory
 	@Override
 	public boolean contains(ItemStack itemStack)
 	{
-		return Arrays.stream(items).anyMatch(i -> i.equals(itemStack));
+		return Arrays.asList(items).contains(itemStack);
 	}
 	
 	@Override
@@ -137,7 +137,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public HashMap<Integer, ? extends ItemStack> all(Material material) throws IllegalArgumentException
+	public @NotNull HashMap<Integer, ? extends ItemStack> all(@NotNull Material material) throws IllegalArgumentException
 	{
 		HashMap<Integer, ItemStack> items = new HashMap<>();
 		for(int i = 0; i < this.items.length; i++)
@@ -151,7 +151,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public HashMap<Integer, ? extends ItemStack> all(ItemStack itemStack)
+	public @NotNull HashMap<Integer, ? extends ItemStack> all(ItemStack itemStack)
 	{
 		HashMap<Integer, ItemStack> items = new HashMap<>();
 		for(int i = 0; i < this.items.length; i++)
@@ -165,7 +165,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public int first(Material material) throws IllegalArgumentException
+	public int first(@NotNull Material material) throws IllegalArgumentException
 	{
 		for(int i = 0; i < items.length; i++)
 		{
@@ -178,7 +178,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public int first(ItemStack itemStack)
+	public int first(@NotNull ItemStack itemStack)
 	{
 		for(int i = 0; i < items.length; i++)
 		{
@@ -209,7 +209,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public void remove(Material material) throws IllegalArgumentException
+	public void remove(@NotNull Material material) throws IllegalArgumentException
 	{
 		for(int i = 0; i < items.length; i++)
 		{
@@ -221,7 +221,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public void remove(ItemStack itemStack)
+	public void remove(@NotNull ItemStack itemStack)
 	{
 		for(int i = 0; i < items.length; i++)
 		{
@@ -251,13 +251,13 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public List<HumanEntity> getViewers()
+	public @NotNull List<HumanEntity> getViewers()
 	{
 		return new ArrayList<>();
 	}
 	
 	@Override
-	public InventoryType getType()
+	public @NotNull InventoryType getType()
 	{
 		return type;
 	}
@@ -275,7 +275,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public ListIterator<ItemStack> iterator()
+	public @NotNull ListIterator<ItemStack> iterator()
 	{
 		List<ItemStack> itemList = new ArrayList<>();
 		Collections.addAll(itemList, items);
@@ -283,7 +283,7 @@ class MockInventory implements Inventory
 	}
 	
 	@Override
-	public ListIterator<ItemStack> iterator(int i)
+	public @NotNull ListIterator<ItemStack> iterator(int i)
 	{
 		List<ItemStack> itemList = new ArrayList<>();
 		Collections.addAll(itemList, items);

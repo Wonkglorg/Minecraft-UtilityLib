@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class ConvertTextToItem
 {
-	private String path;
-	private Config config;
+	private final String path;
+	private final Config config;
 	private ItemStack item;
 	private String name;
 	private String description;
