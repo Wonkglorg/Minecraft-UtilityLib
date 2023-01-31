@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.selection;
 
-import io.papermc.paper.entity.Bucketable;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -9,6 +8,8 @@ import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.util.BlockIterator;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,28 +146,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		map.put("y2", this.y2);
 		map.put("z2", this.z2);
 		return map;
-	}
-	
-	/**
-	 * Get the Location of the lower northeast corner of the Cuboid (minimum XYZ
-	 * co-ordinates).
-	 *
-	 * @return Location of the lower northeast corner
-	 */
-	public Location getLowerNE()
-	{
-		return new Location(this.getWorld(), this.x1, this.y1, this.z1);
-	}
-	
-	/**
-	 * Get the Location of the upper southwest corner of the Cuboid (maximum XYZ
-	 * co-ordinates).
-	 *
-	 * @return Location of the upper southwest corner
-	 */
-	public Location getUpperSW()
-	{
-		return new Location(this.getWorld(), this.x2, this.y2, this.z2);
 	}
 	
 	/**
@@ -343,6 +322,88 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		res[6] = w.getBlockAt(this.x2, this.y2, this.z1);
 		res[7] = w.getBlockAt(this.x2, this.y2, this.z2);
 		return res;
+	}
+	
+	/**
+	 * Get the Location of the lower northeast corner of the Cuboid (minimum XYZ
+	 * co-ordinates).
+	 *
+	 * @return Location of the lower northeast corner
+	 */
+	public Location getLowerNE()
+	{
+		return new Location(this.getWorld(), this.x1, this.y1, this.z1);
+	}
+	
+	/**
+	 * Get the Location of the upper southwest corner of the Cuboid (maximum XYZ
+	 * co-ordinates).
+	 *
+	 * @return Location of the upper southwest corner
+	 */
+	public Location getUpperSW()
+	{
+		return new Location(this.getWorld(), this.x2, this.y2, this.z2);
+	}
+	
+	/**
+	 * Gets lower South West corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getLowerSW()
+	{
+		return new Location(this.getWorld(), this.x2, this.y1, this.z2);
+	}
+	
+	/**
+	 * Gets lower South East corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getLowerSE()
+	{
+		return new Location(this.getWorld(), this.x1, this.y1, this.z2);
+	}
+	
+	/**
+	 * Gets upper South East corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getUpperSE()
+	{
+		return new Location(this.getWorld(), this.x1, this.y2, this.z2);
+	}
+	
+	/**
+	 * Gets lower North West corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getLowerNW()
+	{
+		return new Location(this.getWorld(), this.x2, this.y1, this.z1);
+	}
+	
+	/**
+	 * Gets upper North West corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getUpperNW()
+	{
+		return new Location(this.getWorld(), this.x2, this.y2, this.z1);
+	}
+	
+	/**
+	 * Gets upper North East corner of the selection
+	 *
+	 * @return a new Location
+	 */
+	public Location getUpperNE()
+	{
+		return new Location(this.getWorld(), this.x1, this.y2, this.z1);
 	}
 	
 	/**
@@ -759,7 +820,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public void outline(Particle particle, double stepDistance, int amount)
 	{
 		World world = getWorld();
-		for(int x = getLowerX(); x <= getUpperX()+1; x++)
+		for(int x = getLowerX(); x <= getUpperX() + 1; x++)
 		{
 			for(int y = getLowerX(); y <= getUpperX(); y++)
 			{
@@ -773,6 +834,49 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 			}
 		}
 		
+	}
+	
+	/**
+	 * Outlines the selected area with particles.
+	 *
+	 * @param particle type of particle to spawn
+	 * @param stepDistance in what distance to spawn particles from eachother
+	 * @param amount amount of particles to spawn
+	 */
+	public void outlineEdge(Particle particle)
+	{
+		
+		World world = getWorld();
+		//Sides
+		drawLine(getLowerSE(), getUpperSE(), particle);
+		drawLine(getLowerSW(), getUpperSW(), particle);
+		drawLine(getLowerNE(), getUpperNE(), particle);
+		drawLine(getLowerNW(), getUpperNW(), particle);
+		//Bottom Square
+		drawLine(getLowerSE(), getLowerSW(), particle);
+		drawLine(getLowerSW(), getLowerNW(), particle);
+		drawLine(getLowerNW(), getLowerNE(), particle);
+		drawLine(getLowerNE(), getLowerSE(), particle);
+		//Top Square
+		drawLine(getUpperSE(), getUpperSW(), particle);
+		drawLine(getUpperSW(), getUpperNW(), particle);
+		drawLine(getUpperNW(), getUpperNE(), particle);
+		drawLine(getUpperNE(), getUpperSE(), particle);
+	}
+	
+	private void drawLine(Location location1, Location location2, Particle particle)
+	{
+		BlockIterator blockIterator = new BlockIterator(location1.setDirection(genVec(location1, location2)), 0, (int) location1.distance(location2));
+		while(blockIterator.hasNext())
+		{
+			Location location = blockIterator.next().getLocation();
+			location1.getWorld().spawnParticle(particle, location, 0, 0, 0, 0, 0, null, true);
+		}
+	}
+	
+	public Vector genVec(Location loc1, Location loc2)
+	{
+		return loc2.toVector().subtract(loc1.toVector());
 	}
 	
 	public enum CuboidDirection
