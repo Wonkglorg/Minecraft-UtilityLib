@@ -41,7 +41,7 @@ public class Random
 	}
 	
 	/**
-	 * Allows to obtain a random number between a and b
+	 * Returns an Integer between a and b
 	 *
 	 * @param a
 	 * @param b
@@ -50,6 +50,43 @@ public class Random
 	public static int getNumberBetween(int a, int b)
 	{
 		return ThreadLocalRandom.current().nextInt(a, b);
+	}
+	
+	/**
+	 * Returns a Double between a and b
+	 *
+	 * @param a
+	 * @param b
+	 * @return number between a and b
+	 */
+	public static double getNumberBetween(double a, double b)
+	{
+		return ThreadLocalRandom.current().nextDouble(a, b);
+	}
+	
+	/**
+	 * Returns a Float between a and b
+	 *
+	 * @param a
+	 * @param b
+	 * @return number between a and b
+	 */
+	public static float getNumberBetween(float a, float b)
+	{
+		return ThreadLocalRandom.current().nextFloat(a, b);
+	}
+	
+	
+	/**
+	 * Returns a Long between a and b
+	 *
+	 * @param a
+	 * @param b
+	 * @return number between a and b
+	 */
+	public static long getNumberBetween(long a, long b)
+	{
+		return ThreadLocalRandom.current().nextLong(a, b);
 	}
 	
 	/**
