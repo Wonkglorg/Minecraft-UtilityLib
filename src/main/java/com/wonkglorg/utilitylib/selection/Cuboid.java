@@ -840,8 +840,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 * Outlines the selected area with particles.
 	 *
 	 * @param particle type of particle to spawn
-	 * @param stepDistance in what distance to spawn particles from eachother
-	 * @param amount amount of particles to spawn
 	 */
 	public void outlineEdge(Particle particle)
 	{
