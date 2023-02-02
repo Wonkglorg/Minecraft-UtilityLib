@@ -22,9 +22,11 @@ public class Random
 	{
 		double speed = velocity.length();
 		Vector direction = new Vector(velocity.getX() / speed, velocity.getY() / speed, velocity.getZ() / speed);
-		return new Vector(direction.getX() + (Math.random() - 0.5) * spray,
-				direction.getY() + (Math.random() - 0.5) * spray,
-				direction.getZ() + (Math.random() - 0.5) * spray).normalize().multiply(speed);
+		
+		//test if this return statement works?
+		return direction.add(new Vector((Math.random() - 0.5) * spray, (Math.random() - 0.5) * spray, (Math.random() - 0.5) * spray))
+						.normalize()
+						.multiply(speed);
 	}
 	
 	/**
@@ -63,19 +65,6 @@ public class Random
 	{
 		return ThreadLocalRandom.current().nextDouble(a, b);
 	}
-	
-	/**
-	 * Returns a Float between a and b
-	 *
-	 * @param a
-	 * @param b
-	 * @return number between a and b
-	 */
-	public static float getNumberBetween(float a, float b)
-	{
-		return ThreadLocalRandom.current().nextFloat(a, b);
-	}
-	
 	
 	/**
 	 * Returns a Long between a and b

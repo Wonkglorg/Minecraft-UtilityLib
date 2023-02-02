@@ -1,171 +1,114 @@
 package com.wonkglorg.utilitylib.groupings;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.Boss;
+import org.bukkit.entity.Breedable;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fish;
+import org.bukkit.entity.Flying;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Tameable;
+import org.bukkit.entity.Vehicle;
 
+import java.util.Arrays;
 import java.util.Set;
-
+import java.util.stream.Collectors;
+@SuppressWarnings("unused")
 public class GroupedEntities
 {
 	
-	public static Set<EntityType> passive()
-	{
-		return Set.of(EntityType.ALLAY,
-				EntityType.AXOLOTL,
-				EntityType.BAT,
-				EntityType.CAT,
-				EntityType.CHICKEN,
-				EntityType.COD,
-				EntityType.COW,
-				EntityType.DONKEY,
-				EntityType.FOX,
-				EntityType.FROG,
-				EntityType.GLOW_SQUID,
-				EntityType.HORSE,
-				EntityType.MUSHROOM_COW,
-				EntityType.MULE,
-				EntityType.OCELOT,
-				EntityType.PARROT,
-				EntityType.PIG,
-				EntityType.PUFFERFISH,
-				EntityType.RABBIT,
-				EntityType.SALMON,
-				EntityType.SHEEP,
-				EntityType.SKELETON_HORSE,
-				EntityType.SNOWMAN,
-				EntityType.SQUID,
-				EntityType.STRIDER,
-				EntityType.TADPOLE,
-				EntityType.TROPICAL_FISH,
-				EntityType.TURTLE,
-				EntityType.VILLAGER,
-				EntityType.WANDERING_TRADER);
-	}
-	
 	public static Set<EntityType> animals()
 	{
-		return null;
-	
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Animals.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
+		
 	}
+	
 	
 	public static Set<EntityType> tamable()
 	{
-		return null;
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Tameable.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
-	public static Set<EntityType> neutral()
+	public static Set<EntityType> breedable()
 	{
-		return Set.of(EntityType.BEE,
-				EntityType.CAVE_SPIDER,
-				EntityType.DOLPHIN,
-				EntityType.ENDERMAN,
-				EntityType.GOAT,
-				EntityType.IRON_GOLEM,
-				EntityType.LLAMA,
-				EntityType.PANDA,
-				EntityType.PIGLIN,
-				EntityType.POLAR_BEAR,
-				EntityType.SPIDER,
-				EntityType.TRADER_LLAMA,
-				EntityType.WOLF,
-				EntityType.ZOMBIFIED_PIGLIN);
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Breedable.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
 	public static Set<EntityType> hostile()
 	{
-		return Set.of(EntityType.BLAZE,
-				EntityType.CREEPER,
-				EntityType.DROWNED,
-				EntityType.ELDER_GUARDIAN,
-				EntityType.ENDERMITE,
-				EntityType.EVOKER,
-				EntityType.GHAST,
-				EntityType.GUARDIAN,
-				EntityType.HOGLIN,
-				EntityType.HUSK,
-				EntityType.MAGMA_CUBE,
-				EntityType.PHANTOM,
-				EntityType.PIGLIN_BRUTE,
-				EntityType.PILLAGER,
-				EntityType.RAVAGER,
-				EntityType.SHULKER,
-				EntityType.SILVERFISH,
-				EntityType.SKELETON,
-				EntityType.SLIME,
-				EntityType.STRAY,
-				EntityType.VEX,
-				EntityType.VINDICATOR,
-				EntityType.WARDEN,
-				EntityType.WITCH,
-				EntityType.WITHER_SKELETON,
-				EntityType.ZOGLIN,
-				EntityType.ZOMBIE,
-				EntityType.ZOMBIE_VILLAGER);
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Monster.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
 	public static Set<EntityType> boss()
 	{
-		return Set.of(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN);
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Boss.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
 	public static Set<EntityType> aquatic()
 	{
-		return null;
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Breedable.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
 	public static Set<EntityType> fish()
 	{
-		return Set.of(EntityType.SALMON, EntityType.COD, EntityType.PUFFERFISH, EntityType.TROPICAL_FISH);
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Fish.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
-	public static Set<EntityType> undead()
-	{
-		return Set.of(EntityType.DROWNED,
-				EntityType.HUSK,
-				EntityType.PHANTOM,
-				EntityType.SKELETON,
-				EntityType.SKELETON_HORSE,
-				EntityType.STRAY,
-				EntityType.WITHER,
-				EntityType.WITHER_SKELETON,
-				EntityType.ZOGLIN,
-				EntityType.ZOMBIE,
-				EntityType.ZOMBIE_HORSE,
-				EntityType.ZOMBIE_VILLAGER);
+	public static Set<EntityType> flying(){
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Flying.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
-	public static Set<EntityType> projectile()
-	{
-		return Set.of(EntityType.ARROW,
-				EntityType.FIREWORK,
-				EntityType.SPLASH_POTION,
-				EntityType.SNOWBALL,
-				EntityType.EGG,
-				EntityType.TRIDENT,
-				EntityType.ENDER_PEARL,
-				EntityType.THROWN_EXP_BOTTLE,
-				EntityType.SMALL_FIREBALL,
-				EntityType.FIREBALL,
-				EntityType.DRAGON_FIREBALL);
+	public static Set<EntityType> vehicle(){
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Vehicle.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
-	
 	public static Set<EntityType> projectilePlayer()
 	{
 		
-		return Set.of(EntityType.ARROW,
-				EntityType.FIREWORK,
-				EntityType.SPLASH_POTION,
-				EntityType.SNOWBALL,
-				EntityType.EGG,
-				EntityType.FISHING_HOOK,
-				EntityType.TRIDENT,
-				EntityType.ENDER_PEARL,
-				EntityType.THROWN_EXP_BOTTLE,
-				EntityType.ENDER_SIGNAL);
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && Projectile.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
 	}
 	
 	public static Set<EntityType> objects()
 	{
-		return null;
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && !LivingEntity.class.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
+	}
+	
+	public static Set<EntityType> getByClass(Class<Bukkit> bukkitClass)
+	{
+		return Arrays.stream(EntityType.values())
+					 .filter(entityType -> entityType.getEntityClass() != null && bukkitClass.isAssignableFrom(entityType.getEntityClass()))
+					 .collect(Collectors.toSet());
+	}
+	
+	public static Set<EntityType> getByClass(Set<EntityType> entityTypes,Class<Bukkit> bukkitClass)
+	{
+		return entityTypes.stream()
+						  .filter(entityType -> entityType.getEntityClass() != null && bukkitClass.isAssignableFrom(entityType.getEntityClass()))
+						  .collect(Collectors.toSet());
 	}
 	
 }

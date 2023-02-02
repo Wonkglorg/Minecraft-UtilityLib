@@ -135,7 +135,7 @@ public class Message
 		}
 		return builder.toString();
 	}
-	
+	/*
 	private static Builder convertToComponent(String[] texts, Builder component)
 	{
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
@@ -198,6 +198,60 @@ public class Message
 			component.append(outputComponent.build());
 		}
 		return component;
+	}
+	
+	 */
+	//Test this refactored method
+	private static Builder convertToComponent(String[] texts, Builder component) {
+		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
+		TextColor textColor = null;
+		for(int i = 0; i < texts.length; i++) {
+			if(!texts[i].equalsIgnoreCase("&")) {
+				component.append(Component.text(texts[i]));
+				continue;
+			}
+			i++;
+			if(texts[i].charAt(0) == '#') {
+				textColor = TextColor.fromHexString(texts[i].substring(0, 7));
+				TextComponent inputComponent = Component.text(texts[i].substring(7), textColor);
+				Builder outputComponent = Component.text();
+				outputComponent.append(inputComponent);
+				for(TextDecoration decoration1 : decorationMap.keySet()) {
+					outputComponent.decoration(decoration1, decorationMap.get(decoration1));
+				}
+				component.append(outputComponent.build());
+				continue;
+			}
+			if (texts[i].length() == 0) {
+				continue;
+			}
+			char value = texts[i].charAt(0);
+			if(value == 'r') {
+				decorationMap.put(TextDecoration.ITALIC, false);
+				textColor = null;
+				decorationMap.replaceAll((d, v) -> false);
+			} else {
+				if(ChatColor.colorCharacters().contains(value)) {
+					textColor = TextColor.fromHexString(ChatColor.charToColor(value));
+				}
+				if(ChatColor.decorationCharacters().contains(value)) {
+					TextDecoration decoration = ChatColor.charToComponent(value);
+					if(decoration != null) {
+						decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
+					}
+				}
+			}
+			TextComponent inputComponent;
+			inputComponent = textColor != null ? Component.text(texts[i].substring(1)).color(textColor) : Component.text(texts[i].substring(1));
+			Builder outputComponent = Component.text();
+			outputComponent.append(inputComponent);
+			for(TextDecoration decoration1 : decorationMap.keySet()) {
+				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
+			}
+			component.append(outputComponent.build());
+		}
+		return component;
+
 	}
 	
 	/**

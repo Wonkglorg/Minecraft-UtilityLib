@@ -1,5 +1,7 @@
 package com.wonkglorg.utilitylib.message;
 
+import com.wonkglorg.utilitylib.groupings.GroupedMaterials;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
