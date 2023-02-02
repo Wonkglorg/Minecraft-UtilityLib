@@ -9,12 +9,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @SuppressWarnings("unused")
 public class EquipmentBuilder
 {
-	private final LivingEntity livingEntity;
+	private LivingEntity livingEntity;
 	private final Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new HashMap<>();
 	private boolean silent = true;
+	
+	public EquipmentBuilder()
+	{
+	}
 	
 	public EquipmentBuilder(@NotNull LivingEntity livingEntity)
 	{
@@ -23,7 +28,10 @@ public class EquipmentBuilder
 	
 	public LivingEntity build()
 	{
-		
+		if(livingEntity == null)
+		{
+			return null;
+		}
 		EntityEquipment equipment = livingEntity.getEquipment();
 		
 		if(equipment == null)
@@ -41,6 +49,11 @@ public class EquipmentBuilder
 		
 		return livingEntity;
 		
+	}
+	
+	public void setLivingEntity(@NotNull LivingEntity livingEntity)
+	{
+		this.livingEntity = livingEntity;
 	}
 	
 	public EquipmentBuilder setHelmet(ItemStack helmet)
@@ -199,7 +212,5 @@ public class EquipmentBuilder
 		equipmentMap.put(equipmentSlot, equipmentItem);
 		return this;
 	}
-	
-	
 	
 }
