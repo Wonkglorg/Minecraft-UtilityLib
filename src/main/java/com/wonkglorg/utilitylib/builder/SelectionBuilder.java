@@ -11,6 +11,10 @@ public class SelectionBuilder
 	
 	public Cuboid build()
 	{
+		if(location1 == null || location2 == null)
+		{
+			return null;
+		}
 		return new Cuboid(location1, location2);
 	}
 	
