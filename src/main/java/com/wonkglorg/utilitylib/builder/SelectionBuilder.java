@@ -9,7 +9,7 @@ public class SelectionBuilder
 	protected Cuboid cuboid;
 	protected Location location1, location2;
 	
-	public SelectionBuilder(Cuboid cuboid)
+	public SelectionBuilder()
 	{
 	}
 	
