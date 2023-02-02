@@ -1,5 +1,6 @@
-package com.wonkglorg.utilitylib.builder;
+package com.wonkglorg.utilitylib.builder.equipment;
 
+import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class EquipmentBuilder
 {
 	private final LivingEntity livingEntity;
-	Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new HashMap<>();
+	private final Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new HashMap<>();
 	private boolean silent = true;
 	
 	public EquipmentBuilder(@NotNull LivingEntity livingEntity)
@@ -188,46 +189,17 @@ public class EquipmentBuilder
 		return this;
 	}
 	
-	private static class EquipmentItem
+	public EquipmentBuilder setItem(EquipmentSlot equipmentSlot, EquipmentItem equipmentItem)
 	{
-		private ItemStack itemStack;
-		private float dropChance;
-		
-		public EquipmentItem()
+		if(equipmentSlot == null || equipmentItem == null)
 		{
+			return this;
 		}
 		
-		public EquipmentItem(ItemStack itemStack)
-		{
-			this.itemStack = itemStack;
-		}
-		
-		public EquipmentItem(ItemStack itemStack, float dropChance)
-		{
-			this.itemStack = itemStack;
-			this.dropChance = dropChance;
-		}
-		
-		public ItemStack getItemStack()
-		{
-			return itemStack;
-		}
-		
-		public float getDropChance()
-		{
-			return dropChance;
-		}
-		
-		public void setItemStack(ItemStack itemStack)
-		{
-			this.itemStack = itemStack;
-		}
-		
-		public void setDropChance(float dropChance)
-		{
-			this.dropChance = dropChance;
-		}
+		equipmentMap.put(equipmentSlot, equipmentItem);
+		return this;
 	}
+	
 	
 	
 }
