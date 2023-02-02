@@ -9,6 +9,16 @@ public class SelectionBuilder
 	protected Cuboid cuboid;
 	protected Location location1, location2;
 	
+	public SelectionBuilder(Cuboid cuboid)
+	{
+	}
+	
+	public SelectionBuilder(Location location1, Location location2)
+	{
+		this.location1 = location1;
+		this.location2 = location2;
+	}
+	
 	public Cuboid build()
 	{
 		if(location1 == null || location2 == null)
@@ -30,4 +40,13 @@ public class SelectionBuilder
 		return this;
 	}
 	
+	public Location getLocation1()
+	{
+		return location1;
+	}
+	
+	public Location getLocation2()
+	{
+		return location2;
+	}
 }
