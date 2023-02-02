@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@SuppressWarnings("unused")
 public class EquipmentBuilder
 {
 	private final LivingEntity livingEntity;
@@ -229,6 +229,5 @@ public class EquipmentBuilder
 		}
 	}
 	
-	;
 	
 }
