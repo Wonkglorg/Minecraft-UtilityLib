@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable, Selection
@@ -878,7 +879,11 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
-		BlockIterator blockIterator = new BlockIterator(location1.setDirection(genVec(location1, location2)), 0, (int) location1.distance(location2));
+		Vector vector = genVec(location1, location2);
+		if(Objects.equals(vector, new Vector(0, 0, 0))){
+			return;
+		}
+		BlockIterator blockIterator = new BlockIterator(location1.setDirection(vector), 0, (int) location1.distance(location2));
 		while(blockIterator.hasNext())
 		{
 			Location location = blockIterator.next().getLocation();
