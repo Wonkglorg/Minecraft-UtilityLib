@@ -820,20 +820,34 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public void outline(Particle particle, double stepDistance, int amount)
 	{
 		World world = getWorld();
-		for(int x = getLowerX(); x <= getUpperX() + 1; x++)
-		{
-			for(int y = getLowerX(); y <= getUpperX(); y++)
-			{
-				for(int z = getLowerX(); z <= getUpperX(); z++)
-				{
-					if(x == getLowerX() || x == getUpperX() || y == getLowerY() || y == getUpperY() || z == getLowerZ() || z == getUpperZ())
-					{
-						world.spawnParticle(particle, x, y, z, amount);
-					}
-				}
-			}
-		}
+		int lowerX = getLowerX();
+		int upperX = getUpperX();
+		int lowerY = getLowerY();
+		int upperY = getUpperY();
+		int lowerZ = getLowerZ();
+		int upperZ = getUpperZ();
 		
+		for(int x = lowerX; x <= upperX; x++)
+		{
+			world.spawnParticle(particle, x, lowerY, lowerZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, x, upperY, lowerZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, x, lowerY, upperZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, x, upperY, upperZ, 0, 0, 0, 0, 0, null, true);
+		}
+		for(int y = lowerY; y <= upperY; y++)
+		{
+			world.spawnParticle(particle, lowerX, y, lowerZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, upperX, y, lowerZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, lowerX, y, upperZ, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, upperX, y, upperZ, 0, 0, 0, 0, 0, null, true);
+		}
+		for(int z = lowerZ; z <= upperZ; z++)
+		{
+			world.spawnParticle(particle, lowerX, lowerY, z, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, upperX, lowerY, z, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, lowerX, upperY, z, 0, 0, 0, 0, 0, null, true);
+			world.spawnParticle(particle, upperX, upperY, z, 0, 0, 0, 0, 0, null, true);
+		}
 	}
 	
 	/**
