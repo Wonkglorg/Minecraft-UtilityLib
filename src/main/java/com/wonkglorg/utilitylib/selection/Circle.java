@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.selection;
 
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -38,5 +39,23 @@ public class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public World getWorld()
 	{
 		return null;
+	}
+	
+	@Override
+	public Location getCenter()
+	{
+		return null;
+	}
+	
+	@Override
+	public void expand()
+	{
+	
+	}
+	
+	@Override
+	public void contract()
+	{
+	
 	}
 }
