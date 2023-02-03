@@ -10,11 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable, Selection
+public class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable
 {
-	
-	
-	//check how this works
 	
 	@NotNull
 	@Override
@@ -27,35 +24,5 @@ public class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public @NotNull Map<String, Object> serialize()
 	{
 		return null;
-	}
-	
-	@Override
-	public List<Block> getBlocks()
-	{
-		return null;
-	}
-	
-	@Override
-	public World getWorld()
-	{
-		return null;
-	}
-	
-	@Override
-	public Location getCenter()
-	{
-		return null;
-	}
-	
-	@Override
-	public void expand()
-	{
-	
-	}
-	
-	@Override
-	public void contract()
-	{
-	
 	}
 }
