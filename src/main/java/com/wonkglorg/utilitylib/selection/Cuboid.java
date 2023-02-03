@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable, Selection
+public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable
 {
 	
 	/**

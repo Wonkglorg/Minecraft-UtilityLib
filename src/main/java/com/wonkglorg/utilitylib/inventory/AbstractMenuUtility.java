@@ -42,23 +42,19 @@ public abstract class AbstractMenuUtility
 	 * @param player {@link Player} opening the menu.
 	 * @return MenuUtility linked to the {@link Player}.
 	 */
-	public AbstractMenuUtility get(@NotNull Player player, AbstractMenuUtility menuUtility)
+	public static AbstractMenuUtility get(@NotNull Player player, AbstractMenuUtility menuUtility)
 	{
 		
 		AbstractMenuUtility playerMenuUtility;
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isValid));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
-			playerMenuUtility = menuUtility != null ?  menuUtility : create(player);
+			playerMenuUtility = menuUtility != null ?  menuUtility : new MenuUtility(player);
 			menuUtilityMap.put(player, playerMenuUtility);
 			
 			return playerMenuUtility;
 		}
 		return menuUtilityMap.get(player);
 	}
-	
-	public abstract AbstractMenuUtility get(Player player);
-	
-	public abstract AbstractMenuUtility create(Player player);
 	
 }

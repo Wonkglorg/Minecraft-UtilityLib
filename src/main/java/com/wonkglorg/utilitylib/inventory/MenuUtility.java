@@ -18,16 +18,4 @@ public class MenuUtility extends AbstractMenuUtility
 	{
 		super(player);
 	}
-	
-	@Override
-	public AbstractMenuUtility get(Player player)
-	{
-		return get(player, null);
-	}
-	
-	@Override
-	public AbstractMenuUtility create(Player player)
-	{
-		return new MenuUtility(player);
-	}
 }
