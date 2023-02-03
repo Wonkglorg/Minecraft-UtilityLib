@@ -54,7 +54,7 @@ public abstract class InventoryGUI implements Listener
 	{};
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
-	protected MenuUtility menuUtility;
+	protected AbstractMenuUtility menuUtility;
 	
 	private boolean returnItems = true;
 	private boolean destroyOnClose = true;
@@ -64,7 +64,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param inventory The inventory to create a GUI from
 	 */
-	public InventoryGUI(Inventory inventory, JavaPlugin plugin, MenuUtility menuUtility)
+	public InventoryGUI(Inventory inventory, JavaPlugin plugin, AbstractMenuUtility menuUtility)
 	{
 		
 		//Add menuUtility to constructor, avoids nullpointer exception if menuUtility is used in constructor
@@ -81,7 +81,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param size The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(int size, String name, JavaPlugin plugin, MenuUtility menuUtility)
+	public InventoryGUI(int size, String name, JavaPlugin plugin, AbstractMenuUtility menuUtility)
 	{
 		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, menuUtility);
 	}

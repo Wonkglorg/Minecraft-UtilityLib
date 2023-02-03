@@ -504,16 +504,16 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	/**
 	 * Check if the given Location is contained within this Cuboid.
 	 *
-	 * @param l - The Location to check for
+	 * @param location - The Location to check for
 	 * @return true if the Location is within this Cuboid, false otherwise
 	 */
-	public boolean contains(Location l)
+	public boolean contains(Location location)
 	{
-		if(!this.worldName.equals(l.getWorld().getName()))
+		if(!this.worldName.equals(location.getWorld().getName()))
 		{
 			return false;
 		}
-		return this.contains(l.getBlockX(), l.getBlockY(), l.getBlockZ());
+		return this.contains(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 	}
 	
 	/**
@@ -885,6 +885,9 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		while(blockIterator.hasNext())
 		{
 			Location location = blockIterator.next().getLocation();
+			if(!location.getChunk().isLoaded()){
+				continue;
+			}
 			location1.getWorld().spawnParticle(particle, location, 0, 0, 0, 0, 0, null, true);
 		}
 	}
