@@ -49,9 +49,11 @@ public abstract class InventoryGUI implements Listener
 	private final Set<Integer> openSlots = new LinkedHashSet<>();
 	private Runnable onDestroy;
 	private BiConsumer<InventoryClickEvent, List<Integer>> onClickOpenSlot = (e, i) ->
-	{};
+	{
+	};
 	private Consumer<InventoryDragEvent> onDragOpenSlot = e ->
-	{};
+	{
+	};
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
 	protected MenuUtility menuUtility;
@@ -84,6 +86,17 @@ public abstract class InventoryGUI implements Listener
 	public InventoryGUI(int size, String name, JavaPlugin plugin, MenuUtility menuUtility)
 	{
 		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, menuUtility);
+	}
+	
+	/**
+	 * Creates a new GUI, instantiating a new inventory with the given size and name
+	 *
+	 * @param size The size of the inventory
+	 * @param name The name of the inventory
+	 */
+	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, MenuUtility menuUtility)
+	{
+		this(Bukkit.createInventory(null, inventorySize.getSize(), Message.color(name)), plugin, menuUtility);
 	}
 	
 	public abstract void addComponents();
@@ -183,6 +196,7 @@ public abstract class InventoryGUI implements Listener
 	
 	/**
 	 * Remove a button from the inventory
+	 *
 	 * @param slot Slot to be removed
 	 */
 	public void removeButton(int slot)
@@ -335,7 +349,6 @@ public abstract class InventoryGUI implements Listener
 	
 	/**
 	 * Opens this GUI for a player
-	 *
 	 */
 	public void open()
 	{

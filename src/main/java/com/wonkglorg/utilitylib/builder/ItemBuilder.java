@@ -171,6 +171,16 @@ public class ItemBuilder implements Cloneable
 	}
 	
 	/**
+	 * @param name
+	 * @return {@link ItemBuilder}
+	 */
+	public ItemBuilder setName(int name)
+	{
+		this.name = String.valueOf(name);
+		return this;
+	}
+	
+	/**
 	 * @param durability
 	 * @return {@link ItemBuilder}
 	 */

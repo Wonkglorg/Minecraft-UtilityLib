@@ -849,32 +849,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		}
 	}
 	
-	/**
-	 * Outlines the selected area with particles.
-	 *
-	 * @param particle type of particle to spawn
-	 */
-	public void outlineEdge(Particle particle)
-	{
-		
-		World world = getWorld();
-		//Sides
-		drawLine(getLowerSE(), getUpperSE(), particle);
-		drawLine(getLowerSW(), getUpperSW(), particle);
-		drawLine(getLowerNE(), getUpperNE(), particle);
-		drawLine(getLowerNW(), getUpperNW(), particle);
-		//Bottom Square
-		drawLine(getLowerSE(), getLowerSW(), particle);
-		drawLine(getLowerSW(), getLowerNW(), particle);
-		drawLine(getLowerNW(), getLowerNE(), particle);
-		drawLine(getLowerNE(), getLowerSE(), particle);
-		//Top Square
-		drawLine(getUpperSE(), getUpperSW(), particle);
-		drawLine(getUpperSW(), getUpperNW(), particle);
-		drawLine(getUpperNW(), getUpperNE(), particle);
-		drawLine(getUpperNE(), getUpperSE(), particle);
-	}
-	
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
 		Vector vector = genVec(location1, location2);
