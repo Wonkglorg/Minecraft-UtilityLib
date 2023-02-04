@@ -51,7 +51,9 @@ public class Random
 	 */
 	public static int getNumberBetween(int a, int b)
 	{
-		return ThreadLocalRandom.current().nextInt(a, b);
+		int min = Math.min(a,b);
+		int max = Math.max(a,b);
+		return ThreadLocalRandom.current().nextInt(min, max);
 	}
 	
 	/**
@@ -63,7 +65,9 @@ public class Random
 	 */
 	public static double getNumberBetween(double a, double b)
 	{
-		return ThreadLocalRandom.current().nextDouble(a, b);
+		double min = Math.min(a,b);
+		double max = Math.max(a,b);
+		return ThreadLocalRandom.current().nextDouble(min, max);
 	}
 	
 	/**
@@ -75,7 +79,9 @@ public class Random
 	 */
 	public static long getNumberBetween(long a, long b)
 	{
-		return ThreadLocalRandom.current().nextLong(a, b);
+		long min = Math.min(a,b);
+		long max = Math.max(a,b);
+		return ThreadLocalRandom.current().nextLong(min, max);
 	}
 	
 	/**
