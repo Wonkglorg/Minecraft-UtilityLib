@@ -50,7 +50,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		this.y1 = Math.min(l1.getBlockY(), l2.getBlockY());
 		this.z1 = Math.min(l1.getBlockZ(), l2.getBlockZ());
 		this.x2 = Math.max(l1.getBlockX(), l2.getBlockX())+1;
-		this.y2 = Math.max(l1.getBlockY(), l2.getBlockY());
+		this.y2 = Math.max(l1.getBlockY(), l2.getBlockY())+1;
 		this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ())+1;
 		
 		
