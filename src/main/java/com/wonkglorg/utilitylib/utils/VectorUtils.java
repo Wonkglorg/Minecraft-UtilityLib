@@ -7,12 +7,11 @@ public class VectorUtils
 {
 	/**
 	 * Generates a vector between 2 points
-	 * @param a
-	 * @param b
-	 * @param normalize
+	 * @param loc1
+	 * @param loc2
 	 * @return
 	 */
-	public Vector genVec(Location loc1, Location loc2)
+	public static Vector genVec(Location loc1, Location loc2)
 	{
 		return loc2.toVector().subtract(loc1.toVector());
 	}

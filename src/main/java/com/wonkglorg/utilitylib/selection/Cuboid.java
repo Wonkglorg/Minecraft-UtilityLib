@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.selection;
 
+import com.wonkglorg.utilitylib.utils.VectorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -10,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 * This class is a region/cuboid from one location to another. It can be
 	 * used for blocks protection and things like WorldEdit.
 	 *
-	 * @author desht (Original code), KingFaris10 (Editor of code)
 	 */
 	protected final String worldName;
 	protected final int x1, y1, z1;
@@ -138,9 +139,9 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	}
 	
 	@Override
-	public Map<String, Object> serialize()
+	public @NotNull Map<String, Object> serialize()
 	{
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("worldName", this.worldName);
 		map.put("x1", this.x1);
 		map.put("y1", this.y1);
@@ -159,7 +160,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public List<Block> getBlocks(Material material)
 	{
 		Iterator<Block> blockI = this.iterator();
-		List<Block> copy = new ArrayList<Block>();
+		List<Block> copy = new ArrayList<>();
 		while(blockI.hasNext())
 		{
 			Block block = blockI.next();
@@ -179,14 +180,14 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	public List<Block> getBlocks()
 	{
 		Iterator<Block> blockI = this.iterator();
-		List<Block> copy = new ArrayList<Block>();
+		List<Block> copy = new ArrayList<>();
 		while(blockI.hasNext())
 			copy.add(blockI.next());
 		return copy;
 	}
 	
 	/**
-	 * Get the the centre of the Cuboid.
+	 * Get the centre of the Cuboid.
 	 *
 	 * @return Location at the centre of the Cuboid
 	 */
@@ -765,7 +766,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		return "Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2 + "," + this.y2 + "," + this.z2;
 	}
 	
-	public class CuboidIterator implements Iterator<Block>
+	public static class CuboidIterator implements Iterator<Block>
 	{
 		private final World w;
 		private final int baseX;
@@ -853,7 +854,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
-		Vector vector = genVec(location1, location2);
+		Vector vector = VectorUtils.genVec(location1, location2);
 		if(Objects.equals(vector, new Vector(0, 0, 0))){
 			return;
 		}
@@ -868,10 +869,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		}
 	}
 	
-	public Vector genVec(Location loc1, Location loc2)
-	{
-		return loc2.toVector().subtract(loc1.toVector());
-	}
 	
 	public enum CuboidDirection
 	{
