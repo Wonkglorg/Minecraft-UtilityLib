@@ -1,6 +1,8 @@
 package com.wonkglorg.utilitylib.database;
 
 import com.wonkglorg.utilitylib.logger.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -14,19 +16,25 @@ import java.util.Map;
 
 public abstract class SqLiteDatabase
 {
-	
+	private final JavaPlugin plugin;
 	protected static Connection connection;
 	protected final String DATABASE_NAME;
 	protected final String DATABASE_PATH;
 	
-	public SqLiteDatabase(Path path, String name)
+	public SqLiteDatabase(JavaPlugin plugin, String name, String... paths)
 	{
-		if(name == null || path == null)
+		this.plugin = plugin;
+		if(name == null || paths == null)
 		{
 			throw new RuntimeException();
 		}
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
-		DATABASE_PATH = path.toAbsolutePath().toString();
+		StringBuilder pathBuilder = new StringBuilder();
+		for(String s : paths)
+		{
+			pathBuilder.append(s).append(File.separator);
+		}
+		DATABASE_PATH = pathBuilder.toString();
 		connect();
 	}
 	

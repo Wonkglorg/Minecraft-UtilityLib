@@ -65,8 +65,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 		StringBuilder pathBuilder = new StringBuilder();
 		for(String s : paths)
 		{
-			pathBuilder.append(s);
-			pathBuilder.append(File.separator);
+			pathBuilder.append(s).append(File.separator);
 		}
 		this.path = pathBuilder + this.name;
 		file = new File(main.getDataFolder(), this.path);

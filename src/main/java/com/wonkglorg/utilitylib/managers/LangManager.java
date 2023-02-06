@@ -120,7 +120,6 @@ public class LangManager implements Manager
 		}
 		for(File file : files)
 		{
-			System.out.println(file);
 			if(!file.isFile())
 			{
 				continue;
@@ -131,9 +130,9 @@ public class LangManager implements Manager
 			}
 			for(Locale locale : Locale.getAvailableLocales())
 			{
-				if(locale.getDisplayName().equalsIgnoreCase(file.getName()))
+				if(locale.getLanguage().equalsIgnoreCase(file.getName()))
 				{
-					Logger.log(javaPlugin, locale.getDisplayName() + " has been loaded!");
+					Logger.log(javaPlugin, locale.getLanguage() + " has been loaded!");
 					langMap.put(locale, new ConfigYML(javaPlugin, file.getName(), file.getParent()));
 				}
 			}
