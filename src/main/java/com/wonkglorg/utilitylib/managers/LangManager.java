@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 @SuppressWarnings("unused")
 public class LangManager implements Manager
 {
@@ -64,16 +65,16 @@ public class LangManager implements Manager
 		langMap.values().forEach(Config::silentSave);
 	}
 	
-	
 	public void load()
 	{
 		langMap.values().forEach(Config::silentLoad);
 		
 		if(defaultLang == null)
 		{
-			Logger.logWarn(plugin,"No default language selected");
+			Logger.logWarn(plugin, "No default language selected");
 		}
 	}
+	
 	public void silentLoad()
 	{
 		langMap.values().forEach(Config::silentLoad);
@@ -94,7 +95,6 @@ public class LangManager implements Manager
 			return null;
 		}
 	}
-	
 	
 	@Override
 	public void onShutdown()
@@ -120,15 +120,20 @@ public class LangManager implements Manager
 		}
 		for(File file : files)
 		{
+			System.out.println(file);
 			if(!file.isFile())
 			{
 				continue;
+			}
+			if(!file.getName().endsWith(".yml"))
+			{
+				return;
 			}
 			for(Locale locale : Locale.getAvailableLocales())
 			{
 				if(locale.getDisplayName().equalsIgnoreCase(file.getName()))
 				{
-					Logger.log(javaPlugin,locale.getDisplayName() + " has been loaded!");
+					Logger.log(javaPlugin, locale.getDisplayName() + " has been loaded!");
 					langMap.put(locale, new ConfigYML(javaPlugin, file.getName(), file.getParent()));
 				}
 			}
