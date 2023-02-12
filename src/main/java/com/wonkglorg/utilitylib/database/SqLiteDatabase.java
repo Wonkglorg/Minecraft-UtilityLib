@@ -30,9 +30,15 @@ public abstract class SqLiteDatabase
 		}
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		StringBuilder pathBuilder = new StringBuilder();
-		for(String s : paths)
+		for(int i = 0; i < paths.length; i++)
 		{
-			pathBuilder.append(s).append(File.separator);
+			if(paths.length == i + 1)
+			{
+				pathBuilder.append(paths[i]);
+				break;
+			}
+			
+			pathBuilder.append(paths[i]).append(File.separator);
 		}
 		DATABASE_PATH = plugin.getDataFolder().getPath() + File.separator + pathBuilder;
 		connect();
@@ -61,7 +67,7 @@ public abstract class SqLiteDatabase
 		{
 			Class.forName("org.sqlite.JDBC");
 			new File(String.valueOf(DATABASE_PATH)).mkdir();
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH  + DATABASE_NAME);
+			connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH + DATABASE_NAME);
 		} catch(ClassNotFoundException | SQLException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
