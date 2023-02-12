@@ -1,46 +1,31 @@
-package com.wonkglorg.utilitylib.database;
+package com.wonkglorg.dungeonbutton.database;
 
 import com.wonkglorg.utilitylib.logger.Logger;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class SqLiteDatabase
 {
 	private final JavaPlugin plugin;
 	protected static Connection connection;
 	protected final String DATABASE_NAME;
-	protected final String DATABASE_PATH;
+	protected final Path DATABASE_PATH;
 	
-	public SqLiteDatabase(JavaPlugin plugin, String name, String... paths)
+	public SqLiteDatabase(JavaPlugin plugin, String name, Path path)
 	{
 		this.plugin = plugin;
-		if(name == null || paths == null)
+		if(name == null || path == null)
 		{
 			throw new RuntimeException();
 		}
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
-		StringBuilder pathBuilder = new StringBuilder();
-		for(int i = 0; i < paths.length; i++)
-		{
-			if(paths.length == i + 1)
-			{
-				pathBuilder.append(paths[i]);
-				break;
-			}
-			
-			pathBuilder.append(paths[i]).append(File.separator);
-		}
-		DATABASE_PATH = plugin.getDataFolder().getPath() + File.separator + pathBuilder;
+		DATABASE_PATH = Path.of(plugin.getDataFolder().getPath() + File.separator + path);
 		connect();
 	}
 	
