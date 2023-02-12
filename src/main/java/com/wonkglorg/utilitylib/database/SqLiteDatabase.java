@@ -67,7 +67,7 @@ public abstract class SqLiteDatabase
 		{
 			Class.forName("org.sqlite.JDBC");
 			new File(String.valueOf(DATABASE_PATH)).mkdir();
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH + DATABASE_NAME);
+			connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH + File.separator + DATABASE_NAME);
 		} catch(ClassNotFoundException | SQLException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
