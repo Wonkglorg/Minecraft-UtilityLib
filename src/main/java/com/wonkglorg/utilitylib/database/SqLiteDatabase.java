@@ -1,4 +1,4 @@
-package com.wonkglorg.dungeonbutton.database;
+package com.wonkglorg.utilitylib.database;
 
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
