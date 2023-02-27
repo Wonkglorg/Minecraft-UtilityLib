@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -98,7 +99,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 		return new HashSet<>();
 	}
 	
-	@Override
+	
 	public @Nullable String getParentPath(@NotNull String path)
 	{
 		return getConfigurationSection(path).getParent().getCurrentPath();

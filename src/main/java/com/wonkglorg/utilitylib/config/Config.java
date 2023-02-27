@@ -60,10 +60,7 @@ public interface Config
 	List<Character> getCharacterList(@NotNull String path);
 	List<Long> getLongList(@NotNull String path);
 	List<Boolean> getBooleanList(@NotNull String path);
-	String getParentPath(String path);
 	List<Map<?, ?>> getMapList(@NotNull String path);
-	List<String> getComments(@NotNull String path);
-	String getCurrentPath();
 	<T> T getObject(@NotNull String path, @NotNull Class<T> clazz);
 	Location getLocation(@NotNull String path);
 	ItemStack getItemStack(@NotNull String path);

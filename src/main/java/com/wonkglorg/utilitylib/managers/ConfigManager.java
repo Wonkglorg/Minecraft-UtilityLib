@@ -7,8 +7,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +100,19 @@ public class ConfigManager implements Manager
 		}
 	}
 	
-	public Map<String, Config> addAllConfigsFromPath(String path)
+	public Map<String, Config> addAllConfigsFromPath(String... paths)
+	{
+		if(paths.length == 0)
+		{
+			return null;
+		}
+		String first = paths[0];
+		String[] more = Arrays.copyOfRange(paths, 1, paths.length);
+		Path path = Path.of(first, more);
+		return addAllConfigsFromPath(path);
+	}
+	
+	public Map<String, Config> addAllConfigsFromPath(Path path)
 	{
 		File[] files = Path.of(plugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
 		Map<String, Config> tempConfigs = new HashMap<>();

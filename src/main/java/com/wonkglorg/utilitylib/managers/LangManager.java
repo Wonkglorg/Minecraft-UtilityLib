@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -108,11 +109,23 @@ public class LangManager implements Manager
 		load();
 	}
 	
-	public void addAllLangFilesFromPath(JavaPlugin javaPlugin, String path)
+	public void addAllLangFilesFromPath(String... paths)
+	{
+		if(paths.length == 0)
+		{
+			return;
+		}
+		String first = paths[0];
+		String[] more = Arrays.copyOfRange(paths, 1, paths.length);
+		Path path = Path.of(first, more);
+		addAllLangFilesFromPath(path);
+	}
+	
+	public void addAllLangFilesFromPath(Path path)
 	{
 		//Add dictionary to get a wider range of possible yml naming for langs
 		
-		File[] files = Path.of(javaPlugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
+		File[] files = Path.of(plugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
 		if(files == null)
 		{
 			Logger.logWarn("No available language files loaded");
@@ -126,14 +139,14 @@ public class LangManager implements Manager
 			}
 			if(!file.getName().endsWith(".yml"))
 			{
-				return;
+				continue;
 			}
 			for(Locale locale : Locale.getAvailableLocales())
 			{
 				if(locale.getLanguage().equalsIgnoreCase(file.getName()))
 				{
-					Logger.log(javaPlugin, locale.getLanguage() + " has been loaded!");
-					langMap.put(locale, new ConfigYML(javaPlugin, file.getName(), file.getParent()));
+					Logger.log(plugin, locale.getLanguage() + " has been loaded!");
+					langMap.put(locale, new ConfigYML(plugin, file.getName(), file.getParent()));
 				}
 			}
 		}

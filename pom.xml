@@ -72,6 +72,7 @@
 	</repositories>
 	<dependencies>
 		<dependency>
+			
 			<groupId>io.papermc.paper</groupId>
 			<artifactId>paper-api</artifactId>
 			<version>1.19-R0.1-SNAPSHOT</version>
