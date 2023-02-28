@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public class MenuUtility
+public class MenuUtilityBackup
 {
 	protected final Player owner;
-	private static final Map<Player, MenuUtility> menuUtilityMap = new HashMap<>();
+	private static final Map<Player, MenuUtilityBackup> menuUtilityMap = new HashMap<>();
 	
-	public MenuUtility(Player player)
+	public MenuUtilityBackup(Player player)
 	{
 		this.owner = player;
 	}
@@ -27,7 +27,7 @@ public class MenuUtility
 		return owner;
 	}
 	
-	public void addEntry(Player player, MenuUtility menuUtility)
+	public void addEntry(Player player, MenuUtilityBackup menuUtility)
 	{
 		menuUtilityMap.put(player, menuUtility);
 	}
@@ -42,14 +42,14 @@ public class MenuUtility
 	 * @param player {@link Player} opening the menu.
 	 * @return MenuUtility linked to the {@link Player}.
 	 */
-	public static MenuUtility get(@NotNull Player player, MenuUtility menuUtility)
+	public static MenuUtilityBackup get(@NotNull Player player, MenuUtilityBackup menuUtility)
 	{
 		
-		MenuUtility playerMenuUtility;
+		MenuUtilityBackup playerMenuUtility;
 		menuUtilityMap.keySet().removeIf(Predicate.not(Player::isValid));
 		if(!(menuUtilityMap.containsKey(player)))
 		{
-			playerMenuUtility = menuUtility != null ?  menuUtility : new MenuUtility(player);
+			playerMenuUtility = menuUtility != null ?  menuUtility : new MenuUtilityBackup(player);
 			menuUtilityMap.put(player, playerMenuUtility);
 			
 			return playerMenuUtility;
