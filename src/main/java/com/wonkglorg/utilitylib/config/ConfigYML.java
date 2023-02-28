@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.config;
 
-import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -11,6 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,68 +19,63 @@ import java.util.Set;
  * Abstract config class
  */
 @SuppressWarnings("unused")
-public class ConfigYML extends YamlConfiguration implements Config
+public final class ConfigYML extends YamlConfiguration implements Config
 {
 	
 	/**
 	 * The Main.
 	 */
-	protected final JavaPlugin main;
+	private final JavaPlugin plugin;
 	/**
 	 * The Name.
 	 */
-	protected String name;
+	private final String name;
 	/**
 	 * The Path.
 	 */
-	protected String path;
+	private final Path path;
 	/**
 	 * The File.
 	 */
-	protected File file;
+	private final File file;
 	
 	/**
 	 * Creates a new config object which represents a yml file
 	 *
-	 * @param main the java plugin
+	 * @param plugin the java plugin
 	 * @param name the file name
 	 */
-	public ConfigYML(JavaPlugin main, String name)
+	public ConfigYML(JavaPlugin plugin, String name)
 	{
-		this.main = main;
+		this.plugin = plugin;
 		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
-		this.path = this.name;
-		file = new File(main.getDataFolder(), name);
+		this.path = Path.of(this.name);
+		file = new File(plugin.getDataFolder(), name);
 	}
 	
 	/**
 	 * Creates a new config object which represents a yml file
 	 *
-	 * @param main the java plugin
+	 * @param plugin the java plugin
 	 * @param name the file name
 	 * @param paths the path to the file
 	 */
-	public ConfigYML(JavaPlugin main, String name, String... paths)
+	public ConfigYML(JavaPlugin plugin, String name, String... paths)
 	{
-		this.main = main;
-		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
-		StringBuilder pathBuilder = new StringBuilder();
-		for(String s : paths)
-		{
-			pathBuilder.append(s).append(File.separator);
-		}
-		this.path = pathBuilder + this.name;
-		file = new File(main.getDataFolder(), this.path);
-		
+		this.plugin = plugin;
+		this.name = name.endsWith(".yml") ? name : name + ".yml";
+		String joinedPath = String.join(File.separator, paths);
+		this.path = Paths.get(joinedPath, this.name);
+		file = new File(plugin.getDataFolder(), this.path.toString());
 	}
 	
-	public ConfigYML(JavaPlugin main, String name, String path)
+	public ConfigYML(JavaPlugin main, Path path)
 	{
-		this.main = main;
-		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
-		path = path.startsWith(File.separator) ? path.replaceFirst(File.separator, "") : path;
-		this.path = path.endsWith(File.separator) ? path + name : path + File.separator + name;
-		file = new File(main.getDataFolder(), this.path);
+		this.plugin = main;
+		String name = path.getName(path.getNameCount()).toString();
+		this.name = name.endsWith(".yml") ? name : name + ".yml";
+		this.path = Path.of(path.toString(), this.name);
+		file = this.path.toFile();
 	}
 	
 	/**
@@ -91,6 +87,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	 */
 	public Set<String> getSection(@NotNull String path, boolean deep)
 	{
+		
 		ConfigurationSection section = getConfigurationSection(path);
 		if(section != null)
 		{
@@ -125,7 +122,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 			Logger.log("Loaded data from " + name + "!");
 		} catch(InvalidConfigurationException | IOException e)
 		{
-			e.printStackTrace();
+			Logger.logFatal(plugin, e.getMessage());
 			Logger.logWarn("Error loading data from " + name + "!");
 		}
 	}
@@ -144,7 +141,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 			Logger.log(plugin, "Loaded data from " + name + "!");
 		} catch(InvalidConfigurationException | IOException e)
 		{
-			e.printStackTrace();
+			Logger.logFatal(plugin, e.getMessage());
 			Logger.logWarn(plugin, "Error loading data from " + name + "!");
 		}
 	}
@@ -158,7 +155,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 			load(file);
 		} catch(InvalidConfigurationException | IOException e)
 		{
-			e.printStackTrace();
+			Logger.logFatal(plugin, e.getMessage());
 			Logger.logWarn("Error loading data from " + name + "!");
 		}
 	}
@@ -173,7 +170,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 			Logger.log("Saved data to " + name + "!");
 		} catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logFatal(plugin, e.getMessage());
 			Logger.logWarn("Error saving data to " + name + "!");
 		}
 	}
@@ -201,7 +198,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	@Override
 	public String path()
 	{
-		return path;
+		return path.toString();
 	}
 	
 	/**
@@ -211,16 +208,15 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			if(main.getResource(path) != null)
+			if(plugin.getResource(path.toString()) != null)
 			{
-				main.saveResource(path, false);
+				plugin.saveResource(path.toString(), false);
 			} else
 			{
 				boolean ignored = file.getParentFile().mkdirs();
 				try
 				{
-					file.getParentFile().mkdir();
-					file.createNewFile();
+					ignored = file.createNewFile();
 				} catch(IOException e)
 				{
 					throw new RuntimeException(e);
