@@ -183,7 +183,6 @@ public class ConfigJson implements Config
 		return null;
 	}
 	
-	
 	@Override
 	public <T> T getObject(@NotNull String path, @NotNull Class<T> clazz)
 	{
@@ -235,6 +234,7 @@ public class ConfigJson implements Config
 	@Override
 	public void load()
 	{
+		checkFile();
 		try
 		{
 			this.data = (JSONObject) parser.parse(new FileReader(file));
@@ -249,6 +249,7 @@ public class ConfigJson implements Config
 	@Override
 	public void silentLoad()
 	{
+		checkFile();
 		try
 		{
 			this.data = (JSONObject) parser.parse(new FileReader(file));
@@ -262,6 +263,7 @@ public class ConfigJson implements Config
 	@Override
 	public void save()
 	{
+		checkFile();
 		try(FileWriter fileWriter = new FileWriter(file))
 		{
 			fileWriter.write(data.toJSONString());
@@ -276,6 +278,7 @@ public class ConfigJson implements Config
 	@Override
 	public void silentSave()
 	{
+		checkFile();
 		try(FileWriter fileWriter = new FileWriter(file))
 		{
 			fileWriter.write(data.toJSONString());
@@ -296,5 +299,30 @@ public class ConfigJson implements Config
 	public String path()
 	{
 		return null;
+	}
+	
+	private void checkFile()
+	{
+		if(!file.exists())
+		{
+			if(main.getResource(path) != null)
+			{
+				main.saveResource(path, false);
+			} else
+			{
+				boolean ignored = file.getParentFile().mkdirs();
+				try
+				{
+					ignored = file.getParentFile().mkdir();
+					ignored = file.createNewFile();
+				} catch(IOException e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+			return;
+		}
+		updateFiles();
+		
 	}
 }

@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.config;
 
+import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -11,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -99,10 +99,14 @@ public class ConfigYML extends YamlConfiguration implements Config
 		return new HashSet<>();
 	}
 	
-	
 	public @Nullable String getParentPath(@NotNull String path)
 	{
-		return getConfigurationSection(path).getParent().getCurrentPath();
+		ConfigurationSection configurationSection = getConfigurationSection(path).getParent();
+		if(configurationSection == null)
+		{
+			return null;
+		}
+		return configurationSection.getCurrentPath();
 	}
 	
 	@Override
@@ -128,6 +132,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 	
 	/**
 	 * same as load but with specified plugin for logger message
+	 *
 	 * @param plugin
 	 */
 	public void load(JavaPlugin plugin)
@@ -140,7 +145,7 @@ public class ConfigYML extends YamlConfiguration implements Config
 		} catch(InvalidConfigurationException | IOException e)
 		{
 			e.printStackTrace();
-			Logger.logWarn(plugin,"Error loading data from " + name + "!");
+			Logger.logWarn(plugin, "Error loading data from " + name + "!");
 		}
 	}
 	
@@ -168,15 +173,8 @@ public class ConfigYML extends YamlConfiguration implements Config
 			Logger.log("Saved data to " + name + "!");
 		} catch(IOException e)
 		{
-			file.mkdir();
-			try
-			{
-				file.createNewFile();
-			} catch(IOException ex)
-			{
-				Logger.logWarn("Error saving data to " + name + "!");
-				throw new RuntimeException(ex);
-			}
+			e.printStackTrace();
+			Logger.logWarn("Error saving data to " + name + "!");
 		}
 	}
 	
@@ -189,15 +187,8 @@ public class ConfigYML extends YamlConfiguration implements Config
 			save(file);
 		} catch(IOException e)
 		{
-			file.mkdir();
-			try
-			{
-				file.createNewFile();
-			} catch(IOException ex)
-			{
-				Logger.logWarn("Error saving data to " + name + "!");
-				throw new RuntimeException(ex);
-			}
+			e.printStackTrace();
+			Logger.logWarn("Error saving data to " + name + "!");
 		}
 	}
 	
@@ -220,8 +211,21 @@ public class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			main.saveResource(path, false);
-			boolean ignored = file.getParentFile().mkdirs();
+			if(main.getResource(path) != null)
+			{
+				main.saveResource(path, false);
+			} else
+			{
+				boolean ignored = file.getParentFile().mkdirs();
+				try
+				{
+					file.getParentFile().mkdir();
+					file.createNewFile();
+				} catch(IOException e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
 			return;
 		}
 		updateFiles();
