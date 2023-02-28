@@ -1,12 +1,11 @@
-package com.wonkglorg.utilitylib.managers;
+package com.wonkglorg.utilitylib.inventory;
 
-import com.wonkglorg.utilitylib.inventory.Profile;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileManager<T extends Profile> implements Manager
+public class ProfileManager<T extends Profile>
 {
 	protected Map<Player, T> utilityMap = new HashMap<>();
 	
@@ -27,15 +26,4 @@ public class ProfileManager<T extends Profile> implements Manager
 		utilityMap.remove(player);
 	}
 	
-	@Override
-	public void onShutdown()
-	{
-		utilityMap.clear();
-	}
-	
-	@Override
-	public void onStartup()
-	{
-	
-	}
 }

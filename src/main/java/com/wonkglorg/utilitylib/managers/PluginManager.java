@@ -2,7 +2,6 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.inventory.Profile;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
@@ -114,10 +113,6 @@ public class PluginManager
 		return true;
 	}
 	
-	public void addProfileManager(ProfileManager<? extends Profile> profileManager)
-	{
-		managerMap.put(ManagerValues.PROFILE, profileManager);
-	}
 	
 	public void addLang(Locale locale, Config config)
 	{
@@ -179,10 +174,6 @@ public class PluginManager
 		return (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
 	}
 	
-	public ProfileManager<? extends Profile> getProfileManager()
-	{
-		return (ProfileManager<? extends Profile>) managerMap.get(ManagerValues.PROFILE);
-	}
 	
 	public enum ManagerValues
 	{
@@ -192,7 +183,6 @@ public class PluginManager
 		ENCHANT(),
 		RECIPE(),
 		EVENT(),
-		PROFILE(),
 		;
 	}
 }
