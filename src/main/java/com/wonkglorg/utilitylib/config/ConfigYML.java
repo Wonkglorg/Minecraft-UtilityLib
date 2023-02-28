@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -45,7 +46,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	 * @param plugin the java plugin
 	 * @param name the file name
 	 */
-	public ConfigYML(JavaPlugin plugin, String name)
+	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull String name)
 	{
 		this.plugin = plugin;
 		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
@@ -60,7 +61,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	 * @param name the file name
 	 * @param paths the path to the file
 	 */
-	public ConfigYML(JavaPlugin plugin, String name, String... paths)
+	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull String name, String... paths)
 	{
 		this.plugin = plugin;
 		this.name = name.endsWith(".yml") ? name : name + ".yml";
@@ -69,12 +70,12 @@ public final class ConfigYML extends YamlConfiguration implements Config
 		file = new File(plugin.getDataFolder(), this.path.toString());
 	}
 	
-	public ConfigYML(JavaPlugin main, Path path)
+	public ConfigYML(@NotNull JavaPlugin main, @NotNull Path path)
 	{
 		this.plugin = main;
-		String name = path.getName(path.getNameCount()).toString();
+		String name = path.getName(path.getNameCount() - 1).toString();
 		this.name = name.endsWith(".yml") ? name : name + ".yml";
-		this.path = Path.of(path.toString(), this.name);
+		this.path = path;
 		file = this.path.toFile();
 	}
 	
@@ -208,11 +209,14 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			if(plugin.getResource(path.toString()) != null)
+			InputStream inputStream = plugin.getResource(path.toString().replace('\\', '/'));
+			System.out.println(inputStream);
+			if(inputStream != null)
 			{
 				plugin.saveResource(path.toString(), false);
 			} else
 			{
+				System.out.println("Creating file");
 				boolean ignored = file.getParentFile().mkdirs();
 				try
 				{
@@ -222,7 +226,6 @@ public final class ConfigYML extends YamlConfiguration implements Config
 					throw new RuntimeException(e);
 				}
 			}
-			return;
 		}
 		updateFiles();
 		
