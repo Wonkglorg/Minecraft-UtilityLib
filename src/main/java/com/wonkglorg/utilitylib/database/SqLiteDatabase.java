@@ -4,6 +4,7 @@ import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,12 +49,20 @@ public abstract class SqLiteDatabase
 		{
 			return;
 		}
+		
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
-			new File(String.valueOf(DATABASE_PATH)).mkdir();
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH + File.separator + DATABASE_NAME);
-		} catch(ClassNotFoundException | SQLException e)
+			new File(String.valueOf(DATABASE_PATH)).mkdirs();
+			
+			File databaseFile = new File(DATABASE_PATH + File.separator + DATABASE_NAME);
+			if(!databaseFile.exists())
+			{
+				databaseFile.createNewFile();
+			}
+			
+			connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getPath());
+		} catch(ClassNotFoundException | SQLException | IOException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}
