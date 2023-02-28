@@ -13,14 +13,34 @@ import java.sql.Statement;
 
 public abstract class SqLiteDatabase
 {
-	private final JavaPlugin plugin;
 	protected static Connection connection;
 	protected final String DATABASE_NAME;
 	protected final Path DATABASE_PATH;
 	
+	/**
+	 * Creates a new database file in the specified path
+	 * @param name
+	 * @param path
+	 */
+	public SqLiteDatabase(String name, Path path)
+	{
+		if(name == null || path == null)
+		{
+			throw new RuntimeException();
+		}
+		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
+		DATABASE_PATH = path;
+		connect();
+	}
+	
+	/**
+	 * Creates a new database file in the plugins datafolder + specified path
+	 * @param plugin
+	 * @param name
+	 * @param path
+	 */
 	public SqLiteDatabase(JavaPlugin plugin, String name, Path path)
 	{
-		this.plugin = plugin;
 		if(name == null || path == null)
 		{
 			throw new RuntimeException();
@@ -28,19 +48,6 @@ public abstract class SqLiteDatabase
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		DATABASE_PATH = Path.of(plugin.getDataFolder().getPath() + File.separator + path);
 		connect();
-	}
-	
-	public void createTable(String command)
-	{
-		connect();
-		try(Statement statement = connection.createStatement())
-		{
-			statement.setQueryTimeout(30);
-			statement.executeUpdate(command);
-		} catch(SQLException e)
-		{
-			System.err.println(e.getMessage());
-		}
 	}
 	
 	public void connect()

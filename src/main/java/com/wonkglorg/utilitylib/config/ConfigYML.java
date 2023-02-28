@@ -168,8 +168,15 @@ public class ConfigYML extends YamlConfiguration implements Config
 			Logger.log("Saved data to " + name + "!");
 		} catch(IOException e)
 		{
-			e.printStackTrace();
-			Logger.logWarn("Error saving data to " + name + "!");
+			file.mkdir();
+			try
+			{
+				file.createNewFile();
+			} catch(IOException ex)
+			{
+				Logger.logWarn("Error saving data to " + name + "!");
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 	
@@ -182,8 +189,15 @@ public class ConfigYML extends YamlConfiguration implements Config
 			save(file);
 		} catch(IOException e)
 		{
-			e.printStackTrace();
-			Logger.logWarn("Error saving data to " + name + "!");
+			file.mkdir();
+			try
+			{
+				file.createNewFile();
+			} catch(IOException ex)
+			{
+				Logger.logWarn("Error saving data to " + name + "!");
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 	
