@@ -3,9 +3,9 @@ package com.wonkglorg.utilitylib.inventory;
 import org.bukkit.entity.Player;
 
 @SuppressWarnings("unused")
-public class Profile
+public class Profile implements Cloneable
 {
-	protected final Player owner;
+	protected Player owner;
 	
 	public Profile(Player player)
 	{
@@ -22,4 +22,21 @@ public class Profile
 		return owner;
 	}
 	
+	public void setOwner(Player owner)
+	{
+		this.owner = owner;
+	}
+	
+	@Override
+	public Profile clone()
+	{
+		try
+		{
+			Profile clone = (Profile) super.clone();
+			return clone;
+		} catch(CloneNotSupportedException e)
+		{
+			throw new AssertionError();
+		}
+	}
 }
