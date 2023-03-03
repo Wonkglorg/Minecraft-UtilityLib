@@ -147,7 +147,7 @@ public class ChatColor
 	test these methods
 	 */
 	
-	public static String getGradientHex(@NotNull String text, java.awt.Color... colors)
+	public static String getGradientHex(@NotNull String text, @NotNull java.awt.Color... colors)
 	{
 		StringBuilder result = new StringBuilder();
 		int length = text.length();
@@ -156,7 +156,7 @@ public class ChatColor
 		for(int i = 0; i < length; i++)
 		{
 			float ratio = i * step;
-			java.awt.Color color = getColorAtRatio(colors, ratio);
+			java.awt.Color color = getColorAtRatio(ratio, colors);
 			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 			result.append(hex);
 		}
@@ -164,7 +164,7 @@ public class ChatColor
 		return result.toString();
 	}
 	
-	private static java.awt.Color getColorAtRatio(java.awt.Color[] colors, float ratio)
+	private static java.awt.Color getColorAtRatio(float ratio, @NotNull java.awt.Color... colors)
 	{
 		if(ratio <= 0)
 		{
