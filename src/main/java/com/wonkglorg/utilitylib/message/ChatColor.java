@@ -157,7 +157,7 @@ public class ChatColor
 		{
 			float ratio = i * step;
 			java.awt.Color color = getColorAtRatio(ratio, colors);
-			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+			String hex = String.format("&#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 			result.append(hex);
 		}
 		
