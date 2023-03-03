@@ -96,6 +96,7 @@ public class ItemBuilder implements Cloneable
 		material = item.getType();
 		amount = item.getAmount();
 	}
+	
 	//Eddit COLOR.COLOR to Message.color
 	
 	public ItemStack build()

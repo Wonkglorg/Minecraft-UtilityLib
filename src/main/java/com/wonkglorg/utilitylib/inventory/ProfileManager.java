@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@SuppressWarnings("unused")
 public class ProfileManager<T extends Profile>
 {
 	protected T menu;

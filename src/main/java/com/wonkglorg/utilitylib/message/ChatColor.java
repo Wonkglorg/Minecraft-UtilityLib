@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.message;
 
 import net.kyori.adventure.text.format.TextDecoration;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -141,6 +142,52 @@ public class ChatColor
 	public static Set<Character> colorCharacters()
 	{
 		return textColorMap.keySet();
+	}
+	/*
+	test these methods
+	 */
+	
+	public static String getGradientHex(@NotNull String text, java.awt.Color... colors)
+	{
+		StringBuilder result = new StringBuilder();
+		int length = text.length();
+		float step = 1f / (length - 1);
+		
+		for(int i = 0; i < length; i++)
+		{
+			float ratio = i * step;
+			java.awt.Color color = getColorAtRatio(colors, ratio);
+			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+			result.append(hex);
+		}
+		
+		return result.toString();
+	}
+	
+	private static java.awt.Color getColorAtRatio(java.awt.Color[] colors, float ratio)
+	{
+		if(ratio <= 0)
+		{
+			return colors[0];
+		} else if(ratio >= 1)
+		{
+			return colors[colors.length - 1];
+		}
+		
+		int index = (int) (ratio * (colors.length - 1));
+		float startRatio = index * 1f / (colors.length - 1);
+		float endRatio = (index + 1) * 1f / (colors.length - 1);
+		
+		java.awt.Color startColor = colors[index];
+		java.awt.Color endColor = colors[index + 1];
+		
+		float blendRatio = (ratio - startRatio) / (endRatio - startRatio);
+		
+		int red = (int) (startColor.getRed() + (endColor.getRed() - startColor.getRed()) * blendRatio);
+		int green = (int) (startColor.getGreen() + (endColor.getGreen() - startColor.getGreen()) * blendRatio);
+		int blue = (int) (startColor.getBlue() + (endColor.getBlue() - startColor.getBlue()) * blendRatio);
+		
+		return new java.awt.Color(red, green, blue);
 	}
 	
 	public static java.awt.Color gradient(double max, double min, double current, java.awt.Color start, java.awt.Color end)

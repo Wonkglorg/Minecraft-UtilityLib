@@ -62,7 +62,7 @@ public enum DateUtils
 	
 	//Add extra parameters that let you choose biggest shorted, or overall time format, and then calculate correctly
 	
-	public static String fromMilliseconds(long timeInMs)
+	public static String toString(long timeInMs)
 	{
 		long years = timeInMs / (365L * 24 * 60 * 60 * 1000);
 		timeInMs -= years * 365 * 24 * 60 * 60 * 1000;
@@ -103,43 +103,4 @@ public enum DateUtils
 		return sb.toString().trim();
 	}
 	
-	public static DateUtils getDateFromString(String s)
-	{
-		switch(s)
-		{
-			case "Ms" ->
-			{
-				return MILLISECONDS;
-			}
-			case "S" ->
-			{
-				return SECONDS;
-			}
-			case "Min" ->
-			{
-				return MINUTES;
-			}
-			case "H" ->
-			{
-				return HOUR;
-			}
-			case "D" ->
-			{
-				return DAY;
-			}
-			case "W" ->
-			{
-				return WEEK;
-			}
-			case "M" ->
-			{
-				return MONTH;
-			}
-			case "Y" ->
-			{
-				return YEAR;
-			}
-		}
-		return MILLISECONDS;
-	}
 }

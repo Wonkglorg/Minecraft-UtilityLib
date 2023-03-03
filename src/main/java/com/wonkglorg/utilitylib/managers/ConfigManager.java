@@ -83,9 +83,9 @@ public class ConfigManager implements Manager
 	@Override
 	public void onShutdown()
 	{
-		silentSave();
 		if(!configs.isEmpty())
 		{
+			silentSave();
 			Logger.log(plugin, "Saved " + configs.size() + " configs!");
 		}
 	}

@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
-public class Logger
+@SuppressWarnings({"unused","unchecked"})
+public final class Logger
 {
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
 	
@@ -14,11 +14,16 @@ public class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void log(@NotNull JavaPlugin plugin, @NotNull String... text)
+	public static void log(@NotNull JavaPlugin plugin, @NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			plugin.getLogger().info(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> plugin.getLogger().info(o.toString()));
+				continue;
+			}
+			plugin.getLogger().info(obj.toString());
 		}
 	}
 	
@@ -27,11 +32,16 @@ public class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void log(@NotNull String... text)
+	public static void log(@NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			logger.info(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> logger.info(o.toString()));
+				continue;
+			}
+			logger.info(obj.toString());
 		}
 	}
 	
@@ -39,14 +49,18 @@ public class Logger
 	 * Sends a logger warning message in the console
 	 * used when something goes wrong but the plugin
 	 * can still run afterwards.
-	 *
 	 * @param text message to display.
 	 */
-	public static void logWarn(@NotNull String... text)
+	public static void logWarn(@NotNull JavaPlugin plugin, @NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			logger.warning(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> plugin.getLogger().info(o.toString()));
+				continue;
+			}
+			plugin.getLogger().info(obj.toString());
 		}
 	}
 	
@@ -54,44 +68,56 @@ public class Logger
 	 * Sends a logger warning message in the console
 	 * used when something goes wrong but the plugin
 	 * can still run afterwards.
-	 *
 	 * @param text message to display.
 	 */
-	public static void logWarn(@NotNull JavaPlugin plugin, @NotNull String... text)
+	public static void logWarn(@NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			plugin.getLogger().warning(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> logger.info(o.toString()));
+				continue;
+			}
+			logger.info(obj.toString());
 		}
 	}
 	
 	/**
 	 * Sends a logger fatal message in the console
 	 * used when something goes wrong and results
-	 * in either data loss or unable to further work.
-	 *
+	 * in either data loss or unable to further function..
 	 * @param text message to display.
 	 */
-	public static void logFatal(@NotNull String... text)
+	public static void logFatal(@NotNull JavaPlugin plugin, @NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			logger.severe(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> plugin.getLogger().info(o.toString()));
+				continue;
+			}
+			plugin.getLogger().info(obj.toString());
 		}
 	}
 	
 	/**
 	 * Sends a logger fatal message in the console
 	 * used when something goes wrong and results
-	 * in either data loss or unable to further work.
-	 *
+	 * in either data loss or unable to further function..
 	 * @param text message to display.
 	 */
-	public static void logFatal(@NotNull JavaPlugin plugin,@NotNull String... text)
+	public static void logFatal(@NotNull Object... text)
 	{
-		for(String string : text)
+		for(Object obj : text)
 		{
-			plugin.getLogger().severe(string);
+			if(obj instanceof Iterable list)
+			{
+				list.forEach(o -> logger.info(o.toString()));
+				continue;
+			}
+			logger.info(obj.toString());
 		}
 	}
 	

@@ -9,7 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlastingRecipeBuilder extends RecipeBuilder
 {
-	
+	/**
+	 * Creates a new Blasting Recipe builder
+	 * @param key
+	 * @param result
+	 */
 	public BlastingRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		super(key, result);
