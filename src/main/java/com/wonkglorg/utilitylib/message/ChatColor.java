@@ -143,21 +143,33 @@ public class ChatColor
 	{
 		return textColorMap.keySet();
 	}
-	/*
-	test these methods
-	 */
 	
-	public static String getGradientHex(@NotNull String text, @NotNull java.awt.Color... colors)
-	{
+	/**
+	 * Creates a gradient going through all colors in order as they get listed in the colors array
+	 * @param text Text to be displayed
+	 * @param colors Colors to be used, they keep their order as entered
+	 * @return A string formatted &#%02x%02x%02x(character)
+	 */
+	public static String createGradient(@NotNull String text, @NotNull java.awt.Color... colors) {
+		return createGradient(text, 1.0, colors);
+	}
+	/**
+	 * Creates a gradient with a shift going through all colors in order as they get listed in the colors array when modifying the shift value it
+	 * shifts the colors to create a waving gradient effect
+	 * @param text Text to be displayed
+	 * @param shiftValue shift value shifts the colors based on its input from 0 to 255, if the value exceeds 255 it starts back from 0
+	 * @param colors Colors to be used, they keep their order as entered
+	 * @return A string formatted &#%02x%02x%02x(character)
+	 */
+	public static String createGradient(@NotNull String text, double shiftValue, @NotNull java.awt.Color... colors) {
 		StringBuilder result = new StringBuilder();
 		int length = text.length();
 		float step = 1f / (length - 1);
 		
-		for(int i = 0; i < length; i++)
-		{
+		for (int i = 0; i < length; i++) {
 			float ratio = i * step;
-			java.awt.Color color = getColorAtRatio(ratio, colors);
-			String hex = String.format("&#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+			java.awt.Color color = getColorAtRatio(ratio, colors, shiftValue * i);
+			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 			result.append(hex);
 			result.append(text.charAt(i));
 		}
@@ -165,13 +177,10 @@ public class ChatColor
 		return result.toString();
 	}
 	
-	private static java.awt.Color getColorAtRatio(float ratio, @NotNull java.awt.Color... colors)
-	{
-		if(ratio <= 0)
-		{
+	private static java.awt.Color getColorAtRatio(float ratio, java.awt.Color[] colors, double shiftValue) {
+		if (ratio <= 0) {
 			return colors[0];
-		} else if(ratio >= 1)
-		{
+		} else if (ratio >= 1) {
 			return colors[colors.length - 1];
 		}
 		
@@ -179,8 +188,8 @@ public class ChatColor
 		float startRatio = index * 1f / (colors.length - 1);
 		float endRatio = (index + 1) * 1f / (colors.length - 1);
 		
-		java.awt.Color startColor = colors[index];
-		java.awt.Color endColor = colors[index + 1];
+		java.awt.Color startColor = shiftColor(colors[index], shiftValue);
+		java.awt.Color endColor = shiftColor(colors[index + 1], shiftValue);
 		
 		float blendRatio = (ratio - startRatio) / (endRatio - startRatio);
 		
@@ -191,25 +200,11 @@ public class ChatColor
 		return new java.awt.Color(red, green, blue);
 	}
 	
-	public static java.awt.Color gradient(double max, double min, double current, java.awt.Color start, java.awt.Color end)
-	{
-		double percent = calculatePercent(min, max, current);
-		
-		return mixColors(start, end, percent);
-	}
-	
-	private static double calculatePercent(double min, double max, double current)
-	{
-		return (current - min) / (max - min);
-	}
-	
-	private static java.awt.Color mixColors(java.awt.Color color1, java.awt.Color color2, double percent)
-	{
-		double inverse_percent = 1.0 - percent;
-		int redPart = (int) (color1.getRed() * percent + color2.getRed() * inverse_percent);
-		int greenPart = (int) (color1.getGreen() * percent + color2.getGreen() * inverse_percent);
-		int bluePart = (int) (color1.getBlue() * percent + color2.getBlue() * inverse_percent);
-		return new java.awt.Color(redPart, greenPart, bluePart);
+	private static java.awt.Color shiftColor(java.awt.Color color, double shiftValue) {
+		int r = (color.getRed() + (int) shiftValue) % 256;
+		int g = (color.getGreen() + (int) shiftValue) % 256;
+		int b = (color.getBlue() + (int) shiftValue) % 256;
+		return new java.awt.Color(r, g, b);
 	}
 	
 	public static Set<Character> decorationCharacters()
