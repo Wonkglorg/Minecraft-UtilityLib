@@ -159,6 +159,7 @@ public class ChatColor
 			java.awt.Color color = getColorAtRatio(ratio, colors);
 			String hex = String.format("&#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 			result.append(hex);
+			result.append(text.charAt(i));
 		}
 		
 		return result.toString();
