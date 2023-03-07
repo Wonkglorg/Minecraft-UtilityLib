@@ -111,6 +111,21 @@ public abstract class InventoryGUI implements Listener
 		return inventory;
 	}
 	
+	public int validateX(int x)
+	{
+		return Math.min(Math.max(x, 0), (inventory.getSize() / 9));
+	}
+	
+	public int validateY(int y)
+	{
+		return Math.min(Math.max(y, 0), 8);
+	}
+	
+	public int validateFitting(int slot)
+	{
+		return Math.min(Math.max(slot, 0), inventory.getSize() - 1);
+	}
+	
 	/**
 	 * Add a button to the GUI in the given slot
 	 *
@@ -119,6 +134,7 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void addButton(Button button, int slot)
 	{
+		slot = validateFitting(slot);
 		button.setSlot(slot);
 		inventory.setItem(slot, button.getItem());
 		buttons.put(slot, button);
@@ -144,6 +160,8 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void addButton(Button button, int x, int y)
 	{
+		x = validateX(x);
+		y = validateY(y);
 		int slot = x + (y * 9);
 		addButton(button, slot);
 	}
@@ -157,6 +175,8 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void fill(int start, int end, ItemStack item)
 	{
+		start = validateFitting(start);
+		end = validateFitting(end);
 		for(int i = start; i < end; i++)
 		{
 			inventory.setItem(i, item == null ? null : item.clone());
@@ -174,6 +194,12 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void fill(int x1, int y1, int x2, int y2, ItemStack item)
 	{
+		x1 = validateX(x1);
+		y1 = validateY(y1);
+		
+		x2 = validateX(x2);
+		y2 = validateY(y2);
+		
 		for(int x = x1; x < x2; x++)
 		{
 			for(int y = y1; y < y2; y++)
@@ -201,6 +227,7 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void removeButton(int slot)
 	{
+		slot = validateFitting(slot);
 		inventory.setItem(slot, new ItemStack(Material.AIR));
 		buttons.remove(slot);
 	}
@@ -231,6 +258,7 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void clearSlot(int slot)
 	{
+		slot = validateFitting(slot);
 		Button button = buttons.get(slot);
 		if(button != null)
 		{
@@ -258,6 +286,7 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void openSlot(int slot)
 	{
+		slot = validateFitting(slot);
 		openSlots.add(slot);
 	}
 	
@@ -269,6 +298,8 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void openSlots(int start, int end)
 	{
+		start = validateFitting(start);
+		end = validateFitting(end);
 		for(int i = start; i < end; i++)
 		{
 			openSlots.add(i);
@@ -285,6 +316,12 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void openSlots(int x1, int y1, int x2, int y2)
 	{
+		x1 = validateX(x1);
+		y1 = validateY(y1);
+		
+		x2 = validateX(x2);
+		y2 = validateY(y2);
+		
 		for(int y = y1; y < y2; y++)
 		{
 			for(int x = x1; x < x2; x++)
@@ -312,6 +349,9 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void closeSlots(int start, int end)
 	{
+		start = validateFitting(start);
+		end = validateFitting(end);
+		
 		for(int i = start; i < end; i++)
 		{
 			openSlots.remove(i);
@@ -328,6 +368,13 @@ public abstract class InventoryGUI implements Listener
 	 */
 	public void closeSlots(int x1, int y1, int x2, int y2)
 	{
+		
+		x1 = validateX(x1);
+		y1 = validateY(y1);
+		
+		x2 = validateX(x2);
+		y2 = validateY(y2);
+		
 		for(int y = y1; y < y2; y++)
 		{
 			for(int x = x1; x < x2; x++)
