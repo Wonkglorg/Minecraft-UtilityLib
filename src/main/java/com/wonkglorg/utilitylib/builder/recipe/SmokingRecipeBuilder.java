@@ -9,7 +9,7 @@ import org.bukkit.inventory.SmokingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class SmokingRecipeBuilder extends RecipeBuilder
+public final class SmokingRecipeBuilder extends RecipeBuilder
 {
 	public SmokingRecipeBuilder(NamespacedKey key, ItemStack result)
 	{

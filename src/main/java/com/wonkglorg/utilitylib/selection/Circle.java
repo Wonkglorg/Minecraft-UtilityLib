@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable
+public final class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable
 {
 	
 	@NotNull

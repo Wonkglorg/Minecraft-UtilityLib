@@ -11,7 +11,7 @@ import java.util.Set;
  * The type Chat color.
  */
 @SuppressWarnings("unused")
-public class ChatColor
+public final class ChatColor
 {
 	//maybe convert to enum? not sure
 	private static final String preset = "&";

@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * The type Furnace recipe builder.
  */
 @SuppressWarnings("unused")
-public class FurnaceRecipeBuilder extends RecipeBuilder
+public final class FurnaceRecipeBuilder extends RecipeBuilder
 {
 	
 	public FurnaceRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)

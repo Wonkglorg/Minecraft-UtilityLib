@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
-public class Convert
+public final class Convert
 {
 	private final static TreeMap<Integer, String> romanMap = new TreeMap<>();
 	

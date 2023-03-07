@@ -56,7 +56,7 @@ public abstract class InventoryGUI implements Listener
 	};
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
-	protected Profile menuUtility;
+	protected Profile profile;
 	
 	private boolean returnItems = true;
 	private boolean destroyOnClose = true;
@@ -66,13 +66,13 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param inventory The inventory to create a GUI from
 	 */
-	public InventoryGUI(Inventory inventory, JavaPlugin plugin, Profile menuUtility)
+	public InventoryGUI(Inventory inventory, JavaPlugin plugin, Profile profile)
 	{
 		
-		//Add menuUtility to constructor, avoids nullpointer exception if menuUtility is used in constructor
+		//Add profile to constructor, avoids nullpointer exception if profile is used in constructor
 		
 		this.plugin = plugin;
-		this.menuUtility = menuUtility;
+		this.profile = profile;
 		this.inventory = inventory;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
@@ -83,9 +83,9 @@ public abstract class InventoryGUI implements Listener
 	 * @param size The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(int size, String name, JavaPlugin plugin, Profile menuUtility)
+	public InventoryGUI(int size, String name, JavaPlugin plugin, Profile profile)
 	{
-		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, menuUtility);
+		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, profile);
 	}
 	
 	/**
@@ -94,9 +94,9 @@ public abstract class InventoryGUI implements Listener
 	 * @param inventorySize The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, Profile menuUtility)
+	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, Profile profile)
 	{
-		this(Bukkit.createInventory(null, inventorySize.getSize(), Message.color(name)), plugin, menuUtility);
+		this(Bukkit.createInventory(null, inventorySize.getSize(), Message.color(name)), plugin, profile);
 	}
 	
 	public abstract void addComponents();
@@ -354,7 +354,7 @@ public abstract class InventoryGUI implements Listener
 	{
 		addComponents();
 		
-		menuUtility.getOwner().openInventory(inventory);
+		profile.getOwner().openInventory(inventory);
 	}
 	
 	/**

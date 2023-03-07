@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @SuppressWarnings("unused")
-public class SerializeInventory
+public final class SerializeInventory
 {
 	
 	public static String toBase64(ItemStack[] contents)

@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
  * @author Redempt
  */
 @SuppressWarnings("unused")
-public class PaginationGui {
-	protected final InventoryGUI gui;
+public final class PaginationGui {
+	private final InventoryGUI gui;
 	private int page = 1;
 	private final List<IntConsumer> buttons = new ArrayList<>();
 	private final Map<Object, IntConsumer> items = new HashMap<>();

@@ -6,7 +6,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class LocationUtils{
+public final class LocationUtils{
 
 	/**
 	 * Change a string location to Location object

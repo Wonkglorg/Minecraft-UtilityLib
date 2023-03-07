@@ -17,12 +17,12 @@ import java.util.Map;
  * Helps to access and manage commands.
  */
 @SuppressWarnings("unused")
-public class CommandManager implements Manager
+public final class CommandManager implements Manager
 {
 	/**
 	 * Command Map holding all assigned commands and their name
 	 */
-	protected final Map<String, Command> commandMap;
+	private final Map<String, Command> commandMap;
 	private final JavaPlugin plugin;
 	
 	public CommandManager(JavaPlugin plugin)

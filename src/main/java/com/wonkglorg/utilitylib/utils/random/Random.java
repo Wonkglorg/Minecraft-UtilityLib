@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * The type Random.
  */
 @SuppressWarnings("unused")
-public class Random
+public final class Random
 {
 	/**
 	 * Rand projectile spread vector.

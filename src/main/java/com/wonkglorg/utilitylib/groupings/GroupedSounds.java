@@ -1,4 +1,4 @@
 package com.wonkglorg.utilitylib.groupings;
 
-public class GroupedSounds
+public final class GroupedSounds
 {}

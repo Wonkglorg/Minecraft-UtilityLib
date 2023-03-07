@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 @SuppressWarnings("unused")
-public class GroupedEntities
+public final class GroupedEntities
 {
 	
 	public static Set<EntityType> animals()

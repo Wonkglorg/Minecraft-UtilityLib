@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public class EnchantmentManager implements Manager
+public final class EnchantmentManager implements Manager
 {
 	private final Collection<Enchantment> enchantmentList = new ArrayList<>();
 	private final JavaPlugin plugin;

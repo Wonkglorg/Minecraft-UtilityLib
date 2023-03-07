@@ -1,6 +1,4 @@
 package com.wonkglorg.utilitylib.builder.equipment;
-
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -10,56 +8,89 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ 
+ This class provides a fluent interface for constructing and updating a LivingEntity's equipment
+ using an {@link EntityEquipment} object.
+ <p>
+ This class uses a {@link Map} to store each piece of equipment with its respective
+ {@link EquipmentSlot} and {@link EquipmentItem} objects.
+ <p>
+ The class provides public methods for setting the equipment for each slot:
+ Helmet, Chestplate, Leggings, Boots, MainHand, and OffHand.
+ <p>
+ The class also provides methods for setting the drop chance and silent attributes for each
+ piece of equipment. These methods must be called before calling the {@code build} method.
+ <p>
+ The class can only modify equipment of a non-null {@link LivingEntity}.
+ <p>
+ The class is not thread-safe.
+ */
 @SuppressWarnings("unused")
-public class EquipmentBuilder
-{
+public final class EquipmentBuilder {
 	private LivingEntity livingEntity;
 	private final Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new HashMap<>();
 	private boolean silent = true;
 	
-	public EquipmentBuilder()
-	{
+	/**
+	 * Constructs a new {@code EquipmentBuilder}.
+	 */
+	public EquipmentBuilder() {
 	}
 	
-	public EquipmentBuilder(@NotNull LivingEntity livingEntity)
-	{
+	/**
+	 * Constructs a new {@code EquipmentBuilder} with the given {@code LivingEntity}.
+	 *
+	 * @param livingEntity the {@link LivingEntity} to update.
+	 */
+	public EquipmentBuilder(@NotNull LivingEntity livingEntity) {
 		this.livingEntity = livingEntity;
 	}
 	
-	public LivingEntity build()
-	{
-		if(livingEntity == null)
-		{
+	/**
+	 * Updates the {@link LivingEntity}'s equipment with the equipment set using this builder.
+	 * <p>
+	 * If the {@code livingEntity} has not been set, this method will return null.
+	 *
+	 * @return the updated {@link LivingEntity}.
+	 */
+	public LivingEntity build() {
+		if (livingEntity == null) {
 			return null;
 		}
+		
 		EntityEquipment equipment = livingEntity.getEquipment();
 		
-		if(equipment == null)
-		{
+		if (equipment == null) {
 			return livingEntity;
 		}
 		
-		for(EquipmentSlot equipmentSlot : equipmentMap.keySet())
-		{
+		for (EquipmentSlot equipmentSlot : equipmentMap.keySet()) {
 			EquipmentItem equipmentItem = equipmentMap.get(equipmentSlot);
 			equipment.setItem(equipmentSlot, equipmentMap.get(equipmentSlot).getItemStack(), silent);
 			equipment.setDropChance(equipmentSlot, equipmentItem.getDropChance());
-			
 		}
 		
 		return livingEntity;
-		
 	}
 	
-	public void setLivingEntity(@NotNull LivingEntity livingEntity)
-	{
+	/**
+	 * Sets the {@link LivingEntity} to update.
+	 *
+	 * @param livingEntity the {@link LivingEntity} to update.
+	 */
+	public void setLivingEntity(@NotNull LivingEntity livingEntity) {
 		this.livingEntity = livingEntity;
 	}
 	
-	public EquipmentBuilder setHelmet(ItemStack helmet)
-	{
-		if(helmet == null)
-		{
+	/**
+	 * Sets the helmet equipment for the {@code LivingEntity}.
+	 *
+	 * @param helmet the helmet {@link ItemStack}.
+	 * @return the {@code EquipmentBuilder} object.
+	 */
+	public EquipmentBuilder setHelmet(ItemStack helmet) {
+		if (helmet == null) {
 			return this;
 		}
 		equipmentMap.put(EquipmentSlot.HEAD, new EquipmentItem(helmet, 0));

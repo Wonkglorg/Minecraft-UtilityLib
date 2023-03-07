@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
-public class CooldownBuilder
+public final class CooldownBuilder
 {
 	//maybe rework how the cooldowns are applied?
 	public static Map<String, Map<UUID, Long>> cooldowns = new HashMap<>();

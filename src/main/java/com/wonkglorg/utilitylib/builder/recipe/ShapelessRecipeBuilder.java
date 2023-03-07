@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class ShapelessRecipeBuilder extends RecipeBuilder
+public final class ShapelessRecipeBuilder extends RecipeBuilder
 {
 	
 	/**

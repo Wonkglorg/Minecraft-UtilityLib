@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.utils.players;
 
-public class BossBar
+public final class BossBar
 {
 	BossBar()
 	{

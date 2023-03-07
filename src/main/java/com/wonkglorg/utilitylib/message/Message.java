@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class Message
+public final class Message
 {
 	private static final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
 	

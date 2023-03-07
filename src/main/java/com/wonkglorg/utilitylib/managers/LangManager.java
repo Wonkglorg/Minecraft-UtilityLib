@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class LangManager implements Manager
+public final class LangManager implements Manager
 {
 	
 	/// REFORMAT ALL AND ADD JAVA DOCS

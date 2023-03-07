@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 @SuppressWarnings("unused")
-public class PlayerUtil
+public final class PlayerUtil
 {
 	
 	private static final List<UUID> teleportPlayers = new ArrayList<>();

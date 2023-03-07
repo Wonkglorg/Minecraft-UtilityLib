@@ -7,9 +7,9 @@ import java.util.HashMap;
  * @param <K>
  * @param <V>
  */
-public class DefaultHashMap<K, V> extends HashMap<K, V>
+public final class DefaultHashMap<K, V> extends HashMap<K, V>
 {
-	protected V defaultValue;
+	private final V defaultValue;
 	
 	public DefaultHashMap(V defaultValue)
 	{

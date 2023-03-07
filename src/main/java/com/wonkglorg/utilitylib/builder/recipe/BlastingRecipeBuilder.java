@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
 
-public class BlastingRecipeBuilder extends RecipeBuilder
+public final class BlastingRecipeBuilder extends RecipeBuilder
 {
 	/**
 	 * Creates a new Blasting Recipe builder

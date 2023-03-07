@@ -13,7 +13,7 @@ import java.io.IOException;
  * Serialize Single or multiple Items into Base64
  */
 @SuppressWarnings("unused")
-public class SerializeItems
+public final class SerializeItems
 {
 	/**
 	 * Serializes an Array of {@link ItemStack} to Base64

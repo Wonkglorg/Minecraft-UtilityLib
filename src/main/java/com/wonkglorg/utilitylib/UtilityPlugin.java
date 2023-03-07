@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib;
 
+import com.wonkglorg.utilitylib.builder.equipment.EquipmentBuilder;
 import com.wonkglorg.utilitylib.managers.PluginManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
 
-public class CampfireRecipeBuilder extends RecipeBuilder
+public final class CampfireRecipeBuilder extends RecipeBuilder
 {
 	public CampfireRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{

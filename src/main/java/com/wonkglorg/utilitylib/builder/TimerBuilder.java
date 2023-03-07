@@ -2,7 +2,7 @@ package com.wonkglorg.utilitylib.builder;
 
 import com.wonkglorg.utilitylib.utils.enums.MessageEnums;
 
-public class TimerBuilder
+public final class TimerBuilder
 {
 
 	public static String getFormatLongDays(long temps) {

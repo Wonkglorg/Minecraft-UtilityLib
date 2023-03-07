@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable
+public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable
 {
 	
 	/**
@@ -29,9 +29,9 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 * used for blocks protection and things like WorldEdit.
 	 *
 	 */
-	protected final String worldName;
-	protected final int x1, y1, z1;
-	protected final int x2, y2, z2;
+	private final String worldName;
+	private final int x1, y1, z1;
+	private final int x2, y2, z2;
 	
 	/**
 	 * Construct a Cuboid given two Location objects which represent any two

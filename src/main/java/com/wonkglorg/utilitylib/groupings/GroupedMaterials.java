@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class GroupedMaterials
+public final class GroupedMaterials
 {
 	
 	private Set<Material> chestPlate,leggings;

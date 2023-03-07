@@ -18,11 +18,11 @@ import java.util.Map;
  * The type Plugin manager.
  */
 @SuppressWarnings("unused")
-public class PluginManager
+public final class PluginManager
 {
 	
-	protected final Map<ManagerValues, Manager> managerMap = new HashMap<>();
-	protected final JavaPlugin plugin;
+	private final Map<ManagerValues, Manager> managerMap = new HashMap<>();
+	private final JavaPlugin plugin;
 	
 	/**
 	 * PluginManager is designed to make handling and using different types of common classes like configs, commands,events,languages,recipes easier

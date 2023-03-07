@@ -4,10 +4,10 @@ import com.wonkglorg.utilitylib.selection.Cuboid;
 import org.bukkit.Location;
 
 @SuppressWarnings("unused")
-public class SelectionBuilder
+public final class SelectionBuilder
 {
-	protected Cuboid cuboid;
-	protected Location location1, location2;
+	private Cuboid cuboid;
+	private Location location1, location2;
 	
 	public SelectionBuilder()
 	{

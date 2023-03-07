@@ -18,7 +18,7 @@ import java.util.Map;
  * The type Banner builder.
  */
 @SuppressWarnings("unused")
-public class BannerBuilder extends ItemBuilder
+public final class BannerBuilder extends ItemBuilder
 {
 	
 	private List<BannerLayer> bannerLayerList;

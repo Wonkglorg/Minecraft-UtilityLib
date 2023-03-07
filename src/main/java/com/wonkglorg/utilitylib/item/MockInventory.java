@@ -21,7 +21,7 @@ import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-class MockInventory implements Inventory
+public final class MockInventory implements Inventory
 {
 	
 	private ItemStack[] items;

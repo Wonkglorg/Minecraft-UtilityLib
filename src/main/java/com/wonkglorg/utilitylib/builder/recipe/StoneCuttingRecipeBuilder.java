@@ -7,7 +7,7 @@ import org.bukkit.inventory.StonecuttingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class StoneCuttingRecipeBuilder extends RecipeBuilder
+public final class StoneCuttingRecipeBuilder extends RecipeBuilder
 {
 	public StoneCuttingRecipeBuilder(NamespacedKey key, ItemStack result)
 	{

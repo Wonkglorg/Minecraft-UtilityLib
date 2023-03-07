@@ -16,30 +16,31 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ConfigJson implements Config
+public final class ConfigJson implements Config
 {
 	/**
 	 * The Main.
 	 */
-	protected final JavaPlugin main;
+	private final JavaPlugin main;
 	/**
 	 * The Name.
 	 */
-	protected String name;
+	private final String name;
 	/**
 	 * The Path.
 	 */
-	protected String path;
+	private final String path;
 	/**
 	 * The File.
 	 */
-	protected final File file;
-	protected final JSONParser parser = new JSONParser();
-	protected JSONObject data;
+	private final File file;
+	private final JSONParser parser = new JSONParser();
+	private JSONObject data;
 	
 	/**
 	 * Creates a new config object which represents a yml file
@@ -95,7 +96,14 @@ public class ConfigJson implements Config
 	@Override
 	public Set<String> getSection(@NotNull String path, boolean deep)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof JSONObject)
+		{
+			return ((JSONObject) obj).keySet();
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
@@ -111,69 +119,176 @@ public class ConfigJson implements Config
 	@Override
 	public int getInt(@NotNull String path)
 	{
-		//does this work? how to implement this?
-		if(data.get(path) instanceof Integer)
+		Object obj = data.get(path);
+		if(obj instanceof Number)
 		{
-			return (int) data.get(path);
+			return ((Number) obj).intValue();
+		} else
+		{
+			return 0;
 		}
-		return 0;
 	}
 	
 	@Override
 	public double getDouble(@NotNull String path)
 	{
-		if(data.get(path) instanceof Double)
+		Object obj = data.get(path);
+		if(obj instanceof Number)
 		{
-			return (double) data.get(path);
+			return ((Number) obj).doubleValue();
+		} else
+		{
+			return 0;
 		}
-		return 0;
 	}
 	
 	@Override
 	public long getLong(@NotNull String path)
 	{
-		return 0;
+		Object obj = data.get(path);
+		if(obj instanceof Number)
+		{
+			return ((Number) obj).longValue();
+		} else
+		{
+			return 0;
+		}
 	}
 	
 	@Override
 	public boolean getBoolean(@NotNull String path)
 	{
-		return false;
+		Object obj = data.get(path);
+		if(obj instanceof Boolean)
+		{
+			return (boolean) obj;
+		} else
+		{
+			return false;
+		}
 	}
 	
 	@Override
 	public List<String> getStringList(@NotNull String path)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<String> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof String)
+				{
+					result.add((String) element);
+				}
+			}
+			return result;
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Integer> getIntegerList(@NotNull String path)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<Integer> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof Number)
+				{
+					result.add(((Number) element).intValue());
+				}
+			}
+			return result;
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Double> getDoubleList(@NotNull String path)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<Double> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof Number)
+				{
+					result.add(((Number) element).doubleValue());
+				}
+			}
+			return result;
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Character> getCharacterList(@NotNull String path)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<Character> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof String && ((String) element).length() == 1)
+				{
+					result.add(((String) element).charAt(0));
+				}
+			}
+			return result;
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Long> getLongList(@NotNull String path)
 	{
-		return null;
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<Long> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof Number)
+				{
+					result.add(((Number) element).longValue());
+				}
+			}
+			return result;
+		} else
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Boolean> getBooleanList(@NotNull String path)
 	{
+		Object obj = data.get(path);
+		if(obj instanceof List<?> list)
+		{
+			List<Boolean> result = new ArrayList<>();
+			for(Object element : list)
+			{
+				if(element instanceof Boolean)
+				{
+					result.add((boolean) element);
+				}
+			}
+			return result;
+		}
 		return null;
 	}
 	

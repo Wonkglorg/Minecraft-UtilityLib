@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class RecipeManager implements Manager
+public final class RecipeManager implements Manager
 {
 	private final List<Recipe> recipes = new ArrayList<>();
 	private final JavaPlugin plugin;

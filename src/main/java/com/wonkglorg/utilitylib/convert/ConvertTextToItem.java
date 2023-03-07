@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConvertTextToItem
+public final class ConvertTextToItem
 {
 	private final String path;
 	private final Config config;

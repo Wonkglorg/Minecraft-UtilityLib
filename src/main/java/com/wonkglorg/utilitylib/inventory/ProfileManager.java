@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 @SuppressWarnings("unused")
-public class ProfileManager<T extends Profile>
+public final class ProfileManager<T extends Profile>
 {
-	protected T menu;
-	protected Map<Player, T> utilityMap = new HashMap<>();
+	private T menu;
+	private final Map<Player, T> utilityMap = new HashMap<>();
 	
 	public ProfileManager(@NotNull T menu)
 	{

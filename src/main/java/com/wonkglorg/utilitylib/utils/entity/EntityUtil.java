@@ -6,7 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.persistence.PersistentDataType;
 
-public class EntityUtil
+public final class EntityUtil
 {
 	
 	public static Entity setMetaData(Entity entity, String metaData, MetadataValue metaDataValue)

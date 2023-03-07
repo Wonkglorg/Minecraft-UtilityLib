@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class EquipmentItem
+public final class EquipmentItem
 {
 	private ItemStack itemStack;
 	private float dropChance;
@@ -38,5 +38,11 @@ public class EquipmentItem
 	public void setDropChance(float dropChance)
 	{
 		this.dropChance = dropChance;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "ItemStack: " + itemStack + ", Drop-Chance: " + dropChance;
 	}
 }

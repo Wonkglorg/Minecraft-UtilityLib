@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class EventManager implements Manager
+public final class EventManager implements Manager
 {
 	private final JavaPlugin plugin;
 	private final PluginManager pluginManager;

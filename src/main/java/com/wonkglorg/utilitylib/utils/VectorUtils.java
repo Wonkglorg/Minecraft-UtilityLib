@@ -3,7 +3,7 @@ package com.wonkglorg.utilitylib.utils;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-public class VectorUtils
+public final class VectorUtils
 {
 	/**
 	 * Generates a vector between 2 points

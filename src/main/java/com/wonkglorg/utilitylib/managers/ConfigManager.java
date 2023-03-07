@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class ConfigManager implements Manager
+public final class ConfigManager implements Manager
 {
 	
 	//add method to reload all configs same for ymls as an easier implementation for reload config commands

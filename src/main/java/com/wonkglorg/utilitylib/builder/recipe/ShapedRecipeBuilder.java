@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class ShapedRecipeBuilder extends RecipeBuilder
+public final class ShapedRecipeBuilder extends RecipeBuilder
 {
 	
 	/**

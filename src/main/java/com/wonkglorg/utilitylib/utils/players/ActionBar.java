@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.utils.players;
 
-public class ActionBar
+public final class ActionBar
 {
 
 }

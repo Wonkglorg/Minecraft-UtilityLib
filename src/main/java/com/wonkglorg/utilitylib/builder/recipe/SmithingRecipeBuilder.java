@@ -10,7 +10,7 @@ import org.bukkit.inventory.SmithingRecipe;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class SmithingRecipeBuilder extends RecipeBuilder
+public final class SmithingRecipeBuilder extends RecipeBuilder
 {
 	
 	public SmithingRecipeBuilder(NamespacedKey key, ItemStack result)
