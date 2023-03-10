@@ -100,6 +100,11 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		return manager;
 	}
 	
+	/**
+	 *Checks if a specific plugin dependency with a given name exists
+	 * @param pluginName plugin name
+	 * @return
+	 */
 	public boolean dependencyExists(String pluginName)
 	{
 		String corePlug = null;

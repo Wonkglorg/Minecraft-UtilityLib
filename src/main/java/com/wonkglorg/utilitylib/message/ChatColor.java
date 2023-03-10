@@ -146,27 +146,33 @@ public final class ChatColor
 	
 	/**
 	 * Creates a gradient going through all colors in order as they get listed in the colors array
+	 *
 	 * @param text Text to be displayed
 	 * @param colors Colors to be used, they keep their order as entered
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
-	public static String createGradient(@NotNull String text, @NotNull java.awt.Color... colors) {
+	public static String createGradient(@NotNull String text, @NotNull java.awt.Color... colors)
+	{
 		return createGradient(text, 1.0, colors);
 	}
+	
 	/**
 	 * Creates a gradient with a shift going through all colors in order as they get listed in the colors array when modifying the shift value it
 	 * shifts the colors to create a waving gradient effect
+	 *
 	 * @param text Text to be displayed
 	 * @param shiftValue shift value shifts the colors based on its input from 0 to 255, if the value exceeds 255 it starts back from 0
 	 * @param colors Colors to be used, they keep their order as entered
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
-	public static String createGradient(@NotNull String text, double shiftValue, @NotNull java.awt.Color... colors) {
+	public static String createGradient(@NotNull String text, double shiftValue, @NotNull java.awt.Color... colors)
+	{
 		StringBuilder result = new StringBuilder();
 		int length = text.length();
 		float step = 1f / (length - 1);
 		
-		for (int i = 0; i < length; i++) {
+		for(int i = 0; i < length; i++)
+		{
 			float ratio = i * step;
 			java.awt.Color color = getColorAtRatio(ratio, colors, shiftValue * i);
 			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
@@ -177,17 +183,59 @@ public final class ChatColor
 		return result.toString();
 	}
 	
-	private static java.awt.Color getColorAtRatio(float ratio, java.awt.Color[] colors, double shiftValue) {
-		if (ratio <= 0) {
+	/**
+	 * Returns a color from the colors array based on how far the current value is between min and max.
+	 *
+	 * For example can be used in % where 100% is green 50% is yellow and 0% is red.
+	 * input the colors red yellow green, min value of 0 max value 0f 100 and the current value based on the current $
+	 *
+	 * @param colors
+	 * @param minVal
+	 * @param maxVal
+	 * @param currentVal
+	 * @return
+	 */
+	public static String getHexColorBetween(java.awt.Color[] colors, double minVal, double maxVal, double currentVal)
+	{
+		double percentage = (currentVal - minVal) / (maxVal - minVal);
+		percentage = Math.max(0.0, Math.min(1.0, percentage));
+		
+		java.awt.Color color1 = colors[0];
+		java.awt.Color color2 = colors[1];
+		if(colors.length > 2)
+		{
+			double segmentSize = 1.0 / (colors.length - 1);
+			double segmentIndex = percentage / segmentSize;
+			int lowerIndex = (int) Math.floor(segmentIndex);
+			int upperIndex = (int) Math.ceil(segmentIndex);
+			if(upperIndex >= colors.length)
+			{
+				upperIndex = colors.length - 1;
+				lowerIndex = upperIndex - 1;
+			}
+			color1 = colors[lowerIndex];
+			color2 = colors[upperIndex];
+			percentage = (percentage - lowerIndex * segmentSize) / segmentSize;
+		}
+		int red = (int) Math.round(color1.getRed() + percentage * (color2.getRed() - color1.getRed()));
+		int green = (int) Math.round(color1.getGreen() + percentage * (color2.getGreen() - color1.getGreen()));
+		int blue = (int) Math.round(color1.getBlue() + percentage * (color2.getBlue() - color1.getBlue()));
+		
+		return String.format("#%02x%02x%02x", red, green, blue);
+	}
+	
+	private static java.awt.Color getColorAtRatio(float ratio, java.awt.Color[] colors, double shiftValue)
+	{
+		if(ratio <= 0)
+		{
 			return colors[0];
-		} else if (ratio >= 1) {
+		} else if(ratio >= 1)
+		{
 			return colors[colors.length - 1];
 		}
-		
 		int index = (int) (ratio * (colors.length - 1));
 		float startRatio = index * 1f / (colors.length - 1);
 		float endRatio = (index + 1) * 1f / (colors.length - 1);
-		
 		java.awt.Color startColor = shiftColor(colors[index], shiftValue);
 		java.awt.Color endColor = shiftColor(colors[index + 1], shiftValue);
 		
@@ -200,7 +248,8 @@ public final class ChatColor
 		return new java.awt.Color(red, green, blue);
 	}
 	
-	private static java.awt.Color shiftColor(java.awt.Color color, double shiftValue) {
+	private static java.awt.Color shiftColor(java.awt.Color color, double shiftValue)
+	{
 		int r = (color.getRed() + (int) shiftValue) % 256;
 		int g = (color.getGreen() + (int) shiftValue) % 256;
 		int b = (color.getBlue() + (int) shiftValue) % 256;
