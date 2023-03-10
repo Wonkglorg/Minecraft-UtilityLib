@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
+
 @SuppressWarnings("unused")
 public final class ProfileManager<T extends Profile>
 {
@@ -25,7 +27,7 @@ public final class ProfileManager<T extends Profile>
 	{
 		T profile = (T) menu.clone();
 		profile.setOwner(player);
-		utilityMap.keySet().removeIf(Player::isValid);
+		utilityMap.keySet().removeIf(Predicate.not(Player::isValid));
 		return utilityMap.computeIfAbsent(player, k -> profile);
 	}
 	
