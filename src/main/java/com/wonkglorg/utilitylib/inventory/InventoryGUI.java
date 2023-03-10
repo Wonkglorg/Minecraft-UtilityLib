@@ -125,7 +125,7 @@ public abstract class InventoryGUI implements Listener
 	
 	public int validateFitting(int slot)
 	{
-		return Math.min(Math.max(slot, 0), inventory.getSize()-1);
+		return Math.min(Math.max(slot, 0), inventory.getSize());
 	}
 	
 	/**
@@ -191,7 +191,7 @@ public abstract class InventoryGUI implements Listener
 	public void fill(int start, int end, ItemStack item)
 	{
 		start = validateFitting(start);
-		end = validateFitting(end)+1;
+		end = validateFitting(end);
 		for(int i = start; i < end; i++)
 		{
 			inventory.setItem(i, item == null ? null : item.clone());
