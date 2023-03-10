@@ -195,8 +195,17 @@ public final class ChatColor
 	 * @param currentVal
 	 * @return
 	 */
-	public static String getHexColorBetween(java.awt.Color[] colors, double minVal, double maxVal, double currentVal)
+	public static String getHexColorBetween(double minVal, double maxVal, double currentVal, java.awt.Color... colors)
 	{
+		if(colors.length == 0)
+		{
+			return null;
+		}
+		if(colors.length == 1)
+		{
+			
+			return String.format("#%02x%02x%02x", colors[0].getRed(), colors[0].getGreen(), colors[0].getBlue());
+		}
 		double percentage = (currentVal - minVal) / (maxVal - minVal);
 		percentage = Math.max(0.0, Math.min(1.0, percentage));
 		
