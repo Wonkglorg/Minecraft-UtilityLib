@@ -125,7 +125,7 @@ public abstract class InventoryGUI implements Listener
 	
 	public int validateFitting(int slot)
 	{
-		return Math.min(Math.max(slot, 0), inventory.getSize() - 1);
+		return Math.min(Math.max(slot, 0), inventory.getSize()-1);
 	}
 	
 	/**
@@ -169,6 +169,19 @@ public abstract class InventoryGUI implements Listener
 	}
 	
 	/**
+	 * Fills the inventory with the given item
+	 *
+	 * @param item The item to set
+	 */
+	public void fill(ItemStack item)
+	{
+		for(int i = 0; i < inventory.getSize(); i++)
+		{
+			inventory.setItem(i, item.clone());
+		}
+	}
+	
+	/**
 	 * Fill a section of the inventory with the given item
 	 *
 	 * @param start The starting index to fill from, inclusive
@@ -178,7 +191,7 @@ public abstract class InventoryGUI implements Listener
 	public void fill(int start, int end, ItemStack item)
 	{
 		start = validateFitting(start);
-		end = validateFitting(end);
+		end = validateFitting(end)+1;
 		for(int i = start; i < end; i++)
 		{
 			inventory.setItem(i, item == null ? null : item.clone());
