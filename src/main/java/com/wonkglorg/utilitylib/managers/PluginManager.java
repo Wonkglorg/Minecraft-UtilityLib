@@ -8,20 +8,24 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The type Plugin manager.
  */
 @SuppressWarnings("unused")
+@ThreadSafe
 public final class PluginManager
 {
 	
-	private final Map<ManagerValues, Manager> managerMap = new HashMap<>();
+	private final Map<ManagerValues, Manager> managerMap = new ConcurrentHashMap<>();
 	private final JavaPlugin plugin;
 	
 	/**
@@ -33,46 +37,50 @@ public final class PluginManager
 	public PluginManager(@NotNull JavaPlugin plugin)
 	{
 		this.plugin = plugin;
-		
-		managerMap.put(ManagerValues.RECIPE, new RecipeManager(plugin));
-		managerMap.put(ManagerValues.LANG, new LangManager(plugin));
-		managerMap.put(ManagerValues.CONFIG, new ConfigManager(plugin));
-		managerMap.put(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
-		managerMap.put(ManagerValues.COMMAND, new CommandManager(plugin));
-		managerMap.put(ManagerValues.EVENT, new EventManager(plugin));
 	}
 	
-	public void onStartup()
+	/**
+	 * Adds a new cooldownManager.
+	 *
+	 * @param producer action to perform on shutdown for example saving them to a config file
+	 * @param consumer action to perform on startup for example loading it from a config file
+	 */
+	public void addCooldownManager(Consumer<Map<String, Map<UUID, Long>>> producer, Consumer<Map<String, Map<UUID, Long>>> consumer)
+	{
+		managerMap.put(ManagerValues.COOLDOWN, new CooldownManager(producer, consumer));
+	}
+	
+	public synchronized void onStartup()
 	{
 		managerMap.values().forEach(Manager::onStartup);
 	}
 	
-	public void onShutdown()
+	public synchronized void onShutdown()
 	{
 		managerMap.values().forEach(Manager::onShutdown);
 	}
 	
-	public void add(Listener... listener)
+	public synchronized void add(Listener... listener)
 	{
 		getEventManager().add(listener);
 	}
 	
-	public void add(Command... command)
+	public synchronized void add(Command... command)
 	{
 		getCommandManager().add(command);
 	}
 	
-	public void add(Config... config)
+	public synchronized void add(Config... config)
 	{
 		getConfigManager().add(config);
 	}
 	
-	public void add(Recipe... recipe)
+	public synchronized void add(Recipe... recipe)
 	{
 		getRecipeManager().add(recipe);
 	}
 	
-	public void add(Enchantment... enchantment)
+	public synchronized void add(Enchantment... enchantment)
 	{
 		getEnchantManager().add(enchantment);
 	}
@@ -84,7 +92,7 @@ public final class PluginManager
 	 * @param shutdown if enabled shutdown plugin on error
 	 * @return is plugin existing
 	 */
-	public boolean checkDepend(Plugin targetPlugin, boolean shutdown)
+	public synchronized boolean checkDepend(Plugin targetPlugin, boolean shutdown)
 	{
 		return checkDepend(targetPlugin.getName(), shutdown);
 	}
@@ -96,7 +104,7 @@ public final class PluginManager
 	 * @param shutdown if enabled shutdown plugin on error
 	 * @return is plugin existing
 	 */
-	public boolean checkDepend(String targetPlugin, boolean shutdown)
+	public synchronized boolean checkDepend(String targetPlugin, boolean shutdown)
 	{
 		Plugin pluginToCheck = plugin.getServer().getPluginManager().getPlugin(targetPlugin);
 		if(pluginToCheck == null || !pluginToCheck.isEnabled())
@@ -113,13 +121,12 @@ public final class PluginManager
 		return true;
 	}
 	
-	
-	public void addLang(Locale locale, Config config)
+	public synchronized void addLang(Locale locale, Config config)
 	{
 		getLangManager().addLanguage(locale, config);
 	}
 	
-	public void addDefaultLang(Locale locale, Config config)
+	public synchronized void addDefaultLang(Locale locale, Config config)
 	{
 		getLangManager().setDefaultLang(locale, config);
 	}
@@ -129,8 +136,12 @@ public final class PluginManager
 	 *
 	 * @return the config manager
 	 */
-	public ConfigManager getConfigManager()
+	public synchronized ConfigManager getConfigManager()
 	{
+		if(!managerMap.containsKey(ManagerValues.CONFIG))
+		{
+			managerMap.put(ManagerValues.CONFIG, new ConfigManager(plugin));
+		}
 		return (ConfigManager) managerMap.get(ManagerValues.CONFIG);
 	}
 	
@@ -139,8 +150,12 @@ public final class PluginManager
 	 *
 	 * @return the command manager
 	 */
-	public CommandManager getCommandManager()
+	public synchronized CommandManager getCommandManager()
 	{
+		if(!managerMap.containsKey(ManagerValues.COMMAND))
+		{
+			managerMap.put(ManagerValues.COMMAND, new CommandManager(plugin));
+		}
 		return (CommandManager) managerMap.get(ManagerValues.COMMAND);
 	}
 	
@@ -149,8 +164,12 @@ public final class PluginManager
 	 *
 	 * @return the event manager
 	 */
-	public EventManager getEventManager()
+	public synchronized EventManager getEventManager()
 	{
+		if(!managerMap.containsKey(ManagerValues.EVENT))
+		{
+			managerMap.put(ManagerValues.EVENT, new EventManager(plugin));
+		}
 		return (EventManager) managerMap.get(ManagerValues.EVENT);
 	}
 	
@@ -159,21 +178,39 @@ public final class PluginManager
 	 *
 	 * @return the lang manager
 	 */
-	public LangManager getLangManager()
+	public synchronized LangManager getLangManager()
 	{
+		if(!managerMap.containsKey(ManagerValues.LANG))
+		{
+			managerMap.put(ManagerValues.LANG, new LangManager(plugin));
+		}
 		return (LangManager) managerMap.get(ManagerValues.LANG);
 	}
 	
-	public RecipeManager getRecipeManager()
+	public synchronized RecipeManager getRecipeManager()
 	{
+		if(!managerMap.containsKey(ManagerValues.RECIPE))
+		{
+			managerMap.put(ManagerValues.RECIPE, new RecipeManager(plugin));
+		}
 		return (RecipeManager) managerMap.get(ManagerValues.RECIPE);
 	}
 	
-	public EnchantmentManager getEnchantManager()
+	public synchronized EnchantmentManager getEnchantManager()
 	{
-		return (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
+		
+		if(!managerMap.containsKey(ManagerValues.ENCHANT))
+		{
+			managerMap.put(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
+		}
+		EnchantmentManager enchantmentManager = (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
+		if(enchantmentManager == null)
+		{
+			return null;
+		}
+		enchantmentManager.onStartup();
+		return enchantmentManager;
 	}
-	
 	
 	public enum ManagerValues
 	{
@@ -183,6 +220,7 @@ public final class PluginManager
 		ENCHANT(),
 		RECIPE(),
 		EVENT(),
+		COOLDOWN(),
 		;
 	}
 }

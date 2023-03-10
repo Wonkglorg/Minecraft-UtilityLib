@@ -4,7 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings({"unused","unchecked"})
+import javax.annotation.concurrent.ThreadSafe;
+
+@SuppressWarnings({"unused", "unchecked"})
+@ThreadSafe
 public final class Logger
 {
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
@@ -20,6 +23,7 @@ public final class Logger
 		{
 			if(obj instanceof Iterable list)
 			{
+				//reformat to concate all into 1 string? instead of seperate values?
 				list.forEach(o -> plugin.getLogger().info(o.toString()));
 				continue;
 			}
@@ -49,6 +53,7 @@ public final class Logger
 	 * Sends a logger warning message in the console
 	 * used when something goes wrong but the plugin
 	 * can still run afterwards.
+	 *
 	 * @param text message to display.
 	 */
 	public static void logWarn(@NotNull JavaPlugin plugin, @NotNull Object... text)
@@ -68,6 +73,7 @@ public final class Logger
 	 * Sends a logger warning message in the console
 	 * used when something goes wrong but the plugin
 	 * can still run afterwards.
+	 *
 	 * @param text message to display.
 	 */
 	public static void logWarn(@NotNull Object... text)
@@ -87,6 +93,7 @@ public final class Logger
 	 * Sends a logger fatal message in the console
 	 * used when something goes wrong and results
 	 * in either data loss or unable to further function..
+	 *
 	 * @param text message to display.
 	 */
 	public static void logFatal(@NotNull JavaPlugin plugin, @NotNull Object... text)
@@ -106,6 +113,7 @@ public final class Logger
 	 * Sends a logger fatal message in the console
 	 * used when something goes wrong and results
 	 * in either data loss or unable to further function..
+	 *
 	 * @param text message to display.
 	 */
 	public static void logFatal(@NotNull Object... text)

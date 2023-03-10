@@ -6,36 +6,44 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
+@ThreadSafe
 public final class EnchantmentManager implements Manager
 {
 	private final Collection<Enchantment> enchantmentList = new ArrayList<>();
 	private final JavaPlugin plugin;
+	private boolean isStarted = false;
 	
 	public EnchantmentManager(JavaPlugin plugin)
 	{
 		this.plugin = plugin;
 	}
 	
-	public void add(@NotNull Enchantment... enchantment)
-	{
-		enchantmentList.addAll(List.of(enchantment));
-	}
-	
-	public void add(@NotNull Collection<Enchantment> enchantment)
-	{
-		enchantmentList.addAll(enchantment);
-	}
-	
-	public void add(@NotNull Enchantment enchantment)
+	public synchronized void add(@NotNull Enchantment enchantment)
 	{
 		enchantmentList.add(enchantment);
+		registerEnchantment(enchantment);
+	}
+	
+	public synchronized void add(@NotNull Enchantment... enchantment)
+	{
+		enchantmentList.addAll(List.of(enchantment));
+		
+		Arrays.stream(enchantment).forEach(this::registerEnchantment);
+	}
+	
+	public synchronized void add(@NotNull Collection<Enchantment> enchantment)
+	{
+		enchantmentList.addAll(enchantment);
+		enchantment.forEach(this::registerEnchantment);
 	}
 	
 	@Override
@@ -47,18 +55,23 @@ public final class EnchantmentManager implements Manager
 	@Override
 	public void onStartup()
 	{
-		registerEnchantments();
-		if(!enchantmentList.isEmpty()){
+		if(isStarted)
+		{
+			return;
+		}
+		isStarted = true;
+		if(!enchantmentList.isEmpty())
+		{
 			Logger.log(plugin, "Loaded " + enchantmentList.size() + " enchants!");
 		}
 	}
 	
-	public void registerEnchantments()
+	public synchronized void registerEnchantments()
 	{
 		enchantmentList.forEach(this::registerEnchantment);
 	}
 	
-	private void registerEnchantment(@NotNull Enchantment enchantment)
+	private synchronized void registerEnchantment(@NotNull Enchantment enchantment)
 	{
 		try
 		{
@@ -72,7 +85,7 @@ public final class EnchantmentManager implements Manager
 		}
 	}
 	
-	private void unregisterEnchants()
+	private synchronized void unregisterEnchants()
 	{
 		try
 		{

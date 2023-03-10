@@ -17,6 +17,11 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	}
 	
 	/**
+	 * loads contents before anything else in the plugin, no configs are loaded yet
+	 */
+	public abstract void loadBefore();
+	
+	/**
 	 * Executes on plugin startup
 	 */
 	public abstract void pluginStartup();
@@ -25,16 +30,6 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	 * Executes on plugin shutdown
 	 */
 	public abstract void pluginShutdown();
-	
-	/**
-	 * add all events in this field using manager.add();
-	 */
-	public abstract void event();
-	
-	/**
-	 * add all commands in this field using manager.add();
-	 */
-	public abstract void command();
 	
 	/**
 	 * add all configs in this field using manager.add();
@@ -47,39 +42,26 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	public abstract void lang();
 	
 	/**
-	 * add all recipes in this field using manager.add();
+	 * add all events in this field using manager.add();
 	 */
-	public abstract void recipe();
+	public abstract void event();
 	
 	/**
-	 * add all enchants in this field using manager.add();
+	 * add all commands in this field using manager.add();
 	 */
-	public abstract void enchant();
-	
-	/**
-	 * loads contents before anything else in the plugin, no configs are loaded yet
-	 */
-	public abstract void loadBefore();
+	public abstract void command();
 	
 	@Override
 	public void onEnable()
 	{
 		loadBefore();
 		langs();
-		manager.getLangManager().onStartup();
 		configs();
-		manager.getConfigManager().onStartup();
 		events();
-		manager.getEventManager().onStartup();
 		commands();
-		manager.getCommandManager().onStartup();
-		recipes();
-		manager.getRecipeManager().onStartup();
-		enchants();
-		manager.getEnchantManager().onStartup();
-		
 		pluginStartup();
 		
+		manager.onStartup();
 	}
 	
 	@Override
@@ -111,18 +93,6 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	public void langs()
 	{
 		lang();
-	}
-	
-	@Override
-	public void recipes()
-	{
-		recipe();
-	}
-	
-	@Override
-	public void enchants()
-	{
-		enchant();
 	}
 	
 	public static PluginManager getManager()

@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.random;
+package com.wonkglorg.utilitylib.random;
 
 import org.bukkit.util.Vector;
 

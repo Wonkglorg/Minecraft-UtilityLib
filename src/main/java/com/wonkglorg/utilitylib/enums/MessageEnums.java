@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.enums;
+package com.wonkglorg.utilitylib.enums;
 
 import org.bukkit.inventory.ItemStack;
 

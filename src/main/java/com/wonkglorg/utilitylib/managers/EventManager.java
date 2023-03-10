@@ -6,14 +6,17 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
+@ThreadSafe
 public final class EventManager implements Manager
 {
 	private final JavaPlugin plugin;
+	private boolean isLoaded = false;
 	private final PluginManager pluginManager;
 	private final Collection<Listener> listeners;
 	
@@ -24,23 +27,22 @@ public final class EventManager implements Manager
 		listeners = new ArrayList<>();
 	}
 	
-	public void add(@NotNull Listener... listener)
+	public synchronized void add(@NotNull Listener... listener)
 	{
 		listeners.addAll(List.of(listener));
 	}
 	
-	public void add(@NotNull Collection<Listener> listener)
+	public synchronized void add(@NotNull Collection<Listener> listener)
 	{
 		listeners.addAll(listener);
 	}
 	
-	public void add(@NotNull Listener listener)
+	public synchronized void add(@NotNull Listener listener)
 	{
 		listeners.add(listener);
 	}
 	
-	
-	public void load()
+	public synchronized void load()
 	{
 		listeners.forEach(listeners -> pluginManager.registerEvents(listeners, plugin));
 	}
@@ -54,7 +56,13 @@ public final class EventManager implements Manager
 	@Override
 	public void onStartup()
 	{
-		if(!listeners.isEmpty()){
+		if(isLoaded)
+		{
+			return;
+		}
+		isLoaded = true;
+		if(!listeners.isEmpty())
+		{
 			Logger.log(plugin, "Loaded " + listeners.size() + " events!");
 		}
 		load();

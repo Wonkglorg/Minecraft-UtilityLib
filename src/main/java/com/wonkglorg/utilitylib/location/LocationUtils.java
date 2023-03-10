@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.location;
+package com.wonkglorg.utilitylib.location;
 
 import com.wonkglorg.utilitylib.selection.Cuboid;
 import org.bukkit.Bukkit;

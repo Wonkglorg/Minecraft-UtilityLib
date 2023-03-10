@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -14,18 +15,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
+@ThreadSafe
 public final class LangManager implements Manager
 {
-	
-	/// REFORMAT ALL AND ADD JAVA DOCS
-	
-	private final Map<Locale, Config> langMap = new HashMap<>();
+	private final Map<Locale, Config> langMap = new ConcurrentHashMap<>();
 	private Locale defaultLang;
 	private boolean loaded = false;
 	private final JavaPlugin plugin;
-	private final Map<String, String> replacerMap = new HashMap<>();
+	private boolean isLoaded = false;
+	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	
 	public LangManager(JavaPlugin plugin)
 	{
@@ -44,39 +45,36 @@ public final class LangManager implements Manager
 		this.defaultLang = defaultLang;
 	}
 	
-	public void setDefaultLang(Locale defaultLang, Config defaultConfig)
+	public synchronized void setDefaultLang(Locale defaultLang, Config defaultConfig)
 	{
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
+		defaultConfig.load();
 	}
 	
-	public void addLanguage(Locale locale, Config languageConfig)
+	public synchronized void addLanguage(Locale locale, Config languageConfig)
 	{
 		langMap.put(locale, languageConfig);
-		languageConfig.load();
+		languageConfig.silentLoad();
 	}
 	
-	public void save()
+	public synchronized void save()
 	{
 		langMap.values().forEach(Config::save);
 	}
 	
-	public void silentSave()
+	public synchronized void silentSave()
 	{
 		langMap.values().forEach(Config::silentSave);
 	}
 	
-	public void load()
+	public synchronized void load()
 	{
 		langMap.values().forEach(Config::silentLoad);
 		
-		if(defaultLang == null)
-		{
-			Logger.logWarn(plugin, "No default language selected");
-		}
 	}
 	
-	public void silentLoad()
+	public synchronized void silentLoad()
 	{
 		langMap.values().forEach(Config::silentLoad);
 		
@@ -86,7 +84,7 @@ public final class LangManager implements Manager
 		}
 	}
 	
-	public Config getDefaultLang()
+	public synchronized Config getDefaultLang()
 	{
 		try
 		{
@@ -106,10 +104,18 @@ public final class LangManager implements Manager
 	@Override
 	public void onStartup()
 	{
-		load();
+		if(isLoaded)
+		{
+			return;
+		}
+		isLoaded = true;
+		if(defaultLang == null)
+		{
+			Logger.logWarn(plugin, "No default language selected");
+		}
 	}
 	
-	public void addAllLangFilesFromPath(String... paths)
+	public synchronized void addAllLangFilesFromPath(String... paths)
 	{
 		if(paths.length == 0)
 		{
@@ -121,7 +127,7 @@ public final class LangManager implements Manager
 		addAllLangFilesFromPath(path);
 	}
 	
-	public void addAllLangFilesFromPath(Path path)
+	public synchronized void addAllLangFilesFromPath(Path path)
 	{
 		//Add dictionary to get a wider range of possible yml naming for langs
 		
@@ -146,13 +152,15 @@ public final class LangManager implements Manager
 				if(locale.getLanguage().equalsIgnoreCase(file.getName()))
 				{
 					Logger.log(plugin, locale.getLanguage() + " has been loaded!");
-					langMap.put(locale, new ConfigYML(plugin, file.getName(), file.getParent()));
+					Config config = new ConfigYML(plugin, file.getName(), file.getParent());
+					addLanguage(locale, config);
+					
 				}
 			}
 		}
 	}
 	
-	public String getValue(@NotNull final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
+	public synchronized String getValue(@NotNull final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
 	{
 		if(!loaded)
 		{
@@ -177,12 +185,12 @@ public final class LangManager implements Manager
 		
 	}
 	
-	public Map<Locale, Config> getAllLangs()
+	public synchronized Map<Locale, Config> getAllLangs()
 	{
 		return langMap;
 	}
 	
-	public Config getLangByFileName(String name)
+	public synchronized Config getLangByFileName(String name)
 	{
 		for(Config config : langMap.values())
 		{
@@ -194,7 +202,7 @@ public final class LangManager implements Manager
 		return null;
 	}
 	
-	public String getValue(Player player, String value)
+	public synchronized String getValue(Player player, String value)
 	{
 		return getValue(player.locale(), value);
 	}

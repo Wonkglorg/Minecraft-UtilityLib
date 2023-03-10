@@ -5,11 +5,13 @@ import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Command manager class.
@@ -17,6 +19,7 @@ import java.util.Map;
  * Helps to access and manage commands.
  */
 @SuppressWarnings("unused")
+@ThreadSafe
 public final class CommandManager implements Manager
 {
 	/**
@@ -24,11 +27,12 @@ public final class CommandManager implements Manager
 	 */
 	private final Map<String, Command> commandMap;
 	private final JavaPlugin plugin;
+	private boolean isStarted = false;
 	
 	public CommandManager(JavaPlugin plugin)
 	{
 		this.plugin = plugin;
-		commandMap = new HashMap<>();
+		commandMap = new ConcurrentHashMap<>();
 	}
 	
 	/**
@@ -36,7 +40,7 @@ public final class CommandManager implements Manager
 	 *
 	 * @param command the command
 	 */
-	public void add(@NotNull final Command command)
+	public synchronized void add(@NotNull final Command command)
 	{
 		commandMap.put(command.getName(), command);
 	}
@@ -46,7 +50,7 @@ public final class CommandManager implements Manager
 	 *
 	 * @param commands the commands
 	 */
-	public void add(@NotNull final Command... commands)
+	public synchronized void add(@NotNull final Command... commands)
 	{
 		Arrays.asList(commands).forEach(command -> commandMap.put(command.getName(), command));
 	}
@@ -56,7 +60,7 @@ public final class CommandManager implements Manager
 	 *
 	 * @param commands the commands
 	 */
-	public void add(@NotNull final Collection<Command> commands)
+	public synchronized void add(@NotNull final Collection<Command> commands)
 	{
 		commands.forEach(command -> commandMap.put(command.getName(), command));
 	}
@@ -67,7 +71,7 @@ public final class CommandManager implements Manager
 	 * @param command the command
 	 * @return the command
 	 */
-	public Command get(@NotNull String command)
+	public synchronized Command get(@NotNull String command)
 	{
 		return commandMap.get(command);
 	}
@@ -77,7 +81,7 @@ public final class CommandManager implements Manager
 	 *
 	 * @return the commands
 	 */
-	public Map<String, Command> getCommands()
+	public synchronized Map<String, Command> getCommands()
 	{
 		return commandMap;
 	}
@@ -85,7 +89,13 @@ public final class CommandManager implements Manager
 	@Override
 	public void onStartup()
 	{
-		if(!commandMap.isEmpty()){
+		if(isStarted)
+		{
+			return;
+		}
+		isStarted = true;
+		if(!commandMap.isEmpty())
+		{
 			Logger.log(plugin, "Loaded " + commandMap.size() + " commands!");
 		}
 	}

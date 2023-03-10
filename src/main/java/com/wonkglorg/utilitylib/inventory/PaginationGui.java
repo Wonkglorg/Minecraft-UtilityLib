@@ -26,6 +26,9 @@ public final class PaginationGui {
 	private final Set<Integer> slots = new TreeSet<>();
 	private Runnable onUpdate = () -> {};
 	private ItemStack fillerItem;
+	
+	private final int maxRows = 9;
+	private final int maxColumns = 6;
 
 	/**
 	 * Constructs a PaginationPanel to work on a given InventoryGUI
@@ -197,7 +200,7 @@ public final class PaginationGui {
 	public void addSlots(int x1, int y1, int x2, int y2) {
 		for (int x = x1; x < x2; x++) {
 			for (int y = y1; y < y2; y++) {
-				slots.add(y * 9 + x);
+				slots.add(y * maxRows + x);
 			}
 		}
 		updatePage();
@@ -237,7 +240,7 @@ public final class PaginationGui {
 		slots.forEach(gui::clearSlot);
 		for (int x = x1; x < x2; x++) {
 			for (int y = y1; y < y2; y++) {
-				slots.remove(y * 9 + x);
+				slots.remove(y * maxRows + x);
 			}
 		}
 		updatePage();

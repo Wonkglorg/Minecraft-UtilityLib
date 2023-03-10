@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.command;
 
-import com.wonkglorg.utilitylib.utils.location.LocationUtils;
+import com.wonkglorg.utilitylib.location.LocationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;

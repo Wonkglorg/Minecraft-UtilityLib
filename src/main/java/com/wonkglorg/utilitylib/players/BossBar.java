@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.players;
+package com.wonkglorg.utilitylib.players;
 
 public final class BossBar
 {

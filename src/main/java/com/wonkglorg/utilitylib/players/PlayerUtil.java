@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.players;
+package com.wonkglorg.utilitylib.players;
 
 import com.wonkglorg.utilitylib.message.Message;
 import org.bukkit.GameMode;

@@ -6,11 +6,12 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public final class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable
+public final class Circle implements Iterable<Block>, Cloneable, ConfigurationSerializable, Serializable
 {
 	
 	@NotNull

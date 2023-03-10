@@ -13,6 +13,7 @@ import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable
+public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable, Serializable
 {
 	
 	/**

@@ -57,6 +57,8 @@ public abstract class InventoryGUI implements Listener
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
 	protected Profile profile;
+	private final int maxRows = 9;
+	private final int maxColumns = 6;
 	
 	private boolean returnItems = true;
 	private boolean destroyOnClose = true;
@@ -113,12 +115,12 @@ public abstract class InventoryGUI implements Listener
 	
 	public int validateX(int x)
 	{
-		return Math.min(Math.max(x, 0), (inventory.getSize() / 9));
+		return Math.min(Math.max(x, 0), (inventory.getSize() / maxRows));
 	}
 	
 	public int validateY(int y)
 	{
-		return Math.min(Math.max(y, 0), 8);
+		return Math.min(Math.max(y, 0), maxColumns);
 	}
 	
 	public int validateFitting(int slot)
@@ -162,7 +164,7 @@ public abstract class InventoryGUI implements Listener
 	{
 		x = validateX(x);
 		y = validateY(y);
-		int slot = x + (y * 9);
+		int slot = x + (y * maxRows);
 		addButton(button, slot);
 	}
 	
@@ -326,7 +328,7 @@ public abstract class InventoryGUI implements Listener
 		{
 			for(int x = x1; x < x2; x++)
 			{
-				openSlots.add(y * 9 + x);
+				openSlots.add(y * maxRows + x);
 			}
 		}
 	}
@@ -379,7 +381,7 @@ public abstract class InventoryGUI implements Listener
 		{
 			for(int x = x1; x < x2; x++)
 			{
-				openSlots.remove(y * 9 + x);
+				openSlots.remove(y * maxRows + x);
 			}
 		}
 	}

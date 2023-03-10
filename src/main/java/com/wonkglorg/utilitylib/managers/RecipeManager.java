@@ -15,6 +15,7 @@ public final class RecipeManager implements Manager
 {
 	private final List<Recipe> recipes = new ArrayList<>();
 	private final JavaPlugin plugin;
+	private boolean isLoaded = false;
 	
 	public RecipeManager(JavaPlugin plugin)
 	{
@@ -25,7 +26,6 @@ public final class RecipeManager implements Manager
 	{
 		recipes.addAll(List.of(recipe));
 	}
-	
 	
 	public void remove(@NotNull final Recipe recipe)
 	{
@@ -43,8 +43,16 @@ public final class RecipeManager implements Manager
 	@Override
 	public void onStartup()
 	{
+		if(isLoaded)
+		{
+			return;
+		}
+		isLoaded = true;
+		
 		load();
-		if(!recipes.isEmpty()){
+		
+		if(!recipes.isEmpty())
+		{
 			Logger.log(plugin, "Loaded " + recipes.size() + " recipes!");
 		}
 	}

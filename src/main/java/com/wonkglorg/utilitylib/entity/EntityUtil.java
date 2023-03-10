@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.utils.entity;
+package com.wonkglorg.utilitylib.entity;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
