@@ -19,6 +19,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public final class ItemUtil
 	 * @param name The name to give the ItemStack
 	 * @return The renamed ItemStack
 	 */
-	public static ItemStack rename(ItemStack item, String name)
+	public static ItemStack rename(@NotNull final ItemStack item, @NotNull final String name)
 	{
 		ItemMeta meta = item.getItemMeta();
 		meta.displayName(Message.color(name));
@@ -52,7 +53,7 @@ public final class ItemUtil
 	 * @param name The name to give the ItemStack
 	 * @return The renamed ItemStack
 	 */
-	public static ItemStack setName(ItemStack item, String name)
+	public static ItemStack setName(@NotNull final ItemStack item, @NotNull final String name)
 	{
 		return rename(item, name);
 	}
@@ -64,7 +65,7 @@ public final class ItemUtil
 	 * @param line The line of lore to be given
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack setLore(ItemStack item, String line)
+	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final String line)
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = new ArrayList<>();
@@ -81,7 +82,7 @@ public final class ItemUtil
 	 * @param lore The lines of lore to be given
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack setLore(ItemStack item, List<String> lore)
+	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final List<String> lore)
 	{
 		ItemMeta meta = item.getItemMeta();
 		meta.lore(Message.color(lore));
@@ -96,7 +97,7 @@ public final class ItemUtil
 	 * @param line The line of lore to add
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack addLore(ItemStack item, String line)
+	public static ItemStack addLore(@NotNull final ItemStack item, @NotNull final String line)
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = meta.lore();
@@ -114,7 +115,7 @@ public final class ItemUtil
 	 * @param lines The lines or lore to add
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack addLore(ItemStack item, Iterable<String> lines)
+	public static ItemStack addLore(@NotNull final ItemStack item, @NotNull final Iterable<String> lines)
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = meta.lore();
@@ -135,7 +136,7 @@ public final class ItemUtil
 	 * @param line The line of lore to remove
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack removeLoreLine(ItemStack item, String line)
+	public static ItemStack removeLoreLine(@NotNull final ItemStack item, @NotNull final String line)
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = meta.lore();
@@ -156,7 +157,7 @@ public final class ItemUtil
 	 * @param index The index of the line of lore to remove
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack removeLoreLine(ItemStack item, int index)
+	public static ItemStack removeLoreLine(@NotNull final ItemStack item, final int index)
 	{
 		ItemMeta meta = item.getItemMeta();
 		List<Component> lore = meta.lore();
@@ -181,7 +182,7 @@ public final class ItemUtil
 	 * @param lore The lines of lore to be given
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack setLore(ItemStack item, String... lore)
+	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final String... lore)
 	{
 		return setLore(item, Arrays.asList(lore));
 	}
@@ -192,9 +193,8 @@ public final class ItemUtil
 	 * @param item The item to make unbreakable
 	 * @return The unbreakable item
 	 */
-	public static ItemStack setUnbreakable(ItemStack item)
+	public static ItemStack setUnbreakable(@NotNull final ItemStack item)
 	{
-		item = item.clone();
 		ItemMeta meta = item.getItemMeta();
 		meta.setUnbreakable(true);
 		item.setItemMeta(meta);
@@ -209,7 +209,7 @@ public final class ItemUtil
 	 * @param level The level of the Enchantment
 	 * @return The enchanted ItemStack
 	 */
-	public static ItemStack addEnchant(ItemStack item, Enchantment enchant, int level)
+	public static ItemStack addEnchant(@NotNull final ItemStack item, @NotNull final Enchantment enchant, final int level)
 	{
 		ItemMeta meta = item.getItemMeta();
 		meta.addEnchant(enchant, level, true);
@@ -221,11 +221,11 @@ public final class ItemUtil
 		return item;
 	}
 	
-	public static Enchantment enchantFromString(String str)
+	public static Enchantment enchantFromString(@NotNull final String str)
 	{
 		for(Enchantment enchantment : Enchantment.values())
 		{
-			if(enchantment.getName().equalsIgnoreCase(str))
+			if(enchantment.getKey().asString().equalsIgnoreCase(str))
 			{
 				return enchantment;
 			}
@@ -241,7 +241,7 @@ public final class ItemUtil
 	 * @param modifier The AttributeModifier to be added
 	 * @return The modified ItemStack
 	 */
-	public static ItemStack addAttribute(ItemStack item, Attribute attribute, AttributeModifier modifier)
+	public static ItemStack addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, @NotNull final AttributeModifier modifier)
 	{
 		ItemMeta meta = item.getItemMeta();
 		meta.addAttributeModifier(attribute, modifier);
@@ -258,7 +258,10 @@ public final class ItemUtil
 	 * @param operation The operation by which the value will be modified
 	 * @return The modified item
 	 */
-	public static ItemStack addAttribute(ItemStack item, Attribute attribute, double amount, Operation operation)
+	public static ItemStack addAttribute(@NotNull final ItemStack item,
+										 @NotNull final Attribute attribute,
+										 final double amount,
+										 @NotNull final Operation operation)
 	{
 		ItemMeta meta = item.getItemMeta();
 		AttributeModifier modifier = new AttributeModifier(attribute.toString(), amount, operation);
@@ -274,10 +277,25 @@ public final class ItemUtil
 	 * @param flags The ItemFlags to add
 	 * @return The modified item
 	 */
-	public static ItemStack addItemFlags(ItemStack item, ItemFlag... flags)
+	public static ItemStack addItemFlags(@NotNull final ItemStack item, final ItemFlag... flags)
 	{
 		ItemMeta meta = item.getItemMeta();
 		meta.addItemFlags(flags);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	/**
+	 * Removes  ItemFlags from the item
+	 *
+	 * @param item The item to add ItemFlags to
+	 * @param flags The ItemFlags to add
+	 * @return The modified item
+	 */
+	public static ItemStack removeItemFlags(@NotNull final ItemStack item, @NotNull final ItemFlag... flags)
+	{
+		ItemMeta meta = item.getItemMeta();
+		meta.removeItemFlags(flags);
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -742,6 +760,5 @@ public final class ItemUtil
 	{
 		return createPlayerHead(uuid, null);
 	}
-
 	
 }

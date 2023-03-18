@@ -752,7 +752,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	{
 		return new CuboidIterator(this.getWorld(), this.x1, this.y1, this.z1, this.x2, this.y2, this.z2);
 	}
-	
+
 	@Override
 	public Cuboid clone()
 	{

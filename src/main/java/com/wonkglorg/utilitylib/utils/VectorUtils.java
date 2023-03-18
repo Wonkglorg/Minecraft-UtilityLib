@@ -7,6 +7,7 @@ public final class VectorUtils
 {
 	/**
 	 * Generates a vector between 2 points
+	 *
 	 * @param loc1
 	 * @param loc2
 	 * @return

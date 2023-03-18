@@ -5,13 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 
 @SuppressWarnings({"unused", "unchecked"})
@@ -20,7 +15,14 @@ public final class Logger
 {
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
 	
-	public static void log(final @NotNull java.util.logging.Logger logger, Level logType, @NotNull Object... text)
+	/**
+	 * Sends a logger message in the console using your own logger and level.
+	 *
+	 * @param logger Logger to be used
+	 * @param logType Type of log level
+	 * @param text Text to be displayed
+	 */
+	public static void log(@NotNull final java.util.logging.Logger logger, @NotNull final Level logType, @NotNull Object... text)
 	{
 		StringBuilder builder = new StringBuilder();
 		for(Object obj : text)
@@ -29,14 +31,12 @@ public final class Logger
 			if(obj instanceof Collection list)
 			{
 				list.forEach(o -> builder.append(",").append(o.toString()));
-				isArray = true;
 			}
 			if(obj instanceof Map map)
 			{
 				map.forEach((o, o2) -> builder.append(",").append("( ").append(o.toString()).append(" , ").append(o2.toString()).append(" )"));
-				isArray = true;
 			}
-			if(isArray)
+			if(builder.length() > 0)
 			{
 				logger.log(logType, "[ " + builder.toString().replaceFirst(",", "").trim() + " ]");
 				continue;

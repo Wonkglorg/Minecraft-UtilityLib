@@ -1,7 +1,6 @@
 package com.wonkglorg.utilitylib.item;
 
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Optional;
@@ -22,7 +21,9 @@ public enum ItemTrait
 	/**
 	 * For comparing the display name of two items
 	 */
-	NAME((a, b) -> Optional.ofNullable(a.getItemMeta()).map(ItemMeta::displayName).equals(Optional.ofNullable(b.getItemMeta()).map(ItemMeta::displayName))),
+	NAME((a, b) -> Optional.ofNullable(a.getItemMeta())
+						   .map(ItemMeta::displayName)
+						   .equals(Optional.ofNullable(b.getItemMeta()).map(ItemMeta::displayName))),
 	/**
 	 * For comparing the lore of two items
 	 */
