@@ -6,13 +6,13 @@ import org.bukkit.inventory.BlastingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("unused")
 public final class BlastingRecipeBuilder extends RecipeBuilder
 {
 	/**
 	 * Creates a new Blasting Recipe builder
-	 * @param key
-	 * @param result
+	 * @param key key
+	 * @param result result
 	 */
 	public BlastingRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{

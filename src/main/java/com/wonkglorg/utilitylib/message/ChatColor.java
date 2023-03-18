@@ -1,5 +1,7 @@
 package com.wonkglorg.utilitylib.message;
 
+import com.wonkglorg.utilitylib.message.color_components.Color;
+import com.wonkglorg.utilitylib.message.color_components.RGB;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,82 +19,70 @@ public final class ChatColor
 	private static final String preset = "&";
 	
 	/**
-	 * Hex color string.
-	 *
-	 * @param hex the hex
-	 * @return the string
-	 */
-	public static String HexColor(String hex)
-	{
-		hex = hex.startsWith("#") ? hex : "#" + hex;
-		return preset + hex;
-	}
-	
-	/**
 	 * The constant Reset.
 	 */
-	public static String Reset = preset + "r";
+	public final static String Reset = preset + "r";
 	
 	/**
 	 * The constant Strip.
 	 */
-	public static String Strip = Reset;
+	public final static String Strip = Reset;
 	
 	/**
 	 * The constant Bold.
 	 */
-	public static String Bold = preset + "b";
+	public final static String Bold = preset + "b";
 	
 	/**
 	 * The constant Italic.
 	 */
-	public static String Italic = preset + "i";
+	public final static String Italic = preset + "i";
 	
 	/**
 	 * The constant Obfuscated.
 	 */
-	public static String Obfuscated = preset + "o";
+	public final static String Obfuscated = preset + "o";
 	
 	/**
 	 * The constant Magic.
 	 */
-	public static String Magic = Obfuscated;
+	public final static String Magic = Obfuscated;
 	
 	/**
 	 * The constant StripColor.
 	 */
-	public static String StripColor = preset + "c";
+	public final static String StripColor = preset + "c";
 	
 	/**
 	 * The constant StripDecoration.
 	 */
-	public static String StripDecoration = preset + "d";
+	public final static String StripDecoration = preset + "d";
 	
 	/**
 	 * The constant StrikeThrough.
 	 */
-	public static String StrikeThrough = preset + "s";
+	public final static String StrikeThrough = preset + "s";
 	
 	/**
 	 * The constant Underlined.
 	 */
-	public static String Underlined = preset + "u";
-	public static String BLACK = Color.BLACK.getColor();
-	public static String DARK_BLUE = Color.DARK_BLUE.getColor();
-	public static String DARK_GREEN = Color.DARK_GREEN.getColor();
-	public static String DARK_AQUA = Color.DARK_AQUA.getColor();
-	public static String DARK_RED = Color.DARK_RED.getColor();
-	public static String DARK_PURPLE = Color.DARK_PURPLE.getColor();
-	public static String GOLD = Color.GOLD.getColor();
-	public static String GRAY = Color.GRAY.getColor();
-	public static String DARK_GRAY = Color.DARK_GRAY.getColor();
-	public static String BLUE = Color.BLUE.getColor();
-	public static String GREEN = Color.GREEN.getColor();
-	public static String AQUA = Color.AQUA.getColor();
-	public static String RED = Color.RED.getColor();
-	public static String LIGHT_PURPLE = Color.LIGHT_PURPLE.getColor();
-	public static String YELLOW = Color.YELLOW.getColor();
-	public static String WHITE = Color.WHITE.getColor();
+	public final static String Underlined = preset + "u";
+	public final static String BLACK = preset + "#000000";
+	public final static String DARK_BLUE = preset + "#555555";
+	public final static String DARK_GREEN = preset + "#00AA00";
+	public final static String DARK_AQUA = preset + "#00AAAA";
+	public final static String DARK_RED = preset + "#AA0000";
+	public final static String DARK_PURPLE = preset + "#AA00AA";
+	public final static String GOLD = preset + "#FFAA00";
+	public final static String GRAY = preset + "#AAAAAA";
+	public final static String DARK_GRAY = preset + "#555555";
+	public final static String BLUE = preset + "#5555FF";
+	public final static String GREEN = preset + "#55FF55";
+	public final static String AQUA = preset + "#55FFFF";
+	public final static String RED = preset + "#FF5555";
+	public final static String LIGHT_PURPLE = preset + "#FF55FF";
+	public final static String YELLOW = preset + "#FFFF55";
+	public final static String WHITE = preset + "#FFFFFF";
 	
 	private static final Map<Character, TextDecoration> decorationMap = new HashMap<>();
 	private static final Map<Character, String> textColorMap = new HashMap<>();
@@ -151,7 +141,7 @@ public final class ChatColor
 	 * @param colors Colors to be used, they keep their order as entered
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
-	public static String createGradient(@NotNull String text, @NotNull java.awt.Color... colors)
+	public static String createGradient(@NotNull String text, @NotNull Color... colors)
 	{
 		return createGradient(text, 1.0, colors);
 	}
@@ -165,7 +155,7 @@ public final class ChatColor
 	 * @param colors Colors to be used, they keep their order as entered
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
-	public static String createGradient(@NotNull String text, double shiftValue, @NotNull java.awt.Color... colors)
+	public static String createGradient(@NotNull String text, double shiftValue, @NotNull Color... colors)
 	{
 		StringBuilder result = new StringBuilder();
 		int length = text.length();
@@ -174,7 +164,7 @@ public final class ChatColor
 		for(int i = 0; i < length; i++)
 		{
 			float ratio = i * step;
-			java.awt.Color color = getColorAtRatio(ratio, colors, shiftValue * i);
+			Color color = getColorAtRatio(ratio, colors, shiftValue * i);
 			String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
 			result.append(hex);
 			result.append(text.charAt(i));
@@ -195,7 +185,7 @@ public final class ChatColor
 	 * @param currentVal
 	 * @return
 	 */
-	public static String getHexColorBetween(double minVal, double maxVal, double currentVal, java.awt.Color... colors)
+	public static String getHexColorBetween(double minVal, double maxVal, double currentVal, Color... colors)
 	{
 		if(colors.length == 0)
 		{
@@ -209,8 +199,8 @@ public final class ChatColor
 		double percentage = (currentVal - minVal) / (maxVal - minVal);
 		percentage = Math.max(0.0, Math.min(1.0, percentage));
 		
-		java.awt.Color color1 = colors[0];
-		java.awt.Color color2 = colors[1];
+		Color color1 = colors[0];
+		Color color2 = colors[1];
 		if(colors.length > 2)
 		{
 			double segmentSize = 1.0 / (colors.length - 1);
@@ -233,7 +223,7 @@ public final class ChatColor
 		return String.format("#%02x%02x%02x", red, green, blue);
 	}
 	
-	private static java.awt.Color getColorAtRatio(float ratio, java.awt.Color[] colors, double shiftValue)
+	private static Color getColorAtRatio(float ratio, Color[] colors, double shiftValue)
 	{
 		if(ratio <= 0)
 		{
@@ -245,8 +235,8 @@ public final class ChatColor
 		int index = (int) (ratio * (colors.length - 1));
 		float startRatio = index * 1f / (colors.length - 1);
 		float endRatio = (index + 1) * 1f / (colors.length - 1);
-		java.awt.Color startColor = shiftColor(colors[index], shiftValue);
-		java.awt.Color endColor = shiftColor(colors[index + 1], shiftValue);
+		Color startColor = shiftColor(colors[index], shiftValue);
+		Color endColor = shiftColor(colors[index + 1], shiftValue);
 		
 		float blendRatio = (ratio - startRatio) / (endRatio - startRatio);
 		
@@ -254,15 +244,15 @@ public final class ChatColor
 		int green = (int) (startColor.getGreen() + (endColor.getGreen() - startColor.getGreen()) * blendRatio);
 		int blue = (int) (startColor.getBlue() + (endColor.getBlue() - startColor.getBlue()) * blendRatio);
 		
-		return new java.awt.Color(red, green, blue);
+		return new Color(red, green, blue);
 	}
 	
-	private static java.awt.Color shiftColor(java.awt.Color color, double shiftValue)
+	private static Color shiftColor(Color color, double shiftValue)
 	{
 		int r = (color.getRed() + (int) shiftValue) % 256;
 		int g = (color.getGreen() + (int) shiftValue) % 256;
 		int b = (color.getBlue() + (int) shiftValue) % 256;
-		return new java.awt.Color(r, g, b);
+		return new Color(r, g, b);
 	}
 	
 	public static Set<Character> decorationCharacters()

@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.managers;
 
-import com.wonkglorg.utilitylib.utils.DateUtils;
+import com.wonkglorg.utilitylib.message.Convert;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Consumer;
 
@@ -160,7 +160,7 @@ public final class CooldownManager implements Manager
 	 */
 	public synchronized String getCooldownAsString(String key, UUID player)
 	{
-		return DateUtils.toString(getCooldown(key, player));
+		return Convert.toTime(getCooldown(key, player));
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -18,7 +17,6 @@ public abstract class RecipeBuilder
 	 * The Recipe.
 	 */
 	protected Recipe recipe;
-	
 	
 	/**
 	 * Instantiates a new Recipe builder.

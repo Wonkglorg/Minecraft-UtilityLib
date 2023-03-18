@@ -6,7 +6,7 @@ import org.bukkit.inventory.CampfireRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("unused")
 public final class CampfireRecipeBuilder extends RecipeBuilder
 {
 	public CampfireRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)

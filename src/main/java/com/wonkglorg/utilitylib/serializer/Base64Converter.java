@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.serializer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
@@ -10,24 +11,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.Base64;
 
-public class Serializer
+@SuppressWarnings("unused")
+@NotNull
+public class Base64Converter
 {
 	
-	public static String serialize(final Object obj) throws IOException
+	public static String toBase64(final Object obj) throws IOException
 	{
+		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(baos);
 		oos.writeObject(obj);
 		oos.close();
-		return Base64.getEncoder().encodeToString(baos.toByteArray());
+		return java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
 	}
 	
-	public static Object deserialize(final String str) throws IOException, ClassNotFoundException
+	public static Object fromBase64(final String str) throws IOException, ClassNotFoundException
 	{
-		byte[] data = Base64.getDecoder().decode(str);
+		byte[] data = java.util.Base64.getDecoder().decode(str);
 		ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
 		Object obj = ois.readObject();
 		ois.close();
@@ -118,7 +120,6 @@ public class Serializer
 	 *
 	 * @param data Base64 String.
 	 * @return {@link ItemStack}.
-	 * @throws IOException String can not be converted from Base64.
 	 */
 	public static ItemStack itemFromBase64(String data)
 	{

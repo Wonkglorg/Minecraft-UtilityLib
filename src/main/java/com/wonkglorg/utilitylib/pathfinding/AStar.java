@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 import java.util.*;
-
+@SuppressWarnings("unused")
 public final class AStar
 {
 	// Define the heuristic function that estimates the distance between two points

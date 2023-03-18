@@ -3,7 +3,7 @@ package com.wonkglorg.utilitylib.builder.equipment;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("unused")
 public final class EquipmentItem
 {
 	private ItemStack itemStack;

@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib;
 
-import com.wonkglorg.utilitylib.builder.equipment.EquipmentBuilder;
 import com.wonkglorg.utilitylib.managers.PluginManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -60,7 +59,6 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		events();
 		commands();
 		pluginStartup();
-		
 		manager.onStartup();
 	}
 	

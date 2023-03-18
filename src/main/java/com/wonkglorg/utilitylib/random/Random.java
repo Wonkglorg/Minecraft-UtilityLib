@@ -45,8 +45,8 @@ public final class Random
 	/**
 	 * Returns an Integer between a and b
 	 *
-	 * @param a
-	 * @param b
+	 * @param a first number
+	 * @param b second number
 	 * @return number between a and b
 	 */
 	public static int getNumberBetween(int a, int b)
@@ -62,8 +62,8 @@ public final class Random
 	/**
 	 * Returns a Double between a and b
 	 *
-	 * @param a
-	 * @param b
+	 * @param a first number
+	 * @param b second number
 	 * @return number between a and b
 	 */
 	public static double getNumberBetween(double a, double b)
@@ -79,8 +79,8 @@ public final class Random
 	/**
 	 * Returns a Long between a and b
 	 *
-	 * @param a
-	 * @param b
+	 * @param a first number
+	 * @param b second number
 	 * @return number between a and b
 	 */
 	public static long getNumberBetween(long a, long b)
@@ -96,7 +96,7 @@ public final class Random
 	/**
 	 * Get random element from list
 	 *
-	 * @param element
+	 * @param element element
 	 * @return element
 	 */
 	public static <T> T randomElement(List<T> element)

@@ -9,8 +9,7 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-
+@SuppressWarnings("unused")
 public abstract class SqLiteDatabase
 {
 	protected static Connection connection;

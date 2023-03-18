@@ -28,7 +28,6 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	/**
 	 * This class is a region/cuboid from one location to another. It can be
 	 * used for blocks protection and things like WorldEdit.
-	 *
 	 */
 	private final String worldName;
 	private final int x1, y1, z1;
@@ -51,10 +50,9 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 		this.x1 = Math.min(l1.getBlockX(), l2.getBlockX());
 		this.y1 = Math.min(l1.getBlockY(), l2.getBlockY());
 		this.z1 = Math.min(l1.getBlockZ(), l2.getBlockZ());
-		this.x2 = Math.max(l1.getBlockX(), l2.getBlockX())+1;
-		this.y2 = Math.max(l1.getBlockY(), l2.getBlockY())+1;
-		this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ())+1;
-		
+		this.x2 = Math.max(l1.getBlockX(), l2.getBlockX()) + 1;
+		this.y2 = Math.max(l1.getBlockY(), l2.getBlockY()) + 1;
+		this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ()) + 1;
 		
 	}
 	
@@ -750,7 +748,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 		return res;
 	}
 	
-	public Iterator<Block> iterator()
+	public @NotNull Iterator<Block> iterator()
 	{
 		return new CuboidIterator(this.getWorld(), this.x1, this.y1, this.z1, this.x2, this.y2, this.z2);
 	}
@@ -758,7 +756,15 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	@Override
 	public Cuboid clone()
 	{
-		return new Cuboid(this);
+		Cuboid clone;
+		try
+		{
+			clone = (Cuboid) super.clone();
+		} catch(CloneNotSupportedException e)
+		{
+			clone = new Cuboid(this);
+		}
+		return clone;
 	}
 	
 	@Override
@@ -856,20 +862,21 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
 		Vector vector = VectorUtils.genVec(location1, location2);
-		if(Objects.equals(vector, new Vector(0, 0, 0))){
+		if(Objects.equals(vector, new Vector(0, 0, 0)))
+		{
 			return;
 		}
 		BlockIterator blockIterator = new BlockIterator(location1.setDirection(vector), 0, (int) location1.distance(location2));
 		while(blockIterator.hasNext())
 		{
 			Location location = blockIterator.next().getLocation();
-			if(!location.getChunk().isLoaded()){
+			if(!location.getChunk().isLoaded())
+			{
 				continue;
 			}
 			location1.getWorld().spawnParticle(particle, location, 0, 0, 0, 0, 0, null, true);
 		}
 	}
-	
 	
 	public enum CuboidDirection
 	{
