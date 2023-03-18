@@ -1,5 +1,5 @@
 # Minecraft-UtilityLib
-
+![alt text](https://github.com/Wonkglorg/Minecraft-UtilityLib/blob/master/Logo.png?raw=true)
 ## Index
 
 * [Introduction](#introduction)
@@ -57,7 +57,7 @@ required functionality every time. Instead, letting them concentrate on the func
 
     * [UtilityPlugin](#utilityplugin)
   ### <a name="utilityplugin"></a>UtilityPlugin
-  To use the PluginManager replace the main class of the plugin with UtilityPlugin instead of JavaPlugin
+  To use the PluginManager use the UtilityPlugin class to extend your main class instead of JavaPlugin
     ```java
     public class Main extends UtilityPlugin
     {
