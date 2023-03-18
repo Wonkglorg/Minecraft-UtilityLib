@@ -8,17 +8,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.File;
-import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 @ThreadSafe

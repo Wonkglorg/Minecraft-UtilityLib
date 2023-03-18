@@ -1,8 +1,9 @@
 package com.wonkglorg.utilitylib.managers;
 
+import com.wonkglorg.utilitylib.logger.Logger;
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.logger.Logger;
+import com.wonkglorg.utilitylib.database.Database;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -85,6 +86,11 @@ public final class PluginManager
 		getEnchantManager().add(enchantment);
 	}
 	
+	public synchronized void add(String name, Database database)
+	{
+		getDatabaseManager().add(name, database);
+	}
+	
 	/**
 	 * Check whether the plugin is enabled and exists!
 	 *
@@ -131,6 +137,15 @@ public final class PluginManager
 		getLangManager().setDefaultLang(locale, config);
 	}
 	
+	public synchronized Manager getManager(ManagerValues value)
+	{
+		if(!managerMap.containsKey(value))
+		{
+			managerMap.put(value, new ConfigManager(plugin));
+		}
+		return managerMap.get(ManagerValues.CONFIG);
+	}
+	
 	/**
 	 * Gets {@link ConfigManager}.
 	 *
@@ -138,11 +153,7 @@ public final class PluginManager
 	 */
 	public synchronized ConfigManager getConfigManager()
 	{
-		if(!managerMap.containsKey(ManagerValues.CONFIG))
-		{
-			managerMap.put(ManagerValues.CONFIG, new ConfigManager(plugin));
-		}
-		return (ConfigManager) managerMap.get(ManagerValues.CONFIG);
+		return (ConfigManager) getManager(ManagerValues.CONFIG);
 	}
 	
 	/**
@@ -152,11 +163,7 @@ public final class PluginManager
 	 */
 	public synchronized CommandManager getCommandManager()
 	{
-		if(!managerMap.containsKey(ManagerValues.COMMAND))
-		{
-			managerMap.put(ManagerValues.COMMAND, new CommandManager(plugin));
-		}
-		return (CommandManager) managerMap.get(ManagerValues.COMMAND);
+		return (CommandManager) getManager(ManagerValues.COMMAND);
 	}
 	
 	/**
@@ -166,11 +173,7 @@ public final class PluginManager
 	 */
 	public synchronized EventManager getEventManager()
 	{
-		if(!managerMap.containsKey(ManagerValues.EVENT))
-		{
-			managerMap.put(ManagerValues.EVENT, new EventManager(plugin));
-		}
-		return (EventManager) managerMap.get(ManagerValues.EVENT);
+		return (EventManager) getManager(ManagerValues.EVENT);
 	}
 	
 	/**
@@ -180,39 +183,31 @@ public final class PluginManager
 	 */
 	public synchronized LangManager getLangManager()
 	{
-		if(!managerMap.containsKey(ManagerValues.LANG))
-		{
-			managerMap.put(ManagerValues.LANG, new LangManager(plugin));
-		}
-		return (LangManager) managerMap.get(ManagerValues.LANG);
+		
+		return (LangManager) getManager(ManagerValues.LANG);
+	}
+	
+	/**
+	 * Gets {@link DatabaseManager}.
+	 *
+	 * @return the database manager
+	 */
+	public synchronized DatabaseManager getDatabaseManager()
+	{
+		return (DatabaseManager) getManager(ManagerValues.DATABASE);
 	}
 	
 	public synchronized RecipeManager getRecipeManager()
 	{
-		if(!managerMap.containsKey(ManagerValues.RECIPE))
-		{
-			managerMap.put(ManagerValues.RECIPE, new RecipeManager(plugin));
-		}
-		return (RecipeManager) managerMap.get(ManagerValues.RECIPE);
+		return (RecipeManager) getManager(ManagerValues.RECIPE);
 	}
 	
 	public synchronized EnchantmentManager getEnchantManager()
 	{
-		
-		if(!managerMap.containsKey(ManagerValues.ENCHANT))
-		{
-			managerMap.put(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
-		}
-		EnchantmentManager enchantmentManager = (EnchantmentManager) managerMap.get(ManagerValues.ENCHANT);
-		if(enchantmentManager == null)
-		{
-			return null;
-		}
-		enchantmentManager.onStartup();
-		return enchantmentManager;
+		return (EnchantmentManager) getManager(ManagerValues.ENCHANT);
 	}
 	
-	public enum ManagerValues
+	private enum ManagerValues
 	{
 		CONFIG(),
 		LANG(),
@@ -221,6 +216,6 @@ public final class PluginManager
 		RECIPE(),
 		EVENT(),
 		COOLDOWN(),
-		;
+		DATABASE(),
 	}
 }

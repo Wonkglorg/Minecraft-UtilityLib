@@ -1,14 +1,12 @@
 # Minecraft-UtilityLib
 
-Utility Lib for my plugins
-
 ## Index
 
 * [Introduction](#introduction)
 * [Requirements](#requirements)
 * [Overview](#overview)
 * [Guides](#guide)
-* [Other Info](#otherInfo)
+* [Credits](#credits)
 
 ## <a name="introduction"></a>Introduction
 
@@ -24,11 +22,11 @@ required functionality every time. Instead, letting them concentrate on the func
 ## <a name="overview"></a>Overview
 
 * Config
-    * Supports generation and manipulation of configs written in YML or JSON format.
+    * Generation and manipulation of configs written in YML or JSON format.
 
 
 * Message components
-    * Convert strings formatted into the new adventure API components, using either hex values or
+    * Convert strings to the new adventure API components, using either hex values or
       Minecraft-supported colors.
     * Methods to create gradients between any amount of colors on a given string
     * Getting a color between any amount of colors based on a value entered. For example used for damage numbers that
@@ -57,8 +55,23 @@ required functionality every time. Instead, letting them concentrate on the func
 
   ## <a name="guide"></a>Guides
 
-## <a name="otherInfo"></a>Other Information
+    * [UtilityPlugin](#utilityplugin)
+  ### <a name="utilityplugin"></a>UtilityPlugin
+  To use the PluginManager replace the main class of the plugin with UtilityPlugin instead of JavaPlugin
+    ```java
+    public class Main extends UtilityPlugin
+    {
+    //code
+    }     
+    ```
 
-Please note that some of the code used in this project consists of snippets that I have collected over the years and
-modified. If you recognize that you are the original owner of any of these code snippets, please do not hesitate to
-contact me. I am happy to add proper credits or potentially rework the code if you do not agree with its usage.
+  To access the manager use the manager variable or the static getManager() method.
+
+## <a name="credits"></a>Credits
+
+This plugin is being developed by [Wonkglorg](https://gitlab.com/u/Wonkglorg). Some methods were adapted
+from existing ones that may be found either on [Bukkit](http://bukkit.org/forums/)
+or [Spigot](https://www.spigotmc.org/forums/) forum.
+
+please do not hesitate to contact me if you recognize your code snippets. I am happy to add proper credits or
+potentially rework the code if you do not agree with its usage.

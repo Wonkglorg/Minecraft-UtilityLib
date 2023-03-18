@@ -16,11 +16,6 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	}
 	
 	/**
-	 * loads contents before anything else in the plugin, no configs are loaded yet
-	 */
-	public abstract void loadBefore();
-	
-	/**
 	 * Executes on plugin startup
 	 */
 	public abstract void pluginStartup();
@@ -30,34 +25,9 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 	 */
 	public abstract void pluginShutdown();
 	
-	/**
-	 * add all configs in this field using manager.add();
-	 */
-	public abstract void config();
-	
-	/**
-	 * add all langs in this field using manager.add();
-	 */
-	public abstract void lang();
-	
-	/**
-	 * add all events in this field using manager.add();
-	 */
-	public abstract void event();
-	
-	/**
-	 * add all commands in this field using manager.add();
-	 */
-	public abstract void command();
-	
 	@Override
 	public void onEnable()
 	{
-		loadBefore();
-		langs();
-		configs();
-		events();
-		commands();
 		pluginStartup();
 		manager.onStartup();
 	}
@@ -69,37 +39,14 @@ public abstract class UtilityPlugin extends JavaPlugin implements PluginInterfac
 		manager.onShutdown();
 	}
 	
-	@Override
-	public void events()
-	{
-		event();
-	}
-	
-	@Override
-	public void commands()
-	{
-		command();
-	}
-	
-	@Override
-	public void configs()
-	{
-		config();
-	}
-	
-	@Override
-	public void langs()
-	{
-		lang();
-	}
-	
 	public static PluginManager getManager()
 	{
 		return manager;
 	}
 	
 	/**
-	 *Checks if a specific plugin dependency with a given name exists
+	 * Checks if a specific plugin dependency with a given name exists
+	 *
 	 * @param pluginName plugin name
 	 * @return
 	 */

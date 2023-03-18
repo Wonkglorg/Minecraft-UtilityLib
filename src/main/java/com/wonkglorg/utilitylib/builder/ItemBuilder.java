@@ -91,7 +91,8 @@ public class ItemBuilder implements Cloneable
 		this(material, amount, name, description, 0, null, null, null);
 	}
 	
-	public ItemBuilder(ItemStack item){
+	public ItemBuilder(ItemStack item)
+	{
 		meta = item.getItemMeta();
 		material = item.getType();
 		amount = item.getAmount();
