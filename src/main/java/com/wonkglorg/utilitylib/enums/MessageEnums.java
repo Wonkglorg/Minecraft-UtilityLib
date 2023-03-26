@@ -9,16 +9,12 @@ import java.util.Map;
 
 public enum MessageEnums
 {
-
-	PREFIX("(Template) "),
-	
 	TELEPORT_MOVE("Teleport cancelled, player moved!"),
 	TELEPORT_MESSAGE("Teleporting in %second% seconds!"),
 	TELEPORT_ERROR("Currently Teleporting"),
 	TELEPORT_SUCCESS("Teleported!"),
 	
 	INVENTORY_NULL("Inventory not found"),
-	INVENTORY_CLONE_NULL("Inventory clone is null"),
 	INVENTORY_OPEN_ERROR("Error while opening inventory"),
 	INVENTORY_BUTTON_PREVIOUS("Previous page"),
 	INVENTORY_BUTTON_NEXT("Next page"),
@@ -28,18 +24,6 @@ public enum MessageEnums
 	TIME_HOUR_SIMPLE("%02d:%02d:%02d"),
 	TIME_MINUTE("%02d %minute% %02d %second%"),
 	TIME_SECOND("%02d %second%"),
-	
-	FORMAT_SECOND("second"),
-	FORMAT_SECONDS("seconds"),
-	
-	FORMAT_MINUTE("minute"),
-	FORMAT_MINUTES("minutes"),
-	
-	FORMAT_HOUR("hour"),
-	FORMAT_HOURS("hours"),
-	
-	FORMAT_DAY("d"),
-	FORMAT_DAYS("days"),
 	
 	COMMAND_SYNTAXE_ERROR("Execute command error: %syntax%"),
 	COMMAND_NO_PERMISSION("You do not have permission to execute this command."),
@@ -63,7 +47,6 @@ public enum MessageEnums
 	 */
 	private MessageEnums(String message) {
 		this.message = message;
-		this.use = true;
 	}
 
 	/**

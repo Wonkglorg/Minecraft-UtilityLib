@@ -14,7 +14,8 @@ import java.io.ObjectOutputStream;
 
 @SuppressWarnings("unused")
 @NotNull
-public class Base64Converter
+public class
+Base64Converter
 {
 	
 	public static String toBase64(final Object obj) throws IOException

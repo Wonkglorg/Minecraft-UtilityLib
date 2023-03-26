@@ -16,7 +16,7 @@ required functionality every time. Instead, letting them concentrate on the func
 ## <a name="requirements"></a>Requirements
 
 * Spigot or Paper
-* Minecraft 1.8.* and above
+* Minecraft 1.16.* and above
 * JAVA 8 or above
 
 ## <a name="overview"></a>Overview

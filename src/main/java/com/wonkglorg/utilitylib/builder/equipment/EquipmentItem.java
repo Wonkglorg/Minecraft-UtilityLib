@@ -1,8 +1,10 @@
 package com.wonkglorg.utilitylib.builder.equipment;
 
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public final class EquipmentItem
 {
@@ -16,13 +18,13 @@ public final class EquipmentItem
 	
 	public EquipmentItem(ItemStack itemStack, float dropChance)
 	{
-		this.itemStack = itemStack;
+		this.itemStack = Objects.requireNonNull(itemStack);
 		this.dropChance = dropChance;
 	}
 	
 	public ItemStack getItemStack()
 	{
-		return itemStack != null ? itemStack : new ItemStack(Material.AIR);
+		return itemStack;
 	}
 	
 	public float getDropChance()
@@ -30,9 +32,9 @@ public final class EquipmentItem
 		return dropChance;
 	}
 	
-	public void setItemStack(ItemStack itemStack)
+	public void setItemStack(@NotNull ItemStack itemStack)
 	{
-		this.itemStack = itemStack;
+		this.itemStack = Objects.requireNonNull(itemStack);
 	}
 	
 	public void setDropChance(float dropChance)

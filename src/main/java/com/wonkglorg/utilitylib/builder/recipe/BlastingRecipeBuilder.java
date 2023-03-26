@@ -6,11 +6,15 @@ import org.bukkit.inventory.BlastingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public final class BlastingRecipeBuilder extends RecipeBuilder
 {
 	/**
 	 * Creates a new Blasting Recipe builder
+	 *
 	 * @param key key
 	 * @param result result
 	 */
@@ -42,7 +46,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	public BlastingRecipeBuilder setInput(@NotNull final ItemStack... input)
 	{
 		validateInit();
-		getRecipe().setInputChoice(new ExactChoice(input));
+		getRecipe().setInputChoice(new ExactChoice(Objects.requireNonNull(input)));
 		return this;
 	}
 	
@@ -55,7 +59,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	public BlastingRecipeBuilder setInput(@NotNull final Material input)
 	{
 		validateInit();
-		getRecipe().setInput(input);
+		getRecipe().setInput(Objects.requireNonNull(input));
 		return this;
 	}
 	

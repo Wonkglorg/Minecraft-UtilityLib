@@ -7,6 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 /**
  * The type Furnace recipe builder.
  */
@@ -42,7 +44,7 @@ public final class FurnaceRecipeBuilder extends RecipeBuilder
 	public FurnaceRecipeBuilder setInput(@NotNull final ItemStack... input)
 	{
 		validateInit();
-		getRecipe().setInputChoice(new ExactChoice(input));
+		getRecipe().setInputChoice(new ExactChoice(Objects.requireNonNull(input)));
 		return this;
 	}
 	
@@ -55,7 +57,7 @@ public final class FurnaceRecipeBuilder extends RecipeBuilder
 	public FurnaceRecipeBuilder setInput(@NotNull final Material input)
 	{
 		validateInit();
-		getRecipe().setInput(input);
+		getRecipe().setInput(Objects.requireNonNull(input));
 		return this;
 	}
 	

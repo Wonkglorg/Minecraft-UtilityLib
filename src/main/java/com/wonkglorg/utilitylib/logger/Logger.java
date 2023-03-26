@@ -34,7 +34,8 @@ public final class Logger
 			}
 			if(obj instanceof Map map)
 			{
-				map.forEach((o, o2) -> builder.append(",").append("( ").append(o.toString()).append(" , ").append(o2.toString()).append(" )"));
+				map.forEach((o, o2) -> builder.append(String.format(",(%s , %s)", o.toString(), o2.toString())));
+				//map.forEach((o, o2) -> builder.append(",").append("( ").append(o.toString()).append(" , ").append(o2.toString()).append(" )"));
 			}
 			if(builder.length() > 0)
 			{

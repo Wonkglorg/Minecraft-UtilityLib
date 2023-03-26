@@ -6,6 +6,9 @@ import org.bukkit.inventory.CampfireRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public final class CampfireRecipeBuilder extends RecipeBuilder
 {
@@ -36,7 +39,7 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	public CampfireRecipeBuilder setInput(@NotNull final ItemStack... input)
 	{
 		validateInit();
-		getRecipe().setInputChoice(new ExactChoice(input));
+		getRecipe().setInputChoice(new ExactChoice(Objects.requireNonNull(input)));
 		return this;
 	}
 	
@@ -49,7 +52,7 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	public CampfireRecipeBuilder setInput(@NotNull final Material input)
 	{
 		validateInit();
-		getRecipe().setInput(input);
+		getRecipe().setInput(Objects.requireNonNull(input));
 		return this;
 	}
 	

@@ -6,7 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("unused")
-public abstract class UtilityPlugin extends JavaPlugin implements PluginInterface
+public abstract class UtilityPlugin extends JavaPlugin
 {
 	protected static PluginManager manager;
 	

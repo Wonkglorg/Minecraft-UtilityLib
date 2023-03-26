@@ -9,10 +9,12 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The type Banner builder.
@@ -21,7 +23,7 @@ import java.util.Map;
 public final class BannerBuilder extends ItemBuilder
 {
 	
-	private List<BannerLayer> bannerLayerList;
+	private final List<BannerLayer> bannerLayerList = new ArrayList<>();
 	
 	/**
 	 * Instantiates a new Banner builder.
@@ -35,7 +37,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param flags the flags
 	 * @param enchantments the enchantments
 	 */
-	public BannerBuilder(DyeColor color,
+	public BannerBuilder(@NotNull DyeColor color,
 						 int amount,
 						 String name,
 						 List<String> lore,
@@ -52,7 +54,7 @@ public final class BannerBuilder extends ItemBuilder
 	 *
 	 * @param color the color
 	 */
-	public BannerBuilder(DyeColor color)
+	public BannerBuilder(@NotNull DyeColor color)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"));
 	}
@@ -63,7 +65,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param color the color
 	 * @param itemFlags the item flags
 	 */
-	public BannerBuilder(DyeColor color, ItemFlag... itemFlags)
+	public BannerBuilder(@NotNull DyeColor color, ItemFlag... itemFlags)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), itemFlags);
 	}
@@ -74,7 +76,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param color the color
 	 * @param name the name
 	 */
-	public BannerBuilder(DyeColor color, String name)
+	public BannerBuilder(@NotNull DyeColor color, String name)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), name);
 	}
@@ -85,7 +87,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param color the color
 	 * @param description the description
 	 */
-	public BannerBuilder(DyeColor color, List<String> description)
+	public BannerBuilder(@NotNull DyeColor color, List<String> description)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), description);
 	}
@@ -96,7 +98,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param color the color
 	 * @param amount the amount
 	 */
-	public BannerBuilder(DyeColor color, int amount)
+	public BannerBuilder(@NotNull DyeColor color, int amount)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), amount);
 	}
@@ -108,7 +110,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param amount the amount
 	 * @param name the name
 	 */
-	public BannerBuilder(DyeColor color, int amount, String name)
+	public BannerBuilder(@NotNull DyeColor color, int amount, String name)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), amount, name);
 	}
@@ -121,7 +123,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param name the name
 	 * @param description the description
 	 */
-	public BannerBuilder(DyeColor color, int amount, String name, List<String> description)
+	public BannerBuilder(@NotNull DyeColor color, int amount, String name, List<String> description)
 	{
 		super(Material.valueOf(color.name() + "_BANNER"), amount, name, description);
 	}
@@ -133,9 +135,8 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param patternType the pattern type
 	 * @return the banner builder
 	 */
-	public BannerBuilder addLayer(DyeColor color, PatternType patternType)
+	public BannerBuilder addLayer(@NotNull DyeColor color, PatternType patternType)
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.add(new BannerLayer(color, patternType));
 		return this;
 	}
@@ -147,12 +148,11 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param color the color
 	 * @return the banner builder
 	 */
-	public BannerBuilder replaceColorAt(int index, DyeColor color)
+	public BannerBuilder replaceColorAt(int index, @NotNull DyeColor color)
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
-			bannerLayerList.set(index, new BannerLayer(color, bannerLayerList.get(index).getPatternType()));
+			bannerLayerList.set(index, new BannerLayer(Objects.requireNonNull(color), bannerLayerList.get(index).getPatternType()));
 		}
 		return this;
 	}
@@ -164,12 +164,11 @@ public final class BannerBuilder extends ItemBuilder
 	 * @param type the type
 	 * @return the banner builder
 	 */
-	public BannerBuilder replacePatternAt(int index, PatternType type)
+	public BannerBuilder replacePatternAt(int index, @NotNull PatternType type)
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
-			bannerLayerList.set(index, new BannerLayer(bannerLayerList.get(index).getDyeColor(), type));
+			bannerLayerList.set(index, new BannerLayer(bannerLayerList.get(index).getDyeColor(), Objects.requireNonNull(type)));
 		}
 		return this;
 	}
@@ -196,7 +195,6 @@ public final class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeLastLayer()
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.remove(bannerLayerList.size() - 1);
 		return this;
 	}
@@ -208,7 +206,6 @@ public final class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeFirstLayer()
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		bannerLayerList.remove(0);
 		return this;
 	}
@@ -221,7 +218,6 @@ public final class BannerBuilder extends ItemBuilder
 	 */
 	public BannerBuilder removeLayerAt(int index)
 	{
-		bannerLayerList = bannerLayerList == null ? new ArrayList<>() : bannerLayerList;
 		if(index < bannerLayerList.size())
 		{
 			bannerLayerList.remove(index);
@@ -263,7 +259,7 @@ public final class BannerBuilder extends ItemBuilder
 		 */
 		public void setDyeColor(DyeColor dyeColor)
 		{
-			this.dyeColor = dyeColor;
+			this.dyeColor = Objects.requireNonNull(dyeColor);
 		}
 		
 		/**
@@ -283,7 +279,7 @@ public final class BannerBuilder extends ItemBuilder
 		 */
 		public void setPatternType(PatternType patternType)
 		{
-			this.patternType = patternType;
+			this.patternType = Objects.requireNonNull(patternType);
 		}
 	}
 	

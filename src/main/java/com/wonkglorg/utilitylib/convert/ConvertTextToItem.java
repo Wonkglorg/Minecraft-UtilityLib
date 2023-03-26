@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@SuppressWarnings("unused")
 public final class ConvertTextToItem
 {
 	private final String path;

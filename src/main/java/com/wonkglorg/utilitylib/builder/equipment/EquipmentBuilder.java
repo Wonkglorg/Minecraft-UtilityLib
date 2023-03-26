@@ -7,6 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -18,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class EquipmentBuilder
 {
 	private LivingEntity livingEntity;
-	private final ConcurrentHashMap<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new ConcurrentHashMap<>();
+	private final Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new ConcurrentHashMap<>();
 	private boolean silent = true;
 	private final Object lock = new Object();
 	
@@ -27,6 +29,7 @@ public final class EquipmentBuilder
 	 */
 	public EquipmentBuilder()
 	{
+		
 	}
 	
 	/**
@@ -36,7 +39,7 @@ public final class EquipmentBuilder
 	 */
 	public EquipmentBuilder(@NotNull LivingEntity livingEntity)
 	{
-		this.livingEntity = livingEntity;
+		this.livingEntity = Objects.requireNonNull(livingEntity);
 	}
 	
 	/**
@@ -48,11 +51,6 @@ public final class EquipmentBuilder
 	 */
 	public synchronized LivingEntity build()
 	{
-		if(livingEntity == null)
-		{
-			return null;
-		}
-		
 		EntityEquipment equipment = livingEntity.getEquipment();
 		if(equipment == null)
 		{
@@ -73,134 +71,9 @@ public final class EquipmentBuilder
 	 *
 	 * @param livingEntity the {@link LivingEntity} to update.
 	 */
-	public synchronized void setLivingEntity(@NotNull LivingEntity livingEntity)
+	public synchronized EquipmentBuilder setLivingEntity(@NotNull LivingEntity livingEntity)
 	{
 		this.livingEntity = livingEntity;
-	}
-	
-	/**
-	 * Sets the helmet equipment for the {@code LivingEntity}.
-	 *
-	 * @param helmet the helmet {@link ItemStack}.
-	 * @return the {@code EquipmentBuilder} object.
-	 */
-	public synchronized EquipmentBuilder setHelmet(ItemStack helmet)
-	{
-		if(helmet == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.HEAD, new EquipmentItem(helmet, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setHelmet(ItemStack helmet, float dropChance)
-	{
-		if(helmet == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.HEAD, new EquipmentItem(helmet, dropChance));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setChestplate(ItemStack chestplate)
-	{
-		if(chestplate == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.CHEST, new EquipmentItem(chestplate, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setChestplate(ItemStack chestplate, float dropChance)
-	{
-		if(chestplate == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.CHEST, new EquipmentItem(chestplate, dropChance));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setLeggings(ItemStack leggings)
-	{
-		if(leggings == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.LEGS, new EquipmentItem(leggings, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setLeggings(ItemStack leggings, float dropChance)
-	{
-		if(leggings == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.LEGS, new EquipmentItem(leggings, dropChance));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setBoots(ItemStack boots)
-	{
-		if(boots == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.FEET, new EquipmentItem(boots, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setBoots(ItemStack boots, float dropChance)
-	{
-		if(boots == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.FEET, new EquipmentItem(boots, dropChance));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setMainHand(ItemStack mainHand)
-	{
-		if(mainHand == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.HAND, new EquipmentItem(mainHand, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setMainHand(ItemStack mainHand, float dropChance)
-	{
-		if(mainHand == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.HAND, new EquipmentItem(mainHand, dropChance));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setOffHand(ItemStack mainHand)
-	{
-		if(mainHand == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.OFF_HAND, new EquipmentItem(mainHand, 0));
-		return this;
-	}
-	
-	public synchronized EquipmentBuilder setOffHand(ItemStack offHand, float dropChance)
-	{
-		if(offHand == null)
-		{
-			return this;
-		}
-		equipmentMap.put(EquipmentSlot.OFF_HAND, new EquipmentItem(offHand, dropChance));
 		return this;
 	}
 	
@@ -212,32 +85,17 @@ public final class EquipmentBuilder
 	
 	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack)
 	{
-		if(equipmentSlot == null || itemStack == null)
-		{
-			return this;
-		}
-		equipmentMap.put(equipmentSlot, new EquipmentItem(itemStack, 0));
-		return this;
+		return setItem(equipmentSlot, new EquipmentItem(itemStack, 0));
 	}
 	
 	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack, float dropChance)
 	{
-		if(equipmentSlot == null || itemStack == null)
-		{
-			return this;
-		}
-		equipmentMap.put(equipmentSlot, new EquipmentItem(itemStack, dropChance));
-		return this;
+		return setItem(equipmentSlot, new EquipmentItem(itemStack, dropChance));
 	}
 	
-	public EquipmentBuilder setItem(EquipmentSlot equipmentSlot, EquipmentItem equipmentItem)
+	public EquipmentBuilder setItem(@NotNull EquipmentSlot equipmentSlot, @NotNull EquipmentItem equipmentItem)
 	{
-		if(equipmentSlot == null || equipmentItem == null)
-		{
-			return this;
-		}
-		
-		equipmentMap.put(equipmentSlot, equipmentItem);
+		equipmentMap.put(Objects.requireNonNull(equipmentSlot), Objects.requireNonNull(equipmentItem));
 		return this;
 	}
 	

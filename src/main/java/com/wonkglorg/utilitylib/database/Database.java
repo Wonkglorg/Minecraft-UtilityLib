@@ -38,11 +38,13 @@ public abstract class Database
 			
 			}
 		}
+		
 	}
 	
 	public Connection getConnection()
 	{
 		connect();
+		
 		return connection;
 	}
 	
