@@ -1,9 +1,9 @@
 package com.wonkglorg.utilitylib.managers;
 
-import com.wonkglorg.utilitylib.logger.Logger;
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.database.Database;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -13,6 +13,7 @@ import org.bukkit.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.lang.reflect.Constructor;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
@@ -139,11 +140,33 @@ public final class PluginManager
 	
 	public synchronized Manager getManager(ManagerValues value)
 	{
-		if(!managerMap.containsKey(value))
-		{
-			managerMap.put(value, new ConfigManager(plugin));
+		switch(value){
+			case LANG -> {
+				return managerMap.putIfAbsent(value,new LangManager(plugin));
+			}
+			case EVENT -> {
+				return managerMap.putIfAbsent(value,new EventManager(plugin));
+			}
+			case CONFIG -> {
+				return managerMap.putIfAbsent(value,new ConfigManager(plugin));
+			}
+			case RECIPE -> {
+				return managerMap.putIfAbsent(value,new RecipeManager(plugin));
+			}
+			case COMMAND -> {
+				return managerMap.putIfAbsent(value,new CommandManager(plugin));
+			}
+			case ENCHANT -> {
+				return managerMap.putIfAbsent(value,new EnchantmentManager(plugin));
+			}
+			case COOLDOWN -> {
+				return managerMap.putIfAbsent(value,new CooldownManager());
+			}
+			case DATABASE -> {
+				return managerMap.putIfAbsent(value,new DatabaseManager(plugin));
+			}
 		}
-		return managerMap.get(ManagerValues.CONFIG);
+		throw new IllegalStateException("There is no manager that matches the selected input!");
 	}
 	
 	/**
@@ -217,5 +240,7 @@ public final class PluginManager
 		EVENT(),
 		COOLDOWN(),
 		DATABASE(),
+		;
+		
 	}
 }
