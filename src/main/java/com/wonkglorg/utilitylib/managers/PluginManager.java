@@ -140,29 +140,38 @@ public final class PluginManager
 	
 	public synchronized Manager getManager(ManagerValues value)
 	{
+		System.out.println(value);
 		switch(value){
 			case LANG -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new LangManager(plugin));
 			}
 			case EVENT -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new EventManager(plugin));
 			}
 			case CONFIG -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new ConfigManager(plugin));
 			}
 			case RECIPE -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new RecipeManager(plugin));
 			}
 			case COMMAND -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new CommandManager(plugin));
 			}
 			case ENCHANT -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new EnchantmentManager(plugin));
 			}
 			case COOLDOWN -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new CooldownManager());
 			}
 			case DATABASE -> {
+				System.out.println(managerMap);
 				return managerMap.putIfAbsent(value,new DatabaseManager(plugin));
 			}
 		}
