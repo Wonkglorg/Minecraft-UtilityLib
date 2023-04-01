@@ -13,7 +13,6 @@ import org.bukkit.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.lang.reflect.Constructor;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
@@ -39,10 +38,11 @@ public final class PluginManager
 	public PluginManager(@NotNull JavaPlugin plugin)
 	{
 		this.plugin = plugin;
+		addManagers();
 	}
 	
 	/**
-	 * Adds a new cooldownManager.
+	 * Adds a new cooldownManager. With specified consumer and producers
 	 *
 	 * @param producer action to perform on shutdown for example saving them to a config file
 	 * @param consumer action to perform on startup for example loading it from a config file
@@ -140,42 +140,7 @@ public final class PluginManager
 	
 	public synchronized Manager getManager(ManagerValues value)
 	{
-		System.out.println(value);
-		switch(value){
-			case LANG -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new LangManager(plugin));
-			}
-			case EVENT -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new EventManager(plugin));
-			}
-			case CONFIG -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new ConfigManager(plugin));
-			}
-			case RECIPE -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new RecipeManager(plugin));
-			}
-			case COMMAND -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new CommandManager(plugin));
-			}
-			case ENCHANT -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new EnchantmentManager(plugin));
-			}
-			case COOLDOWN -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new CooldownManager());
-			}
-			case DATABASE -> {
-				System.out.println(managerMap);
-				return managerMap.putIfAbsent(value,new DatabaseManager(plugin));
-			}
-		}
-		throw new IllegalStateException("There is no manager that matches the selected input!");
+		return managerMap.get(value);
 	}
 	
 	/**
@@ -237,6 +202,18 @@ public final class PluginManager
 	public synchronized EnchantmentManager getEnchantManager()
 	{
 		return (EnchantmentManager) getManager(ManagerValues.ENCHANT);
+	}
+	
+	private void addManagers()
+	{
+		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.CONFIG, new ConfigManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.RECIPE, new RecipeManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.COMMAND, new CommandManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.COOLDOWN, new CooldownManager());
+		managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
 	}
 	
 	private enum ManagerValues
