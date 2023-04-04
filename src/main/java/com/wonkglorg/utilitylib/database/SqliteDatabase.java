@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -89,7 +90,7 @@ public class SqliteDatabase extends Database
 	}
 	
 	 */
-	
+	/*
 	public void connect()
 	{
 		if(connection != null)
@@ -100,13 +101,27 @@ public class SqliteDatabase extends Database
 		try
 		{
 			Class.forName(databaseType.getClassLoader());
-			new File(String.valueOf(DESTINATION_PATH)).mkdirs();
+			File databaseFile;
+			if(DESTINATION_PATH != null)
+			{
+				new File(String.valueOf(DESTINATION_PATH)).mkdirs();
+				databaseFile = new File(DESTINATION_PATH + File.separator + DATABASE_NAME);
+			} else
+			{
+				databaseFile = new File(DATABASE_NAME);
+			}
 			
-			File databaseFile = new File(DESTINATION_PATH + File.separator + DATABASE_NAME);
 			if(!databaseFile.exists())
 			{
+				InputStream resourceStream;
+				if(DATABASE_PATH != null)
+				{
+					resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_PATH + File.separator + DATABASE_NAME);
+				} else
+				{
+					resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_NAME);
+				}
 				
-				InputStream resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_PATH + File.separator + DATABASE_NAME);
 				if(resourceStream != null)
 				{
 					Files.copy(resourceStream, databaseFile.toPath());
@@ -120,6 +135,69 @@ public class SqliteDatabase extends Database
 		} catch(ClassNotFoundException | SQLException | IOException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
+		}
+	}
+	
+	 */
+	
+	public void connect()
+	{
+		if(connection != null)
+		{
+			return;
+		}
+		
+		try
+		{
+			Class.forName(databaseType.getClassLoader());
+			File databaseFile = getDatabaseFile();
+			
+			if(!databaseFile.exists())
+			{
+				copyDatabaseFile(databaseFile);
+			}
+			
+			String connectionString = databaseType.getDriver() + databaseFile.getPath();
+			connection = DriverManager.getConnection(connectionString);
+			
+		} catch(ClassNotFoundException | SQLException | IOException e)
+		{
+			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
+		}
+	}
+	
+	private File getDatabaseFile()
+	{
+		File databaseFile;
+		if(DESTINATION_PATH != null)
+		{
+			new File(DESTINATION_PATH.toUri()).mkdirs();
+			Path databasePath = Paths.get(String.valueOf(DESTINATION_PATH), DATABASE_NAME);
+			databaseFile = databasePath.toFile();
+		} else
+		{
+			databaseFile = new File(DATABASE_NAME);
+		}
+		return databaseFile;
+	}
+	
+	private void copyDatabaseFile(File databaseFile) throws IOException
+	{
+		InputStream resourceStream;
+		if(DATABASE_PATH != null)
+		{
+			resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_PATH + File.separator + DATABASE_NAME);
+		} else
+		{
+			resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_NAME);
+		}
+		
+		if(resourceStream != null)
+		{
+			Files.copy(resourceStream, databaseFile.toPath());
+		} else
+		{
+			databaseFile.createNewFile();
 		}
 	}
 	

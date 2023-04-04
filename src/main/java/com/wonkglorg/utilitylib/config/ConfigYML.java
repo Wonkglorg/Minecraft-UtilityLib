@@ -39,6 +39,8 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	 * The File.
 	 */
 	private final File file;
+	//seperate source and destination path to be able to set different destinations compared to your resource path
+	//Also allow for a different name at the destination location?
 	
 	/**
 	 * Creates a new config object which represents a yml file
@@ -209,7 +211,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			InputStream inputStream = plugin.getResource(path.toString().replace('\\', '/'));
+			InputStream inputStream = plugin.getResource(path.toString().replace("\\", File.separator));
 			System.out.println(inputStream);
 			if(inputStream != null)
 			{
