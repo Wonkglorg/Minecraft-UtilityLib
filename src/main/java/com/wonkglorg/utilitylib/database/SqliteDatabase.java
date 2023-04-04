@@ -35,6 +35,8 @@ public class SqliteDatabase extends Database
 		{
 			throw new RuntimeException();
 		}
+		
+		//add the option to define your own name for it the new file too!
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		DATABASE_PATH = sourcePath;
 		DESTINATION_PATH = destinationPath;
@@ -60,85 +62,16 @@ public class SqliteDatabase extends Database
 		}
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		DATABASE_PATH = sourcePath;
-		DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath() + File.separator + destinationPath);
+		if(destinationPath != null)
+		{
+			DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath() + File.separator + destinationPath);
+		} else
+		{
+			DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath());
+		}
+		
 		connect();
 	}
-	/*
-	public void connect()
-	{
-		if(connection != null)
-		{
-			return;
-		}
-		
-		try
-		{
-			Class.forName(databaseType.getClassLoader());
-			new File(String.valueOf(DATABASE_PATH)).mkdirs();
-			
-			File databaseFile = new File(DATABASE_PATH + File.separator + DATABASE_NAME);
-			if(!databaseFile.exists())
-			{
-				boolean ignored = databaseFile.createNewFile();
-			}
-			
-			connection = DriverManager.getConnection(databaseType.getDriver() + databaseFile.getPath());
-		} catch(ClassNotFoundException | SQLException | IOException e)
-		{
-			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
-		}
-	}
-	
-	 */
-	/*
-	public void connect()
-	{
-		if(connection != null)
-		{
-			return;
-		}
-		
-		try
-		{
-			Class.forName(databaseType.getClassLoader());
-			File databaseFile;
-			if(DESTINATION_PATH != null)
-			{
-				new File(String.valueOf(DESTINATION_PATH)).mkdirs();
-				databaseFile = new File(DESTINATION_PATH + File.separator + DATABASE_NAME);
-			} else
-			{
-				databaseFile = new File(DATABASE_NAME);
-			}
-			
-			if(!databaseFile.exists())
-			{
-				InputStream resourceStream;
-				if(DATABASE_PATH != null)
-				{
-					resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_PATH + File.separator + DATABASE_NAME);
-				} else
-				{
-					resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_NAME);
-				}
-				
-				if(resourceStream != null)
-				{
-					Files.copy(resourceStream, databaseFile.toPath());
-				} else
-				{
-					boolean ignored = databaseFile.createNewFile();
-				}
-			}
-			
-			connection = DriverManager.getConnection(databaseType.getDriver() + databaseFile.getPath());
-		} catch(ClassNotFoundException | SQLException | IOException e)
-		{
-			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
-		}
-	}
-	
-	 */
 	
 	public void connect()
 	{
@@ -186,10 +119,10 @@ public class SqliteDatabase extends Database
 		InputStream resourceStream;
 		if(DATABASE_PATH != null)
 		{
-			resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_PATH + File.separator + DATABASE_NAME);
+			resourceStream = getClass().getResourceAsStream("/" + DATABASE_PATH + "/" + DATABASE_NAME);
 		} else
 		{
-			resourceStream = getClass().getResourceAsStream(File.separator + DATABASE_NAME);
+			resourceStream = getClass().getResourceAsStream("/" + DATABASE_NAME);
 		}
 		
 		if(resourceStream != null)
