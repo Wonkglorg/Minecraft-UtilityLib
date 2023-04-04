@@ -98,7 +98,7 @@ public class SqliteDatabase extends Database
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}
 	}
-	
+	//SQLITE DATABASE GETS CREATED BUT IS CORRUPTED FOR SOME REASON
 	private File getDatabaseFile()
 	{
 		File databaseFile;
@@ -116,21 +116,24 @@ public class SqliteDatabase extends Database
 	
 	private void copyDatabaseFile(File databaseFile) throws IOException
 	{
-		InputStream resourceStream;
+		String path;
+		
 		if(DATABASE_PATH != null)
 		{
-			resourceStream = getClass().getResourceAsStream("/" + DATABASE_PATH + "/" + DATABASE_NAME);
+			path = "/" + DATABASE_PATH + "/" + DATABASE_NAME;
 		} else
 		{
-			resourceStream = getClass().getResourceAsStream("/" + DATABASE_NAME);
+			path = "/" + DATABASE_NAME;
 		}
-		
-		if(resourceStream != null)
+		try(InputStream resourceStream = getClass().getResourceAsStream(path))
 		{
-			Files.copy(resourceStream, databaseFile.toPath());
-		} else
-		{
-			databaseFile.createNewFile();
+			if(resourceStream != null)
+			{
+				Files.copy(resourceStream, databaseFile.toPath());
+			} else
+			{
+				databaseFile.createNewFile();
+			}
 		}
 	}
 	
