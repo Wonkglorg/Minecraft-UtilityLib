@@ -9,18 +9,18 @@ import java.sql.SQLException;
 public abstract class Database
 {
 	protected Connection connection;
-	protected final String name;
+	protected final String DATABASE_NAME;
 	protected final DatabaseType databaseType;
 	
 	public Database(String name, DatabaseType databaseType)
 	{
-		this.name = name;
+		this.DATABASE_NAME = name;
 		this.databaseType = databaseType;
 	}
 	
 	public Database(JavaPlugin plugin, String name, DatabaseType databaseType)
 	{
-		this.name = name;
+		this.DATABASE_NAME = name;
 		this.databaseType = databaseType;
 	}
 	
@@ -53,9 +53,9 @@ public abstract class Database
 		return databaseType;
 	}
 	
-	public String getName()
+	public String getDatabaseName()
 	{
-		return name;
+		return DATABASE_NAME;
 	}
 	
 	public void setConnection(Connection connection)

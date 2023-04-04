@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.selection;
 
-import com.wonkglorg.utilitylib.utils.VectorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -861,7 +860,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
-		Vector vector = VectorUtils.genVec(location1, location2);
+		Vector vector =location2.toVector().subtract(location1.toVector());
 		if(Objects.equals(vector, new Vector(0, 0, 0)))
 		{
 			return;

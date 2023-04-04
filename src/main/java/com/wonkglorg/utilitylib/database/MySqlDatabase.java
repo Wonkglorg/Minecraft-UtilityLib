@@ -16,20 +16,18 @@ public class MySqlDatabase extends Database
 	protected final String USERNAME;
 	protected final String URL;
 	protected final String PASSWORD;
-	protected final String DATABASE_NAME;
 	
 	public MySqlDatabase(String url, String username, String password, String databaseName)
 	{
 		super(databaseName, DatabaseType.MYSQL);
 		
-		if(username == null || url == null || password == null || databaseName == null)
+		if(username == null || url == null || password == null || DATABASE_NAME == null)
 		{
 			throw new RuntimeException();
 		}
 		USERNAME = username;
 		URL = url;
 		PASSWORD = password;
-		DATABASE_NAME = databaseName;
 		
 	}
 	

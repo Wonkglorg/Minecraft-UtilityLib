@@ -725,7 +725,6 @@ public final class ItemUtil
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 		
 		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
-		String playerName = offlinePlayer.getName();
 		
 		String cName = name != null ? name : offlinePlayer.getName();
 		if(cName == null)
