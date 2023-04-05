@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -93,7 +95,7 @@ public class SqliteDatabase extends Database
 			String connectionString = databaseType.getDriver() + databaseFile.getPath();
 			connection = DriverManager.getConnection(connectionString);
 			
-		} catch(ClassNotFoundException | SQLException | IOException e)
+		} catch(ClassNotFoundException | SQLException | IOException | URISyntaxException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}
@@ -113,7 +115,7 @@ public class SqliteDatabase extends Database
 		}
 		return databaseFile;
 	}
-	
+	/*
 	private void copyDatabaseFile(File databaseFile) throws IOException
 	{
 		String path;
@@ -134,6 +136,20 @@ public class SqliteDatabase extends Database
 			{
 				databaseFile.createNewFile();
 			}
+		}
+	}
+	
+	 */
+	
+	private void copyDatabaseFile(File databaseFile) throws IOException, URISyntaxException
+	{
+		String path = DATABASE_PATH != null ? "/" + DATABASE_PATH + "/" + DATABASE_NAME : "/" + DATABASE_NAME;
+		URL resourceUrl = getClass().getResource(path);
+		
+		if (resourceUrl != null) {
+			Files.copy(Paths.get(resourceUrl.toURI()), databaseFile.toPath());
+		} else {
+			databaseFile.createNewFile();
 		}
 	}
 	
