@@ -3,75 +3,29 @@ package com.wonkglorg.utilitylib.database;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @SuppressWarnings("unused")
 public class SqliteDatabase extends Database
 {
-	protected final String DATABASE_NAME;
 	protected final Path DATABASE_PATH;
-	protected final Path DESTINATION_PATH;
 	
-	/**
-	 * * Creates a Sqlite database at the specified copyToPath.
-	 * * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
-	 * * If there is no database file it will be created at the destinationPath location.
-	 *
-	 * @param name
-	 * @param sourcePath
-	 * @param destinationPath
-	 */
-	public SqliteDatabase(String name, Path sourcePath, Path destinationPath)
+	public SqliteDatabase(Path path)
 	{
-		super(name, DatabaseType.SQLITE);
-		if(name == null)
-		{
-			throw new RuntimeException();
-		}
+		super(path.getFileName().toString(), DatabaseType.SQLITE);
 		
-		//add the option to define your own name for it the new file too!
-		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
-		DATABASE_PATH = sourcePath;
-		DESTINATION_PATH = destinationPath;
+		DATABASE_PATH = path;
 		connect();
 	}
 	
-	/**
-	 * Creates a Sqlite database inside your plugin folder with the specified name and paths.
-	 * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
-	 * If there is no database file it will be created at the destinationPath location.
-	 *
-	 * @param plugin
-	 * @param name
-	 * @param sourcePath
-	 * @param destinationPath
-	 */
-	public SqliteDatabase(JavaPlugin plugin, String name, Path sourcePath, Path destinationPath)
+	public SqliteDatabase(JavaPlugin plugin, Path path)
 	{
-		super(name, DatabaseType.SQLITE);
-		if(name == null)
-		{
-			throw new RuntimeException();
-		}
-		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
-		DATABASE_PATH = sourcePath;
-		if(destinationPath != null)
-		{
-			DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath() + File.separator + destinationPath);
-		} else
-		{
-			DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath());
-		}
-		
+		super(path.getFileName().toString(), DatabaseType.SQLITE);
+		DATABASE_PATH = Path.of(plugin.getDataFolder().getPath(), path.toString());
 		connect();
 	}
 	
@@ -85,71 +39,15 @@ public class SqliteDatabase extends Database
 		try
 		{
 			Class.forName(databaseType.getClassLoader());
-			File databaseFile = getDatabaseFile();
 			
-			if(!databaseFile.exists())
-			{
-				copyDatabaseFile(databaseFile);
-			}
+			Files.createFile(DATABASE_PATH);
 			
-			String connectionString = databaseType.getDriver() + databaseFile.getPath();
+			String connectionString = databaseType.getDriver() + DATABASE_PATH;
 			connection = DriverManager.getConnection(connectionString);
 			
-		} catch(ClassNotFoundException | SQLException | IOException | URISyntaxException e)
+		} catch(ClassNotFoundException | SQLException | IOException e)
 		{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
-		}
-	}
-	//SQLITE DATABASE GETS CREATED BUT IS CORRUPTED FOR SOME REASON
-	private File getDatabaseFile()
-	{
-		File databaseFile;
-		if(DESTINATION_PATH != null)
-		{
-			new File(DESTINATION_PATH.toUri()).mkdirs();
-			Path databasePath = Paths.get(String.valueOf(DESTINATION_PATH), DATABASE_NAME);
-			databaseFile = databasePath.toFile();
-		} else
-		{
-			databaseFile = new File(DATABASE_NAME);
-		}
-		return databaseFile;
-	}
-	/*
-	private void copyDatabaseFile(File databaseFile) throws IOException
-	{
-		String path;
-		
-		if(DATABASE_PATH != null)
-		{
-			path = "/" + DATABASE_PATH + "/" + DATABASE_NAME;
-		} else
-		{
-			path = "/" + DATABASE_NAME;
-		}
-		try(InputStream resourceStream = getClass().getResourceAsStream(path))
-		{
-			if(resourceStream != null)
-			{
-				Files.copy(resourceStream, databaseFile.toPath());
-			} else
-			{
-				databaseFile.createNewFile();
-			}
-		}
-	}
-	
-	 */
-	
-	private void copyDatabaseFile(File databaseFile) throws IOException, URISyntaxException
-	{
-		String path = DATABASE_PATH != null ? "/" + DATABASE_PATH + "/" + DATABASE_NAME : "/" + DATABASE_NAME;
-		URL resourceUrl = getClass().getResource(path);
-		
-		if (resourceUrl != null) {
-			Files.copy(Paths.get(resourceUrl.toURI()), databaseFile.toPath());
-		} else {
-			databaseFile.createNewFile();
 		}
 	}
 	

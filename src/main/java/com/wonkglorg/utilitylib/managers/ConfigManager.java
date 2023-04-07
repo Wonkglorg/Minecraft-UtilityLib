@@ -132,7 +132,7 @@ public final class ConfigManager implements Manager
 			{
 				continue;
 			}
-			Config config = new ConfigYML(plugin, file.getName(), file.getParent());
+			Config config = new ConfigYML(plugin, file.toPath());
 			add(config);
 			tempConfigs.put(file.getName(), config);
 		}

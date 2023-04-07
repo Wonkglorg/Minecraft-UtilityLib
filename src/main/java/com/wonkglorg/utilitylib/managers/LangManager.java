@@ -151,7 +151,7 @@ public final class LangManager implements Manager
 				if(locale.getLanguage().equalsIgnoreCase(file.getName()))
 				{
 					Logger.log(plugin, locale.getLanguage() + " has been loaded!");
-					Config config = new ConfigYML(plugin, file.getName(), file.getParent());
+					Config config = new ConfigYML(plugin, file.toPath());
 					addLanguage(locale, config);
 					
 				}
