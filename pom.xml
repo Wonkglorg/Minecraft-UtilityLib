@@ -33,6 +33,20 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.4</version>
+				<configuration>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>uber</shadedClassifierName>
+					<filters>
+						<filter>
+							<artifact>commons-io:commons-io</artifact>
+							<excludes>
+								<exclude>META-INF/LICENSE.txt</exclude>
+								<exclude>META-INF/NOTICE.txt</exclude>
+								<!-- add more exclusions as needed -->
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>package</phase>
