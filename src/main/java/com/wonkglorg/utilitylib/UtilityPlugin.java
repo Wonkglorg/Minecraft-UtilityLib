@@ -69,4 +69,5 @@ public abstract class UtilityPlugin extends JavaPlugin
 		Plugin corePlugin = Bukkit.getPluginManager().getPlugin(corePlug);
 		return corePlugin != null;
 	}
+	
 }

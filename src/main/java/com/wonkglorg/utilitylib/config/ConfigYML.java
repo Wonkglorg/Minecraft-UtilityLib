@@ -195,6 +195,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	@Override
 	public String name()
 	{
+		
 		return name;
 	}
 	

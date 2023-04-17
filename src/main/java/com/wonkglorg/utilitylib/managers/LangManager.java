@@ -159,6 +159,16 @@ public final class LangManager implements Manager
 		}
 	}
 	
+	public synchronized String getValue(Player player, String value)
+	{
+		return getValue(player.locale(), value);
+	}
+	
+	public String getValue(@NotNull final Locale locale, @NotNull final String value)
+	{
+		return getValue(locale, value, value);
+	}
+	
 	public synchronized String getValue(@NotNull final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
 	{
 		if(!loaded)
@@ -201,14 +211,5 @@ public final class LangManager implements Manager
 		return null;
 	}
 	
-	public synchronized String getValue(Player player, String value)
-	{
-		return getValue(player.locale(), value);
-	}
-	
-	public String getValue(@NotNull final Locale locale, @NotNull final String value)
-	{
-		return getValue(locale, value, value);
-	}
 	
 }
