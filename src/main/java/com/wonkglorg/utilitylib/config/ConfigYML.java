@@ -78,7 +78,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 		String name = path.getFileName().toString();
 		this.name = name.endsWith(".yml") ? name : name + ".yml";
 		this.path = path;
-		file = this.path.toFile();
+		file = new File(plugin.getDataFolder(), this.path.toString());
 	}
 	
 	/**
@@ -233,4 +233,11 @@ public final class ConfigYML extends YamlConfiguration implements Config
 		updateFiles();
 		
 	}
+	
+	@Override
+	public String toString()
+	{
+		return String.format("ConfigYML[path=%s,name=%s]", path.toString(), name);
+	}
+	
 }
