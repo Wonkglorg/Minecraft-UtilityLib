@@ -53,11 +53,12 @@ public abstract class Command extends Arguments implements TabExecutor
 	
 	/**
 	 * Returns a sort list of strings that parially match the inpüut string
+	 *
 	 * @param arg
 	 * @param original
 	 * @return
 	 */
-	public List<String> returnMatches(final String arg, final List<String> original)
+	public List<String> matchArg(final String arg, final List<String> original)
 	{
 		List<String> matches = new ArrayList<>();
 		StringUtil.copyPartialMatches(arg, original, matches);
