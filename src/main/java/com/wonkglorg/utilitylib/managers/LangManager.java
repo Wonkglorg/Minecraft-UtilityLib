@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.concurrent.ThreadSafe;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -129,7 +128,7 @@ public final class LangManager implements Manager
 	{
 		//Add dictionary to get a wider range of possible yml naming for langs
 		
-		File[] files = Path.of(plugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
+		File[] files = Path.of(plugin.getDataFolder().getPath(), path.toString()).toFile().listFiles();
 		if(files == null)
 		{
 			Logger.logWarn("No available language files loaded");
@@ -157,6 +156,8 @@ public final class LangManager implements Manager
 			}
 		}
 	}
+	
+	//add method to also add all from resources with defining their path? is that possible?
 	
 	public String getValue(String value)
 	{
