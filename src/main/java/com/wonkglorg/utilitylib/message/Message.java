@@ -51,6 +51,7 @@ public final class Message
 	
 	/**
 	 * Converts text components from Adventure api to a readable strong for the color method.
+	 *
 	 * @param component
 	 * @return
 	 */
@@ -97,7 +98,7 @@ public final class Message
 			}
 		}
 		
-		return result.toString();
+		return result + ChatColor.Reset;
 	}
 	
 	/**
