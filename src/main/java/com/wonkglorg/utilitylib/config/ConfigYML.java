@@ -212,7 +212,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	{
 		if(!file.exists())
 		{
-			InputStream inputStream = plugin.getResource(path.toString().replace("\\", File.separator));
+			InputStream inputStream = plugin.getResource(path.toString().replace(File.separator, "/"));
 			System.out.println(inputStream);
 			if(inputStream != null)
 			{
