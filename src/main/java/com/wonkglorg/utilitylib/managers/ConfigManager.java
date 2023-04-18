@@ -120,7 +120,7 @@ public final class ConfigManager implements Manager
 	
 	public synchronized Map<String, Config> addAllConfigsFromPath(Path path)
 	{
-		File[] files = Path.of(plugin.getDataFolder().getPath() + File.separator + path).toFile().listFiles();
+		File[] files = Path.of(plugin.getDataFolder().getPath(), path.toString()).toFile().listFiles();
 		Map<String, Config> tempConfigs = new HashMap<>();
 		if(files == null)
 		{
@@ -129,6 +129,10 @@ public final class ConfigManager implements Manager
 		for(File file : files)
 		{
 			if(!file.isFile())
+			{
+				continue;
+			}
+			if(!file.getName().endsWith(".yml"))
 			{
 				continue;
 			}

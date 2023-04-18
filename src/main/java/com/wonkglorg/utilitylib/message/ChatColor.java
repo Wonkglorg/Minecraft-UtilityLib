@@ -16,7 +16,7 @@ import java.util.Set;
 public final class ChatColor
 {
 	//maybe convert to enum? not sure
-	private static final String preset = "&";
+	public final static String preset = "&";
 	
 	/**
 	 * The constant Reset.

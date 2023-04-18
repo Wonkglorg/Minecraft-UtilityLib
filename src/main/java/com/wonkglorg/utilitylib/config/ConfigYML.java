@@ -75,7 +75,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	public ConfigYML(@NotNull JavaPlugin main, @NotNull Path path)
 	{
 		this.plugin = main;
-		String name = path.getName(path.getNameCount() - 1).toString();
+		String name = path.getFileName().toString();
 		this.name = name.endsWith(".yml") ? name : name + ".yml";
 		this.path = path;
 		file = this.path.toFile();
@@ -219,7 +219,6 @@ public final class ConfigYML extends YamlConfiguration implements Config
 				plugin.saveResource(path.toString(), false);
 			} else
 			{
-				System.out.println("Creating file");
 				boolean ignored = file.getParentFile().mkdirs();
 				try
 				{

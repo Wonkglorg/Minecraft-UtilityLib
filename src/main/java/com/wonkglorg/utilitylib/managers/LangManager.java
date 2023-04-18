@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
-@ThreadSafe
 public final class LangManager implements Manager
 {
 	private final Map<Locale, Config> langMap = new ConcurrentHashMap<>();
@@ -159,7 +158,12 @@ public final class LangManager implements Manager
 		}
 	}
 	
-	public synchronized String getValue(Player player, String value)
+	public String getValue(String value)
+	{
+		return getValue(null, value, value);
+	}
+	
+	public String getValue(Player player, String value)
 	{
 		return getValue(player.locale(), value);
 	}
@@ -169,15 +173,21 @@ public final class LangManager implements Manager
 		return getValue(locale, value, value);
 	}
 	
-	public synchronized String getValue(@NotNull final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
+	public String getValue(final Locale locale, @NotNull final String value, @NotNull final String defaultValue)
 	{
 		if(!loaded)
 		{
 			loaded = true;
 			load();
 		}
-		
-		Config config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
+		Config config;
+		if(locale == null)
+		{
+			config = langMap.get(defaultLang);
+		} else
+		{
+			config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
+		}
 		
 		String editString = config != null ? config.getString(value) : defaultValue;
 		editString = editString != null ? editString : defaultValue;
@@ -210,6 +220,5 @@ public final class LangManager implements Manager
 		}
 		return null;
 	}
-	
 	
 }

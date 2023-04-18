@@ -31,6 +31,8 @@ public final class CommandManager implements Manager
 	{
 		this.plugin = plugin;
 		commandMap = new ConcurrentHashMap<>();
+		
+		
 	}
 	
 	/**

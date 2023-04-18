@@ -3,8 +3,10 @@ package com.wonkglorg.utilitylib.message;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,6 +50,57 @@ public final class Message
 	}
 	
 	/**
+	 * Converts text components from Adventure api to a readable strong for the color method.
+	 * @param component
+	 * @return
+	 */
+	public static String convertComponentToString(Component component)
+	{
+		StringBuilder result = new StringBuilder();
+		
+		for(Component child : component.children())
+		{
+			Style style = child.style();
+			TextColor color = style.color();
+			
+			if(color != null)
+			{
+				result.append("&").append(color.asHexString());
+			}
+			
+			if(style.hasDecoration(TextDecoration.BOLD))
+			{
+				result.append("&b");
+			}
+			if(style.hasDecoration(TextDecoration.ITALIC))
+			{
+				result.append("&i");
+			}
+			if(style.hasDecoration(TextDecoration.OBFUSCATED))
+			{
+				result.append("&o");
+			}
+			if(style.hasDecoration(TextDecoration.UNDERLINED))
+			{
+				result.append("&u");
+			}
+			if(style.hasDecoration(TextDecoration.STRIKETHROUGH))
+			{
+				result.append("&s");
+			}
+			
+			result.append(PlainTextComponentSerializer.plainText().serialize(child));
+			
+			if(!child.children().isEmpty())
+			{
+				result.append(convertComponentToString(child));
+			}
+		}
+		
+		return result.toString();
+	}
+	
+	/**
 	 * Allows for & to be converted to color can be used with
 	 * default minecraft color codes or hex values
 	 * usage: "& #xxxxxx".
@@ -57,7 +110,7 @@ public final class Message
 	 */
 	public static Component color(@NotNull String text)
 	{
-		String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
+		String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
 		Builder component = Component.text();
 		
 		return convertToComponent(texts, component).build();
@@ -76,7 +129,7 @@ public final class Message
 		List<Component> result = new ArrayList<>();
 		for(String s : stringList)
 		{
-			String[] texts = s.split(String.format(WITH_DELIMITER, "&"));
+			String[] texts = s.split(String.format(WITH_DELIMITER, ChatColor.preset));
 			Builder component = Component.text();
 			result.add(convertToComponent(texts, component).build());
 		}
@@ -93,7 +146,7 @@ public final class Message
 	 */
 	public static String decolor(@NotNull String text)
 	{
-		String[] texts = text.split(String.format(WITH_DELIMITER, "&"));
+		String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
 		return convertToDecolor(texts);
 	}
 	
@@ -109,7 +162,7 @@ public final class Message
 		List<String> result = new ArrayList<>();
 		for(String s : stringList)
 		{
-			String[] texts = s.split(String.format(WITH_DELIMITER, "&"));
+			String[] texts = s.split(String.format(WITH_DELIMITER, ChatColor.preset));
 			result.add(convertToDecolor(texts));
 		}
 		return result;
@@ -120,7 +173,7 @@ public final class Message
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0; i < texts.length; i++)
 		{
-			if(!texts[i].equalsIgnoreCase("&"))
+			if(!texts[i].equalsIgnoreCase(ChatColor.preset))
 			{
 				builder.append(texts[i]);
 				continue;
@@ -135,42 +188,53 @@ public final class Message
 		}
 		return builder.toString();
 	}
-
-	private static Builder convertToComponent(String[] texts, Builder component) {
+	
+	private static Builder convertToComponent(String[] texts, Builder component)
+	{
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		TextColor textColor = null;
-		for(int i = 0; i < texts.length; i++) {
-			if(!texts[i].equalsIgnoreCase("&")) {
+		for(int i = 0; i < texts.length; i++)
+		{
+			if(!texts[i].equalsIgnoreCase(ChatColor.preset))
+			{
 				component.append(Component.text(texts[i]));
 				continue;
 			}
 			i++;
-			if(texts[i].charAt(0) == '#') {
+			if(texts[i].charAt(0) == '#')
+			{
 				textColor = TextColor.fromHexString(texts[i].substring(0, 7));
 				TextComponent inputComponent = Component.text(texts[i].substring(7), textColor);
 				Builder outputComponent = Component.text();
 				outputComponent.append(inputComponent);
-				for(TextDecoration decoration1 : decorationMap.keySet()) {
+				for(TextDecoration decoration1 : decorationMap.keySet())
+				{
 					outputComponent.decoration(decoration1, decorationMap.get(decoration1));
 				}
 				component.append(outputComponent.build());
 				continue;
 			}
-			if (texts[i].length() == 0) {
+			if(texts[i].length() == 0)
+			{
 				continue;
 			}
 			char value = texts[i].charAt(0);
-			if(value == 'r') {
+			if(value == 'r')
+			{
 				decorationMap.put(TextDecoration.ITALIC, false);
 				textColor = null;
 				decorationMap.replaceAll((d, v) -> false);
-			} else {
-				if(ChatColor.colorCharacters().contains(value)) {
+			} else
+			{
+				if(ChatColor.colorCharacters().contains(value))
+				{
 					textColor = TextColor.fromHexString(ChatColor.charToColor(value));
 				}
-				if(ChatColor.decorationCharacters().contains(value)) {
+				if(ChatColor.decorationCharacters().contains(value))
+				{
 					TextDecoration decoration = ChatColor.charToComponent(value);
-					if(decoration != null) {
+					if(decoration != null)
+					{
 						decorationMap.put(decoration, !decorationMap.getOrDefault(decoration, false));
 					}
 				}
@@ -179,13 +243,14 @@ public final class Message
 			inputComponent = textColor != null ? Component.text(texts[i].substring(1)).color(textColor) : Component.text(texts[i].substring(1));
 			Builder outputComponent = Component.text();
 			outputComponent.append(inputComponent);
-			for(TextDecoration decoration1 : decorationMap.keySet()) {
+			for(TextDecoration decoration1 : decorationMap.keySet())
+			{
 				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
 			}
 			component.append(outputComponent.build());
 		}
 		return component;
-
+		
 	}
 	
 	/**
@@ -196,7 +261,8 @@ public final class Message
 	 */
 	public static void msgPlayer(Player player, @NotNull String... text)
 	{
-		if(player == null){
+		if(player == null)
+		{
 			//Logger.log(text);
 			return;
 		}

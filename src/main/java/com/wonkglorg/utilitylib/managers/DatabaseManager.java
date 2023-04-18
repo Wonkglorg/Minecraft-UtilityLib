@@ -1,8 +1,8 @@
 package com.wonkglorg.utilitylib.managers;
 
-import com.wonkglorg.utilitylib.logger.Logger;
 import com.wonkglorg.utilitylib.database.Database;
 import com.wonkglorg.utilitylib.database.Database.DatabaseType;
+import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

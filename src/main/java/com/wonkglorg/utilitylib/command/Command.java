@@ -44,7 +44,7 @@ public abstract class Command extends Arguments implements TabExecutor
 			pluginCommand.setTabCompleter(this);
 		} else
 		{
-			Logger.logFatal("Command " + name + " could not be loaded missing plugin.yml implementations");
+			Logger.logFatal(plugin, "Command " + name + " could not be loaded missing plugin.yml implementations");
 		}
 	}
 	
@@ -82,9 +82,10 @@ public abstract class Command extends Arguments implements TabExecutor
 			super.args = args;
 			return execute(player, args);
 		}
-		if(allowConsole()){
+		if(allowConsole())
+		{
 			super.args = args;
-			return execute(null,args);
+			return execute(null, args);
 		}
 		return true;
 	}
