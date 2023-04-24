@@ -12,6 +12,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * @author Wonkglorg
+ * <p>
+ * <p>
  * This class  constructs and updates a LivingEntity's equipment
  * using an {@link EntityEquipment} object.
  */

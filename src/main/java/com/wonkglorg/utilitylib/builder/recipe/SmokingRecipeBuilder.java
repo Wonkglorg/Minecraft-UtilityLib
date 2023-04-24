@@ -4,10 +4,13 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.SmokingRecipe;
+import org.bukkit.inventory.recipe.CookingBookCategory;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class SmokingRecipeBuilder extends RecipeBuilder
 {
@@ -57,9 +60,30 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setExpirience(float experience){
+	public SmokingRecipeBuilder setExperience(float experience){
 		validateInit();
 		getRecipe().setExperience(experience);
+		return this;
+	}
+	
+	public SmokingRecipeBuilder setCategory(CookingBookCategory category)
+	{
+		validateInit();
+		getRecipe().setCategory(category);
+		return this;
+	}
+	
+	/**
+	 * Set the group of this recipe. Recipes with the same group may be grouped
+	 * together when displayed in the client.
+	 *
+	 * @param group recipe group. An empty string denotes no group. May not be
+	 * null.
+	 */
+	public SmokingRecipeBuilder setGroup(String group)
+	{
+		validateInit();
+		getRecipe().setGroup(group);
 		return this;
 	}
 	

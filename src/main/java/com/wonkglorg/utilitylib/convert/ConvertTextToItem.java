@@ -8,6 +8,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class ConvertTextToItem
 {

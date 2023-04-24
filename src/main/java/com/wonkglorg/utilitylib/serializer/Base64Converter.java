@@ -3,7 +3,6 @@ package com.wonkglorg.utilitylib.serializer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
@@ -12,10 +11,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
-@NotNull
-public class
-Base64Converter
+public class Base64Converter
 {
 	
 	public static String toBase64(final Object obj) throws IOException

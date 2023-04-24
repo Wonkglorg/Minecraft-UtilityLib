@@ -10,7 +10,9 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unusued")
 public abstract class CustomEnchantment extends Enchantment
 {

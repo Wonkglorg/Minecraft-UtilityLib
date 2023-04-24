@@ -15,6 +15,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class LangManager implements Manager
 {

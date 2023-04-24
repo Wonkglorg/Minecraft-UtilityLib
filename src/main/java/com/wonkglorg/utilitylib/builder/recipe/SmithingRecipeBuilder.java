@@ -7,8 +7,11 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.SmithingRecipe;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class SmithingRecipeBuilder extends RecipeBuilder
 {
@@ -23,6 +26,7 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	private RecipeChoice baseItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
 	private RecipeChoice additionItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
 	;
+	
 	private boolean copyNbt = false;
 	
 	@Override
@@ -109,10 +113,12 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
+	
 	@Override
 	public SmithingRecipe build()
 	{
 		recipe = new SmithingRecipe(key, result, baseItemChoice, additionItemChoice, copyNbt);
+		
 		return (SmithingRecipe) super.build();
 	}
 }

@@ -12,7 +12,9 @@ import java.lang.module.Configuration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+/**
+ * @author Wonkglorg
+ */
 public interface Config
 {
 	/**

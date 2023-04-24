@@ -28,7 +28,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
- * @author Redempt
+ * @author Redempt, Wonkglorg
  */
 @SuppressWarnings("unused")
 public abstract class InventoryGUI implements Listener

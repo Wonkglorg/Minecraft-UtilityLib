@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public class SqliteDatabase extends Database
 {

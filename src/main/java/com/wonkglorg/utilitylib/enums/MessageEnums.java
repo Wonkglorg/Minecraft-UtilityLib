@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @author Wonkglorg
+ */
 public enum MessageEnums
 {
 	TELEPORT_MOVE("Teleport cancelled, player moved!"),

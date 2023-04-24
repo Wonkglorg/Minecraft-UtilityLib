@@ -16,10 +16,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Abstract Command Class.
- *
- * Allows for easy command creation with added tab completion.
- */
+ * @author Wonkgklorg
+*/
 @SuppressWarnings("unused")
 public abstract class Command extends Arguments implements TabExecutor
 {

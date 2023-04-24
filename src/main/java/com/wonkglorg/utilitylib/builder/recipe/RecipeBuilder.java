@@ -7,7 +7,7 @@ import org.bukkit.inventory.Recipe;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The type Recipe builder.
+ * @author Wonkglorg
  */
 @SuppressWarnings("unused")
 public abstract class RecipeBuilder
@@ -59,6 +59,7 @@ public abstract class RecipeBuilder
 		initRecipe(key, result);
 	}
 	
+
 	/**
 	 * Builds the recipe
 	 *

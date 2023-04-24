@@ -112,8 +112,7 @@ public final class Random
 		{
 			return element.get(0);
 		}
-		java.util.Random random = new java.util.Random();
-		return element.get(random.nextInt(element.size()));
+		return element.get(ThreadLocalRandom.current().nextInt(element.size()));
 	}
 	
 }

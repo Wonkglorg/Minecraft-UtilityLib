@@ -5,10 +5,13 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CampfireRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
+import org.bukkit.inventory.recipe.CookingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class CampfireRecipeBuilder extends RecipeBuilder
 {
@@ -70,17 +73,37 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Sets the expirience gained from cooking
+	 * Sets the experience gained from cooking
 	 *
-	 * @param expirience as {@link Float}
+	 * @param experience as {@link Float}
 	 * @return {@link CampfireRecipeBuilder}
 	 */
-	public CampfireRecipeBuilder setExpirience(final float expirience)
+	public CampfireRecipeBuilder setExperience(final float experience)
 	{
 		validateInit();
-		getRecipe().setExperience(expirience);
+		getRecipe().setExperience(experience);
 		return this;
 	}
+	
+	public CampfireRecipeBuilder setCategory(CookingBookCategory category){
+		validateInit();
+		getRecipe().setCategory(category);
+		return this;
+	}
+	/**
+	 * Set the group of this recipe. Recipes with the same group may be grouped
+	 * together when displayed in the client.
+	 *
+	 * @param group recipe group. An empty string denotes no group. May not be
+	 * null.
+	 */
+	public CampfireRecipeBuilder setGroup(String group){
+		validateInit();
+		getRecipe().setGroup(group);
+		return this;
+	}
+	
+	
 	
 	@Override
 	public CampfireRecipe build()

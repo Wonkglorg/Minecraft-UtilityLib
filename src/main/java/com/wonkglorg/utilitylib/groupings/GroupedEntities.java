@@ -16,6 +16,10 @@ import org.bukkit.entity.Vehicle;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class GroupedEntities
 {

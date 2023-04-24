@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class EquipmentItem
 {

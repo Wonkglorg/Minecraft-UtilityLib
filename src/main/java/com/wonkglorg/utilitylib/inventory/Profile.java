@@ -32,11 +32,12 @@ public class Profile implements Cloneable
 	{
 		try
 		{
-			Profile clone = (Profile) super.clone();
-			return clone;
+			return (Profile) super.clone();
 		} catch(CloneNotSupportedException e)
 		{
 			throw new AssertionError();
 		}
 	}
+	
+	
 }

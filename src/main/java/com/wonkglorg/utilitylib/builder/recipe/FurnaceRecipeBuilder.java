@@ -5,12 +5,16 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
+import org.bukkit.inventory.recipe.CookingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 /**
- * The type Furnace recipe builder.
+ * @author Wonkglorg
+ * <p>
+ * <p>
+ *	The type Furnace recipe builder.
  */
 @SuppressWarnings("unused")
 public final class FurnaceRecipeBuilder extends RecipeBuilder
@@ -86,6 +90,20 @@ public final class FurnaceRecipeBuilder extends RecipeBuilder
 		getRecipe().setExperience(expirience);
 		return this;
 	}
+	
+	public FurnaceRecipeBuilder setCategory(CookingBookCategory category){
+		validateInit();
+		getRecipe().setCategory(category);
+		return this;
+	}
+	
+	public FurnaceRecipeBuilder setGroup(String group){
+		validateInit();
+		getRecipe().setGroup(group);
+		return this;
+	}
+	
+	
 	
 	@Override
 	public FurnaceRecipe build()

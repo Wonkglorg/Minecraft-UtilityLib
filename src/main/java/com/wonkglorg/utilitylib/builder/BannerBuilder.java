@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * The type Banner builder.
+ * @author Wonkglorg
  */
 @SuppressWarnings("unused")
 public final class BannerBuilder extends ItemBuilder

@@ -4,8 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.StonecuttingRecipe;
+import org.bukkit.inventory.recipe.CookingBookCategory;
 import org.jetbrains.annotations.NotNull;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class StoneCuttingRecipeBuilder extends RecipeBuilder
 {
@@ -39,6 +42,20 @@ public final class StoneCuttingRecipeBuilder extends RecipeBuilder
 	{
 		validateInit();
 		getRecipe().setInput(input);
+		return this;
+	}
+	
+	/**
+	 * Set the group of this recipe. Recipes with the same group may be grouped
+	 * together when displayed in the client.
+	 *
+	 * @param group recipe group. An empty string denotes no group. May not be
+	 * null.
+	 */
+	public StoneCuttingRecipeBuilder setGroup(String group)
+	{
+		validateInit();
+		getRecipe().setGroup(group);
 		return this;
 	}
 	

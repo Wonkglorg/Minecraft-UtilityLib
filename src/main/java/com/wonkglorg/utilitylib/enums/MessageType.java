@@ -1,5 +1,7 @@
 package com.wonkglorg.utilitylib.enums;
-
+/**
+ * @author Wonkglorg
+ */
 public enum MessageType
 {
 

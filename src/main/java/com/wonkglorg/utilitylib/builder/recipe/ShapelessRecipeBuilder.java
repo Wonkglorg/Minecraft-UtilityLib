@@ -6,10 +6,13 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class ShapelessRecipeBuilder extends RecipeBuilder
 {
@@ -96,7 +99,29 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 		for(ItemStack ingredient : ingredients)
 		{
 			getRecipe().addIngredient(ingredient);
+
 		}
+		return this;
+	}
+	
+	public ShapelessRecipeBuilder setCategory(CraftingBookCategory category)
+	{
+		validateInit();
+		getRecipe().setCategory(category);
+		return this;
+	}
+	
+	/**
+	 * Set the group of this recipe. Recipes with the same group may be grouped
+	 * together when displayed in the client.
+	 *
+	 * @param group recipe group. An empty string denotes no group. May not be
+	 * null.
+	 */
+	public ShapelessRecipeBuilder setGroup(String group)
+	{
+		validateInit();
+		getRecipe().setGroup(group);
 		return this;
 	}
 	

@@ -2,7 +2,9 @@ package com.wonkglorg.utilitylib.builder;
 
 import com.wonkglorg.utilitylib.selection.Cuboid;
 import org.bukkit.Location;
-
+/**
+ * @author Wonkglorg
+ */
 @SuppressWarnings("unused")
 public final class SelectionBuilder
 {

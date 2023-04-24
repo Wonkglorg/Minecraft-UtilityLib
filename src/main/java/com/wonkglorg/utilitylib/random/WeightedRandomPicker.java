@@ -15,13 +15,7 @@ public final class WeightedRandomPicker<T>
 	
 	private class Entry
 	{
-		/**
-		 * The Accumulated weight.
-		 */
 		double accumulatedWeight;
-		/**
-		 * The Object.
-		 */
 		T object;
 	}
 	
@@ -45,7 +39,7 @@ public final class WeightedRandomPicker<T>
 	}
 	
 	/**
-	 * Gets a random element from the list can not return null
+	 * Gets a random element from the list can not return null unless the list is empty
 	 *
 	 * @return the element
 	 */
@@ -66,8 +60,8 @@ public final class WeightedRandomPicker<T>
 	/**
 	 * Gets a random element from the list can return null if the accumulated weight is less than the threshold
 	 *
-	 * @param threshold the threshold to compare
-	 * @return the t
+	 * @param threshold threshold to compare
+	 * @return type
 	 */
 	public T getRandom(double threshold)
 	{
@@ -92,7 +86,7 @@ public final class WeightedRandomPicker<T>
 	/**
 	 * Gets all entries from the list
 	 *
-	 * @return the entries
+	 * @return entries
 	 */
 	public List<Entry> getEntries()
 	{
@@ -102,7 +96,7 @@ public final class WeightedRandomPicker<T>
 	/**
 	 * Gets accumulated weight of all values combines.
 	 *
-	 * @return the accumulated weight
+	 * @return accumulated weight
 	 */
 	public double getAccumulatedWeight()
 	{

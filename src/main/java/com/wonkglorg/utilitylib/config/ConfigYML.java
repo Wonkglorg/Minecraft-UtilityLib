@@ -17,7 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Abstract config class
+ * @author Wonkglorg
+ *
  */
 @SuppressWarnings("unused")
 public final class ConfigYML extends YamlConfiguration implements Config
