@@ -20,20 +20,13 @@ import java.util.Map;
 public final class PotionBuilder extends ItemBuilder
 {
 	/**
-	 * @param amount
-	 * @param name
-	 * @param lore
-	 * @param flags
-	 * @param enchantments
-	 */
+*/
 	public PotionBuilder(int amount, String name, List<String> lore, List<ItemFlag> flags, Map<Enchantment, Integer> enchantments)
 	{
 		super(Material.POTION, amount, name, lore, 0, null, flags, enchantments);
 	}
 	
 	/**
-	 * @param amount
-	 * @param name
 	 */
 	public PotionBuilder(int amount, String name)
 	{
@@ -41,7 +34,6 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param amount
 	 */
 	public PotionBuilder(int amount)
 	{
@@ -49,7 +41,6 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param flags
 	 */
 	public PotionBuilder(ItemFlag... flags)
 	{
@@ -57,7 +48,6 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param lore
 	 */
 	public PotionBuilder(String... lore)
 	{
@@ -65,7 +55,6 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param name
 	 */
 	public PotionBuilder(String name)
 	{
@@ -105,9 +94,6 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param potionEffectType
-	 * @param extended
-	 * @param upgraded
 	 *
 	 * @return {@link PotionBuilder}
 	 */
@@ -118,9 +104,7 @@ public final class PotionBuilder extends ItemBuilder
 	}
 	
 	/**
-	 * @param potionEffectType
-	 * @param duration
-	 * @param value
+
 	 *
 	 * @return {@link PotionBuilder}
 	 */

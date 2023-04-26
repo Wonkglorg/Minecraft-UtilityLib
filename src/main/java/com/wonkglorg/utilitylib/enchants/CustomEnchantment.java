@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Wonkglorg
  */
-@SuppressWarnings("unusued")
+@SuppressWarnings("unused")
 public abstract class CustomEnchantment extends Enchantment
 {
 	private final String name;

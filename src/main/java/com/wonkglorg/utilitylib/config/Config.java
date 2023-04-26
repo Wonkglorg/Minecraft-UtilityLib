@@ -14,15 +14,12 @@ import java.util.Set;
 /**
  * @author Wonkglorg
  */
+@SuppressWarnings("unused")
 public interface Config
 {
 	/**
 	 * Gets values from a specific section.
 	 *
-	 * @param path
-	 * @param deep
-	 *
-	 * @return
 	 */
 	Set<String> getSection(@NotNull String path, boolean deep);
 	
