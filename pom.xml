@@ -34,15 +34,11 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.4</version>
 				<configuration>
-					<shadedArtifactAttached>true</shadedArtifactAttached>
-					<shadedClassifierName>uber</shadedClassifierName>
 					<filters>
 						<filter>
-							<artifact>commons-io:commons-io</artifact>
+							<artifact>*:*</artifact>
 							<excludes>
-								<exclude>META-INF/LICENSE.txt</exclude>
-								<exclude>META-INF/NOTICE.txt</exclude>
-								<!-- add more exclusions as needed -->
+								<exclude>META-INF/MANIFEST.MF</exclude>
 							</excludes>
 						</filter>
 					</filters>

@@ -14,7 +14,6 @@ import java.util.logging.Level;
 public final class Logger
 {
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
-	
 	/**
 	 * Sends a logger message in the console using your own logger and level.
 	 *
@@ -22,6 +21,7 @@ public final class Logger
 	 * @param logType Type of log level
 	 * @param text Text to be displayed
 	 */
+	@SuppressWarnings("rawtypes")
 	public static void log(@NotNull final java.util.logging.Logger logger, @NotNull final Level logType, @NotNull Object... text)
 	{
 		StringBuilder builder = new StringBuilder();
