@@ -24,6 +24,7 @@ import java.util.Set;
 /**
  * @author Wonkglorg
  */
+@SuppressWarnings({"unused","ResultOfMethodCallIgnored","unchecked"})
 public final class ConfigJson implements Config
 {
 	/**
@@ -431,8 +432,8 @@ public final class ConfigJson implements Config
 				boolean ignored = file.getParentFile().mkdirs();
 				try
 				{
-					ignored = file.getParentFile().mkdir();
-					ignored = file.createNewFile();
+					file.getParentFile().mkdir();
+					file.createNewFile();
 				} catch(IOException e)
 				{
 					throw new RuntimeException(e);
