@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * @author Wonkglorg
  */
+@SuppressWarnings("unused")
 public enum MessageEnums
 {
 	TELEPORT_MOVE("Teleport cancelled, player moved!"),
@@ -46,7 +47,6 @@ public enum MessageEnums
 	private ItemStack itemStack;
 	
 	/**
-	 * @param message
 	 */
 	MessageEnums(String message)
 	{
@@ -54,11 +54,6 @@ public enum MessageEnums
 	}
 	
 	/**
-	 * @param title
-	 * @param subTitle
-	 * @param a
-	 * @param b
-	 * @param c
 	 */
 	MessageEnums(String title, String subTitle, int a, int b, int c)
 	{
@@ -72,7 +67,6 @@ public enum MessageEnums
 	}
 	
 	/**
-	 * @param message
 	 */
 	MessageEnums(String... message)
 	{
@@ -80,7 +74,6 @@ public enum MessageEnums
 	}
 	
 	/**
-	 * @param message
 	 */
 	MessageEnums(MessageType type, String... message)
 	{
@@ -89,7 +82,6 @@ public enum MessageEnums
 	}
 	
 	/**
-	 * @param message
 	 */
 	MessageEnums(MessageType type, String message)
 	{
@@ -98,8 +90,6 @@ public enum MessageEnums
 	}
 	
 	/**
-	 * @param message
-	 * @param use
 	 */
 	MessageEnums(String message, boolean use)
 	{
