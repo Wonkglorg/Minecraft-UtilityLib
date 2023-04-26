@@ -59,7 +59,6 @@ public abstract class RecipeBuilder
 		initRecipe(key, result);
 	}
 	
-
 	/**
 	 * Builds the recipe
 	 *

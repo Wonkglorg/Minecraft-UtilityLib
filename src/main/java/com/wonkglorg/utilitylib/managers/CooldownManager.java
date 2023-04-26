@@ -32,6 +32,7 @@ public final class CooldownManager implements Manager
 	
 	/**
 	 * @param
+	 *
 	 * @return
 	 */
 	public synchronized Map<UUID, Long> getCooldownMap(String key)
@@ -108,6 +109,7 @@ public final class CooldownManager implements Manager
 	/**
 	 * @param key
 	 * @param uuid
+	 *
 	 * @return boolean
 	 */
 	public synchronized boolean isCooldown(String key, UUID uuid)
@@ -122,6 +124,7 @@ public final class CooldownManager implements Manager
 	/**
 	 * @param key
 	 * @param player
+	 *
 	 * @return boolean
 	 */
 	public synchronized boolean isCooldown(String key, Player player)
@@ -132,6 +135,7 @@ public final class CooldownManager implements Manager
 	/**
 	 * @param key
 	 * @param uuid
+	 *
 	 * @return long
 	 */
 	public synchronized long getCooldown(String key, UUID uuid)
@@ -146,6 +150,7 @@ public final class CooldownManager implements Manager
 	/**
 	 * @param key
 	 * @param player
+	 *
 	 * @return long
 	 */
 	public synchronized long getCooldown(String key, Player player)
@@ -156,6 +161,7 @@ public final class CooldownManager implements Manager
 	/**
 	 * @param key
 	 * @param player
+	 *
 	 * @return
 	 */
 	public synchronized String getCooldownAsString(String key, UUID player)

@@ -2,7 +2,6 @@ package com.wonkglorg.utilitylib.builder.recipe;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
@@ -10,6 +9,7 @@ import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+
 /**
  * @author Wonkglorg
  */
@@ -41,17 +41,18 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 		return (ShapelessRecipe) recipe;
 	}
 	
-	
 	/**
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link Material}
+	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
 	public ShapelessRecipeBuilder addIngredient(Material... ingredients)
 	{
 		validateInit();
-		for(Material ingredient:ingredients){
+		for(Material ingredient : ingredients)
+		{
 			getRecipe().addIngredient(ingredient);
 		}
 		return this;
@@ -62,6 +63,7 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param count amount of the ingredient
 	 * @param ingredient ingredient {@link Material}
+	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
 	public ShapelessRecipeBuilder addIngredient(int count, Material ingredient)
@@ -75,6 +77,7 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link Material}
+	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
 	public ShapelessRecipeBuilder addIngredient(Map<Material, Integer> ingredients)
@@ -91,6 +94,7 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link ItemStack}
+	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
 	public ShapelessRecipeBuilder addIngredient(ItemStack... ingredients)
@@ -99,7 +103,7 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 		for(ItemStack ingredient : ingredients)
 		{
 			getRecipe().addIngredient(ingredient);
-
+			
 		}
 		return this;
 	}
@@ -112,11 +116,9 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Set the group of this recipe. Recipes with the same group may be grouped
-	 * together when displayed in the client.
+	 * Set the group of this recipe. Recipes with the same group may be grouped together when displayed in the client.
 	 *
-	 * @param group recipe group. An empty string denotes no group. May not be
-	 * null.
+	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
 	public ShapelessRecipeBuilder setGroup(String group)
 	{

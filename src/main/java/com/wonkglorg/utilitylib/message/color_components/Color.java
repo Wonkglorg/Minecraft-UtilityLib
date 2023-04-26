@@ -123,6 +123,7 @@ public final class Color
 	 *
 	 * @param text Text to be displayed
 	 * @param colors Colors to be used, they keep their order as entered
+	 *
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
 	public static String createGradient(@NotNull String text, @NotNull Color... colors)
@@ -137,6 +138,7 @@ public final class Color
 	 * @param text Text to be displayed
 	 * @param shiftValue shift value shifts the colors based on its input from 0 to 255, if the value exceeds 255 it starts back from 0
 	 * @param colors Colors to be used, they keep their order as entered
+	 *
 	 * @return A string formatted &#%02x%02x%02x(character)
 	 */
 	public static String createGradient(@NotNull String text, double shiftValue, @NotNull Color... colors)
@@ -159,14 +161,15 @@ public final class Color
 	
 	/**
 	 * Returns a color from the colors array based on how far the current value is between min and max.
-	 *
-	 * For example can be used in % where 100% is green 50% is yellow and 0% is red.
-	 * input the colors red yellow green, min value of 0 max value 0f 100 and the current value based on the current $
+	 * <p>
+	 * For example can be used in % where 100% is green 50% is yellow and 0% is red. input the colors red yellow green, min value of 0 max value 0f
+	 * 100 and the current value based on the current $
 	 *
 	 * @param colors
 	 * @param minVal
 	 * @param maxVal
 	 * @param currentVal
+	 *
 	 * @return
 	 */
 	public static String getHexColorBetween(double minVal, double maxVal, double currentVal, Color... colors)

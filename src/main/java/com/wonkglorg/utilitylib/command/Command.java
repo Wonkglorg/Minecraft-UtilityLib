@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * @author Wonkgklorg
-*/
+ */
 @SuppressWarnings("unused")
 public abstract class Command extends Arguments implements TabExecutor
 {
@@ -54,6 +54,7 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param arg
 	 * @param original
+	 *
 	 * @return
 	 */
 	public List<String> matchArg(final String arg, final List<String> original)
@@ -74,6 +75,7 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering command can be null if allow console is true
 	 * @param args Following arguments to main command
+	 *
 	 * @return False if command arguments are wrong.
 	 */
 	public abstract boolean execute(Player player, String[] args);
@@ -83,6 +85,7 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering the command.
 	 * @param args Following arguments to main command.
+	 *
 	 * @return List of Strings to display for the current argument, returns list of players if null.
 	 */
 	public abstract List<String> tabComplete(@NotNull Player player, String[] args);

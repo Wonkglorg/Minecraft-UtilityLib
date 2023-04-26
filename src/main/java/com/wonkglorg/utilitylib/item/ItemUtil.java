@@ -36,6 +36,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be renamed
 	 * @param name The name to give the ItemStack
+	 *
 	 * @return The renamed ItemStack
 	 */
 	public static ItemStack rename(@NotNull final ItemStack item, @NotNull final String name)
@@ -51,6 +52,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be renamed
 	 * @param name The name to give the ItemStack
+	 *
 	 * @return The renamed ItemStack
 	 */
 	public static ItemStack setName(@NotNull final ItemStack item, @NotNull final String name)
@@ -63,6 +65,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be given lore
 	 * @param line The line of lore to be given
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final String line)
@@ -80,6 +83,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be given lore
 	 * @param lore The lines of lore to be given
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final List<String> lore)
@@ -95,6 +99,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be given lore
 	 * @param line The line of lore to add
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack addLore(@NotNull final ItemStack item, @NotNull final String line)
@@ -113,6 +118,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be given lore
 	 * @param lines The lines or lore to add
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack addLore(@NotNull final ItemStack item, @NotNull final Iterable<String> lines)
@@ -134,6 +140,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to remove lore from
 	 * @param line The line of lore to remove
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack removeLoreLine(@NotNull final ItemStack item, @NotNull final String line)
@@ -155,6 +162,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to remove lore from
 	 * @param index The index of the line of lore to remove
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack removeLoreLine(@NotNull final ItemStack item, final int index)
@@ -180,6 +188,7 @@ public final class ItemUtil
 	 *
 	 * @param item The ItemStack to be given lore
 	 * @param lore The lines of lore to be given
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack setLore(@NotNull final ItemStack item, @NotNull final String... lore)
@@ -191,6 +200,7 @@ public final class ItemUtil
 	 * Sets an item to be unbreakable
 	 *
 	 * @param item The item to make unbreakable
+	 *
 	 * @return The unbreakable item
 	 */
 	public static ItemStack setUnbreakable(@NotNull final ItemStack item)
@@ -207,6 +217,7 @@ public final class ItemUtil
 	 * @param item The ItemStack to be enchanted
 	 * @param enchant The Enchantment to add to the ItemStack
 	 * @param level The level of the Enchantment
+	 *
 	 * @return The enchanted ItemStack
 	 */
 	public static ItemStack addEnchant(@NotNull final ItemStack item, @NotNull final Enchantment enchant, final int level)
@@ -239,6 +250,7 @@ public final class ItemUtil
 	 * @param item The item to have an attribute added
 	 * @param attribute The Attribute to be added
 	 * @param modifier The AttributeModifier to be added
+	 *
 	 * @return The modified ItemStack
 	 */
 	public static ItemStack addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, @NotNull final AttributeModifier modifier)
@@ -256,6 +268,7 @@ public final class ItemUtil
 	 * @param attribute The Attribute to be added
 	 * @param amount The amount to modify it by
 	 * @param operation The operation by which the value will be modified
+	 *
 	 * @return The modified item
 	 */
 	public static ItemStack addAttribute(@NotNull final ItemStack item,
@@ -275,6 +288,7 @@ public final class ItemUtil
 	 *
 	 * @param item The item to add ItemFlags to
 	 * @param flags The ItemFlags to add
+	 *
 	 * @return The modified item
 	 */
 	public static ItemStack addItemFlags(@NotNull final ItemStack item, final ItemFlag... flags)
@@ -290,6 +304,7 @@ public final class ItemUtil
 	 *
 	 * @param item The item to add ItemFlags to
 	 * @param flags The ItemFlags to add
+	 *
 	 * @return The modified item
 	 */
 	public static ItemStack removeItemFlags(@NotNull final ItemStack item, @NotNull final ItemFlag... flags)
@@ -305,6 +320,7 @@ public final class ItemUtil
 	 *
 	 * @param item The item to set the custom model data for
 	 * @param customModelData The custom model data to set
+	 *
 	 * @return The modified item
 	 */
 	public static ItemStack setCustomModelData(ItemStack item, int customModelData)
@@ -324,6 +340,7 @@ public final class ItemUtil
 	 * @param data The data to store
 	 * @param <T> The primary object type
 	 * @param <Z> The retrieved object type
+	 *
 	 * @return The modified item
 	 */
 	public static <T, Z> ItemStack addPersistentTag(ItemStack item, NamespacedKey key, PersistentDataType<T, Z> type, Z data)
@@ -342,6 +359,7 @@ public final class ItemUtil
 	 * @param amount The amount to modify it by
 	 * @param operation The operation by which the value will be modified
 	 * @param slot The slot this attribute will be effective in
+	 *
 	 * @return The modified item
 	 */
 	public static ItemStack addAttribute(ItemStack item, Attribute attribute, double amount, Operation operation, EquipmentSlot slot)
@@ -358,7 +376,9 @@ public final class ItemUtil
 	 *
 	 * @param item The item to damage
 	 * @param amount How much damage to apply
+	 *
 	 * @return The damaged item
+	 *
 	 * @throws IllegalArgumentException if the item is not damageable
 	 */
 	public static ItemStack damage(ItemStack item, int amount)
@@ -382,6 +402,7 @@ public final class ItemUtil
 	 * @param inv The inventory to count the items in
 	 * @param item The item to count
 	 * @param comparison A filter to compare items for counting
+	 *
 	 * @return The number of items found
 	 */
 	public static int count(Inventory inv, ItemStack item, BiPredicate<ItemStack, ItemStack> comparison)
@@ -402,6 +423,7 @@ public final class ItemUtil
 	 *
 	 * @param inv The inventory to count the items in
 	 * @param item The item to count
+	 *
 	 * @return The number of items found
 	 */
 	public static int count(Inventory inv, ItemStack item)
@@ -414,6 +436,7 @@ public final class ItemUtil
 	 *
 	 * @param inv The inventory to count the items in
 	 * @param type The type of item to count
+	 *
 	 * @return The number of items found
 	 */
 	public static int count(Inventory inv, Material type)
@@ -428,6 +451,7 @@ public final class ItemUtil
 	 * @param item The item to be removed
 	 * @param amount The amount of items to remove
 	 * @param comparison A filter to compare items for removal
+	 *
 	 * @return Whether the amount specified could be removed. False if it removed less than specified.
 	 */
 	public static boolean remove(Inventory inv, ItemStack item, int amount, BiPredicate<ItemStack, ItemStack> comparison)
@@ -464,6 +488,7 @@ public final class ItemUtil
 	 * @param inv The inventory to remove the items from
 	 * @param item The item to be removed
 	 * @param amount The amount of items to remove
+	 *
 	 * @return Whether the amount specified could be removed. False if it removed less than specified.
 	 */
 	public static boolean remove(Inventory inv, ItemStack item, int amount)
@@ -477,6 +502,7 @@ public final class ItemUtil
 	 * @param inv The inventory to remove the items from
 	 * @param type The item type to be removed
 	 * @param amount The amount of items to remove
+	 *
 	 * @return Whether the amount specified could be removed. False if it removed less than specified.
 	 */
 	public static boolean remove(Inventory inv, Material type, int amount)
@@ -491,6 +517,7 @@ public final class ItemUtil
 	 * @param item The item to count and remove
 	 * @param max The maximum number of items to remove
 	 * @param comparison A filter to compare items for counting and removal
+	 *
 	 * @return How many items were removed
 	 */
 	public static int countAndRemove(Inventory inv, ItemStack item, int max, BiPredicate<ItemStack, ItemStack> comparison)
@@ -507,6 +534,7 @@ public final class ItemUtil
 	 * @param inv The inventory to count and remove items from
 	 * @param item The item to count and remove
 	 * @param max The maximum number of items to remove
+	 *
 	 * @return How many items were removed
 	 */
 	public static int countAndRemove(Inventory inv, ItemStack item, int max)
@@ -520,6 +548,7 @@ public final class ItemUtil
 	 * @param inv The inventory to count and remove items from
 	 * @param type The item type to count and remove
 	 * @param max The maximum number of items to remove
+	 *
 	 * @return How many items were removed
 	 */
 	public static int countAndRemove(Inventory inv, Material type, int max)
@@ -532,6 +561,7 @@ public final class ItemUtil
 	 *
 	 * @param inv The inventory to count and remove items from
 	 * @param item The item to count and remove
+	 *
 	 * @return How many items were removed
 	 */
 	public static int countAndRemove(Inventory inv, ItemStack item)
@@ -544,6 +574,7 @@ public final class ItemUtil
 	 *
 	 * @param inv The inventory to count and remove items from
 	 * @param type The item type to count and remove
+	 *
 	 * @return How many items were removed
 	 */
 	public static int countAndRemove(Inventory inv, Material type)
@@ -554,6 +585,7 @@ public final class ItemUtil
 	/**
 	 * @param enchantment
 	 * @param itemStack
+	 *
 	 * @return
 	 */
 	public static boolean hasEnchant(Enchantment enchantment, ItemStack itemStack)
@@ -567,7 +599,9 @@ public final class ItemUtil
 	 * @param first The first ItemStack
 	 * @param second The second ItemStack
 	 * @param traits The ItemTraits to compare
-	 * @return Whether the two items are identical in terms of the traits provided. Returns true if both items are null, and false if only one is null.
+	 *
+	 * @return Whether the two items are identical in terms of the traits provided. Returns true if both items are null, and false if only one is
+	 * null.
 	 */
 	public static boolean compare(ItemStack first, ItemStack second, ItemTrait... traits)
 	{
@@ -594,7 +628,9 @@ public final class ItemUtil
 	 *
 	 * @param first The first ItemStack
 	 * @param second The second ItemStack
-	 * @return Whether the two items are identical in terms of type, name, and lore. Returns true if both items are null, and false if only one is null.
+	 *
+	 * @return Whether the two items are identical in terms of type, name, and lore. Returns true if both items are null, and false if only one is
+	 * null.
 	 */
 	public static boolean compare(ItemStack first, ItemStack second)
 	{
@@ -602,10 +638,10 @@ public final class ItemUtil
 	}
 	
 	/**
-	 * Creates a mock inventory clone of the given inventory. Do not try to open this inventory for players,
-	 * it will throw an error.
+	 * Creates a mock inventory clone of the given inventory. Do not try to open this inventory for players, it will throw an error.
 	 *
 	 * @param inv The inventory to clone
+	 *
 	 * @return A mock clone inventory
 	 */
 	public static Inventory cloneInventory(Inventory inv)
@@ -627,6 +663,7 @@ public final class ItemUtil
 	 * Calculates the minimum chest size (next highest multiple of 9) required to fit the given number of item stacks
 	 *
 	 * @param items The number of item stacks
+	 *
 	 * @return The minimum chest size to accommodate the items
 	 */
 	public static int minimumChestSize(int items)
@@ -638,6 +675,7 @@ public final class ItemUtil
 	 * Checks whether an item is empty, meaning it is either null or air
 	 *
 	 * @param item The item to check
+	 *
 	 * @return Whether the item is empty
 	 */
 	public static boolean isEmpty(ItemStack item)
@@ -652,6 +690,7 @@ public final class ItemUtil
 	 * @param chestplate {@link ItemStack} to use as chestplate.
 	 * @param leggings {@link ItemStack} to use as leggings.
 	 * @param boots {@link ItemStack} to use as boots.
+	 *
 	 * @return Array of armor {@link ItemStack}.
 	 */
 	public static ItemStack[] createArmorSet(ItemStack helmet, ItemStack chestplate, ItemStack leggings, ItemStack boots)
@@ -665,11 +704,11 @@ public final class ItemUtil
 	}
 	
 	/**
-	 * Creates a custom playerHead from a Texture String.
-	 * Only enter exact value
+	 * Creates a custom playerHead from a Texture String. Only enter exact value
 	 *
 	 * @param texture Texture string of the head.
 	 * @param name Name of the head.
+	 *
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack createCustomHead(String texture, String name, String... description)
@@ -678,11 +717,11 @@ public final class ItemUtil
 	}
 	
 	/**
-	 * Creates a custom playerHead from a Texture String.
-	 * Only enter exact value
+	 * Creates a custom playerHead from a Texture String. Only enter exact value
 	 *
 	 * @param texture Texture string of the head.
 	 * @param name Name of the head.
+	 *
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack createCustomHead(String texture, String name, List<String> description)
@@ -716,6 +755,7 @@ public final class ItemUtil
 	 * @param uuid {@link UUID} from a specific {@link org.bukkit.OfflinePlayer}
 	 * @param name Name of the skull returns name of player if not specified
 	 * @param description description of the skull
+	 *
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack createPlayerHead(UUID uuid, String name, String... description)
@@ -753,6 +793,7 @@ public final class ItemUtil
 	 * Gets player head from {@link UUID}
 	 *
 	 * @param uuid {@link UUID} from a specific {@link org.bukkit.OfflinePlayer}
+	 *
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack createPlayerHead(UUID uuid)

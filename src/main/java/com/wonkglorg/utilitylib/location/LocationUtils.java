@@ -14,6 +14,7 @@ public final class LocationUtils
 	 * Change a string location to Location object
 	 *
 	 * @param string as String
+	 *
 	 * @return string as location
 	 */
 	public static Location changeStringLocationToLocation(String string)
@@ -25,6 +26,7 @@ public final class LocationUtils
 	 * Change a string location to Location object
 	 *
 	 * @param string as string
+	 *
 	 * @return string as locaiton
 	 */
 	public static Location changeStringLocationToLocationEye(String string)
@@ -45,6 +47,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param location
+	 *
 	 * @return location as string
 	 */
 	public static String changeLocationToString(Location location)
@@ -54,6 +57,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param location
+	 *
 	 * @return location as String
 	 */
 	public static String changeLocationToStringEye(Location location)
@@ -73,6 +77,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param chunk
+	 *
 	 * @return string as Chunk
 	 */
 	public static Chunk changeStringChunkToChunk(String chunk)
@@ -88,6 +93,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param chunk
+	 *
 	 * @return chunk as string
 	 */
 	public static String changeChunkToString(Chunk chunk)
@@ -97,6 +103,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param {@link Cuboid}
+	 *
 	 * @return cuboid as string
 	 */
 	public static String changeCuboidToString(Cuboid cuboid)
@@ -122,6 +129,7 @@ public final class LocationUtils
 	
 	/**
 	 * @param str
+	 *
 	 * @return {@link Cuboid}
 	 */
 	public static Cuboid changeStringToCuboid(String str)

@@ -42,14 +42,13 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	
 	/**
 	 * Sets the shape of the recipe
-	 *
-	 * Example: "xxx",
-	 * "xxx",
-	 * "xxx"
+	 * <p>
+	 * Example: "xxx", "xxx", "xxx"
 	 *
 	 * @param row1 First row of the recipe
 	 * @param row2 Second row of the recipe
 	 * @param row3 Third row of the recipe
+	 *
 	 * @return the ShapedRecipeBuilder
 	 */
 	public ShapedRecipeBuilder withShape(@NotNull final String row1, @NotNull final String row2, @NotNull final String row3)
@@ -64,6 +63,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param key key given in the shape
 	 * @param ingredient ingredient {@link Material}
+	 *
 	 * @return the ShapedRecipeBuilder
 	 */
 	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final Material ingredient)
@@ -77,6 +77,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	 * Add {@link ShapedRecipeData} to add a recipe to the crafting
 	 *
 	 * @param shapedRecipeData ingredient {@link ShapedRecipeData}
+	 *
 	 * @return {@link ShapedRecipeBuilder}
 	 */
 	public ShapedRecipeBuilder addIngredient(ShapedRecipeData... shapedRecipeData)
@@ -93,6 +94,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	 * Assigns a shape key to an ingredient using {@link java.util.HashMap}
 	 *
 	 * @param ingredients ingredients
+	 *
 	 * @return {@link ShapedRecipeBuilder}
 	 */
 	public ShapedRecipeBuilder addIngredient(Map<Character, ItemStack> ingredients)
@@ -110,6 +112,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param key key given in the shape
 	 * @param ingredient ingredient {@link ItemStack}
+	 *
 	 * @return the ShapedRecipeBuilder
 	 */
 	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final ItemStack ingredient)
@@ -124,6 +127,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param key key given in the shape
 	 * @param ingredient ingredient {@link ItemStack}
+	 *
 	 * @return the ShapedRecipeBuilder
 	 */
 	public ShapedRecipeBuilder addIngredients(final char key, @NotNull final ItemStack ingredient)
@@ -132,7 +136,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 		getRecipe().setIngredient(key, ingredient);
 		return this;
 	}
-
+	
 	public ShapedRecipeBuilder setCategory(CraftingBookCategory category)
 	{
 		validateInit();
@@ -141,11 +145,9 @@ public final class ShapedRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Set the group of this recipe. Recipes with the same group may be grouped
-	 * together when displayed in the client.
+	 * Set the group of this recipe. Recipes with the same group may be grouped together when displayed in the client.
 	 *
-	 * @param group recipe group. An empty string denotes no group. May not be
-	 * null.
+	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
 	public ShapedRecipeBuilder setGroup(String group)
 	{

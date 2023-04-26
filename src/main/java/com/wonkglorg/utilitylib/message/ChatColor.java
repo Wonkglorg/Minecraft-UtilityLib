@@ -139,6 +139,7 @@ public final class ChatColor
 	 * String to component text decoration.
 	 *
 	 * @param s the s
+	 *
 	 * @return the text decoration
 	 */
 	public static TextDecoration charToComponent(char s)

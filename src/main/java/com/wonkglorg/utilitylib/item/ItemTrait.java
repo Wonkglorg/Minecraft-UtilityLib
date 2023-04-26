@@ -49,6 +49,7 @@ public enum ItemTrait
 	 *
 	 * @param a The first item
 	 * @param b The second item
+	 *
 	 * @return True if the trait is the same on both items, false otherwise
 	 */
 	public boolean compare(ItemStack a, ItemStack b)

@@ -3,9 +3,11 @@ package com.wonkglorg.utilitylib.enums;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Wonkglorg
  */
@@ -34,32 +36,32 @@ public enum MessageEnums
 	COMMAND_SYNTAXE_HELP("%syntax% %description%"),
 	
 	;
-
+	
 	private List<String> messages;
 	private String message;
 	private Map<String, Object> titles = new HashMap<>();
 	private boolean use = true;
 	private MessageType type = MessageType.TCHAT;
-
+	
 	private ItemStack itemStack;
 	
 	/**
-	 *
 	 * @param message
 	 */
-	private MessageEnums(String message) {
+	MessageEnums(String message)
+	{
 		this.message = message;
 	}
-
+	
 	/**
-	 *
 	 * @param title
 	 * @param subTitle
 	 * @param a
 	 * @param b
 	 * @param c
 	 */
-	MessageEnums(String title, String subTitle, int a, int b, int c) {
+	MessageEnums(String title, String subTitle, int a, int b, int c)
+	{
 		this.titles.put("title", title);
 		this.titles.put("subtitle", subTitle);
 		this.titles.put("start", a);
@@ -68,127 +70,148 @@ public enum MessageEnums
 		this.titles.put("isUse", true);
 		this.type = MessageType.TITLE;
 	}
-
+	
 	/**
-	 *
 	 * @param message
 	 */
-	MessageEnums(String... message) {
+	MessageEnums(String... message)
+	{
 		this.messages = Arrays.asList(message);
 	}
 	
 	/**
-	 *
 	 * @param message
 	 */
-	MessageEnums(MessageType type, String... message) {
+	MessageEnums(MessageType type, String... message)
+	{
 		this.messages = Arrays.asList(message);
 		this.type = type;
 	}
 	
 	/**
-	 *
 	 * @param message
 	 */
-	MessageEnums(MessageType type, String message) {
+	MessageEnums(MessageType type, String message)
+	{
 		this.message = message;
 		this.type = type;
 	}
-
+	
 	/**
-	 *
 	 * @param message
 	 * @param use
 	 */
-	MessageEnums(String message, boolean use) {
+	MessageEnums(String message, boolean use)
+	{
 		this.message = message;
 		this.use = use;
 	}
-
-	public String getMessage() {
+	
+	public String getMessage()
+	{
 		return message;
 	}
-
-	public String toMsg() {
+	
+	public String toMsg()
+	{
 		return message;
 	}
-
-	public String msg() {
+	
+	public String msg()
+	{
 		return message;
 	}
-
-	public boolean isUse() {
+	
+	public boolean isUse()
+	{
 		return use;
 	}
-
-	public void setMessage(String message) {
+	
+	public void setMessage(String message)
+	{
 		this.message = message;
 	}
-
-	public List<String> getMessages() {
-		return messages == null ? Arrays.asList(message) : messages;
+	
+	public List<String> getMessages()
+	{
+		return messages == null ? Collections.singletonList(message) : messages;
 	}
-
-	public void setMessages(List<String> messages) {
+	
+	public void setMessages(List<String> messages)
+	{
 		this.messages = messages;
 	}
-
-	public boolean isMessage() {
+	
+	public boolean isMessage()
+	{
 		return messages != null && messages.size() > 1;
 	}
-
-	public String getTitle() {
+	
+	public String getTitle()
+	{
 		return (String) titles.get("title");
 	}
-
-	public Map<String, Object> getTitles() {
+	
+	public Map<String, Object> getTitles()
+	{
 		return titles;
 	}
-
-	public void setTitles(Map<String, Object> titles) {
+	
+	public void setTitles(Map<String, Object> titles)
+	{
 		this.titles = titles;
 		this.type = MessageType.TITLE;
 	}
-
-	public String getSubTitle() {
+	
+	public String getSubTitle()
+	{
 		return (String) titles.get("subtitle");
 	}
-
-	public boolean isTitle() {
+	
+	public boolean isTitle()
+	{
 		return titles.containsKey("title");
 	}
-
-	public int getStart() {
+	
+	public int getStart()
+	{
 		return ((Number) titles.get("start")).intValue();
 	}
-
-	public int getEnd() {
+	
+	public int getEnd()
+	{
 		return ((Number) titles.get("end")).intValue();
 	}
-
-	public int getTime() {
+	
+	public int getTime()
+	{
 		return ((Number) titles.get("time")).intValue();
 	}
-
-	public boolean isUseTitle() {
+	
+	public boolean isUseTitle()
+	{
 		return (boolean) titles.getOrDefault("isUse", "true");
 	}
-
-	public String replace(String a, String b) {
+	
+	public String replace(String a, String b)
+	{
 		return message.replace(a, b);
 	}
 	
-	public ItemStack getItemStack() {
+	public ItemStack getItemStack()
+	{
 		return itemStack;
 	}
-
-	public void setType(MessageType type) {
+	
+	public void setType(MessageType type)
+	{
 		this.type = type;
 	}
 	
-	public void setItemStack(ItemStack itemStack) {
+	public void setItemStack(ItemStack itemStack)
+	{
 		this.itemStack = itemStack;
 	}
-
+	
 }
 

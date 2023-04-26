@@ -53,6 +53,7 @@ public final class Message
 	 * Converts text components from Adventure api to a readable strong for the color method.
 	 *
 	 * @param component
+	 *
 	 * @return
 	 */
 	public static String convertComponentToString(Component component)
@@ -65,48 +66,33 @@ public final class Message
 			TextColor color = style.color();
 			
 			if(color != null)
-			{
-				result.append("&").append(color.asHexString());
-			}
+			{result.append("&").append(color.asHexString());}
 			
 			if(style.hasDecoration(TextDecoration.BOLD))
-			{
 				result.append("&b");
-			}
 			if(style.hasDecoration(TextDecoration.ITALIC))
-			{
 				result.append("&i");
-			}
 			if(style.hasDecoration(TextDecoration.OBFUSCATED))
-			{
 				result.append("&o");
-			}
 			if(style.hasDecoration(TextDecoration.UNDERLINED))
-			{
 				result.append("&u");
-			}
 			if(style.hasDecoration(TextDecoration.STRIKETHROUGH))
-			{
 				result.append("&s");
-			}
 			
 			result.append(PlainTextComponentSerializer.plainText().serialize(child));
 			
 			if(!child.children().isEmpty())
-			{
-				result.append(convertComponentToString(child));
-			}
+			{result.append(convertComponentToString(child));}
 		}
 		
 		return result + ChatColor.Reset;
 	}
 	
 	/**
-	 * Allows for & to be converted to color can be used with
-	 * default minecraft color codes or hex values
-	 * usage: "& #xxxxxx".
+	 * Allows for & to be converted to color can be used with default minecraft color codes or hex values usage: "& #xxxxxx".
 	 *
 	 * @param text Text to be colored.
+	 *
 	 * @return Color converted text.
 	 */
 	public static Component color(@NotNull String text)
@@ -118,11 +104,10 @@ public final class Message
 	}
 	
 	/**
-	 * Allows for & to be converted to color can be used with
-	 * default minecraft color codes or hex values
-	 * usage: "& #xxxxxx".
+	 * Allows for & to be converted to color can be used with default minecraft color codes or hex values usage: "& #xxxxxx".
 	 *
 	 * @param stringList Array of strings to be colored.
+	 *
 	 * @return Color converted text.
 	 */
 	public static List<Component> color(@NotNull List<String> stringList)
@@ -139,10 +124,10 @@ public final class Message
 	}
 	
 	/**
-	 * Strips a text from all its color components and returns
-	 * the stripped text
+	 * Strips a text from all its color components and returns the stripped text
 	 *
 	 * @param text Text to decoler.
+	 *
 	 * @return Decolored text.
 	 */
 	public static String decolor(@NotNull String text)
@@ -152,10 +137,10 @@ public final class Message
 	}
 	
 	/**
-	 * Strips a text array from all its color components and returns
-	 * the stripped text array
+	 * Strips a text array from all its color components and returns the stripped text array
 	 *
 	 * @param stringList String list to decoler.
+	 *
 	 * @return Decolored text.
 	 */
 	public static List<String> decolor(@NotNull List<String> stringList)
@@ -194,7 +179,7 @@ public final class Message
 	{
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		TextColor textColor = null;
-		for(int i = 0; i < texts.length; i++)
+		for(int i = 0; i < texts.length; i += 1)
 		{
 			if(!texts[i].equalsIgnoreCase(ChatColor.preset))
 			{

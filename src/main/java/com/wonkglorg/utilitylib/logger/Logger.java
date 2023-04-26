@@ -33,10 +33,8 @@ public final class Logger
 				list.forEach(o -> builder.append(",").append(o.toString()));
 			}
 			if(obj instanceof Map map)
-			{
 				map.forEach((o, o2) -> builder.append(String.format(",(%s , %s)", o.toString(), o2.toString())));
-				//map.forEach((o, o2) -> builder.append(",").append("( ").append(o.toString()).append(" , ").append(o2.toString()).append(" )"));
-			}
+			
 			if(builder.length() > 0)
 			{
 				logger.log(logType, "[ " + builder.toString().replaceFirst(",", "").trim() + " ]");
@@ -69,9 +67,7 @@ public final class Logger
 	}
 	
 	/**
-	 * Sends a logger warning message in the console
-	 * used when something goes wrong but the plugin
-	 * can still run afterwards.
+	 * Sends a logger warning message in the console used when something goes wrong but the plugin can still run afterwards.
 	 *
 	 * @param text message to display.
 	 */
@@ -81,9 +77,7 @@ public final class Logger
 	}
 	
 	/**
-	 * Sends a logger warning message in the console
-	 * used when something goes wrong but the plugin
-	 * can still run afterwards.
+	 * Sends a logger warning message in the console used when something goes wrong but the plugin can still run afterwards.
 	 *
 	 * @param text message to display.
 	 */
@@ -93,9 +87,7 @@ public final class Logger
 	}
 	
 	/**
-	 * Sends a logger fatal message in the console
-	 * used when something goes wrong and results
-	 * in either data loss or unable to further function..
+	 * Sends a logger fatal message in the console used when something goes wrong and results in either data loss or unable to further function..
 	 *
 	 * @param text message to display.
 	 */
@@ -105,9 +97,7 @@ public final class Logger
 	}
 	
 	/**
-	 * Sends a logger fatal message in the console
-	 * used when something goes wrong and results
-	 * in either data loss or unable to further function..
+	 * Sends a logger fatal message in the console used when something goes wrong and results in either data loss or unable to further function..
 	 *
 	 * @param text message to display.
 	 */
@@ -121,7 +111,6 @@ public final class Logger
 		INFO,
 		WARN,
 		FATAL,
-		;
 	}
 	
 }

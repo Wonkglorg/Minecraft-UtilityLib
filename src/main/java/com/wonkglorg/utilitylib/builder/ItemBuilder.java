@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Wonkglorg
  */
@@ -152,6 +153,7 @@ public class ItemBuilder implements Cloneable
 	 *
 	 * @param enchantment
 	 * @param value
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder addEnchant(Enchantment enchantment, int value)
@@ -166,6 +168,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param name
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder setName(String name)
@@ -176,6 +179,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param name
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder setName(int name)
@@ -186,6 +190,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param durability
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder durability(int durability)
@@ -196,6 +201,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param flag
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder setFlag(ItemFlag flag)
@@ -210,6 +216,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param lore
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder setLore(String... lore)
@@ -220,6 +227,7 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param format
+	 *
 	 * @return {@link ItemBuilder}
 	 */
 	public ItemBuilder addLoreLine(String format)

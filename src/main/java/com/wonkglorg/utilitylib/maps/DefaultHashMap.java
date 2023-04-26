@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 /**
  * Creates a HashMap with a default value if the return value is null
+ *
  * @param <K>
  * @param <V>
  */

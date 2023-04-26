@@ -133,6 +133,7 @@ public final class BannerBuilder extends ItemBuilder
 	 *
 	 * @param color the color
 	 * @param patternType the pattern type
+	 *
 	 * @return the banner builder
 	 */
 	public BannerBuilder addLayer(@NotNull DyeColor color, PatternType patternType)
@@ -146,6 +147,7 @@ public final class BannerBuilder extends ItemBuilder
 	 *
 	 * @param index the index
 	 * @param color the color
+	 *
 	 * @return the banner builder
 	 */
 	public BannerBuilder replaceColorAt(int index, @NotNull DyeColor color)
@@ -162,6 +164,7 @@ public final class BannerBuilder extends ItemBuilder
 	 *
 	 * @param index the index
 	 * @param type the type
+	 *
 	 * @return the banner builder
 	 */
 	public BannerBuilder replacePatternAt(int index, @NotNull PatternType type)
@@ -214,6 +217,7 @@ public final class BannerBuilder extends ItemBuilder
 	 * Removes banner layer at the selected index
 	 *
 	 * @param index the index
+	 *
 	 * @return instance of banner builder
 	 */
 	public BannerBuilder removeLayerAt(int index)

@@ -18,7 +18,6 @@ import java.util.Set;
 
 /**
  * @author Wonkglorg
- *
  */
 @SuppressWarnings("unused")
 public final class ConfigYML extends YamlConfiguration implements Config
@@ -87,6 +86,7 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	 *
 	 * @param path path inside yml config.
 	 * @param deep deep search to get children of children
+	 *
 	 * @return {@link Set} of results.
 	 */
 	public Set<String> getSection(@NotNull String path, boolean deep)

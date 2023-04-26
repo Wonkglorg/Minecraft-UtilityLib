@@ -32,10 +32,10 @@ public final class Convert
 	}
 	
 	/**
-	 * Converts a time string into millisecond time.
-	 * Example : 10d 5m 8s 10ms
+	 * Converts a time string into millisecond time. Example : 10d 5m 8s 10ms
 	 *
 	 * @param timeString time string to be converted
+	 *
 	 * @return millisecond representation of the input string
 	 */
 	public static long fromTime(String timeString)
@@ -66,6 +66,7 @@ public final class Convert
 	 *
 	 * @param timeInMs The time in milliseconds
 	 * @param formats all dateTypes to be displayed
+	 *
 	 * @return Formatted time string
 	 */
 	public static String toTime(long timeInMs, DateType... formats)
@@ -93,6 +94,7 @@ public final class Convert
 	 * Converts milliseconds into a human-readable time format
 	 *
 	 * @param timeInMs The time in milliseconds
+	 *
 	 * @return Formatted time string
 	 */
 	public static String toTime(long timeInMs)
@@ -128,6 +130,7 @@ public final class Convert
 	
 	/**
 	 * @param value value
+	 *
 	 * @return balance
 	 */
 	public static String toBalance(double value)
@@ -156,6 +159,7 @@ public final class Convert
 	
 	/**
 	 * @param value value
+	 *
 	 * @return balance
 	 */
 	public static String toBalance(long value)

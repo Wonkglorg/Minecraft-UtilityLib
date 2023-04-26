@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionType;
 
 import java.util.List;
 import java.util.Map;
+
 /**
  * @author Wonkglorg
  */
@@ -94,6 +95,7 @@ public final class PotionBuilder extends ItemBuilder
 	
 	/**
 	 * @param potionEffectType the potion effect type
+	 *
 	 * @return {@link PotionBuilder}
 	 */
 	public PotionBuilder effect(PotionType potionEffectType)
@@ -106,6 +108,7 @@ public final class PotionBuilder extends ItemBuilder
 	 * @param potionEffectType
 	 * @param extended
 	 * @param upgraded
+	 *
 	 * @return {@link PotionBuilder}
 	 */
 	public PotionBuilder effect(PotionType potionEffectType, boolean extended, boolean upgraded)
@@ -118,6 +121,7 @@ public final class PotionBuilder extends ItemBuilder
 	 * @param potionEffectType
 	 * @param duration
 	 * @param value
+	 *
 	 * @return {@link PotionBuilder}
 	 */
 	public PotionBuilder effect(PotionEffectType potionEffectType, int duration, int value)

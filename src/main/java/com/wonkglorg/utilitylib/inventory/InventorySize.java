@@ -7,10 +7,7 @@ public enum InventorySize
 	MEDIUM(27),
 	BIG(36),
 	LARGE(45),
-	MAX(54)
-	
-
-	;
+	MAX(54);
 	private final int size;
 	
 	InventorySize(int size)

@@ -143,4 +143,9 @@ public final class ConfigManager implements Manager
 		
 		return tempConfigs;
 	}
+	
+	public Collection<Config> getConfigs()
+	{
+		return configs;
+	}
 }

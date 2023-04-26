@@ -97,6 +97,7 @@ public final class PluginManager
 	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
+	 *
 	 * @return is plugin existing
 	 */
 	public synchronized boolean checkDepend(Plugin targetPlugin, boolean shutdown)
@@ -109,6 +110,7 @@ public final class PluginManager
 	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
+	 *
 	 * @return is plugin existing
 	 */
 	public synchronized boolean checkDepend(String targetPlugin, boolean shutdown)
@@ -226,7 +228,6 @@ public final class PluginManager
 		EVENT(),
 		COOLDOWN(),
 		DATABASE(),
-		;
 		
 	}
 }

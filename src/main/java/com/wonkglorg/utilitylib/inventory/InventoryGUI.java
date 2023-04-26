@@ -259,6 +259,7 @@ public abstract class InventoryGUI implements Listener
 	 * Gets the ItemButton in a given slot
 	 *
 	 * @param slot The slot the button is in
+	 *
 	 * @return The ItemButton, or null if there is no button in that slot
 	 */
 	public Button getButton(int slot)
@@ -482,8 +483,7 @@ public abstract class InventoryGUI implements Listener
 	/**
 	 * Sets the handler for when an open slot is clicked
 	 *
-	 * @param handler The handler for when an open slot is clicked, taking the event and list
-	 * of affected slots
+	 * @param handler The handler for when an open slot is clicked, taking the event and list of affected slots
 	 */
 	public void setOnClickOpenSlot(BiConsumer<InventoryClickEvent, List<Integer>> handler)
 	{
@@ -491,8 +491,7 @@ public abstract class InventoryGUI implements Listener
 	}
 	
 	/**
-	 * Remove this inventory as a listener and clean everything up to prevent memory leaks.
-	 * Call this when the GUI is no longer being used.
+	 * Remove this inventory as a listener and clean everything up to prevent memory leaks. Call this when the GUI is no longer being used.
 	 *
 	 * @param lastViewer The last Player who was viewing this GUI, to have the items returned to them.
 	 */
@@ -520,8 +519,7 @@ public abstract class InventoryGUI implements Listener
 	}
 	
 	/**
-	 * Remove this inventory as a listener and clean everything up to prevent memory leaks.
-	 * Call this when the GUI is no longer being used.
+	 * Remove this inventory as a listener and clean everything up to prevent memory leaks. Call this when the GUI is no longer being used.
 	 */
 	public void destroy()
 	{

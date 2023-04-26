@@ -25,16 +25,14 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 {
 	
 	/**
-	 * This class is a region/cuboid from one location to another. It can be
-	 * used for blocks protection and things like WorldEdit.
+	 * This class is a region/cuboid from one location to another. It can be used for blocks protection and things like WorldEdit.
 	 */
 	private final String worldName;
 	private final int x1, y1, z1;
 	private final int x2, y2, z2;
 	
 	/**
-	 * Construct a Cuboid given two Location objects which represent any two
-	 * corners of the Cuboid. Note: The 2 locations must be on the same world.
+	 * Construct a Cuboid given two Location objects which represent any two corners of the Cuboid. Note: The 2 locations must be on the same world.
 	 *
 	 * @param l1 - One of the corners
 	 * @param l2 - The other corner
@@ -120,8 +118,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Construct a Cuboid using a map with the following keys: worldName, x1,
-	 * x2, y1, y2, z1, z2
+	 * Construct a Cuboid using a map with the following keys: worldName, x1, x2, y1, y2, z1, z2
 	 *
 	 * @param map - The map of keys.
 	 */
@@ -204,6 +201,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * Get the Cuboid's world.
 	 *
 	 * @return The World object representing this Cuboid's world
+	 *
 	 * @throws IllegalStateException if the world is not loaded
 	 */
 	public World getWorld()
@@ -327,8 +325,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get the Location of the lower northeast corner of the Cuboid (minimum XYZ
-	 * co-ordinates).
+	 * Get the Location of the lower northeast corner of the Cuboid (minimum XYZ co-ordinates).
 	 *
 	 * @return Location of the lower northeast corner
 	 */
@@ -338,8 +335,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get the Location of the upper southwest corner of the Cuboid (maximum XYZ
-	 * co-ordinates).
+	 * Get the Location of the upper southwest corner of the Cuboid (maximum XYZ co-ordinates).
 	 *
 	 * @return Location of the upper southwest corner
 	 */
@@ -409,27 +405,26 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Expand the Cuboid in the given direction by the given amount. Negative
-	 * amounts will shrink the Cuboid in the given direction. Shrinking a
-	 * cuboid's face past the opposite face is not an error and will return a
-	 * valid Cuboid.
+	 * Expand the Cuboid in the given direction by the given amount. Negative amounts will shrink the Cuboid in the given direction. Shrinking a
+	 * cuboid's face past the opposite face is not an error and will return a valid Cuboid.
 	 *
 	 * @param dir - The direction in which to expand
 	 * @param amount - The number of blocks by which to expand
+	 *
 	 * @return A new Cuboid expanded by the given direction and amount
 	 */
 	public Cuboid expand(CuboidDirection dir, int amount)
 	{
 		return switch(dir)
-				{
-					case North -> new Cuboid(this.worldName, this.x1 - amount, this.y1, this.z1, this.x2, this.y2, this.z2);
-					case South -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2 + amount, this.y2, this.z2);
-					case East -> new Cuboid(this.worldName, this.x1, this.y1, this.z1 - amount, this.x2, this.y2, this.z2);
-					case West -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z2 + amount);
-					case Down -> new Cuboid(this.worldName, this.x1, this.y1 - amount, this.z1, this.x2, this.y2, this.z2);
-					case Up -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2 + amount, this.z2);
-					default -> throw new IllegalArgumentException("Invalid direction " + dir);
-				};
+		{
+			case North -> new Cuboid(this.worldName, this.x1 - amount, this.y1, this.z1, this.x2, this.y2, this.z2);
+			case South -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2 + amount, this.y2, this.z2);
+			case East -> new Cuboid(this.worldName, this.x1, this.y1, this.z1 - amount, this.x2, this.y2, this.z2);
+			case West -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z2 + amount);
+			case Down -> new Cuboid(this.worldName, this.x1, this.y1 - amount, this.z1, this.x2, this.y2, this.z2);
+			case Up -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2 + amount, this.z2);
+			default -> throw new IllegalArgumentException("Invalid direction " + dir);
+		};
 	}
 	
 	/**
@@ -437,6 +432,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 *
 	 * @param dir - The direction in which to shift
 	 * @param amount - The number of blocks by which to shift
+	 *
 	 * @return A new Cuboid shifted by the given direction and amount
 	 */
 	public Cuboid shift(CuboidDirection dir, int amount)
@@ -447,30 +443,30 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	/**
 	 * Outset (grow) the Cuboid in the given direction by the given amount.
 	 *
-	 * @param dir - The direction in which to outset (must be Horizontal,
-	 * Vertical, or Both)
+	 * @param dir - The direction in which to outset (must be Horizontal, Vertical, or Both)
 	 * @param amount - The number of blocks by which to outset
+	 *
 	 * @return A new Cuboid outset by the given direction and amount
 	 */
 	public Cuboid outset(CuboidDirection dir, int amount)
 	{
 		return switch(dir)
-				{
-					case Horizontal -> expand(CuboidDirection.North, amount).expand(CuboidDirection.South, amount).expand(CuboidDirection.East,
-							amount).expand(CuboidDirection.West, amount);
-					case Vertical -> expand(CuboidDirection.Down, amount).expand(CuboidDirection.Up, amount);
-					case Both -> outset(CuboidDirection.Horizontal, amount).outset(CuboidDirection.Vertical, amount);
-					default -> throw new IllegalArgumentException("Invalid direction " + dir);
-				};
+		{
+			case Horizontal -> expand(CuboidDirection.North, amount).expand(CuboidDirection.South, amount)
+																	.expand(CuboidDirection.East, amount)
+																	.expand(CuboidDirection.West, amount);
+			case Vertical -> expand(CuboidDirection.Down, amount).expand(CuboidDirection.Up, amount);
+			case Both -> outset(CuboidDirection.Horizontal, amount).outset(CuboidDirection.Vertical, amount);
+			default -> throw new IllegalArgumentException("Invalid direction " + dir);
+		};
 	}
 	
 	/**
-	 * Inset (shrink) the Cuboid in the given direction by the given amount.
-	 * Equivalent to calling outset() with a negative amount.
+	 * Inset (shrink) the Cuboid in the given direction by the given amount. Equivalent to calling outset() with a negative amount.
 	 *
-	 * @param dir - The direction in which to inset (must be Horizontal,
-	 * Vertical, or Both)
+	 * @param dir - The direction in which to inset (must be Horizontal, Vertical, or Both)
 	 * @param amount - The number of blocks by which to inset
+	 *
 	 * @return A new Cuboid inset by the given direction and amount
 	 */
 	public Cuboid inset(CuboidDirection dir, int amount)
@@ -484,6 +480,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * @param x - The X co-ordinate
 	 * @param y - The Y co-ordinate
 	 * @param z - The Z co-ordinate
+	 *
 	 * @return true if the given point is within this Cuboid, false otherwise
 	 */
 	public boolean contains(int x, int y, int z)
@@ -495,6 +492,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * Check if the given Block is contained within this Cuboid.
 	 *
 	 * @param b - The Block to check for
+	 *
 	 * @return true if the Block is within this Cuboid, false otherwise
 	 */
 	public boolean contains(Block b)
@@ -506,6 +504,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * Check if the given Location is contained within this Cuboid.
 	 *
 	 * @param location - The Location to check for
+	 *
 	 * @return true if the Location is within this Cuboid, false otherwise
 	 */
 	public boolean contains(Location location)
@@ -528,8 +527,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get the average light level of all empty (air) blocks in the Cuboid.
-	 * Returns 0 if there are no empty blocks.
+	 * Get the average light level of all empty (air) blocks in the Cuboid. Returns 0 if there are no empty blocks.
 	 *
 	 * @return The average light level of this Cuboid
 	 */
@@ -549,8 +547,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Contract the Cuboid, returning a Cuboid with any air around the edges
-	 * removed, just large enough to include all non-air blocks.
+	 * Contract the Cuboid, returning a Cuboid with any air around the edges removed, just large enough to include all non-air blocks.
 	 *
 	 * @return A new Cuboid with no external air blocks
 	 */
@@ -565,11 +562,11 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Contract the Cuboid in the given direction, returning a new Cuboid which
-	 * has no exterior empty space. E.g. A direction of Down will push the top
-	 * face downwards as much as possible.
+	 * Contract the Cuboid in the given direction, returning a new Cuboid which has no exterior empty space. E.g. A direction of Down will push the
+	 * top face downwards as much as possible.
 	 *
 	 * @param dir - The direction in which to contract
+	 *
 	 * @return A new Cuboid contracted in the given direction
 	 */
 	public Cuboid contract(CuboidDirection dir)
@@ -630,30 +627,32 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get the Cuboid representing the face of this Cuboid. The resulting Cuboid
-	 * will be one block thick in the axis perpendicular to the requested face.
+	 * Get the Cuboid representing the face of this Cuboid. The resulting Cuboid will be one block thick in the axis perpendicular to the requested
+	 * face.
 	 *
 	 * @param dir - which face of the Cuboid to get
+	 *
 	 * @return The Cuboid representing this Cuboid's requested face
 	 */
 	public Cuboid getFace(CuboidDirection dir)
 	{
 		return switch(dir)
-				{
-					case Down -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y1, this.z2);
-					case Up -> new Cuboid(this.worldName, this.x1, this.y2, this.z1, this.x2, this.y2, this.z2);
-					case North -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x1, this.y2, this.z2);
-					case South -> new Cuboid(this.worldName, this.x2, this.y1, this.z1, this.x2, this.y2, this.z2);
-					case East -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z1);
-					case West -> new Cuboid(this.worldName, this.x1, this.y1, this.z2, this.x2, this.y2, this.z2);
-					default -> throw new IllegalArgumentException("Invalid direction " + dir);
-				};
+		{
+			case Down -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y1, this.z2);
+			case Up -> new Cuboid(this.worldName, this.x1, this.y2, this.z1, this.x2, this.y2, this.z2);
+			case North -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x1, this.y2, this.z2);
+			case South -> new Cuboid(this.worldName, this.x2, this.y1, this.z1, this.x2, this.y2, this.z2);
+			case East -> new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z1);
+			case West -> new Cuboid(this.worldName, this.x1, this.y1, this.z2, this.x2, this.y2, this.z2);
+			default -> throw new IllegalArgumentException("Invalid direction " + dir);
+		};
 	}
 	
 	/**
 	 * Check if the Cuboid contains only blocks of the given type
 	 *
 	 * @param blockId - The block ID to check for
+	 *
 	 * @return true if this Cuboid contains only blocks of the given type
 	 */
 	@SuppressWarnings("deprecation")
@@ -673,8 +672,8 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * Get the Cuboid big enough to hold both this Cuboid and the given one.
 	 *
 	 * @param other - The other cuboid.
-	 * @return A new Cuboid large enough to hold this Cuboid and the given
-	 * Cuboid
+	 *
+	 * @return A new Cuboid large enough to hold this Cuboid and the given Cuboid
 	 */
 	public Cuboid getBoundingCuboid(Cuboid other)
 	{
@@ -699,6 +698,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	 * @param x - The X co-ordinate
 	 * @param y - The Y co-ordinate
 	 * @param z - The Z co-ordinate
+	 *
 	 * @return The block at the given position
 	 */
 	public Block getRelativeBlock(int x, int y, int z)
@@ -707,14 +707,14 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get a block relative to the lower NE point of the Cuboid in the given
-	 * World. This version of getRelativeBlock() should be used if being called
+	 * Get a block relative to the lower NE point of the Cuboid in the given World. This version of getRelativeBlock() should be used if being called
 	 * many times, to avoid excessive calls to getWorld().
 	 *
 	 * @param w - The world
 	 * @param x - The X co-ordinate
 	 * @param y - The Y co-ordinate
 	 * @param z - The Z co-ordinate
+	 *
 	 * @return The block at the given position
 	 */
 	public Block getRelativeBlock(World w, int x, int y, int z)
@@ -723,8 +723,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	}
 	
 	/**
-	 * Get a list of the chunks which are fully or partially contained in this
-	 * cuboid.
+	 * Get a list of the chunks which are fully or partially contained in this cuboid.
 	 *
 	 * @return A list of Chunk objects
 	 */
@@ -751,7 +750,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	{
 		return new CuboidIterator(this.getWorld(), this.x1, this.y1, this.z1, this.x2, this.y2, this.z2);
 	}
-
+	
 	@Override
 	public Cuboid clone()
 	{
@@ -860,7 +859,7 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 	
 	private void drawLine(Location location1, Location location2, Particle particle)
 	{
-		Vector vector =location2.toVector().subtract(location1.toVector());
+		Vector vector = location2.toVector().subtract(location1.toVector());
 		if(Objects.equals(vector, new Vector(0, 0, 0)))
 		{
 			return;
@@ -893,18 +892,18 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 		public CuboidDirection opposite()
 		{
 			return switch(this)
-					{
-						case North -> South;
-						case East -> West;
-						case South -> North;
-						case West -> East;
-						case Horizontal -> Vertical;
-						case Vertical -> Horizontal;
-						case Up -> Down;
-						case Down -> Up;
-						case Both -> Both;
-						default -> Unknown;
-					};
+			{
+				case North -> South;
+				case East -> West;
+				case South -> North;
+				case West -> East;
+				case Horizontal -> Vertical;
+				case Vertical -> Horizontal;
+				case Up -> Down;
+				case Down -> Up;
+				case Both -> Both;
+				default -> Unknown;
+			};
 		}
 		
 	}

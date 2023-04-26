@@ -9,6 +9,7 @@ import org.bukkit.inventory.recipe.CookingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
 /**
  * @author Wonkglorg
  */
@@ -44,6 +45,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link ItemStack} input.
 	 *
 	 * @param input {@link ItemStack} to be smelted
+	 *
 	 * @return {@link BlastingRecipeBuilder}
 	 */
 	public BlastingRecipeBuilder setInput(@NotNull final ItemStack... input)
@@ -57,6 +59,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link Material} to be smelted
 	 *
 	 * @param input {@link Material} to be smelted
+	 *
 	 * @return {@link  BlastingRecipeBuilder}
 	 */
 	public BlastingRecipeBuilder setInput(@NotNull final Material input)
@@ -70,6 +73,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	 * Sets the time needed to cook the time
 	 *
 	 * @param ticks amount in ticks
+	 *
 	 * @return {@link BlastingRecipeBuilder}
 	 */
 	public BlastingRecipeBuilder setCookTime(final int ticks)
@@ -83,6 +87,7 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 	 * Sets the experience gained from cooking
 	 *
 	 * @param experience as {@link Float}
+	 *
 	 * @return {@link BlastingRecipeBuilder}
 	 */
 	public BlastingRecipeBuilder setExperience(final float experience)
@@ -92,21 +97,21 @@ public final class BlastingRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
-	public BlastingRecipeBuilder setCategory(CookingBookCategory category){
+	public BlastingRecipeBuilder setCategory(CookingBookCategory category)
+	{
 		validateInit();
 		getRecipe().setCategory(category);
 		return this;
 	}
 	
-	 /**
-	 * Set the group of this recipe. Recipes with the same group may be grouped
-	 * together when displayed in the client.
+	/**
+	 * Set the group of this recipe. Recipes with the same group may be grouped together when displayed in the client.
 	 *
-	 * @param group recipe group. An empty string denotes no group. May not be
-	 * null.
+	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
-	 
-	public BlastingRecipeBuilder setGroup(String group){
+	
+	public BlastingRecipeBuilder setGroup(String group)
+	{
 		validateInit();
 		getRecipe().setGroup(group);
 		return this;

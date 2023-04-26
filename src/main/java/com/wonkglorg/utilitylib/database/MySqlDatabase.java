@@ -6,9 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * IMPORTANT! Please add the mysql Jconnector to the project if you want to use MySql, I did not include this myself to not inflate the libraries size.
- * groupId : mysql
- * artifactId : mysql-connector-java
+ * IMPORTANT! Please add the mysql Jconnector to the project if you want to use MySql, I did not include this myself to not inflate the libraries
+ * size. groupId : mysql artifactId : mysql-connector-java
  */
 public class MySqlDatabase extends Database
 {

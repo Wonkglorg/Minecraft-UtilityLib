@@ -6,8 +6,8 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.SmokingRecipe;
 import org.bukkit.inventory.recipe.CookingBookCategory;
-import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Wonkglorg
  */
@@ -18,15 +18,15 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 	{
 		super(key, result);
 	}
+	
 	@Override
 	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
 	{
 		if(recipe == null)
 		{
-			recipe = new FurnaceRecipe(key, result,Material.BARRIER,0.0f,10);
+			recipe = new FurnaceRecipe(key, result, Material.BARRIER, 0.0f, 10);
 		}
 	}
-	
 	
 	private SmokingRecipe getRecipe()
 	{
@@ -36,8 +36,8 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 	/**
 	 * Sets the input item to be smelted
 	 *
-	 *
 	 * @param input the item to be smelted
+	 *
 	 * @return the ShapedRecipeBuilder
 	 */
 	public SmokingRecipeBuilder setInput(ItemStack input)
@@ -54,13 +54,15 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setCookTime(int ticks){
+	public SmokingRecipeBuilder setCookTime(int ticks)
+	{
 		validateInit();
 		getRecipe().setCookingTime(ticks);
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setExperience(float experience){
+	public SmokingRecipeBuilder setExperience(float experience)
+	{
 		validateInit();
 		getRecipe().setExperience(experience);
 		return this;
@@ -74,11 +76,9 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 	}
 	
 	/**
-	 * Set the group of this recipe. Recipes with the same group may be grouped
-	 * together when displayed in the client.
+	 * Set the group of this recipe. Recipes with the same group may be grouped together when displayed in the client.
 	 *
-	 * @param group recipe group. An empty string denotes no group. May not be
-	 * null.
+	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
 	public SmokingRecipeBuilder setGroup(String group)
 	{

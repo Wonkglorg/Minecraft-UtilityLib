@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 /**
  * @author Wonkglorg
  */
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public final class GroupedMaterials
 {
 	
-	private Set<Material> chestPlate,leggings;
+	private Set<Material> chestPlate, leggings;
 	
 	public Set<Material> getChestPlates()
 	{
@@ -46,7 +47,6 @@ public final class GroupedMaterials
 				Material.DIAMOND_BOOTS,
 				Material.NETHERITE_BOOTS);
 	}
-	
 	
 	//TOOLS
 	public static List<Material> getSwords()
@@ -169,9 +169,6 @@ public final class GroupedMaterials
 		}
 		return null;
 	}
-	
-	
-	
 	
 	public static Set<Material> getWoodMaterials()
 	{

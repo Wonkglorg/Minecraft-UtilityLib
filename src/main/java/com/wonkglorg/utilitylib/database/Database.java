@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 /**
  * @author Wonkglorg
  */

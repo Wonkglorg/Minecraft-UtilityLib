@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * @author Wonkglorg
  */
@@ -29,14 +30,11 @@ public final class ConvertTextToItem
 	
 	/**
 	 * Converts String to enchantment using specific format
-	 *
-	 * Enchantment String format
-	 * CategoryName:
-	 * 		fireAspect: 3
-	 * 		flame: 5
-	 *
+	 * <p>
+	 * Enchantment String format CategoryName: fireAspect: 3 flame: 5
 	 *
 	 * @param path Path to check for the formatted String
+	 *
 	 * @return Enchantment Integer Map
 	 */
 	public Map<Enchantment, Integer> stringToEnchantment(String path)
@@ -58,7 +56,8 @@ public final class ConvertTextToItem
 		return map;
 	}
 	
-	public String enchantmentToString(){
+	public String enchantmentToString()
+	{
 		//converts enchantment map to string for yml
 		return null;
 	}
@@ -74,11 +73,7 @@ public final class ConvertTextToItem
 	
 	private boolean check()
 	{
-		if(config == null || path == null)
-		{
-			return false;
-		}
-		return true;
+		return config != null && path != null;
 	}
 	
 }

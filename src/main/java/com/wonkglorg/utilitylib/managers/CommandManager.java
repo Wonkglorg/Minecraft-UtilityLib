@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Command manager class.
- *
+ * <p>
  * Helps to access and manage commands.
  */
 @SuppressWarnings("unused")
@@ -31,7 +31,6 @@ public final class CommandManager implements Manager
 	{
 		this.plugin = plugin;
 		commandMap = new ConcurrentHashMap<>();
-		
 		
 	}
 	
@@ -69,6 +68,7 @@ public final class CommandManager implements Manager
 	 * Get command.
 	 *
 	 * @param command the command
+	 *
 	 * @return the command
 	 */
 	public synchronized Command get(@NotNull String command)

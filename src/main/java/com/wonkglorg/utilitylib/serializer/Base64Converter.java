@@ -41,7 +41,9 @@ public class Base64Converter
 	 * Serializes an Array of {@link ItemStack} to Base64
 	 *
 	 * @param items Array of {@link ItemStack}.
+	 *
 	 * @return Base64 encoded String.
+	 *
 	 * @throws IllegalStateException Items can not be saved to Base64.
 	 */
 	public static String itemStackArrayToBase64(ItemStack[] items) throws IllegalStateException, IOException
@@ -65,7 +67,9 @@ public class Base64Converter
 	 * Serializes an {@link ItemStack} to Base64
 	 *
 	 * @param item {@link ItemStack}.
+	 *
 	 * @return Base64 encoded String.
+	 *
 	 * @throws IllegalStateException Item can not be saved to Base64.
 	 */
 	public static String itemToBase64(ItemStack item) throws IllegalStateException
@@ -91,7 +95,9 @@ public class Base64Converter
 	 * Returns an Array of {@link ItemStack} from Base64.
 	 *
 	 * @param data Base64 String.
+	 *
 	 * @return Array of {@link ItemStack}.
+	 *
 	 * @throws IOException String can not be converted from Base64.
 	 */
 	public static ItemStack[] itemStackArrayFromBase64(String data) throws IOException
@@ -120,6 +126,7 @@ public class Base64Converter
 	 * Returns an {@link ItemStack} from Base64.
 	 *
 	 * @param data Base64 String.
+	 *
 	 * @return {@link ItemStack}.
 	 */
 	public static ItemStack itemFromBase64(String data)

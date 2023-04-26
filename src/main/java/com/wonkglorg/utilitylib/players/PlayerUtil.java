@@ -16,6 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+
 @SuppressWarnings("unused")
 public final class PlayerUtil
 {
@@ -23,8 +24,7 @@ public final class PlayerUtil
 	private static final List<UUID> teleportPlayers = new ArrayList<>();
 	
 	/**
-	 * Allows you to clear a player's inventory, remove potion effects and put
-	 * him on life support
+	 * Allows you to clear a player's inventory, remove potion effects and put him on life support
 	 *
 	 * @param player
 	 */
@@ -49,6 +49,7 @@ public final class PlayerUtil
 	 * Allows you to check if an inventory will contain armor or items
 	 *
 	 * @param player
+	 *
 	 * @return boolean
 	 */
 	public static boolean inventoryContainsItem(Player player)
@@ -93,6 +94,7 @@ public final class PlayerUtil
 	 * Allows you to check if the inventory is full
 	 *
 	 * @param player
+	 *
 	 * @return true if the player's inventory is full
 	 */
 	public static boolean hasFullInventory(Player player)
@@ -259,6 +261,7 @@ public final class PlayerUtil
 	 *
 	 * @param l location
 	 * @param l2 location
+	 *
 	 * @return true if both rentals are the same
 	 */
 	public static boolean compareLocation(Location l, Location l2)

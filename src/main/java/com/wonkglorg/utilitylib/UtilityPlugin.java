@@ -48,6 +48,7 @@ public abstract class UtilityPlugin extends JavaPlugin
 	 * Checks if a specific plugin dependency with a given name exists
 	 *
 	 * @param pluginName plugin name
+	 *
 	 * @return
 	 */
 	public boolean dependencyExists(String pluginName)

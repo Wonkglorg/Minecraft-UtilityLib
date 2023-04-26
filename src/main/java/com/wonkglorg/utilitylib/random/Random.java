@@ -16,6 +16,7 @@ public final class Random
 	 *
 	 * @param velocity starting velocity
 	 * @param spray degree offset from velocity
+	 *
 	 * @return the vector
 	 */
 	public static Vector ProjectileSpread(Vector velocity, double spray)
@@ -34,6 +35,7 @@ public final class Random
 	 *
 	 * @param velocity the velocity
 	 * @param randSpeed the rand speed
+	 *
 	 * @return the vector
 	 */
 	public static Vector ProjectileSpeed(Vector velocity, double randSpeed)
@@ -47,6 +49,7 @@ public final class Random
 	 *
 	 * @param a first number
 	 * @param b second number
+	 *
 	 * @return number between a and b
 	 */
 	public static int getNumberBetween(int a, int b)
@@ -65,6 +68,7 @@ public final class Random
 	 *
 	 * @param a first number
 	 * @param b second number
+	 *
 	 * @return number between a and b
 	 */
 	public static double getNumberBetween(double a, double b)
@@ -83,6 +87,7 @@ public final class Random
 	 *
 	 * @param a first number
 	 * @param b second number
+	 *
 	 * @return number between a and b
 	 */
 	public static long getNumberBetween(long a, long b)
@@ -100,6 +105,7 @@ public final class Random
 	 * Get random element from list
 	 *
 	 * @param element element
+	 *
 	 * @return element
 	 */
 	public static <T> T randomElement(List<T> element)

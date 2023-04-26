@@ -61,6 +61,7 @@ public final class WeightedRandomPicker<T>
 	 * Gets a random element from the list can return null if the accumulated weight is less than the threshold
 	 *
 	 * @param threshold threshold to compare
+	 *
 	 * @return type
 	 */
 	public T getRandom(double threshold)
