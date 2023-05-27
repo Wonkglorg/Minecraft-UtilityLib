@@ -8,16 +8,19 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Wonkglorg
@@ -91,6 +94,7 @@ public class ItemBuilder implements Cloneable
 	
 	public ItemBuilder(Material material, int amount, String name, List<String> description)
 	{
+		
 		this(material, amount, name, description, 0, null, null, null);
 	}
 	
@@ -101,7 +105,6 @@ public class ItemBuilder implements Cloneable
 		amount = item.getAmount();
 	}
 	
-	//Eddit COLOR.COLOR to Message.color
 	
 	public ItemStack build()
 	{

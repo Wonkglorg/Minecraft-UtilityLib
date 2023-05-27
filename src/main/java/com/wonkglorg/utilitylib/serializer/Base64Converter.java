@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.serializer;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
@@ -206,7 +207,7 @@ public class Base64Converter
 		{
 			return new ItemStack[]{};
 		}
-		
+		Player player = null;
 		ByteArrayInputStream inputStream;
 		
 		try

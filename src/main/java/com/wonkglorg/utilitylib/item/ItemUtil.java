@@ -734,6 +734,8 @@ public final class ItemUtil
 		UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
 		Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
 		ItemMeta meta = mobHead.getItemMeta();
+		Bukkit.getServer().getOnlinePlayers();
+		Bukkit.getOnlinePlayers();
 		if(name != null)
 		{
 			meta.displayName(Message.color(name));
