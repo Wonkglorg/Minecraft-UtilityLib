@@ -193,11 +193,11 @@ public final class Convert
 	
 	public enum DateType
 	{
-		MILLISECONDS("Ms", 1),
+		MILLISECONDS("ms", 1),
 		SECONDS("s", 1000L),
 		MINUTES("m", 1000L * 60),
-		HOUR("H", 1000L * 60 * 60),
-		DAY("D", 1000L * 60 * 60 * 24),
+		HOUR("h", 1000L * 60 * 60),
+		DAY("d", 1000L * 60 * 60 * 24),
 		WEEK("W", 1000L * 60 * 60 * 24 * 7),
 		MONTH("M", 1000L * 60 * 60 * 24 * 7 * 30),
 		YEAR("Y", 1000L * 60 * 60 * 24 * 7 * 30 * 365);

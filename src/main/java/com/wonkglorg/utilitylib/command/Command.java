@@ -45,7 +45,7 @@ public abstract class Command extends Arguments implements TabExecutor
 			pluginCommand.setTabCompleter(this);
 		} else
 		{
-			Logger.logFatal(plugin, "Command " + name + " could not be loaded missing plugin.yml implementations");
+			Logger.logFatal(plugin, "Command " + name + " could not be loaded missing plugin.yml implementation!");
 		}
 	}
 	

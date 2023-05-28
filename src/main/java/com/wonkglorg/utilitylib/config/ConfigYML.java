@@ -215,7 +215,6 @@ public final class ConfigYML extends YamlConfiguration implements Config
 		{
 			
 			InputStream inputStream = plugin.getResource(path.toString().replaceAll("\\\\", "/"));
-			System.out.println(inputStream);
 			if(inputStream != null)
 			{
 				plugin.saveResource(path.toString(), false);
