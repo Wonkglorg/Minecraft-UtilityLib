@@ -22,9 +22,13 @@ required functionality every time. Instead, letting them concentrate on the func
 
 ## <a name="installation"></a>Installation
 
-* Spigot or Paper
-* Minecraft 1.16.* and above
-* JAVA 8 or above
+    ```yaml
+		<dependency>
+			<groupId>com.github.Wonkglorg</groupId>
+			<artifactId>Minecraft-UtilityLib</artifactId>
+			<version>version</version>
+		</dependency> 
+    ```
 
 ## <a name="overview"></a>Overview
 
