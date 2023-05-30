@@ -4,6 +4,7 @@
 
 * [Introduction](#introduction)
 * [Requirements](#requirements)
+* [Installation](#installation)
 * [Overview](#overview)
 * [Guides](#guide)
 * [Credits](#credits)
@@ -14,6 +15,12 @@ This library serves as a helpful tool for plugin developers by eliminating the t
 required functionality every time. Instead, letting them concentrate on the functionality of the plugin itself.
 
 ## <a name="requirements"></a>Requirements
+
+* Spigot or Paper
+* Minecraft 1.16.* and above
+* JAVA 8 or above
+
+## <a name="installation"></a>Installation
 
 * Spigot or Paper
 * Minecraft 1.16.* and above
