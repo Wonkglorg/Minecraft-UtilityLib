@@ -22,13 +22,24 @@ required functionality every time. Instead, letting them concentrate on the func
 
 ## <a name="installation"></a>Installation
 
-    ```yaml
-		<dependency>
-			<groupId>com.github.Wonkglorg</groupId>
-			<artifactId>Minecraft-UtilityLib</artifactId>
-			<version>version</version>
-		</dependency> 
-    ```
+Repository
+
+```yml
+<repository>
+	<id>jitpack.io</id>
+	<url>https://jitpack.io</url>
+</repository>
+```
+
+
+Adding the dependency
+```yml
+<dependency>
+	<groupId>com.github.Wonkglorg</groupId>
+	<artifactId>Minecraft-UtilityLib</artifactId>
+	<version>version</version>
+</dependency>
+```
 
 ## <a name="overview"></a>Overview
 
