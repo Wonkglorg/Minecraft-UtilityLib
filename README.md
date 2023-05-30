@@ -26,8 +26,8 @@ Repository
 
 ```yml
 <repository>
-	<id>jitpack.io</id>
-	<url>https://jitpack.io</url>
+     <id>jitpack.io</id>
+     <url>https://jitpack.io</url>
 </repository>
 ```
 
@@ -35,9 +35,9 @@ Repository
 Adding the dependency
 ```yml
 <dependency>
-	<groupId>com.github.Wonkglorg</groupId>
-	<artifactId>Minecraft-UtilityLib</artifactId>
-	<version>version</version>
+     <groupId>com.github.Wonkglorg</groupId>
+     <artifactId>Minecraft-UtilityLib</artifactId>
+     <version>version</version>
 </dependency>
 ```
 
