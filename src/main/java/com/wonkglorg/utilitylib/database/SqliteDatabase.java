@@ -1,6 +1,7 @@
 package com.wonkglorg.utilitylib.database;
 
 import com.wonkglorg.utilitylib.logger.Logger;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -13,34 +14,29 @@ import java.sql.SQLException;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public class SqliteDatabase extends Database
-{
+public class SqliteDatabase extends Database{
 	protected final Path DATABASE_PATH;
 	
-	public SqliteDatabase(Path path)
-	{
+	public SqliteDatabase(Path path) {
 		super(path.getFileName().toString(), DatabaseType.SQLITE);
 		
 		DATABASE_PATH = path;
 		connect();
 	}
 	
-	public SqliteDatabase(JavaPlugin plugin, Path path)
-	{
+	public SqliteDatabase(JavaPlugin plugin, Path path) {
 		super(path.getFileName().toString(), DatabaseType.SQLITE);
 		DATABASE_PATH = Path.of(plugin.getDataFolder().getPath(), path.toString());
 		connect();
 	}
 	
-	public void connect()
-	{
-		if(connection != null)
-		{
+	@Override
+	public void connect() {
+		if(connection != null){
 			return;
 		}
 		
-		try
-		{
+		try{
 			Class.forName(databaseType.getClassLoader());
 			
 			Files.createFile(DATABASE_PATH);
@@ -48,8 +44,7 @@ public class SqliteDatabase extends Database
 			String connectionString = databaseType.getDriver() + DATABASE_PATH;
 			connection = DriverManager.getConnection(connectionString);
 			
-		} catch(ClassNotFoundException | SQLException | IOException e)
-		{
+		} catch(ClassNotFoundException | SQLException | IOException e){
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}
 	}

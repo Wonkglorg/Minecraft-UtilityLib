@@ -19,8 +19,7 @@ import java.util.Objects;
  * @author Wonkgklorg
  */
 @SuppressWarnings("unused")
-public abstract class Command extends Arguments implements TabExecutor
-{
+public abstract class Command extends Arguments implements TabExecutor{
 	/**
 	 * The main plugin to register the command to
 	 */
@@ -33,18 +32,15 @@ public abstract class Command extends Arguments implements TabExecutor
 	 * @param plugin the plugin
 	 * @param name the name
 	 */
-	public Command(@NotNull JavaPlugin plugin, @NotNull String name)
-	{
+	public Command(@NotNull JavaPlugin plugin, @NotNull String name) {
 		this.plugin = plugin;
 		PluginCommand pluginCommand = plugin.getCommand(name);
 		this.name = name;
 		
-		if(pluginCommand != null)
-		{
+		if(pluginCommand != null){
 			pluginCommand.setExecutor(this);
 			pluginCommand.setTabCompleter(this);
-		} else
-		{
+		} else {
 			Logger.logFatal(plugin, "Command " + name + " could not be loaded missing plugin.yml implementation!");
 		}
 	}
@@ -54,11 +50,9 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param arg
 	 * @param original
-	 *
 	 * @return
 	 */
-	public List<String> matchArg(final String arg, final List<String> original)
-	{
+	public List<String> matchArg(final String arg, final List<String> original) {
 		List<String> matches = new ArrayList<>();
 		StringUtil.copyPartialMatches(arg, original, matches);
 		Collections.sort(matches);
@@ -75,7 +69,6 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering command can be null if allow console is true
 	 * @param args Following arguments to main command
-	 *
 	 * @return False if command arguments are wrong.
 	 */
 	public abstract boolean execute(Player player, String[] args);
@@ -85,7 +78,6 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @param player {@link org.bukkit.entity.Player} entering the command.
 	 * @param args Following arguments to main command.
-	 *
 	 * @return List of Strings to display for the current argument, returns list of players if null.
 	 */
 	public abstract List<String> tabComplete(@NotNull Player player, String[] args);
@@ -94,15 +86,12 @@ public abstract class Command extends Arguments implements TabExecutor
 	public boolean onCommand(@NotNull CommandSender sender,
 							 @NotNull org.bukkit.command.Command command,
 							 @NotNull String label,
-							 @NotNull String[] args)
-	{
-		if(sender instanceof Player player)
-		{
+							 @NotNull String[] args) {
+		if(sender instanceof Player player){
 			super.args = args;
 			return execute(player, args);
 		}
-		if(allowConsole())
-		{
+		if(allowConsole()){
 			super.args = args;
 			return execute(null, args);
 		}
@@ -113,10 +102,8 @@ public abstract class Command extends Arguments implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender,
 												@NotNull org.bukkit.command.Command command,
 												@NotNull String alias,
-												@NotNull String[] args)
-	{
-		if(sender instanceof Player player)
-		{
+												@NotNull String[] args) {
+		if(sender instanceof Player player){
 			super.args = args;
 			return tabComplete(player, args);
 		}
@@ -129,34 +116,28 @@ public abstract class Command extends Arguments implements TabExecutor
 	 *
 	 * @return the name
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 	
 	@Override
-	public boolean equals(Object obj)
-	{
-		if(obj == null)
-		{
+	public boolean equals(Object obj) {
+		if(obj == null){
 			return false;
 		}
-		if(obj.getClass() != this.getClass())
-		{
+		if(obj.getClass() != this.getClass()){
 			return false;
 		}
 		return Objects.equals(this.name, ((Command) obj).getName());
 	}
 	
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return 53 * 2 + this.name.hashCode();
 	}
 }

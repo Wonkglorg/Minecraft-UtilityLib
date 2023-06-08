@@ -9,45 +9,37 @@ import java.util.Objects;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class EquipmentItem
-{
+public final class EquipmentItem{
 	private ItemStack itemStack;
 	private float dropChance;
 	
-	public EquipmentItem(@NotNull ItemStack itemStack)
-	{
+	public EquipmentItem(@NotNull ItemStack itemStack) {
 		this.itemStack = itemStack;
 	}
 	
-	public EquipmentItem(ItemStack itemStack, float dropChance)
-	{
+	public EquipmentItem(ItemStack itemStack, float dropChance) {
 		this.itemStack = Objects.requireNonNull(itemStack);
 		this.dropChance = dropChance;
 	}
 	
-	public ItemStack getItemStack()
-	{
+	public ItemStack getItemStack() {
 		return itemStack;
 	}
 	
-	public float getDropChance()
-	{
+	public float getDropChance() {
 		return dropChance;
 	}
 	
-	public void setItemStack(@NotNull ItemStack itemStack)
-	{
+	public void setItemStack(@NotNull ItemStack itemStack) {
 		this.itemStack = Objects.requireNonNull(itemStack);
 	}
 	
-	public void setDropChance(float dropChance)
-	{
+	public void setDropChance(float dropChance) {
 		this.dropChance = dropChance;
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "ItemStack: " + itemStack + ", Drop-Chance: " + dropChance;
 	}
 }

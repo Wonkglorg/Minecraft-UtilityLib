@@ -15,11 +15,9 @@ import java.util.Set;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public interface Config
-{
+public interface Config{
 	/**
 	 * Gets values from a specific section.
-	 *
 	 */
 	Set<String> getSection(@NotNull String path, boolean deep);
 	
@@ -31,7 +29,6 @@ public interface Config
 	 * Returns the double value of a specified path
 	 *
 	 * @param path Path to check
-	 *
 	 * @return the double value if existing, otherwise 0
 	 */
 	double getDouble(@NotNull String path);
@@ -40,7 +37,6 @@ public interface Config
 	 * Returns the long value of a specified path
 	 *
 	 * @param path Path to check
-	 *
 	 * @return the long value if existing, otherwise 0
 	 */
 	long getLong(@NotNull String path);
@@ -49,7 +45,6 @@ public interface Config
 	 * Returns the boolean value of the specified path
 	 *
 	 * @param path Path to check
-	 *
 	 * @return true if the value exists and is set to true, false otherwise
 	 */
 	boolean getBoolean(@NotNull String path);
@@ -82,7 +77,6 @@ public interface Config
 	 * Checks if a path exists within the config
 	 *
 	 * @param path Path to check
-	 *
 	 * @return true if the path exists, false otherwise
 	 */
 	boolean contains(@NotNull String path);

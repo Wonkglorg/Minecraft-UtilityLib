@@ -3,8 +3,7 @@ package com.wonkglorg.utilitylib.enums;
 /**
  * @author Wonkglorg
  */
-public enum MessageType
-{
+public enum MessageType{
 	
 	ACTION,
 	TCHAT,

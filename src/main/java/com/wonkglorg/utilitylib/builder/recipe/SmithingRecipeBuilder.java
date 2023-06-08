@@ -13,11 +13,9 @@ import org.jetbrains.annotations.NotNull;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class SmithingRecipeBuilder extends RecipeBuilder
-{
+public final class SmithingRecipeBuilder extends RecipeBuilder{
 	
-	public SmithingRecipeBuilder(NamespacedKey key, ItemStack result)
-	{
+	public SmithingRecipeBuilder(NamespacedKey key, ItemStack result) {
 		super(key, result);
 	}
 	
@@ -29,10 +27,8 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	private boolean copyNbt = false;
 	
 	@Override
-	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
-	{
-		if(recipe == null)
-		{
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result) {
+		if(recipe == null){
 			this.key = key;
 			this.result = result;
 			recipe = new SmithingRecipe(key, result, new MaterialChoice(Material.AIR), new MaterialChoice(Material.BARRIER));
@@ -44,11 +40,9 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * with all enchants. nbt values and amount.
 	 *
 	 * @param itemStack {@link ItemStack}
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder setBase(ItemStack itemStack)
-	{
+	public SmithingRecipeBuilder setBase(ItemStack itemStack) {
 		baseItemChoice = new ExactChoice(itemStack);
 		return this;
 	}
@@ -57,11 +51,9 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link Material}  put in the first slot of the smithing table
 	 *
 	 * @param material {@link Material}
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder setBase(Material material)
-	{
+	public SmithingRecipeBuilder setBase(Material material) {
 		baseItemChoice = new MaterialChoice(material);
 		return this;
 	}
@@ -70,11 +62,9 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link Material}  put in the second slot of the smithing table
 	 *
 	 * @param material {@link Material}
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder setAddition(Material material)
-	{
+	public SmithingRecipeBuilder setAddition(Material material) {
 		additionItemChoice = new MaterialChoice(material);
 		return this;
 	}
@@ -84,11 +74,9 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * exactly, with all enchants. nbt values and amount.
 	 *
 	 * @param itemStack {@link ItemStack}
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder setAddition(ItemStack itemStack)
-	{
+	public SmithingRecipeBuilder setAddition(ItemStack itemStack) {
 		additionItemChoice = new ExactChoice(itemStack);
 		return this;
 	}
@@ -97,11 +85,9 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * Sets output {@link ItemStack} for the recipe.
 	 *
 	 * @param itemStack {@link ItemStack}
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder setResult(ItemStack itemStack)
-	{
+	public SmithingRecipeBuilder setResult(ItemStack itemStack) {
 		result = itemStack;
 		return this;
 	}
@@ -110,18 +96,15 @@ public final class SmithingRecipeBuilder extends RecipeBuilder
 	 * Whether to copy the nbt of the item set in the first slot to the output item.
 	 *
 	 * @param copy True or False
-	 *
 	 * @return {@link SmithingRecipeBuilder}
 	 */
-	public SmithingRecipeBuilder copyNbt(boolean copy)
-	{
+	public SmithingRecipeBuilder copyNbt(boolean copy) {
 		copyNbt = copy;
 		return this;
 	}
 	
 	@Override
-	public SmithingRecipe build()
-	{
+	public SmithingRecipe build() {
 		recipe = new SmithingRecipe(key, result, baseItemChoice, additionItemChoice, copyNbt);
 		
 		return (SmithingRecipe) super.build();

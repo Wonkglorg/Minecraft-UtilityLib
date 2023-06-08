@@ -3,75 +3,59 @@ package com.wonkglorg.utilitylib.database;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.function.Consumer;
 
 /**
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public abstract class Database
-{
+public abstract class Database{
 	protected Connection connection;
 	protected final String DATABASE_NAME;
 	protected final DatabaseType databaseType;
 	
-	public Database(String name, DatabaseType databaseType)
-	{
+	public Database(String name, DatabaseType databaseType) {
 		this.DATABASE_NAME = name;
 		this.databaseType = databaseType;
 	}
 	
-	public Database(JavaPlugin plugin, String name, DatabaseType databaseType)
-	{
+	public Database(JavaPlugin plugin, String name, DatabaseType databaseType) {
 		this.DATABASE_NAME = name;
 		this.databaseType = databaseType;
 	}
 	
 	public abstract void connect();
 	
-	public void disconnect()
-	{
-		if(connection != null)
-		{
-			try
-			{
+	public void disconnect() {
+		if(connection != null){
+			try{
 				connection.close();
-			} catch(SQLException ignored)
-			{
+			} catch(SQLException ignored){
 			
 			}
 		}
 		
 	}
 	
-	public Connection getConnection()
-	{
+	public Connection getConnection() {
 		connect();
 		
 		return connection;
 	}
 	
-	public DatabaseType getDatabaseType()
-	{
+	public DatabaseType getDatabaseType() {
 		return databaseType;
 	}
 	
-	public String getDatabaseName()
-	{
+	public String getDatabaseName() {
 		return DATABASE_NAME;
 	}
 	
-	public void setConnection(Connection connection)
-	{
+	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public enum DatabaseType
-	{
+	public enum DatabaseType{
 		MYSQL("Mysql", "jdbc:mysql:", "com.mysql.cj.jdbc.Driver"),
 		SQLITE("Sqlite", "jdbc:sqlite:", "org.sqlite.JDBC"),
 		;
@@ -79,25 +63,21 @@ public abstract class Database
 		private final String classLoader;
 		private final String name;
 		
-		DatabaseType(String name, String driver, String classLoader)
-		{
+		DatabaseType(String name, String driver, String classLoader) {
 			this.driver = driver;
 			this.classLoader = classLoader;
 			this.name = name;
 		}
 		
-		public String getDriver()
-		{
+		public String getDriver() {
 			return driver;
 		}
 		
-		public String getClassLoader()
-		{
+		public String getClassLoader() {
 			return classLoader;
 		}
 		
-		public String getName()
-		{
+		public String getName() {
 			return name;
 		}
 	}

@@ -12,24 +12,19 @@ import org.jetbrains.annotations.NotNull;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class SmokingRecipeBuilder extends RecipeBuilder
-{
-	public SmokingRecipeBuilder(NamespacedKey key, ItemStack result)
-	{
+public final class SmokingRecipeBuilder extends RecipeBuilder{
+	public SmokingRecipeBuilder(NamespacedKey key, ItemStack result) {
 		super(key, result);
 	}
 	
 	@Override
-	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
-	{
-		if(recipe == null)
-		{
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result) {
+		if(recipe == null){
 			recipe = new FurnaceRecipe(key, result, Material.BARRIER, 0.0f, 10);
 		}
 	}
 	
-	private SmokingRecipe getRecipe()
-	{
+	private SmokingRecipe getRecipe() {
 		return (SmokingRecipe) this.recipe;
 	}
 	
@@ -37,39 +32,33 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 	 * Sets the input item to be smelted
 	 *
 	 * @param input the item to be smelted
-	 *
 	 * @return the ShapedRecipeBuilder
 	 */
-	public SmokingRecipeBuilder setInput(ItemStack input)
-	{
+	public SmokingRecipeBuilder setInput(ItemStack input) {
 		validateInit();
 		getRecipe().setInput(input.getType());
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setInput(Material input)
-	{
+	public SmokingRecipeBuilder setInput(Material input) {
 		validateInit();
 		getRecipe().setInput(input);
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setCookTime(int ticks)
-	{
+	public SmokingRecipeBuilder setCookTime(int ticks) {
 		validateInit();
 		getRecipe().setCookingTime(ticks);
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setExperience(float experience)
-	{
+	public SmokingRecipeBuilder setExperience(float experience) {
 		validateInit();
 		getRecipe().setExperience(experience);
 		return this;
 	}
 	
-	public SmokingRecipeBuilder setCategory(CookingBookCategory category)
-	{
+	public SmokingRecipeBuilder setCategory(CookingBookCategory category) {
 		validateInit();
 		getRecipe().setCategory(category);
 		return this;
@@ -80,16 +69,14 @@ public final class SmokingRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
-	public SmokingRecipeBuilder setGroup(String group)
-	{
+	public SmokingRecipeBuilder setGroup(String group) {
 		validateInit();
 		getRecipe().setGroup(group);
 		return this;
 	}
 	
 	@Override
-	public FurnaceRecipe build()
-	{
+	public FurnaceRecipe build() {
 		return (FurnaceRecipe) super.build();
 	}
 }

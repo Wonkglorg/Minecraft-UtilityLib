@@ -24,9 +24,8 @@ import java.util.Set;
 /**
  * @author Wonkglorg
  */
-@SuppressWarnings({"unused","ResultOfMethodCallIgnored","unchecked"})
-public final class ConfigJson implements Config
-{
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored", "unchecked"})
+public final class ConfigJson implements Config{
 	/**
 	 * The Main.
 	 */
@@ -52,8 +51,7 @@ public final class ConfigJson implements Config
 	 * @param main the java plugin
 	 * @param name the file name
 	 */
-	public ConfigJson(JavaPlugin main, String name) throws IOException, ParseException
-	{
+	public ConfigJson(JavaPlugin main, String name) throws IOException, ParseException {
 		this.main = main;
 		this.name = name + (name.endsWith(".json") ? "" : ".json");
 		this.path = this.name;
@@ -70,13 +68,11 @@ public final class ConfigJson implements Config
 	 * @param name the file name
 	 * @param paths the path to the file
 	 */
-	public ConfigJson(JavaPlugin main, String name, String... paths) throws IOException, ParseException
-	{
+	public ConfigJson(JavaPlugin main, String name, String... paths) throws IOException, ParseException {
 		this.main = main;
 		this.name = name + (name.endsWith(".json") ? "" : ".json");
 		StringBuilder pathBuilder = new StringBuilder();
-		for(String s : paths)
-		{
+		for(String s : paths){
 			pathBuilder.append(s).append(File.separator);
 		}
 		this.path = pathBuilder + this.name;
@@ -86,8 +82,7 @@ public final class ConfigJson implements Config
 		
 	}
 	
-	public ConfigJson(JavaPlugin main, String name, String path) throws IOException, ParseException
-	{
+	public ConfigJson(JavaPlugin main, String name, String path) throws IOException, ParseException {
 		this.main = main;
 		this.name = name + (name.endsWith(".json") ? "" : ".json");
 		path = path.startsWith(File.separator) ? path.replaceFirst(File.separator, "") : path;
@@ -98,196 +93,150 @@ public final class ConfigJson implements Config
 	}
 	
 	@Override
-	public Set<String> getSection(@NotNull String path, boolean deep)
-	{
+	public Set<String> getSection(@NotNull String path, boolean deep) {
 		Object obj = data.get(path);
-		if(obj instanceof JSONObject)
-		{
+		if(obj instanceof JSONObject){
 			return ((JSONObject) obj).keySet();
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public @Nullable String getString(@NotNull String path)
-	{
-		if(data.get(path) instanceof String)
-		{
+	public @Nullable String getString(@NotNull String path) {
+		if(data.get(path) instanceof String){
 			return (String) data.get(path);
 		}
 		return null;
 	}
 	
 	@Override
-	public int getInt(@NotNull String path)
-	{
+	public int getInt(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof Number)
-		{
+		if(obj instanceof Number){
 			return ((Number) obj).intValue();
-		} else
-		{
+		} else {
 			return 0;
 		}
 	}
 	
 	@Override
-	public double getDouble(@NotNull String path)
-	{
+	public double getDouble(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof Number)
-		{
+		if(obj instanceof Number){
 			return ((Number) obj).doubleValue();
-		} else
-		{
+		} else {
 			return 0;
 		}
 	}
 	
 	@Override
-	public long getLong(@NotNull String path)
-	{
+	public long getLong(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof Number)
-		{
+		if(obj instanceof Number){
 			return ((Number) obj).longValue();
-		} else
-		{
+		} else {
 			return 0;
 		}
 	}
 	
 	@Override
-	public boolean getBoolean(@NotNull String path)
-	{
+	public boolean getBoolean(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof Boolean)
-		{
+		if(obj instanceof Boolean){
 			return (boolean) obj;
-		} else
-		{
+		} else {
 			return false;
 		}
 	}
 	
 	@Override
-	public List<String> getStringList(@NotNull String path)
-	{
+	public List<String> getStringList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<String> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof String)
-				{
+			for(Object element : list){
+				if(element instanceof String){
 					result.add((String) element);
 				}
 			}
 			return result;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<Integer> getIntegerList(@NotNull String path)
-	{
+	public List<Integer> getIntegerList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<Integer> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof Number)
-				{
+			for(Object element : list){
+				if(element instanceof Number){
 					result.add(((Number) element).intValue());
 				}
 			}
 			return result;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<Double> getDoubleList(@NotNull String path)
-	{
+	public List<Double> getDoubleList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<Double> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof Number)
-				{
+			for(Object element : list){
+				if(element instanceof Number){
 					result.add(((Number) element).doubleValue());
 				}
 			}
 			return result;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<Character> getCharacterList(@NotNull String path)
-	{
+	public List<Character> getCharacterList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<Character> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof String && ((String) element).length() == 1)
-				{
+			for(Object element : list){
+				if(element instanceof String && ((String) element).length() == 1){
 					result.add(((String) element).charAt(0));
 				}
 			}
 			return result;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<Long> getLongList(@NotNull String path)
-	{
+	public List<Long> getLongList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<Long> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof Number)
-				{
+			for(Object element : list){
+				if(element instanceof Number){
 					result.add(((Number) element).longValue());
 				}
 			}
 			return result;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<Boolean> getBooleanList(@NotNull String path)
-	{
+	public List<Boolean> getBooleanList(@NotNull String path) {
 		Object obj = data.get(path);
-		if(obj instanceof List<?> list)
-		{
+		if(obj instanceof List<?> list){
 			List<Boolean> result = new ArrayList<>();
-			for(Object element : list)
-			{
-				if(element instanceof Boolean)
-				{
+			for(Object element : list){
+				if(element instanceof Boolean){
 					result.add((boolean) element);
 				}
 			}
@@ -297,145 +246,116 @@ public final class ConfigJson implements Config
 	}
 	
 	@Override
-	public List<Map<?, ?>> getMapList(@NotNull String path)
-	{
+	public List<Map<?, ?>> getMapList(@NotNull String path) {
 		return null;
 	}
 	
 	@Override
-	public <T> T getObject(@NotNull String path, @NotNull Class<T> clazz)
-	{
+	public <T> T getObject(@NotNull String path, @NotNull Class<T> clazz) {
 		return null;
 	}
 	
 	@Override
-	public Location getLocation(@NotNull String path)
-	{
+	public Location getLocation(@NotNull String path) {
 		return null;
 	}
 	
 	@Override
-	public ItemStack getItemStack(@NotNull String path)
-	{
+	public ItemStack getItemStack(@NotNull String path) {
 		return null;
 	}
 	
 	@Override
-	public Color getColor(@NotNull String path)
-	{
+	public Color getColor(@NotNull String path) {
 		return null;
 	}
 	
 	@Override
-	public OfflinePlayer getOfflinePlayer(@NotNull String path)
-	{
+	public OfflinePlayer getOfflinePlayer(@NotNull String path) {
 		return null;
 	}
 	
 	@Override
-	public boolean contains(@NotNull String path)
-	{
+	public boolean contains(@NotNull String path) {
 		return false;
 	}
 	
 	@Override
-	public void set(@NotNull String path, Object value)
-	{
+	public void set(@NotNull String path, Object value) {
 	
 	}
 	
 	@Override
-	public void updateFiles()
-	{
+	public void updateFiles() {
 	
 	}
 	
 	@Override
-	public void load()
-	{
+	public void load() {
 		checkFile();
-		try
-		{
+		try{
 			this.data = (JSONObject) parser.parse(new FileReader(file));
 			Logger.log("Loaded data from " + name + "!");
-		} catch(IOException | ParseException e)
-		{
+		} catch(IOException | ParseException e){
 			Logger.logWarn("Error loading data from " + name + "!");
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void silentLoad()
-	{
+	public void silentLoad() {
 		checkFile();
-		try
-		{
+		try{
 			this.data = (JSONObject) parser.parse(new FileReader(file));
-		} catch(IOException | ParseException e)
-		{
+		} catch(IOException | ParseException e){
 			Logger.logWarn("Error loading data from " + name + "!");
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void save()
-	{
+	public void save() {
 		checkFile();
-		try(FileWriter fileWriter = new FileWriter(file))
-		{
+		try(FileWriter fileWriter = new FileWriter(file)){
 			fileWriter.write(data.toJSONString());
 			Logger.log("Saved data to " + name + "!");
-		} catch(IOException e)
-		{
+		} catch(IOException e){
 			Logger.logWarn("Error saving data to " + name + "!");
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public void silentSave()
-	{
+	public void silentSave() {
 		checkFile();
-		try(FileWriter fileWriter = new FileWriter(file))
-		{
+		try(FileWriter fileWriter = new FileWriter(file)){
 			fileWriter.write(data.toJSONString());
-		} catch(IOException e)
-		{
+		} catch(IOException e){
 			Logger.logWarn("Error saving data to " + name + "!");
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public String name()
-	{
+	public String name() {
 		return null;
 	}
 	
 	@Override
-	public String path()
-	{
+	public String path() {
 		return null;
 	}
 	
-	private void checkFile()
-	{
-		if(!file.exists())
-		{
-			if(main.getResource(path) != null)
-			{
+	private void checkFile() {
+		if(!file.exists()){
+			if(main.getResource(path) != null){
 				main.saveResource(path, false);
-			} else
-			{
+			} else {
 				boolean ignored = file.getParentFile().mkdirs();
-				try
-				{
+				try{
 					file.getParentFile().mkdir();
 					file.createNewFile();
-				} catch(IOException e)
-				{
+				} catch(IOException e){
 					throw new RuntimeException(e);
 				}
 			}

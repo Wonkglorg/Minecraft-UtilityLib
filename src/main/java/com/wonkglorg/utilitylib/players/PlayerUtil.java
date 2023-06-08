@@ -18,8 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public final class PlayerUtil
-{
+public final class PlayerUtil{
 	
 	private static final List<UUID> teleportPlayers = new ArrayList<>();
 	
@@ -28,8 +27,7 @@ public final class PlayerUtil
 	 *
 	 * @param player
 	 */
-	public static void clearPlayer(Player player)
-	{
+	public static void clearPlayer(Player player) {
 		player.getInventory().clear();
 		player.getInventory().setBoots(null);
 		player.getInventory().setChestplate(null);
@@ -39,8 +37,7 @@ public final class PlayerUtil
 		player.getPlayer().setFireTicks(0);
 		player.getPlayer().getOpenInventory().getTopInventory().clear();
 		player.setGameMode(GameMode.SURVIVAL);
-		player.getPlayer().getActivePotionEffects().forEach(e ->
-		{
+		player.getPlayer().getActivePotionEffects().forEach(e -> {
 			player.getPlayer().removePotionEffect(e.getType());
 		});
 	}
@@ -49,40 +46,32 @@ public final class PlayerUtil
 	 * Allows you to check if an inventory will contain armor or items
 	 *
 	 * @param player
-	 *
 	 * @return boolean
 	 */
-	public static boolean inventoryContainsItem(Player player)
-	{
+	public static boolean inventoryContainsItem(Player player) {
 		
 		ItemStack itemStack = player.getInventory().getBoots();
-		if(itemStack != null)
-		{
+		if(itemStack != null){
 			return true;
 		}
 		
 		itemStack = player.getInventory().getChestplate();
-		if(itemStack != null)
-		{
+		if(itemStack != null){
 			return true;
 		}
 		
 		itemStack = player.getInventory().getLeggings();
-		if(itemStack != null)
-		{
+		if(itemStack != null){
 			return true;
 		}
 		
 		itemStack = player.getInventory().getHelmet();
-		if(itemStack != null)
-		{
+		if(itemStack != null){
 			return true;
 		}
 		
-		for(ItemStack itemStack1 : player.getInventory().getContents())
-		{
-			if(itemStack1 != null)
-			{
+		for(ItemStack itemStack1 : player.getInventory().getContents()){
+			if(itemStack1 != null){
 				return true;
 			}
 		}
@@ -94,18 +83,14 @@ public final class PlayerUtil
 	 * Allows you to check if the inventory is full
 	 *
 	 * @param player
-	 *
 	 * @return true if the player's inventory is full
 	 */
-	public static boolean hasFullInventory(Player player)
-	{
+	public static boolean hasFullInventory(Player player) {
 		int slot = 0;
 		PlayerInventory inventory = player.getInventory();
-		for(int a = 0; a != 36; a++)
-		{
+		for(int a = 0; a != 36; a++){
 			ItemStack itemStack = inventory.getContents()[a];
-			if(itemStack == null)
-			{
+			if(itemStack == null){
 				slot++;
 			}
 		}
@@ -118,8 +103,7 @@ public final class PlayerUtil
 	 * @param player The player to give the items to
 	 * @param items The items to be given
 	 */
-	public static void give(Player player, ItemStack... items)
-	{
+	public static void give(Player player, ItemStack... items) {
 		player.getInventory().addItem(items).values().forEach(i -> player.getWorld().dropItem(player.getLocation(), i));
 	}
 	
@@ -130,15 +114,12 @@ public final class PlayerUtil
 	 * @param item The item to be given to the player
 	 * @param amount The amount the player should be given
 	 */
-	public static void give(Player player, ItemStack item, int amount)
-	{
-		if(amount < 1)
-		{
+	public static void give(Player player, ItemStack item, int amount) {
+		if(amount < 1){
 			throw new IllegalArgumentException("Amount must be greater than 0");
 		}
 		int stackSize = item.getType().getMaxStackSize();
-		while(amount > stackSize)
-		{
+		while(amount > stackSize){
 			ItemStack clone = item.clone();
 			clone.setAmount(stackSize);
 			give(player, clone);
@@ -156,8 +137,7 @@ public final class PlayerUtil
 	 * @param type The item type to be given to the player
 	 * @param amount The amount the player should be given
 	 */
-	public static void give(Player player, Material type, int amount)
-	{
+	public static void give(Player player, Material type, int amount) {
 		give(player, new ItemStack(type), amount);
 	}
 	
@@ -168,26 +148,19 @@ public final class PlayerUtil
 	 * @param amount - Number of items to remove
 	 * @param itemStack - ItemStack to be removed
 	 */
-	public static void removeItems(Player player, int amount, ItemStack itemStack)
-	{
+	public static void removeItems(Player player, int amount, ItemStack itemStack) {
 		int slot = 0;
-		for(ItemStack inventoryItem : player.getInventory().getContents())
-		{
-			if(inventoryItem != null && inventoryItem.isSimilar(itemStack) && amount > 0)
-			{
+		for(ItemStack inventoryItem : player.getInventory().getContents()){
+			if(inventoryItem != null && inventoryItem.isSimilar(itemStack) && amount > 0){
 				int currentAmount = inventoryItem.getAmount() - amount;
 				amount -= inventoryItem.getAmount();
-				if(currentAmount <= 0)
-				{
-					if(slot == 40)
-					{
+				if(currentAmount <= 0){
+					if(slot == 40){
 						player.getInventory().setItemInOffHand(null);
-					} else
-					{
+					} else {
 						player.getInventory().removeItem(inventoryItem);
 					}
-				} else
-				{
+				} else {
 					inventoryItem.setAmount(currentAmount);
 				}
 			}
@@ -201,8 +174,7 @@ public final class PlayerUtil
 	 *
 	 * @param player
 	 */
-	public static void removeItemInMainHand(Player player)
-	{
+	public static void removeItemInMainHand(Player player) {
 		removeItemInMainHand(player, 64);
 	}
 	
@@ -211,8 +183,7 @@ public final class PlayerUtil
 	 *
 	 * @param player
 	 */
-	public static void removeItemInMOffHand(Player player)
-	{
+	public static void removeItemInMOffHand(Player player) {
 		removeItemInOffHand(player, 64);
 	}
 	
@@ -222,15 +193,11 @@ public final class PlayerUtil
 	 * @param player
 	 * @param amount of items to withdraw
 	 */
-	public static void removeItemInMainHand(Player player, int amount)
-	{
+	public static void removeItemInMainHand(Player player, int amount) {
 		ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-		if(itemInMainHand.getAmount() > amount)
-		{
+		if(itemInMainHand.getAmount() > amount){
 			itemInMainHand.setAmount(itemInMainHand.getAmount() - amount);
-		} else
-		
-		{
+		} else {
 			player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 		}
 		player.updateInventory();
@@ -242,15 +209,11 @@ public final class PlayerUtil
 	 * @param player
 	 * @param amount of items to withdraw
 	 */
-	public static void removeItemInOffHand(Player player, int amount)
-	{
+	public static void removeItemInOffHand(Player player, int amount) {
 		ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-		if(itemInMainHand.getAmount() > amount)
-		{
+		if(itemInMainHand.getAmount() > amount){
 			itemInMainHand.setAmount(itemInMainHand.getAmount() - amount);
-		} else
-		
-		{
+		} else {
 			player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 		}
 		player.updateInventory();
@@ -261,11 +224,9 @@ public final class PlayerUtil
 	 *
 	 * @param l location
 	 * @param l2 location
-	 *
 	 * @return true if both rentals are the same
 	 */
-	public static boolean compareLocation(Location l, Location l2)
-	{
+	public static boolean compareLocation(Location l, Location l2) {
 		return (l.getBlockX() == l2.getBlockX()) &&
 			   (l.getBlockY() == l2.getBlockY()) &&
 			   (l.getBlockZ() == l2.getBlockZ()) &&
@@ -279,8 +240,7 @@ public final class PlayerUtil
 	 * @param delay before the teleportation of the player
 	 * @param location where the player will be teleported
 	 */
-	public static void teleport(Player player, int delay, Location location)
-	{
+	public static void teleport(Player player, int delay, Location location) {
 		teleport(player, delay, location, null);
 	}
 	
@@ -292,10 +252,8 @@ public final class PlayerUtil
 	 * @param location where the player will be teleported
 	 * @param cmd executed when the player is teleported or not
 	 */
-	public static void teleport(Player player, int delay, Location location, Consumer<Boolean> cmd)
-	{
-		if(teleportPlayers.contains(player.getUniqueId()))
-		{
+	public static void teleport(Player player, int delay, Location location, Consumer<Boolean> cmd) {
+		if(teleportPlayers.contains(player.getUniqueId())){
 			Message.msgPlayer(player, "Error cannot teleport to yourself");
 			return;
 		}
@@ -303,42 +261,34 @@ public final class PlayerUtil
 		Location playerLocation = player.getLocation();
 		AtomicInteger verif = new AtomicInteger(delay);
 		teleportPlayers.add(player.getUniqueId());
-		if(!location.getChunk().isLoaded())
-		{
+		if(!location.getChunk().isLoaded()){
 			location.getChunk().load();
 		}
-		ses.scheduleWithFixedDelay(() ->
-		{
-			if(!compareLocation(playerLocation, player.getLocation()))
-			{
+		ses.scheduleWithFixedDelay(() -> {
+			if(!compareLocation(playerLocation, player.getLocation())){
 				Message.msgPlayer(player, "Cancelled teleport");
 				ses.shutdown();
 				teleportPlayers.remove(player.getUniqueId());
-				if(cmd != null)
-				{
+				if(cmd != null){
 					cmd.accept(false);
 				}
 				return;
 			}
 			int currentSecond = verif.getAndDecrement();
-			if(!player.isOnline())
-			{
+			if(!player.isOnline()){
 				ses.shutdown();
 				teleportPlayers.remove(player.getUniqueId());
 				return;
 			}
-			if(currentSecond == 0)
-			{
+			if(currentSecond == 0){
 				ses.shutdown();
 				teleportPlayers.remove(player.getUniqueId());
 				player.teleport(location);
 				Message.msgPlayer(player, "Success Teleported " + player.getName() + "!");
-				if(cmd != null)
-				{
+				if(cmd != null){
 					cmd.accept(true);
 				}
-			} else
-			{
+			} else {
 				Message.msgPlayer(player, "Teleporting in: " + currentSecond);
 			}
 		}, 0, 1, TimeUnit.SECONDS);

@@ -10,8 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public abstract class RecipeBuilder
-{
+public abstract class RecipeBuilder{
 	
 	/**
 	 * The Recipe.
@@ -24,8 +23,7 @@ public abstract class RecipeBuilder
 	 * @param key the key
 	 * @param result the result
 	 */
-	protected RecipeBuilder(@NotNull final NamespacedKey key, @NotNull final ItemStack result)
-	{
+	protected RecipeBuilder(@NotNull final NamespacedKey key, @NotNull final ItemStack result) {
 		result(key, result);
 	}
 	
@@ -40,10 +38,8 @@ public abstract class RecipeBuilder
 	/**
 	 * Validate init.
 	 */
-	protected void validateInit()
-	{
-		if(recipe == null)
-		{
+	protected void validateInit() {
+		if(recipe == null){
 			throw new IllegalStateException("Recipe not yet initiated");
 		}
 	}
@@ -54,8 +50,7 @@ public abstract class RecipeBuilder
 	 * @param key the key
 	 * @param result {@link ItemStack}
 	 */
-	protected void result(@NotNull final NamespacedKey key, @NotNull final ItemStack result)
-	{
+	protected void result(@NotNull final NamespacedKey key, @NotNull final ItemStack result) {
 		initRecipe(key, result);
 	}
 	
@@ -64,8 +59,7 @@ public abstract class RecipeBuilder
 	 *
 	 * @return the built {@link Recipe}
 	 */
-	public Recipe build()
-	{
+	public Recipe build() {
 		validateInit();
 		return recipe;
 	}
@@ -73,8 +67,7 @@ public abstract class RecipeBuilder
 	/**
 	 * Registers the recipe
 	 */
-	public void register()
-	{
+	public void register() {
 		Recipe recipe = build();
 		Bukkit.addRecipe(recipe);
 	}

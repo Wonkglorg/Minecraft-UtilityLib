@@ -31,16 +31,14 @@ import java.util.function.Consumer;
  * @author Redempt, Wonkglorg
  */
 @SuppressWarnings("unused")
-public abstract class InventoryGUI implements Listener
-{
+public abstract class InventoryGUI implements Listener{
 	
 	/**
 	 * A gray stained glass pane with no name. Good for filling empty slots in GUIs.
 	 */
 	public static final ItemStack FILLER;
 	
-	static
-	{
+	static {
 		FILLER = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName(" ").build();
 	}
 	
@@ -48,11 +46,9 @@ public abstract class InventoryGUI implements Listener
 	private final Inventory inventory;
 	private final Set<Integer> openSlots = new LinkedHashSet<>();
 	private Runnable onDestroy;
-	private BiConsumer<InventoryClickEvent, List<Integer>> onClickOpenSlot = (e, i) ->
-	{
+	private BiConsumer<InventoryClickEvent, List<Integer>> onClickOpenSlot = (e, i) -> {
 	};
-	private Consumer<InventoryDragEvent> onDragOpenSlot = e ->
-	{
+	private Consumer<InventoryDragEvent> onDragOpenSlot = e -> {
 	};
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
@@ -68,8 +64,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param inventory The inventory to create a GUI from
 	 */
-	public InventoryGUI(Inventory inventory, JavaPlugin plugin, Profile profile)
-	{
+	public InventoryGUI(Inventory inventory, JavaPlugin plugin, Profile profile) {
 		
 		//Add profile to constructor, avoids nullpointer exception if profile is used in constructor
 		
@@ -85,8 +80,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param size The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(int size, String name, JavaPlugin plugin, Profile profile)
-	{
+	public InventoryGUI(int size, String name, JavaPlugin plugin, Profile profile) {
 		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, profile);
 	}
 	
@@ -96,8 +90,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param inventorySize The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, Profile profile)
-	{
+	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, Profile profile) {
 		this(Bukkit.createInventory(null, inventorySize.getSize(), Message.color(name)), plugin, profile);
 	}
 	
@@ -108,23 +101,19 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @return The wrapped inventory
 	 */
-	public Inventory getInventory()
-	{
+	public Inventory getInventory() {
 		return inventory;
 	}
 	
-	public int validateX(int x)
-	{
+	public int validateX(int x) {
 		return Math.min(Math.max(x, 0), (inventory.getSize() / maxRows));
 	}
 	
-	public int validateY(int y)
-	{
+	public int validateY(int y) {
 		return Math.min(Math.max(y, 0), maxColumns);
 	}
 	
-	public int validateFitting(int slot)
-	{
+	public int validateFitting(int slot) {
 		return Math.min(Math.max(slot, 0), inventory.getSize());
 	}
 	
@@ -134,8 +123,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param button The button to be added
 	 * @param slot The slot to add the button to
 	 */
-	public void addButton(Button button, int slot)
-	{
+	public void addButton(Button button, int slot) {
 		slot = validateFitting(slot);
 		button.setSlot(slot);
 		inventory.setItem(slot, button.getItem());
@@ -148,8 +136,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param button The button to be added
 	 * @param slot The slot to add the button to
 	 */
-	public void addButton(int slot, Button button)
-	{
+	public void addButton(int slot, Button button) {
 		addButton(button, slot);
 	}
 	
@@ -160,8 +147,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param x The X position to add the button at
 	 * @param y The Y position to add the button at
 	 */
-	public void addButton(Button button, int x, int y)
-	{
+	public void addButton(Button button, int x, int y) {
 		x = validateX(x);
 		y = validateY(y);
 		int slot = x + (y * maxRows);
@@ -173,10 +159,8 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param item The item to set
 	 */
-	public void fill(ItemStack item)
-	{
-		for(int i = 0; i < inventory.getSize(); i++)
-		{
+	public void fill(ItemStack item) {
+		for(int i = 0; i < inventory.getSize(); i++){
 			inventory.setItem(i, item.clone());
 		}
 	}
@@ -188,12 +172,10 @@ public abstract class InventoryGUI implements Listener
 	 * @param end The ending index to fill to, exclusive
 	 * @param item The item to set in these slots
 	 */
-	public void fill(int start, int end, ItemStack item)
-	{
+	public void fill(int start, int end, ItemStack item) {
 		start = validateFitting(start);
 		end = validateFitting(end);
-		for(int i = start; i < end; i++)
-		{
+		for(int i = start; i < end; i++){
 			inventory.setItem(i, item == null ? null : item.clone());
 		}
 	}
@@ -207,18 +189,15 @@ public abstract class InventoryGUI implements Listener
 	 * @param y2 The Y position to fill to, exclusive
 	 * @param item The item to set in these slots
 	 */
-	public void fill(int x1, int y1, int x2, int y2, ItemStack item)
-	{
+	public void fill(int x1, int y1, int x2, int y2, ItemStack item) {
 		x1 = validateX(x1);
 		y1 = validateY(y1);
 		
 		x2 = validateX(x2);
 		y2 = validateY(y2);
 		
-		for(int x = x1; x < x2; x++)
-		{
-			for(int y = y1; y < y2; y++)
-			{
+		for(int x = x1; x < x2; x++){
+			for(int y = y1; y < y2; y++){
 				inventory.setItem(x + (y * 9), item == null ? null : item.clone());
 			}
 		}
@@ -229,8 +208,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param button The button to be removed
 	 */
-	public void removeButton(Button button)
-	{
+	public void removeButton(Button button) {
 		inventory.setItem(button.getSlot(), new ItemStack(Material.AIR));
 		buttons.remove(button.getSlot());
 	}
@@ -240,8 +218,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param slot Slot to be removed
 	 */
-	public void removeButton(int slot)
-	{
+	public void removeButton(int slot) {
 		slot = validateFitting(slot);
 		inventory.setItem(slot, new ItemStack(Material.AIR));
 		buttons.remove(slot);
@@ -250,8 +227,7 @@ public abstract class InventoryGUI implements Listener
 	/**
 	 * @return All the ItemButtons in this GUI
 	 */
-	public List<Button> getButtons()
-	{
+	public List<Button> getButtons() {
 		return new ArrayList<>(buttons.values());
 	}
 	
@@ -259,11 +235,9 @@ public abstract class InventoryGUI implements Listener
 	 * Gets the ItemButton in a given slot
 	 *
 	 * @param slot The slot the button is in
-	 *
 	 * @return The ItemButton, or null if there is no button in that slot
 	 */
-	public Button getButton(int slot)
-	{
+	public Button getButton(int slot) {
 		return buttons.get(slot);
 	}
 	
@@ -272,12 +246,10 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param slot The slot to clear
 	 */
-	public void clearSlot(int slot)
-	{
+	public void clearSlot(int slot) {
 		slot = validateFitting(slot);
 		Button button = buttons.get(slot);
-		if(button != null)
-		{
+		if(button != null){
 			removeButton(button);
 			return;
 		}
@@ -287,10 +259,8 @@ public abstract class InventoryGUI implements Listener
 	/**
 	 * Refresh the inventory.
 	 */
-	public void update()
-	{
-		for(Button button : buttons.values())
-		{
+	public void update() {
+		for(Button button : buttons.values()){
 			inventory.setItem(button.getSlot(), button.getItem());
 		}
 	}
@@ -300,8 +270,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param slot The slot to open
 	 */
-	public void openSlot(int slot)
-	{
+	public void openSlot(int slot) {
 		slot = validateFitting(slot);
 		openSlots.add(slot);
 	}
@@ -312,12 +281,10 @@ public abstract class InventoryGUI implements Listener
 	 * @param start The start of the open slot section, inclusive
 	 * @param end The end of the open slot section, exclusive
 	 */
-	public void openSlots(int start, int end)
-	{
+	public void openSlots(int start, int end) {
 		start = validateFitting(start);
 		end = validateFitting(end);
-		for(int i = start; i < end; i++)
-		{
+		for(int i = start; i < end; i++){
 			openSlots.add(i);
 		}
 	}
@@ -330,18 +297,15 @@ public abstract class InventoryGUI implements Listener
 	 * @param x2 The x position to open to, exclusive
 	 * @param y2 The y position to open to, exclusive
 	 */
-	public void openSlots(int x1, int y1, int x2, int y2)
-	{
+	public void openSlots(int x1, int y1, int x2, int y2) {
 		x1 = validateX(x1);
 		y1 = validateY(y1);
 		
 		x2 = validateX(x2);
 		y2 = validateY(y2);
 		
-		for(int y = y1; y < y2; y++)
-		{
-			for(int x = x1; x < x2; x++)
-			{
+		for(int y = y1; y < y2; y++){
+			for(int x = x1; x < x2; x++){
 				openSlots.add(y * maxRows + x);
 			}
 		}
@@ -352,8 +316,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param slot The slot to open
 	 */
-	public void closeSlot(int slot)
-	{
+	public void closeSlot(int slot) {
 		openSlots.remove(slot);
 	}
 	
@@ -363,13 +326,11 @@ public abstract class InventoryGUI implements Listener
 	 * @param start The start of the closed slot section, inclusive
 	 * @param end The end of the open closed section, exclusive
 	 */
-	public void closeSlots(int start, int end)
-	{
+	public void closeSlots(int start, int end) {
 		start = validateFitting(start);
 		end = validateFitting(end);
 		
-		for(int i = start; i < end; i++)
-		{
+		for(int i = start; i < end; i++){
 			openSlots.remove(i);
 		}
 	}
@@ -382,8 +343,7 @@ public abstract class InventoryGUI implements Listener
 	 * @param x2 The x position to close to, exclusive
 	 * @param y2 The y position to close to, exclusive
 	 */
-	public void closeSlots(int x1, int y1, int x2, int y2)
-	{
+	public void closeSlots(int x1, int y1, int x2, int y2) {
 		
 		x1 = validateX(x1);
 		y1 = validateY(y1);
@@ -391,10 +351,8 @@ public abstract class InventoryGUI implements Listener
 		x2 = validateX(x2);
 		y2 = validateY(y2);
 		
-		for(int y = y1; y < y2; y++)
-		{
-			for(int x = x1; x < x2; x++)
-			{
+		for(int y = y1; y < y2; y++){
+			for(int x = x1; x < x2; x++){
 				openSlots.remove(y * maxRows + x);
 			}
 		}
@@ -405,16 +363,14 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @return The set of open slots
 	 */
-	public Set<Integer> getOpenSlots()
-	{
+	public Set<Integer> getOpenSlots() {
 		return openSlots;
 	}
 	
 	/**
 	 * Opens this GUI for a player
 	 */
-	public void open()
-	{
+	public void open() {
 		addComponents();
 		
 		profile.getOwner().openInventory(inventory);
@@ -425,8 +381,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @return Whether or not items in open slots are returned to the player when this inventory is destroyed
 	 */
-	public boolean returnsItems()
-	{
+	public boolean returnsItems() {
 		return returnItems;
 	}
 	
@@ -435,8 +390,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param returnItems Whether items in open slots should be returned to the player when this inventory is destroyed
 	 */
-	public void setReturnsItems(boolean returnItems)
-	{
+	public void setReturnsItems(boolean returnItems) {
 		this.returnItems = returnItems;
 	}
 	
@@ -445,8 +399,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @return Whether this GUI is destroyed when it has been closed by all viewers
 	 */
-	public boolean destroysOnClose()
-	{
+	public boolean destroysOnClose() {
 		return destroyOnClose;
 	}
 	
@@ -455,8 +408,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param destroyOnClose Whether this GUI is destroyed when it has been closed by all viewers
 	 */
-	public void setDestroyOnClose(boolean destroyOnClose)
-	{
+	public void setDestroyOnClose(boolean destroyOnClose) {
 		this.destroyOnClose = destroyOnClose;
 	}
 	
@@ -465,8 +417,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param onDestroy The callback
 	 */
-	public void setOnDestroy(Runnable onDestroy)
-	{
+	public void setOnDestroy(Runnable onDestroy) {
 		this.onDestroy = onDestroy;
 	}
 	
@@ -475,8 +426,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param handler The handler for when an open slot is clicked
 	 */
-	public void setOnClickOpenSlot(Consumer<InventoryClickEvent> handler)
-	{
+	public void setOnClickOpenSlot(Consumer<InventoryClickEvent> handler) {
 		this.onClickOpenSlot = (e, i) -> handler.accept(e);
 	}
 	
@@ -485,8 +435,7 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param handler The handler for when an open slot is clicked, taking the event and list of affected slots
 	 */
-	public void setOnClickOpenSlot(BiConsumer<InventoryClickEvent, List<Integer>> handler)
-	{
+	public void setOnClickOpenSlot(BiConsumer<InventoryClickEvent, List<Integer>> handler) {
 		this.onClickOpenSlot = handler;
 	}
 	
@@ -495,20 +444,15 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param lastViewer The last Player who was viewing this GUI, to have the items returned to them.
 	 */
-	public void destroy(Player lastViewer)
-	{
-		if(onDestroy != null)
-		{
+	public void destroy(Player lastViewer) {
+		if(onDestroy != null){
 			onDestroy.run();
 		}
 		HandlerList.unregisterAll(this);
-		if(returnItems && lastViewer != null)
-		{
-			for(int slot : openSlots)
-			{
+		if(returnItems && lastViewer != null){
+			for(int slot : openSlots){
 				ItemStack item = inventory.getItem(slot);
-				if(item == null)
-				{
+				if(item == null){
 					continue;
 				}
 				lastViewer.getInventory().addItem(item).values().forEach(i -> lastViewer.getWorld().dropItem(lastViewer.getLocation(), i));
@@ -521,16 +465,14 @@ public abstract class InventoryGUI implements Listener
 	/**
 	 * Remove this inventory as a listener and clean everything up to prevent memory leaks. Call this when the GUI is no longer being used.
 	 */
-	public void destroy()
-	{
+	public void destroy() {
 		destroy(null);
 	}
 	
 	/**
 	 * Clears the inventory and its buttons
 	 */
-	public void clear()
-	{
+	public void clear() {
 		inventory.clear();
 		buttons.clear();
 	}
@@ -540,59 +482,46 @@ public abstract class InventoryGUI implements Listener
 	 *
 	 * @param onDrag The handler
 	 */
-	public void setOnDragOpenSlot(Consumer<InventoryDragEvent> onDrag)
-	{
+	public void setOnDragOpenSlot(Consumer<InventoryDragEvent> onDrag) {
 		this.onDragOpenSlot = onDrag;
 	}
 	
 	@EventHandler
-	public void onDrag(InventoryDragEvent e)
-	{
+	public void onDrag(InventoryDragEvent e) {
 		List<Integer> slots = e.getRawSlots().stream().filter(s -> getInventory(e.getView(), s).equals(inventory)).toList();
-		if(slots.size() == 0)
-		{
+		if(slots.size() == 0){
 			return;
 		}
-		if(!openSlots.containsAll(slots))
-		{
+		if(!openSlots.containsAll(slots)){
 			e.setCancelled(true);
 			return;
 		}
 		onDragOpenSlot.accept(e);
 	}
 	
-	private Inventory getInventory(InventoryView view, int rawSlot)
-	{
+	private Inventory getInventory(InventoryView view, int rawSlot) {
 		return rawSlot < view.getTopInventory().getSize() ? view.getTopInventory() : view.getBottomInventory();
 	}
 	
 	@EventHandler
-	public void onClick(InventoryClickEvent e)
-	{
-		if(!inventory.equals(e.getView().getTopInventory()))
-		{
+	public void onClick(InventoryClickEvent e) {
+		if(!inventory.equals(e.getView().getTopInventory())){
 			return;
 		}
-		if(e.getAction() == InventoryAction.COLLECT_TO_CURSOR && !e.getClickedInventory().equals(inventory))
-		{
+		if(e.getAction() == InventoryAction.COLLECT_TO_CURSOR && !e.getClickedInventory().equals(inventory)){
 			e.setCancelled(true);
 			return;
 		}
-		if(!inventory.equals(e.getClickedInventory()) && e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
-		{
-			if(openSlots.size() > 0)
-			{
+		if(!inventory.equals(e.getClickedInventory()) && e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY){
+			if(openSlots.size() > 0){
 				Map<Integer, ItemStack> slots = new HashMap<>();
 				int amount = Objects.requireNonNull(e.getCurrentItem()).getAmount();
-				for(int slot : openSlots)
-				{
-					if(amount <= 0)
-					{
+				for(int slot : openSlots){
+					if(amount <= 0){
 						break;
 					}
 					ItemStack item = inventory.getItem(slot);
-					if(item == null)
-					{
+					if(item == null){
 						int diff = Math.min(amount, e.getCurrentItem().getType().getMaxStackSize());
 						amount -= diff;
 						ItemStack clone = e.getCurrentItem().clone();
@@ -600,8 +529,7 @@ public abstract class InventoryGUI implements Listener
 						slots.put(slot, clone);
 						continue;
 					}
-					if(e.getCurrentItem().isSimilar(item))
-					{
+					if(e.getCurrentItem().isSimilar(item)){
 						int max = item.getType().getMaxStackSize() - item.getAmount();
 						int diff = Math.min(max, e.getCurrentItem().getAmount());
 						amount -= diff;
@@ -610,13 +538,11 @@ public abstract class InventoryGUI implements Listener
 						slots.put(slot, clone);
 					}
 				}
-				if(slots.size() == 0)
-				{
+				if(slots.size() == 0){
 					return;
 				}
 				onClickOpenSlot.accept(e, new ArrayList<>(slots.keySet()));
-				if(e.isCancelled())
-				{
+				if(e.isCancelled()){
 					return;
 				}
 				e.setCancelled(true);
@@ -624,18 +550,15 @@ public abstract class InventoryGUI implements Listener
 				item.setAmount(amount);
 				e.setCurrentItem(item);
 				slots.forEach(inventory::setItem);
-				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () ->
-				{
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 					((Player) e.getWhoClicked()).updateInventory();
 				});
 				return;
 			}
 			e.setCancelled(true);
 		}
-		if(e.getInventory().equals(e.getClickedInventory()))
-		{
-			if(openSlots.contains(e.getSlot()))
-			{
+		if(e.getInventory().equals(e.getClickedInventory())){
+			if(openSlots.contains(e.getSlot())){
 				List<Integer> list = new ArrayList<>();
 				list.add(e.getSlot());
 				onClickOpenSlot.accept(e, list);
@@ -643,27 +566,22 @@ public abstract class InventoryGUI implements Listener
 			}
 			e.setCancelled(true);
 			Button button = buttons.get(e.getSlot());
-			if(button != null)
-			{
+			if(button != null){
 				button.onClick(e);
 			}
 		}
 	}
 	
 	@EventHandler
-	public void onClose(InventoryCloseEvent e)
-	{
-		if(e.getInventory().equals(inventory) && destroyOnClose)
-		{
-			if(e.getViewers().size() <= 1)
-			{
+	public void onClose(InventoryCloseEvent e) {
+		if(e.getInventory().equals(inventory) && destroyOnClose){
+			if(e.getViewers().size() <= 1){
 				destroy((Player) e.getPlayer());
 			}
 		}
 	}
 	
-	public JavaPlugin getPlugin()
-	{
+	public JavaPlugin getPlugin() {
 		return plugin;
 	}
 }

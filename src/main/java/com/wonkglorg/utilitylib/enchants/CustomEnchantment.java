@@ -15,12 +15,10 @@ import java.util.List;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public abstract class CustomEnchantment extends Enchantment
-{
+public abstract class CustomEnchantment extends Enchantment{
 	private final String name;
 	
-	public CustomEnchantment(@NotNull NamespacedKey key, String name)
-	{
+	public CustomEnchantment(@NotNull NamespacedKey key, String name) {
 		super(key);
 		this.name = name;
 	}
@@ -32,26 +30,22 @@ public abstract class CustomEnchantment extends Enchantment
 	public abstract boolean isTradeable();
 	
 	@Override
-	public @NotNull String getName()
-	{
+	public @NotNull String getName() {
 		return name;
 	}
 	
 	@Override
-	public boolean conflictsWith(@NotNull Enchantment other)
-	{
+	public boolean conflictsWith(@NotNull Enchantment other) {
 		return conflicts().contains(other);
 	}
 	
 	@Override
-	public boolean canEnchantItem(@NotNull ItemStack item)
-	{
+	public boolean canEnchantItem(@NotNull ItemStack item) {
 		return enchantAble().contains(item.getType());
 	}
 	
 	@Override
-	public @NotNull Component displayName(int level)
-	{
+	public @NotNull Component displayName(int level) {
 		return Message.color(getName() + " " + Convert.toRoman(level));
 	}
 	

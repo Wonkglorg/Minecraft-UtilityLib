@@ -15,31 +15,25 @@ import java.util.stream.Collectors;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class GroupedMaterials
-{
+public final class GroupedMaterials{
 	
 	private Set<Material> chestPlate, leggings;
 	
-	public Set<Material> getChestPlates()
-	{
-		if(chestPlate == null)
-		{
+	public Set<Material> getChestPlates() {
+		if(chestPlate == null){
 			chestPlate = Arrays.stream(Material.values()).filter(material -> material.name().contains("CHESTPLATE")).collect(Collectors.toSet());
 		}
 		return chestPlate;
 	}
 	
-	public Set<Material> getLeggings()
-	{
-		if(leggings == null)
-		{
+	public Set<Material> getLeggings() {
+		if(leggings == null){
 			leggings = Arrays.stream(Material.values()).filter(material -> material.name().contains("LEGGINGS")).collect(Collectors.toSet());
 		}
 		return leggings;
 	}
 	
-	public static List<Material> getBoots()
-	{
+	public static List<Material> getBoots() {
 		return List.of(Material.LEATHER_BOOTS,
 				Material.CHAINMAIL_BOOTS,
 				Material.IRON_BOOTS,
@@ -49,8 +43,7 @@ public final class GroupedMaterials
 	}
 	
 	//TOOLS
-	public static List<Material> getSwords()
-	{
+	public static List<Material> getSwords() {
 		return List.of(Material.WOODEN_SWORD,
 				Material.STONE_SWORD,
 				Material.IRON_SWORD,
@@ -59,8 +52,7 @@ public final class GroupedMaterials
 				Material.NETHERITE_SWORD);
 	}
 	
-	public static List<Material> getPickaxes()
-	{
+	public static List<Material> getPickaxes() {
 		return List.of(Material.WOODEN_PICKAXE,
 				Material.STONE_PICKAXE,
 				Material.IRON_PICKAXE,
@@ -69,13 +61,11 @@ public final class GroupedMaterials
 				Material.NETHERITE_PICKAXE);
 	}
 	
-	public static List<Material> getAxes()
-	{
+	public static List<Material> getAxes() {
 		return List.of(Material.WOODEN_AXE, Material.STONE_AXE, Material.IRON_AXE, Material.GOLDEN_AXE, Material.DIAMOND_AXE, Material.NETHERITE_AXE);
 	}
 	
-	public static List<Material> getShovels()
-	{
+	public static List<Material> getShovels() {
 		return List.of(Material.WOODEN_SHOVEL,
 				Material.STONE_SHOVEL,
 				Material.IRON_SHOVEL,
@@ -84,13 +74,11 @@ public final class GroupedMaterials
 				Material.NETHERITE_SHOVEL);
 	}
 	
-	public static List<Material> getHoes()
-	{
+	public static List<Material> getHoes() {
 		return List.of(Material.WOODEN_HOE, Material.STONE_HOE, Material.IRON_HOE, Material.GOLDEN_HOE, Material.DIAMOND_HOE, Material.NETHERITE_HOE);
 	}
 	
-	public static List<Material> getTools()
-	{
+	public static List<Material> getTools() {
 		List<Material> tools = new ArrayList<>();
 		tools.addAll(getPickaxes());
 		tools.addAll(getShovels());
@@ -99,8 +87,7 @@ public final class GroupedMaterials
 		return tools;
 	}
 	
-	public static List<Material> getWeapons()
-	{
+	public static List<Material> getWeapons() {
 		List<Material> weapons = new ArrayList<>();
 		weapons.addAll(getSwords());
 		weapons.addAll(List.of(Material.TRIDENT, Material.BOW, Material.CROSSBOW));
@@ -108,13 +95,11 @@ public final class GroupedMaterials
 	}
 	
 	//STONE
-	public static List<Material> getNaturalStoneTypes()
-	{
+	public static List<Material> getNaturalStoneTypes() {
 		return List.of(Material.STONE, Material.GRANITE, Material.DIORITE, Material.ANDESITE, Material.DEEPSLATE, Material.CALCITE, Material.TUFF);
 	}
 	
-	public static List<Material> getOresStone()
-	{
+	public static List<Material> getOresStone() {
 		return List.of(Material.COAL_ORE,
 				Material.IRON_ORE,
 				Material.COPPER_ORE,
@@ -126,8 +111,7 @@ public final class GroupedMaterials
 				Material.ANCIENT_DEBRIS);
 	}
 	
-	public static List<Material> getOresDeepslate()
-	{
+	public static List<Material> getOresDeepslate() {
 		return List.of(Material.DEEPSLATE_COAL_ORE,
 				Material.DEEPSLATE_IRON_ORE,
 				Material.DEEPSLATE_COPPER_ORE,
@@ -138,8 +122,7 @@ public final class GroupedMaterials
 				Material.DEEPSLATE_DIAMOND_ORE);
 	}
 	
-	public static List<Material> getOres()
-	{
+	public static List<Material> getOres() {
 		List<Material> ores = new ArrayList<>();
 		ores.addAll(getOresStone());
 		ores.addAll(getOresDeepslate());
@@ -152,39 +135,31 @@ public final class GroupedMaterials
 	
 	//SLABS
 	
-	public static Collection<Material> getSlabWood()
-	{
+	public static Collection<Material> getSlabWood() {
 		return null;
 	}
 	
-	public static List<Material> getSlabStone()
-	{
+	public static List<Material> getSlabStone() {
 		List<Material> materials = new ArrayList<>();
-		for(Material material : Material.values())
-		{
-			if(material.toString().contains("slab"))
-			{
+		for(Material material : Material.values()){
+			if(material.toString().contains("slab")){
 			
 			}
 		}
 		return null;
 	}
 	
-	public static Set<Material> getWoodMaterials()
-	{
+	public static Set<Material> getWoodMaterials() {
 		Set<Material> woodStuff = new HashSet<>();
-		for(Material material : Material.values())
-		{
-			if(material.name().startsWith("OAK") || material.name().startsWith("SPRUCE"))
-			{
+		for(Material material : Material.values()){
+			if(material.name().startsWith("OAK") || material.name().startsWith("SPRUCE")){
 				woodStuff.add(material);
 			}
 		}
 		return null;
 	}
 	
-	public static Set<Material> tools()
-	{
+	public static Set<Material> tools() {
 		Set<Material> set = new HashSet<>();
 		set.addAll(hoe());
 		set.addAll(shovel());
@@ -194,83 +169,67 @@ public final class GroupedMaterials
 		return set;
 	}
 	
-	public static Set<Material> hoe()
-	{
+	public static Set<Material> hoe() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("HOE")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> sword()
-	{
+	public static Set<Material> sword() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("SWORD")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> shovel()
-	{
+	public static Set<Material> shovel() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("SHOVEL")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> axe()
-	{
+	public static Set<Material> axe() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("AXE")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> pickaxe()
-	{
+	public static Set<Material> pickaxe() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("PICKAXE")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> doors()
-	{
+	public static Set<Material> doors() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("DOOR")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> oak()
-	{
+	public static Set<Material> oak() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("OAK")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> spruce()
-	{
+	public static Set<Material> spruce() {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains("SPRUCE")).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> food()
-	{
+	public static Set<Material> food() {
 		return Arrays.stream(Material.values()).filter(Material::isEdible).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> fuel()
-	{
+	public static Set<Material> fuel() {
 		return Arrays.stream(Material.values()).filter(Material::isBurnable).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> blocks()
-	{
+	public static Set<Material> blocks() {
 		return Arrays.stream(Material.values()).filter(Material::isBlock).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> items()
-	{
+	public static Set<Material> items() {
 		return Arrays.stream(Material.values()).filter(Material::isItem).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> musicDiscs()
-	{
+	public static Set<Material> musicDiscs() {
 		return Arrays.stream(Material.values()).filter(Material::isRecord).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> legacyMaterials()
-	{
+	public static Set<Material> legacyMaterials() {
 		return Arrays.stream(Material.values()).filter(Material::isLegacy).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> getCollidable()
-	{
+	public static Set<Material> getCollidable() {
 		return Arrays.stream(Material.values()).filter(Material::isCollidable).collect(Collectors.toSet());
 	}
 	
-	public static Set<Material> type(@NotNull String name)
-	{
+	public static Set<Material> type(@NotNull String name) {
 		return Arrays.stream(Material.values()).filter(material -> material.name().contains(name)).collect(Collectors.toSet());
 	}
 	

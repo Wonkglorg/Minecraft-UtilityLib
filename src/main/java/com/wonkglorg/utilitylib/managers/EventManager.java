@@ -13,56 +13,46 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class EventManager implements Manager
-{
+public final class EventManager implements Manager{
 	private final JavaPlugin plugin;
 	private boolean isLoaded = false;
 	private final PluginManager pluginManager;
 	private final Collection<Listener> listeners;
 	
-	public EventManager(JavaPlugin plugin)
-	{
+	public EventManager(JavaPlugin plugin) {
 		this.plugin = plugin;
 		this.pluginManager = plugin.getServer().getPluginManager();
 		listeners = new ArrayList<>();
 	}
 	
-	public synchronized void add(@NotNull Listener... listener)
-	{
+	public synchronized void add(@NotNull Listener... listener) {
 		listeners.addAll(List.of(listener));
 	}
 	
-	public synchronized void add(@NotNull Collection<Listener> listener)
-	{
+	public synchronized void add(@NotNull Collection<Listener> listener) {
 		listeners.addAll(listener);
 	}
 	
-	public synchronized void add(@NotNull Listener listener)
-	{
+	public synchronized void add(@NotNull Listener listener) {
 		listeners.add(listener);
 	}
 	
-	public synchronized void load()
-	{
+	public synchronized void load() {
 		listeners.forEach(listeners -> pluginManager.registerEvents(listeners, plugin));
 	}
 	
 	@Override
-	public void onShutdown()
-	{
+	public void onShutdown() {
 	
 	}
 	
 	@Override
-	public void onStartup()
-	{
-		if(isLoaded)
-		{
+	public void onStartup() {
+		if(isLoaded){
 			return;
 		}
 		isLoaded = true;
-		if(!listeners.isEmpty())
-		{
+		if(!listeners.isEmpty()){
 			Logger.log(plugin, "Loaded " + listeners.size() + " events!");
 		}
 		load();

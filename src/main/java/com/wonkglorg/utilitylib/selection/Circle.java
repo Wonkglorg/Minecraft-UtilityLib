@@ -1,4 +1,3 @@
 package com.wonkglorg.utilitylib.selection;
 
-public class Circle
-{}
+public class Circle{}

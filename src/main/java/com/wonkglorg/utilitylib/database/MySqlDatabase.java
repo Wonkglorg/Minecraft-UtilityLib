@@ -10,19 +10,16 @@ import java.sql.SQLException;
  * size. groupId : mysql artifactId : mysql-connector-java
  */
 @SuppressWarnings("unused")
-public class MySqlDatabase extends Database
-{
+public class MySqlDatabase extends Database{
 	
 	protected final String USERNAME;
 	protected final String URL;
 	protected final String PASSWORD;
 	
-	public MySqlDatabase(String url, String username, String password, String databaseName)
-	{
+	public MySqlDatabase(String url, String username, String password, String databaseName) {
 		super(databaseName, DatabaseType.MYSQL);
 		
-		if(username == null || url == null || password == null || DATABASE_NAME == null)
-		{
+		if(username == null || url == null || password == null || DATABASE_NAME == null){
 			throw new RuntimeException();
 		}
 		USERNAME = username;
@@ -32,21 +29,16 @@ public class MySqlDatabase extends Database
 	}
 	
 	@Override
-	public void connect()
-	{
-		if(connection != null)
-		{
+	public void connect() {
+		if(connection != null){
 			return;
 		}
-		try
-		{
+		try{
 			Class.forName(databaseType.getClassLoader());
 			connection = DriverManager.getConnection(getDatabaseType().getDriver() + "//" + URL + "/" + DATABASE_NAME, USERNAME, PASSWORD);
-		} catch(SQLException e)
-		{
+		} catch(SQLException e){
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
-		} catch(ClassNotFoundException e)
-		{
+		} catch(ClassNotFoundException e){
 			Logger.logFatal("Mysql-Connector-J Could not be found");
 			Logger.logFatal("This is not an error for the plugin developer and should not be reported back to the creator of the library");
 			Logger.logFatal("I did not include this dependency myself to not inflate the libraries size.");

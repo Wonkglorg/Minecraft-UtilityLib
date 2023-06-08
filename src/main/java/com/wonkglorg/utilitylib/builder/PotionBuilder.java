@@ -17,65 +17,61 @@ import java.util.Map;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class PotionBuilder extends ItemBuilder
-{
+public final class PotionBuilder extends ItemBuilder{
 	/**
-*/
-	public PotionBuilder(int amount, String name, List<String> lore, List<ItemFlag> flags, Map<Enchantment, Integer> enchantments)
-	{
+	 *
+	 */
+	public PotionBuilder(int amount, String name, List<String> lore, List<ItemFlag> flags, Map<Enchantment, Integer> enchantments) {
 		super(Material.POTION, amount, name, lore, 0, null, flags, enchantments);
 	}
 	
 	/**
+	 *
 	 */
-	public PotionBuilder(int amount, String name)
-	{
+	public PotionBuilder(int amount, String name) {
 		super(Material.POTION, amount, name);
 	}
 	
 	/**
+	 *
 	 */
-	public PotionBuilder(int amount)
-	{
+	public PotionBuilder(int amount) {
 		super(Material.POTION, amount);
 	}
 	
 	/**
+	 *
 	 */
-	public PotionBuilder(ItemFlag... flags)
-	{
+	public PotionBuilder(ItemFlag... flags) {
 		super(Material.POTION, flags);
 	}
 	
 	/**
+	 *
 	 */
-	public PotionBuilder(String... lore)
-	{
+	public PotionBuilder(String... lore) {
 		super(Material.POTION, List.of(lore));
 	}
 	
 	/**
+	 *
 	 */
-	public PotionBuilder(String name)
-	{
+	public PotionBuilder(String name) {
 		super(Material.POTION, name);
 	}
 	
 	/**
 	 *
 	 */
-	public PotionBuilder()
-	{
+	public PotionBuilder() {
 		super(Material.POTION);
 	}
 	
 	/**
 	 *
 	 */
-	public PotionMeta getMeta()
-	{
-		if(super.getMeta() == null)
-		{
+	public PotionMeta getMeta() {
+		if(super.getMeta() == null){
 			super.setItem(new ItemStack(getMaterial(), getAmount()));
 			super.setMeta(getItem().getItemMeta());
 		}
@@ -84,32 +80,25 @@ public final class PotionBuilder extends ItemBuilder
 	
 	/**
 	 * @param potionEffectType the potion effect type
-	 *
 	 * @return {@link PotionBuilder}
 	 */
-	public PotionBuilder effect(PotionType potionEffectType)
-	{
+	public PotionBuilder effect(PotionType potionEffectType) {
 		this.getMeta().setBasePotionData(new PotionData(potionEffectType));
 		return this;
 	}
 	
 	/**
-	 *
 	 * @return {@link PotionBuilder}
 	 */
-	public PotionBuilder effect(PotionType potionEffectType, boolean extended, boolean upgraded)
-	{
+	public PotionBuilder effect(PotionType potionEffectType, boolean extended, boolean upgraded) {
 		this.getMeta().setBasePotionData(new PotionData(potionEffectType, extended, upgraded));
 		return this;
 	}
 	
 	/**
-
-	 *
 	 * @return {@link PotionBuilder}
 	 */
-	public PotionBuilder effect(PotionEffectType potionEffectType, int duration, int value)
-	{
+	public PotionBuilder effect(PotionEffectType potionEffectType, int duration, int value) {
 		this.getMeta().addCustomEffect(new PotionEffect(potionEffectType, duration, value), true);
 		return this;
 	}

@@ -6,9 +6,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
-@SuppressWarnings({"unused","deprecation"})
-public enum ItemTrait
-{
+@SuppressWarnings({"unused", "deprecation"})
+public enum ItemTrait{
 	
 	/**
 	 * For comparing the durability of two items
@@ -39,8 +38,7 @@ public enum ItemTrait
 	
 	private final BiPredicate<ItemStack, ItemStack> compare;
 	
-	ItemTrait(BiPredicate<ItemStack, ItemStack> compare)
-	{
+	ItemTrait(BiPredicate<ItemStack, ItemStack> compare) {
 		this.compare = compare;
 	}
 	
@@ -49,11 +47,9 @@ public enum ItemTrait
 	 *
 	 * @param a The first item
 	 * @param b The second item
-	 *
 	 * @return True if the trait is the same on both items, false otherwise
 	 */
-	public boolean compare(ItemStack a, ItemStack b)
-	{
+	public boolean compare(ItemStack a, ItemStack b) {
 		return compare.test(a, b);
 	}
 }

@@ -19,8 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class EquipmentBuilder
-{
+public final class EquipmentBuilder{
 	private LivingEntity livingEntity;
 	private final Map<@NotNull EquipmentSlot, @NotNull EquipmentItem> equipmentMap = new ConcurrentHashMap<>();
 	private boolean silent = true;
@@ -29,8 +28,7 @@ public final class EquipmentBuilder
 	/**
 	 * Constructs a new {@code EquipmentBuilder}.
 	 */
-	public EquipmentBuilder()
-	{
+	public EquipmentBuilder() {
 		
 	}
 	
@@ -39,8 +37,7 @@ public final class EquipmentBuilder
 	 *
 	 * @param livingEntity the {@link LivingEntity} to update.
 	 */
-	public EquipmentBuilder(@NotNull LivingEntity livingEntity)
-	{
+	public EquipmentBuilder(@NotNull LivingEntity livingEntity) {
 		this.livingEntity = Objects.requireNonNull(livingEntity);
 	}
 	
@@ -51,15 +48,12 @@ public final class EquipmentBuilder
 	 *
 	 * @return the updated {@link LivingEntity}.
 	 */
-	public synchronized LivingEntity build()
-	{
+	public synchronized LivingEntity build() {
 		EntityEquipment equipment = livingEntity.getEquipment();
-		if(equipment == null)
-		{
+		if(equipment == null){
 			return livingEntity;
 		}
-		for(EquipmentSlot equipmentSlot : equipmentMap.keySet())
-		{
+		for(EquipmentSlot equipmentSlot : equipmentMap.keySet()){
 			EquipmentItem equipmentItem = equipmentMap.get(equipmentSlot);
 			equipment.setItem(equipmentSlot, equipmentMap.get(equipmentSlot).getItemStack(), silent);
 			equipment.setDropChance(equipmentSlot, equipmentItem.getDropChance());
@@ -73,30 +67,25 @@ public final class EquipmentBuilder
 	 *
 	 * @param livingEntity the {@link LivingEntity} to update.
 	 */
-	public synchronized EquipmentBuilder setLivingEntity(@NotNull LivingEntity livingEntity)
-	{
+	public synchronized EquipmentBuilder setLivingEntity(@NotNull LivingEntity livingEntity) {
 		this.livingEntity = livingEntity;
 		return this;
 	}
 	
-	public synchronized EquipmentBuilder setSilent(boolean silent)
-	{
+	public synchronized EquipmentBuilder setSilent(boolean silent) {
 		this.silent = silent;
 		return this;
 	}
 	
-	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack)
-	{
+	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack) {
 		return setItem(equipmentSlot, new EquipmentItem(itemStack, 0));
 	}
 	
-	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack, float dropChance)
-	{
+	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack, float dropChance) {
 		return setItem(equipmentSlot, new EquipmentItem(itemStack, dropChance));
 	}
 	
-	public EquipmentBuilder setItem(@NotNull EquipmentSlot equipmentSlot, @NotNull EquipmentItem equipmentItem)
-	{
+	public EquipmentBuilder setItem(@NotNull EquipmentSlot equipmentSlot, @NotNull EquipmentItem equipmentItem) {
 		equipmentMap.put(Objects.requireNonNull(equipmentSlot), Objects.requireNonNull(equipmentItem));
 		return this;
 	}

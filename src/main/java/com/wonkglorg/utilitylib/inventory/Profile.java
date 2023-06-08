@@ -3,12 +3,10 @@ package com.wonkglorg.utilitylib.inventory;
 import org.bukkit.entity.Player;
 
 @SuppressWarnings("unused")
-public class Profile implements Cloneable
-{
+public class Profile implements Cloneable{
 	protected Player owner;
 	
-	public Profile(Player player)
-	{
+	public Profile(Player player) {
 		this.owner = player;
 	}
 	
@@ -17,24 +15,19 @@ public class Profile implements Cloneable
 	 *
 	 * @return {@link Player} owning the menu.
 	 */
-	public Player getOwner()
-	{
+	public Player getOwner() {
 		return owner;
 	}
 	
-	public void setOwner(Player owner)
-	{
+	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
 	
 	@Override
-	public Profile clone()
-	{
-		try
-		{
+	public Profile clone() {
+		try{
 			return (Profile) super.clone();
-		} catch(CloneNotSupportedException e)
-		{
+		} catch(CloneNotSupportedException e){
 			throw new AssertionError();
 		}
 	}

@@ -10,11 +10,9 @@ import java.util.Random;
  * @param <T> the type parameter
  */
 @SuppressWarnings("unused")
-public final class WeightedRandomPicker<T>
-{
+public final class WeightedRandomPicker<T>{
 	
-	private class Entry
-	{
+	private class Entry{
 		double accumulatedWeight;
 		T object;
 	}
@@ -29,8 +27,7 @@ public final class WeightedRandomPicker<T>
 	 * @param object the object
 	 * @param weight the weight
 	 */
-	public void addEntry(T object, double weight)
-	{
+	public void addEntry(T object, double weight) {
 		accumulatedWeight += weight;
 		Entry e = new Entry();
 		e.object = object;
@@ -43,14 +40,11 @@ public final class WeightedRandomPicker<T>
 	 *
 	 * @return the element
 	 */
-	public T getRandom()
-	{
+	public T getRandom() {
 		double r = rand.nextDouble() * accumulatedWeight;
 		
-		for(Entry entry : entries)
-		{
-			if(entry.accumulatedWeight >= r)
-			{
+		for(Entry entry : entries){
+			if(entry.accumulatedWeight >= r){
 				return entry.object;
 			}
 		}
@@ -61,27 +55,21 @@ public final class WeightedRandomPicker<T>
 	 * Gets a random element from the list can return null if the accumulated weight is less than the threshold
 	 *
 	 * @param threshold threshold to compare
-	 *
 	 * @return type
 	 */
-	public T getRandom(double threshold)
-	{
+	public T getRandom(double threshold) {
 		
-		if(threshold < accumulatedWeight)
-		{
+		if(threshold < accumulatedWeight){
 			return getRandom();
 		}
 		
 		double r = rand.nextDouble() * threshold;
-		for(Entry entry : entries)
-		{
-			if(entry.accumulatedWeight >= r)
-			{
+		for(Entry entry : entries){
+			if(entry.accumulatedWeight >= r){
 				return entry.object;
 			}
 		}
 		return null;
-		
 	}
 	
 	/**
@@ -89,8 +77,7 @@ public final class WeightedRandomPicker<T>
 	 *
 	 * @return entries
 	 */
-	public List<Entry> getEntries()
-	{
+	public List<Entry> getEntries() {
 		return entries;
 	}
 	
@@ -99,8 +86,7 @@ public final class WeightedRandomPicker<T>
 	 *
 	 * @return accumulated weight
 	 */
-	public double getAccumulatedWeight()
-	{
+	public double getAccumulatedWeight() {
 		return accumulatedWeight;
 	}
 }

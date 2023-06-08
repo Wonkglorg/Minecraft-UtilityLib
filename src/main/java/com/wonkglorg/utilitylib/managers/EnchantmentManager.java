@@ -16,79 +16,64 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 @ThreadSafe
-public final class EnchantmentManager implements Manager
-{
+public final class EnchantmentManager implements Manager{
 	private final Collection<Enchantment> enchantmentList = new ArrayList<>();
 	private final JavaPlugin plugin;
 	private boolean isStarted = false;
 	
-	public EnchantmentManager(JavaPlugin plugin)
-	{
+	public EnchantmentManager(JavaPlugin plugin) {
 		this.plugin = plugin;
 	}
 	
-	public synchronized void add(@NotNull Enchantment enchantment)
-	{
+	public synchronized void add(@NotNull Enchantment enchantment) {
 		enchantmentList.add(enchantment);
 		registerEnchantment(enchantment);
 	}
 	
-	public synchronized void add(@NotNull Enchantment... enchantment)
-	{
+	public synchronized void add(@NotNull Enchantment... enchantment) {
 		enchantmentList.addAll(List.of(enchantment));
 		
 		Arrays.stream(enchantment).forEach(this::registerEnchantment);
 	}
 	
-	public synchronized void add(@NotNull Collection<Enchantment> enchantment)
-	{
+	public synchronized void add(@NotNull Collection<Enchantment> enchantment) {
 		enchantmentList.addAll(enchantment);
 		enchantment.forEach(this::registerEnchantment);
 	}
 	
 	@Override
-	public void onShutdown()
-	{
+	public void onShutdown() {
 		unregisterEnchants();
 	}
 	
 	@Override
-	public void onStartup()
-	{
-		if(isStarted)
-		{
+	public void onStartup() {
+		if(isStarted){
 			return;
 		}
 		isStarted = true;
-		if(!enchantmentList.isEmpty())
-		{
+		if(!enchantmentList.isEmpty()){
 			Logger.log(plugin, "Loaded " + enchantmentList.size() + " enchants!");
 		}
 	}
 	
-	public synchronized void registerEnchantments()
-	{
+	public synchronized void registerEnchantments() {
 		enchantmentList.forEach(this::registerEnchantment);
 	}
 	
-	private synchronized void registerEnchantment(@NotNull Enchantment enchantment)
-	{
-		try
-		{
+	private synchronized void registerEnchantment(@NotNull Enchantment enchantment) {
+		try{
 			Field f = Enchantment.class.getDeclaredField("acceptingNew");
 			f.setAccessible(true);
 			f.set(null, true);
 			Enchantment.registerEnchantment(enchantment);
-		} catch(Exception e)
-		{
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	private synchronized void unregisterEnchants()
-	{
-		try
-		{
+	private synchronized void unregisterEnchants() {
+		try{
 			Field keyField = Enchantment.class.getDeclaredField("byKey");
 			
 			keyField.setAccessible(true);
@@ -98,8 +83,7 @@ public final class EnchantmentManager implements Manager
 			nameField.setAccessible(true);
 			HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
 			enchantmentList.forEach(enchantment -> byName.remove(enchantment.getName()));
-		} catch(Exception ignored)
-		{
+		} catch(Exception ignored){
 		}
 	}
 }

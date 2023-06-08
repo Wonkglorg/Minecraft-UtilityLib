@@ -8,13 +8,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
-public final class Convert
-{
+public final class Convert{
 	private final static TreeMap<Integer, String> romanMap = new TreeMap<>();
 	private final static Pattern pattern = Pattern.compile("(\\d+)([A-Za-z]+)");
 	
-	static
-	{
+	static {
 		romanMap.put(1000, "M");
 		romanMap.put(900, "CM");
 		romanMap.put(500, "D");
@@ -35,23 +33,18 @@ public final class Convert
 	 * Converts a time string into millisecond time. Example : 10d 5m 8s 10ms
 	 *
 	 * @param timeString time string to be converted
-	 *
 	 * @return millisecond representation of the input string
 	 */
-	public static long fromTime(String timeString)
-	{
+	public static long fromTime(String timeString) {
 		long timeInMs = 0;
 		
 		Matcher matcher = pattern.matcher(timeString);
-		while(matcher.find())
-		{
+		while(matcher.find()){
 			long value = Long.parseLong(matcher.group(1));
 			String suffix = matcher.group(2);
 			
-			for(DateType dateType : DateType.values())
-			{
-				if(suffix.endsWith(dateType.getPreset()))
-				{
+			for(DateType dateType : DateType.values()){
+				if(suffix.endsWith(dateType.getPreset())){
 					timeInMs += value * dateType.getMilliseconds();
 					break;
 				}
@@ -66,23 +59,19 @@ public final class Convert
 	 *
 	 * @param timeInMs The time in milliseconds
 	 * @param formats all dateTypes to be displayed
-	 *
 	 * @return Formatted time string
 	 */
-	public static String toTime(long timeInMs, DateType... formats)
-	{
+	public static String toTime(long timeInMs, DateType... formats) {
 		
 		Comparator<DateType> comparator = Comparator.comparingLong(DateType::getMilliseconds).reversed();
 		List<DateType> dateList = Arrays.stream(formats).sorted(comparator).toList();
 		
 		StringBuilder sb = new StringBuilder();
-		for(DateType dateType : dateList)
-		{
+		for(DateType dateType : dateList){
 			long value = timeInMs / dateType.getMilliseconds();
 			timeInMs %= dateType.getMilliseconds();
 			
-			if(value > 0)
-			{
+			if(value > 0){
 				sb.append(value).append(dateType.getPreset()).append(" ");
 			}
 		}
@@ -94,33 +83,26 @@ public final class Convert
 	 * Converts milliseconds into a human-readable time format
 	 *
 	 * @param timeInMs The time in milliseconds
-	 *
 	 * @return Formatted time string
 	 */
-	public static String toTime(long timeInMs)
-	{
+	public static String toTime(long timeInMs) {
 		return toTime(timeInMs, DateType.values());
 	}
 	
-	public static String toRoman(int number)
-	{
+	public static String toRoman(int number) {
 		int l = romanMap.floorKey(number);
-		if(number == l)
-		{
+		if(number == l){
 			return romanMap.get(number);
 		}
 		return romanMap.get(l) + toRoman(number - l);
 	}
 	
-	public static int fromRoman(String roman)
-	{
+	public static int fromRoman(String roman) {
 		return (int) fromRoman(roman, roman.length() - 1, 0);
 	}
 	
-	private static double fromRoman(String roman, int pos, double rightNumeral)
-	{
-		if(pos < 0)
-		{
+	private static double fromRoman(String roman, int pos, double rightNumeral) {
+		if(pos < 0){
 			return 0;
 		}
 		char ch = roman.charAt(pos);
@@ -130,11 +112,9 @@ public final class Convert
 	
 	/**
 	 * @param value value
-	 *
 	 * @return balance
 	 */
-	public static String toBalance(double value)
-	{
+	public static String toBalance(double value) {
 		/*
 		if(value < 10000)
 		{
@@ -159,11 +139,9 @@ public final class Convert
 	
 	/**
 	 * @param value value
-	 *
 	 * @return balance
 	 */
-	public static String toBalance(long value)
-	{
+	public static String toBalance(long value) {
 		/*
 		if(value < 10000)
 		{
@@ -186,13 +164,11 @@ public final class Convert
 		return "";
 	}
 	
-	public static long fromBalance(String balanceString)
-	{
+	public static long fromBalance(String balanceString) {
 		return 0;
 	}
 	
-	public enum DateType
-	{
+	public enum DateType{
 		MILLISECONDS("ms", 1),
 		SECONDS("s", 1000L),
 		MINUTES("m", 1000L * 60),
@@ -205,19 +181,16 @@ public final class Convert
 		private final String preset;
 		private final long toMilliseconds;
 		
-		DateType(String preset, long toMilliseconds)
-		{
+		DateType(String preset, long toMilliseconds) {
 			this.preset = preset;
 			this.toMilliseconds = toMilliseconds;
 		}
 		
-		public String getPreset()
-		{
+		public String getPreset() {
 			return preset;
 		}
 		
-		public long getMilliseconds()
-		{
+		public long getMilliseconds() {
 			return toMilliseconds;
 		}
 	}

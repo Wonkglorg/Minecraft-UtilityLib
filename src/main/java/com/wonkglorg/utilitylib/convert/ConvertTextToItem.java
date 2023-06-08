@@ -13,8 +13,7 @@ import java.util.Map;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class ConvertTextToItem
-{
+public final class ConvertTextToItem{
 	private final String path;
 	private final Config config;
 	private ItemStack item;
@@ -22,8 +21,7 @@ public final class ConvertTextToItem
 	private String description;
 	private Map<Enchantment, Integer> enchantments;
 	
-	public ConvertTextToItem(Config config, String path)
-	{
+	public ConvertTextToItem(Config config, String path) {
 		this.path = path;
 		this.config = config;
 	}
@@ -34,20 +32,16 @@ public final class ConvertTextToItem
 	 * Enchantment String format CategoryName: fireAspect: 3 flame: 5
 	 *
 	 * @param path Path to check for the formatted String
-	 *
 	 * @return Enchantment Integer Map
 	 */
-	public Map<Enchantment, Integer> stringToEnchantment(String path)
-	{
+	public Map<Enchantment, Integer> stringToEnchantment(String path) {
 		check();
 		Map<Enchantment, Integer> map = new HashMap<>();
 		
-		if(config.getString(path) == null)
-		{
+		if(config.getString(path) == null){
 			return null;
 		}
-		for(String s : config.getStringList(path))
-		{
+		for(String s : config.getStringList(path)){
 			Enchantment enchantment = Enchantment.getByKey(new NamespacedKey(Key.MINECRAFT_NAMESPACE, s));
 			int level = config.getInt(path + "." + s);
 			map.put(enchantment, level);
@@ -56,23 +50,20 @@ public final class ConvertTextToItem
 		return map;
 	}
 	
-	public String enchantmentToString()
-	{
+	public String enchantmentToString() {
 		//converts enchantment map to string for yml
 		return null;
 	}
 	
 	//Also add enchant options to only check specific path
 	
-	public ItemStack build()
-	{
+	public ItemStack build() {
 		ItemStack item;
 		
 		return null;
 	}
 	
-	private boolean check()
-	{
+	private boolean check() {
 		return config != null && path != null;
 	}
 	

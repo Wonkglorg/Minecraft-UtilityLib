@@ -5,5 +5,4 @@ import org.bukkit.inventory.ItemStack;
 /**
  * @author Wonkglorg
  */
-public record ShapedRecipeData(char character, ItemStack itemStack)
-{}
+public record ShapedRecipeData(char character, ItemStack itemStack){}

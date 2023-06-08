@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,114 +20,93 @@ import java.util.Set;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class ConfigYML extends YamlConfiguration implements Config
-{
+public final class ConfigYML extends YamlConfiguration implements Config{
+	
+	private final JavaPlugin PLUGIN;
+	private final String NAME;
+	private final Path SOURCE_PATH;
+	private final Path DESTINATION_PATH;
+	private final File FILE;
 	
 	/**
-	 * The Main.
-	 */
-	private final JavaPlugin plugin;
-	/**
-	 * The Name.
-	 */
-	private final String name;
-	/**
-	 * The Path.
-	 */
-	private final Path path;
-	/**
-	 * The File.
-	 */
-	private final File file;
-	//seperate source and destination path to be able to set different destinations compared to your resource path
-	//Also allow for a different name at the destination location?
-	
-	/**
-	 * Creates a new config object which represents a yml file
+	 * Creates a new file at the specified location or copies an existing one from the resource folder based on the sourcePath,
+	 * if nothing could be found in the sourcePath it creates a new one. DestinationPath will automatically point to the base server folder
+	 * NOT your datafolder. Use "plugin.getDataFolder()" to get your default plugins data folder.
 	 *
-	 * @param plugin the java plugin
-	 * @param name the file name
+	 * @param plugin
+	 * @param sourcePath path inside the resources folder of your plugin
+	 * @param destinationPath	path to copy this file to
 	 */
-	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull String name)
-	{
-		this.plugin = plugin;
-		this.name = name + (name.endsWith(".yml") ? "" : ".yml");
-		this.path = Path.of(this.name);
-		file = new File(plugin.getDataFolder(), name);
+	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull Path sourcePath, @NotNull Path destinationPath) {
+		this.PLUGIN = plugin;
+		this.NAME = destinationPath.getFileName().toString();
+		this.SOURCE_PATH = sourcePath;
+		this.DESTINATION_PATH = destinationPath;
+		FILE = new File(this.DESTINATION_PATH.toString());
 	}
 	
 	/**
-	 * Creates a new config object which represents a yml file
+	 * Creates a new file at the specified location or copies an existing one from the resource folder based on the name,
+	 * if nothing could be found in the resource folder it creates a new one. name will automatically point to the base of the plugin data folder
 	 *
-	 * @param plugin the java plugin
-	 * @param name the file name
-	 * @param paths the path to the file
+	 * @param plugin
+	 * @param name Both the name for destination and source
 	 */
-	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull String name, String... paths)
-	{
-		this.plugin = plugin;
-		this.name = name.endsWith(".yml") ? name : name + ".yml";
-		String joinedPath = String.join(File.separator, paths);
-		this.path = Paths.get(joinedPath, this.name);
-		file = new File(plugin.getDataFolder(), this.path.toString());
+	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull String name) {
+		this(plugin, Path.of(name), Path.of(plugin.getDataFolder().getPath(), name));
 	}
 	
-	public ConfigYML(@NotNull JavaPlugin main, @NotNull Path path)
-	{
-		this.plugin = main;
-		String name = path.getFileName().toString();
-		this.name = name.endsWith(".yml") ? name : name + ".yml";
-		this.path = path;
-		file = new File(plugin.getDataFolder(), this.path.toString());
+	/**
+	 * Creates a new file at the specified location or copies an existing one from the resource folder based on the path,
+	 * if nothing could be found in the resource folder it creates a new one. path will automatically point to the base of the plugin data folder
+	 *
+	 * @param plugin
+	 * @param path both the source and destination path
+	 */
+	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull Path path) {
+		this(plugin, path, Path.of(plugin.getDataFolder().getPath(), path.toString()));
 	}
+	
+	//make version where copy and destination are the same if you just enter 1 path
 	
 	/**
 	 * Gets a section of the config at the set path.
 	 *
 	 * @param path path inside yml config.
 	 * @param deep deep search to get children of children
-	 *
 	 * @return {@link Set} of results.
 	 */
-	public Set<String> getSection(@NotNull String path, boolean deep)
-	{
+	public Set<String> getSection(@NotNull String path, boolean deep) {
 		
 		ConfigurationSection section = getConfigurationSection(path);
-		if(section != null)
-		{
+		if(section != null){
 			return section.getKeys(deep);
 		}
 		return new HashSet<>();
 	}
 	
-	public @Nullable String getParentPath(@NotNull String path)
-	{
+	public @Nullable String getParentPath(@NotNull String path) {
 		ConfigurationSection configurationSection = getConfigurationSection(path).getParent();
-		if(configurationSection == null)
-		{
+		if(configurationSection == null){
 			return null;
 		}
 		return configurationSection.getCurrentPath();
 	}
 	
 	@Override
-	public void updateFiles()
-	{
+	public void updateFiles() {
 	
 	}
 	
 	@Override
-	public void load()
-	{
+	public void load() {
 		checkFile();
-		try
-		{
-			load(file);
-			Logger.log("Loaded data from " + name + "!");
-		} catch(InvalidConfigurationException | IOException e)
-		{
-			Logger.logFatal(plugin, e.getMessage());
-			Logger.logWarn("Error loading data from " + name + "!");
+		try{
+			load(FILE);
+			Logger.log("Loaded data from " + NAME + "!");
+		} catch(InvalidConfigurationException | IOException e){
+			Logger.logFatal(PLUGIN, e.getMessage());
+			Logger.logWarn("Error loading data from " + NAME + "!");
 		}
 	}
 	
@@ -136,96 +115,84 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	 *
 	 * @param plugin
 	 */
-	public void load(JavaPlugin plugin)
-	{
+	public void load(JavaPlugin plugin) {
 		checkFile();
-		try
-		{
-			load(file);
-			Logger.log(plugin, "Loaded data from " + name + "!");
-		} catch(InvalidConfigurationException | IOException e)
-		{
+		try{
+			load(FILE);
+			Logger.log(plugin, "Loaded data from " + NAME + "!");
+		} catch(InvalidConfigurationException | IOException e){
 			Logger.logFatal(plugin, e.getMessage());
-			Logger.logWarn(plugin, "Error loading data from " + name + "!");
+			Logger.logWarn(plugin, "Error loading data from " + NAME + "!");
 		}
 	}
 	
 	@Override
-	public void silentLoad()
-	{
+	public void silentLoad() {
 		checkFile();
-		try
-		{
-			load(file);
-		} catch(InvalidConfigurationException | IOException e)
-		{
-			Logger.logFatal(plugin, e.getMessage());
-			Logger.logWarn("Error loading data from " + name + "!");
+		try{
+			load(FILE);
+		} catch(InvalidConfigurationException | IOException e){
+			Logger.logFatal(PLUGIN, e.getMessage());
+			Logger.logWarn("Error loading data from " + NAME + "!");
 		}
 	}
 	
 	@Override
-	public void save()
-	{
+	public void save() {
 		checkFile();
-		try
-		{
-			save(file);
-			Logger.log("Saved data to " + name + "!");
-		} catch(IOException e)
-		{
-			Logger.logFatal(plugin, e.getMessage());
-			Logger.logWarn("Error saving data to " + name + "!");
+		try{
+			save(FILE);
+			Logger.log("Saved data to " + NAME + "!");
+		} catch(IOException e){
+			Logger.logFatal(PLUGIN, e.getMessage());
+			Logger.logWarn("Error saving data to " + NAME + "!");
 		}
 	}
 	
 	@Override
-	public void silentSave()
-	{
+	public void silentSave() {
 		checkFile();
-		try
-		{
-			save(file);
-		} catch(IOException e)
-		{
+		try{
+			save(FILE);
+		} catch(IOException e){
 			e.printStackTrace();
-			Logger.logWarn("Error saving data to " + name + "!");
+			Logger.logWarn("Error saving data to " + NAME + "!");
 		}
 	}
 	
 	@Override
-	public String name()
-	{
+	public String name() {
 		
-		return name;
+		return NAME;
 	}
 	
 	@Override
-	public String path()
-	{
-		return path.toString();
+	public String path() {
+		return DESTINATION_PATH.toString();
 	}
 	
 	/**
 	 * Checks if file exists in path, else create the file and all parent directories needed.
 	 */
-	private void checkFile()
-	{
-		if(!file.exists())
-		{
+	private void checkFile() {
+		if(!FILE.exists()){
 			
-			InputStream inputStream = plugin.getResource(path.toString().replaceAll("\\\\", "/"));
-			if(inputStream != null)
-			{
-				plugin.saveResource(path.toString(), false);
-			} else
-			{
-				boolean ignored = file.getParentFile().mkdirs();
-				try
-				{
-					ignored = file.createNewFile();
-				} catch(IOException e)
-				{
+			InputStream inputStream = PLUGIN.getResource(SOURCE_PATH.toString().replaceAll("\\\\", "/"));
+			if(inputStream != null){
+				try{
+					
+					//if something does not work its this!!!!!!!!!!!!
+					Files.copy(inputStream, DESTINATION_PATH);
+				} catch(IOException e){
+					Logger.logFatal("Error " + NAME);
+					Logger.logWarn("Error Copying data from " + SOURCE_PATH);
+					Logger.logWarn("To destination " + DESTINATION_PATH);
+				}
+			} else {
+				boolean ignored = FILE.getParentFile().mkdirs();
+				try{
+					ignored = FILE.createNewFile();
+				} catch(IOException e){
 					throw new RuntimeException(e);
 				}
 			}
@@ -235,9 +202,8 @@ public final class ConfigYML extends YamlConfiguration implements Config
 	}
 	
 	@Override
-	public String toString()
-	{
-		return String.format("ConfigYML[path=%s,name=%s]", path.toString(), name);
+	public String toString() {
+		return String.format("ConfigYML[path=%s,name=%s]", DESTINATION_PATH.toString(), NAME);
 	}
 	
 }

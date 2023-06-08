@@ -13,8 +13,7 @@ import java.util.Set;
  * The type Chat color.
  */
 @SuppressWarnings("unused")
-public final class ChatColor
-{
+public final class ChatColor{
 	//maybe convert to enum? not sure
 	public final static String preset = "&";
 	
@@ -87,8 +86,7 @@ public final class ChatColor
 	private static final Map<Character, TextDecoration> decorationMap = new HashMap<>();
 	private static final Map<Character, String> textColorMap = new HashMap<>();
 	
-	static
-	{
+	static {
 		decorationMap.put(Bold.charAt(1), TextDecoration.BOLD);
 		decorationMap.put(Italic.charAt(1), TextDecoration.ITALIC);
 		decorationMap.put(Obfuscated.charAt(1), TextDecoration.OBFUSCATED);
@@ -113,24 +111,20 @@ public final class ChatColor
 		textColorMap.put('f', WHITE);
 	}
 	
-	public static String hexToChatColor(String s)
-	{
+	public static String hexToChatColor(String s) {
 		Objects.requireNonNull(s);
-		if(s.startsWith("&"))
-		{
+		if(s.startsWith("&")){
 			return s;
 		}
 		return preset + s;
 		
 	}
 	
-	public static String rgbToChatColor(int r, int g, int b)
-	{
+	public static String rgbToChatColor(int r, int g, int b) {
 		return preset + Color.toHex(r, g, b);
 	}
 	
-	public static String rgbToChatColor(RGB rgb)
-	{
+	public static String rgbToChatColor(RGB rgb) {
 		Objects.requireNonNull(rgb);
 		return preset + rgb.toHex();
 	}
@@ -139,26 +133,21 @@ public final class ChatColor
 	 * String to component text decoration.
 	 *
 	 * @param s the s
-	 *
 	 * @return the text decoration
 	 */
-	public static TextDecoration charToComponent(char s)
-	{
+	public static TextDecoration charToComponent(char s) {
 		return decorationMap.get(s);
 	}
 	
-	public static String charToColor(Character s)
-	{
+	public static String charToColor(Character s) {
 		return textColorMap.get(s).replace(preset, "");
 	}
 	
-	public static Set<Character> colorCharacters()
-	{
+	public static Set<Character> colorCharacters() {
 		return textColorMap.keySet();
 	}
 	
-	public static Set<Character> decorationCharacters()
-	{
+	public static Set<Character> decorationCharacters() {
 		return decorationMap.keySet();
 	}
 	

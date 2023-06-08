@@ -10,8 +10,7 @@ import java.util.function.BiConsumer;
  * @author Redempt
  */
 @SuppressWarnings("unused")
-public abstract class Button
-{
+public abstract class Button{
 	
 	protected ItemStack item;
 	private int slot;
@@ -22,17 +21,13 @@ public abstract class Button
 	 *
 	 * @param item The ItemStack to be used as this button's icon
 	 * @param listener The listener which will be called whenever this button is clicked
-	 *
 	 * @return The ItemButton, which can be added to an InventoryGUI
 	 */
-	public static Button create(ItemStack item, Consumer<InventoryClickEvent> listener)
-	{
-		return new Button(item)
-		{
+	public static Button create(ItemStack item, Consumer<InventoryClickEvent> listener) {
+		return new Button(item){
 			
 			@Override
-			public void onClick(InventoryClickEvent e)
-			{
+			public void onClick(InventoryClickEvent e) {
 				listener.accept(e);
 			}
 			
@@ -45,17 +40,13 @@ public abstract class Button
 	 *
 	 * @param item The ItemStack to be used as this button's icon
 	 * @param listener The listener which will be called whenever this button is clicked and accepts the event and button
-	 *
 	 * @return The ItemButton, which can be added to an InventoryGUI
 	 */
-	public static Button create(ItemStack item, BiConsumer<InventoryClickEvent, Button> listener)
-	{
-		return new Button(item)
-		{
+	public static Button create(ItemStack item, BiConsumer<InventoryClickEvent, Button> listener) {
+		return new Button(item){
 			
 			@Override
-			public void onClick(InventoryClickEvent e)
-			{
+			public void onClick(InventoryClickEvent e) {
 				listener.accept(e, this);
 			}
 			
@@ -67,8 +58,7 @@ public abstract class Button
 	 *
 	 * @param item The ItemStack to be used as the icon
 	 */
-	public Button(ItemStack item)
-	{
+	public Button(ItemStack item) {
 		this.item = item;
 	}
 	
@@ -77,18 +67,15 @@ public abstract class Button
 	 *
 	 * @return The ItemStack
 	 */
-	public ItemStack getItem()
-	{
+	public ItemStack getItem() {
 		return item;
 	}
 	
-	protected int getSlot()
-	{
+	protected int getSlot() {
 		return slot;
 	}
 	
-	protected void setSlot(int slot)
-	{
+	protected void setSlot(int slot) {
 		this.slot = slot;
 	}
 	
@@ -98,8 +85,7 @@ public abstract class Button
 	 *
 	 * @param item The item to become the icon for this button
 	 */
-	public void setItem(ItemStack item)
-	{
+	public void setItem(ItemStack item) {
 		this.item = item;
 	}
 	

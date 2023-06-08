@@ -21,129 +21,107 @@ import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public final class MockInventory implements Inventory
-{
+public final class MockInventory implements Inventory{
 	
 	private ItemStack[] items;
 	private final InventoryHolder holder;
 	private final InventoryType type;
 	
-	public MockInventory(ItemStack[] items, InventoryHolder holder, InventoryType type)
-	{
+	public MockInventory(ItemStack[] items, InventoryHolder holder, InventoryType type) {
 		this.items = items;
 		this.holder = holder;
 		this.type = type;
 	}
 	
 	@Override
-	public int getSize()
-	{
+	public int getSize() {
 		return items.length;
 	}
 	
 	@Override
-	public int getMaxStackSize()
-	{
+	public int getMaxStackSize() {
 		return 64;
 	}
 	
 	@Override
-	public void setMaxStackSize(int i)
-	{
+	public void setMaxStackSize(int i) {
 	}
 	
 	@Override
-	public ItemStack getItem(int i)
-	{
+	public ItemStack getItem(int i) {
 		return items[i];
 	}
 	
 	@Override
-	public void setItem(int i, ItemStack itemStack)
-	{
+	public void setItem(int i, ItemStack itemStack) {
 		items[i] = itemStack;
 	}
 	
 	@Override
-	public HashMap<Integer, ItemStack> addItem(ItemStack... itemStacks) throws IllegalArgumentException
-	{
+	public HashMap<Integer, ItemStack> addItem(ItemStack... itemStacks) throws IllegalArgumentException {
 		return null;
 	}
 	
 	@Override
-	public HashMap<Integer, ItemStack> removeItem(ItemStack... itemStacks) throws IllegalArgumentException
-	{
+	public HashMap<Integer, ItemStack> removeItem(ItemStack... itemStacks) throws IllegalArgumentException {
 		return null;
 	}
 	
 	@Override
-	public @NotNull HashMap<Integer, ItemStack> removeItemAnySlot(@NotNull ItemStack... items) throws IllegalArgumentException
-	{
+	public @NotNull HashMap<Integer, ItemStack> removeItemAnySlot(@NotNull ItemStack... items) throws IllegalArgumentException {
 		return null;
 	}
 	
 	@Override
-	public ItemStack @NotNull [] getContents()
-	{
+	public ItemStack @NotNull [] getContents() {
 		return items;
 	}
 	
 	@Override
-	public void setContents(ItemStack[] itemStacks) throws IllegalArgumentException
-	{
+	public void setContents(ItemStack[] itemStacks) throws IllegalArgumentException {
 		this.items = itemStacks;
 	}
 	
 	@Override
-	public ItemStack @NotNull [] getStorageContents()
-	{
+	public ItemStack @NotNull [] getStorageContents() {
 		return items;
 	}
 	
 	@Override
-	public void setStorageContents(ItemStack[] itemStacks) throws IllegalArgumentException
-	{
+	public void setStorageContents(ItemStack[] itemStacks) throws IllegalArgumentException {
 		this.items = itemStacks;
 	}
 	
 	@Override
-	public boolean contains(Material material) throws IllegalArgumentException
-	{
+	public boolean contains(Material material) throws IllegalArgumentException {
 		return Arrays.stream(items).anyMatch(i -> i.getType() == material);
 	}
 	
 	@Override
-	public boolean contains(ItemStack itemStack)
-	{
+	public boolean contains(ItemStack itemStack) {
 		return Arrays.asList(items).contains(itemStack);
 	}
 	
 	@Override
-	public boolean contains(Material material, int amount) throws IllegalArgumentException
-	{
+	public boolean contains(Material material, int amount) throws IllegalArgumentException {
 		return Arrays.stream(items).filter(i -> i.getType() == material).collect(Collectors.summarizingInt(ItemStack::getAmount)).getSum() >= amount;
 	}
 	
 	@Override
-	public boolean contains(ItemStack itemStack, int amount)
-	{
+	public boolean contains(ItemStack itemStack, int amount) {
 		return Arrays.stream(items).filter(i -> i.equals(itemStack)).count() >= amount;
 	}
 	
 	@Override
-	public boolean containsAtLeast(ItemStack itemStack, int amount)
-	{
+	public boolean containsAtLeast(ItemStack itemStack, int amount) {
 		return Arrays.stream(items).filter(i -> i.equals(itemStack)).collect(Collectors.summarizingInt(ItemStack::getAmount)).getSum() >= amount;
 	}
 	
 	@Override
-	public @NotNull HashMap<Integer, ? extends ItemStack> all(@NotNull Material material) throws IllegalArgumentException
-	{
+	public @NotNull HashMap<Integer, ? extends ItemStack> all(@NotNull Material material) throws IllegalArgumentException {
 		HashMap<Integer, ItemStack> items = new HashMap<>();
-		for(int i = 0; i < this.items.length; i++)
-		{
-			if(this.items[i].getType() == material)
-			{
+		for(int i = 0; i < this.items.length; i++){
+			if(this.items[i].getType() == material){
 				items.put(i, this.items[i]);
 			}
 		}
@@ -151,13 +129,10 @@ public final class MockInventory implements Inventory
 	}
 	
 	@Override
-	public @NotNull HashMap<Integer, ? extends ItemStack> all(ItemStack itemStack)
-	{
+	public @NotNull HashMap<Integer, ? extends ItemStack> all(ItemStack itemStack) {
 		HashMap<Integer, ItemStack> items = new HashMap<>();
-		for(int i = 0; i < this.items.length; i++)
-		{
-			if(this.items[i].equals(itemStack))
-			{
+		for(int i = 0; i < this.items.length; i++){
+			if(this.items[i].equals(itemStack)){
 				items.put(i, this.items[i]);
 			}
 		}
@@ -165,12 +140,9 @@ public final class MockInventory implements Inventory
 	}
 	
 	@Override
-	public int first(@NotNull Material material) throws IllegalArgumentException
-	{
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i].getType() == material)
-			{
+	public int first(@NotNull Material material) throws IllegalArgumentException {
+		for(int i = 0; i < items.length; i++){
+			if(items[i].getType() == material){
 				return i;
 			}
 		}
@@ -178,12 +150,9 @@ public final class MockInventory implements Inventory
 	}
 	
 	@Override
-	public int first(@NotNull ItemStack itemStack)
-	{
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i].equals(itemStack))
-			{
+	public int first(@NotNull ItemStack itemStack) {
+		for(int i = 0; i < items.length; i++){
+			if(items[i].equals(itemStack)){
 				return i;
 			}
 		}
@@ -191,114 +160,92 @@ public final class MockInventory implements Inventory
 	}
 	
 	@Override
-	public int firstEmpty()
-	{
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i] == null || items[i].getType() == Material.AIR)
-			{
+	public int firstEmpty() {
+		for(int i = 0; i < items.length; i++){
+			if(items[i] == null || items[i].getType() == Material.AIR){
 				return i;
 			}
 		}
 		return -1;
 	}
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return firstEmpty() == -1;
 	}
 	
 	@Override
-	public void remove(@NotNull Material material) throws IllegalArgumentException
-	{
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i].getType() == material)
-			{
+	public void remove(@NotNull Material material) throws IllegalArgumentException {
+		for(int i = 0; i < items.length; i++){
+			if(items[i].getType() == material){
 				items[i] = null;
 			}
 		}
 	}
 	
 	@Override
-	public void remove(@NotNull ItemStack itemStack)
-	{
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i].equals(itemStack))
-			{
+	public void remove(@NotNull ItemStack itemStack) {
+		for(int i = 0; i < items.length; i++){
+			if(items[i].equals(itemStack)){
 				items[i] = null;
 			}
 		}
 	}
 	
 	@Override
-	public void clear(int i)
-	{
+	public void clear(int i) {
 		items[i] = null;
 	}
 	
 	@Override
-	public void clear()
-	{
+	public void clear() {
 		items = new ItemStack[items.length];
 	}
 	
 	@Override
-	public int close()
-	{
+	public int close() {
 		return 0;
 	}
 	
 	@Override
-	public @NotNull List<HumanEntity> getViewers()
-	{
+	public @NotNull List<HumanEntity> getViewers() {
 		return new ArrayList<>();
 	}
 	
 	@Override
-	public @NotNull InventoryType getType()
-	{
+	public @NotNull InventoryType getType() {
 		return type;
 	}
 	
 	@Override
-	public InventoryHolder getHolder()
-	{
+	public InventoryHolder getHolder() {
 		return holder;
 	}
 	
 	@Override
-	public @Nullable InventoryHolder getHolder(boolean useSnapshot)
-	{
+	public @Nullable InventoryHolder getHolder(boolean useSnapshot) {
 		return null;
 	}
 	
 	@Override
-	public @NotNull ListIterator<ItemStack> iterator()
-	{
+	public @NotNull ListIterator<ItemStack> iterator() {
 		List<ItemStack> itemList = new ArrayList<>();
 		Collections.addAll(itemList, items);
 		return itemList.listIterator();
 	}
 	
 	@Override
-	public @NotNull ListIterator<ItemStack> iterator(int i)
-	{
+	public @NotNull ListIterator<ItemStack> iterator(int i) {
 		List<ItemStack> itemList = new ArrayList<>();
 		Collections.addAll(itemList, items);
 		return itemList.listIterator(i);
 	}
 	
 	@Override
-	public Location getLocation()
-	{
-		if(holder instanceof Entity)
-		{
+	public Location getLocation() {
+		if(holder instanceof Entity){
 			return ((Entity) holder).getLocation();
 		}
-		if(holder instanceof BlockState)
-		{
+		if(holder instanceof BlockState){
 			return ((BlockState) holder).getLocation();
 		}
 		return null;

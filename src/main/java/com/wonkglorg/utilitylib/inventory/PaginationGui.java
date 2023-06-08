@@ -18,15 +18,14 @@ import java.util.stream.Collectors;
  * @author Redempt
  */
 @SuppressWarnings("unused")
-public final class PaginationGui
-{
+public final class PaginationGui{
 	private final InventoryGUI gui;
 	private int page = 1;
 	private final List<IntConsumer> buttons = new ArrayList<>();
 	private final Map<Object, IntConsumer> items = new HashMap<>();
 	private final Set<Integer> slots = new TreeSet<>();
-	private Runnable onUpdate = () ->
-	{};
+	private Runnable onUpdate = () -> {
+	};
 	private ItemStack fillerItem;
 	
 	private final int maxRows = 9;
@@ -37,8 +36,7 @@ public final class PaginationGui
 	 *
 	 * @param gui The InventoryGUI to paginate
 	 */
-	public PaginationGui(InventoryGUI gui)
-	{
+	public PaginationGui(InventoryGUI gui) {
 		this(gui, null);
 	}
 	
@@ -48,8 +46,7 @@ public final class PaginationGui
 	 * @param gui The InventoryGUI to paginate
 	 * @param fillerItem The item to use for the background
 	 */
-	public PaginationGui(InventoryGUI gui, ItemStack fillerItem)
-	{
+	public PaginationGui(InventoryGUI gui, ItemStack fillerItem) {
 		this.gui = gui;
 		this.fillerItem = fillerItem;
 	}
@@ -59,13 +56,11 @@ public final class PaginationGui
 	 *
 	 * @param onUpdate The task to be run on update
 	 */
-	public void setOnUpdate(Runnable onUpdate)
-	{
+	public void setOnUpdate(Runnable onUpdate) {
 		this.onUpdate = onUpdate;
 	}
 	
-	private void addPagedButton0(Button button)
-	{
+	private void addPagedButton0(Button button) {
 		IntConsumer setter = i -> gui.addButton(button, i);
 		items.put(button, setter);
 		buttons.add(setter);
@@ -76,14 +71,12 @@ public final class PaginationGui
 	 *
 	 * @param button The button to add
 	 */
-	public void addPagedButton(Button button)
-	{
+	public void addPagedButton(Button button) {
 		addPagedButton0(button);
 		updatePage();
 	}
 	
-	private void addPagedItem0(ItemStack item)
-	{
+	private void addPagedItem0(ItemStack item) {
 		IntConsumer setter = i -> gui.getInventory().setItem(i, item);
 		items.put(item, setter);
 		buttons.add(setter);
@@ -94,8 +87,7 @@ public final class PaginationGui
 	 *
 	 * @param item The item to add
 	 */
-	public void addPagedItem(ItemStack item)
-	{
+	public void addPagedItem(ItemStack item) {
 		addPagedItem0(item);
 		updatePage();
 	}
@@ -105,10 +97,8 @@ public final class PaginationGui
 	 *
 	 * @param buttons The buttons to add
 	 */
-	public void addPagedButtons(Iterable<Button> buttons)
-	{
-		for(Button button : buttons)
-		{
+	public void addPagedButtons(Iterable<Button> buttons) {
+		for(Button button : buttons){
 			addPagedButton0(button);
 		}
 		updatePage();
@@ -119,10 +109,8 @@ public final class PaginationGui
 	 *
 	 * @param items The items to add
 	 */
-	public void addPagedItems(Iterable<ItemStack> items)
-	{
-		for(ItemStack item : items)
-		{
+	public void addPagedItems(Iterable<ItemStack> items) {
+		for(ItemStack item : items){
 			addPagedItem0(item);
 		}
 		updatePage();
@@ -133,8 +121,7 @@ public final class PaginationGui
 	 *
 	 * @param item The item to remove
 	 */
-	public void removePagedItem(ItemStack item)
-	{
+	public void removePagedItem(ItemStack item) {
 		buttons.remove(items.remove(item));
 		updatePage();
 	}
@@ -144,8 +131,7 @@ public final class PaginationGui
 	 *
 	 * @param button The button to remove
 	 */
-	public void removePagedButton(Button button)
-	{
+	public void removePagedButton(Button button) {
 		buttons.remove(items.remove(button));
 		updatePage();
 	}
@@ -155,10 +141,8 @@ public final class PaginationGui
 	 *
 	 * @param items The items to remove
 	 */
-	public void removePagedItems(Iterable<ItemStack> items)
-	{
-		for(ItemStack item : items)
-		{
+	public void removePagedItems(Iterable<ItemStack> items) {
+		for(ItemStack item : items){
 			buttons.remove(this.items.remove(item));
 		}
 		updatePage();
@@ -169,10 +153,8 @@ public final class PaginationGui
 	 *
 	 * @param buttons The buttons to remove
 	 */
-	public void removePagedButtons(Iterable<Button> buttons)
-	{
-		for(Button button : buttons)
-		{
+	public void removePagedButtons(Iterable<Button> buttons) {
+		for(Button button : buttons){
 			this.buttons.remove(items.remove(button));
 		}
 		updatePage();
@@ -181,24 +163,21 @@ public final class PaginationGui
 	/**
 	 * @return The page this panel is currently on
 	 */
-	public int getPage()
-	{
+	public int getPage() {
 		return page;
 	}
 	
 	/**
 	 * @return The max number of elements displayed on each page
 	 */
-	public int getPageSize()
-	{
+	public int getPageSize() {
 		return slots.size();
 	}
 	
 	/**
 	 * @return The maximum page number of this panel with the current number of elements
 	 */
-	public int getMaxPage()
-	{
+	public int getMaxPage() {
 		return (Math.max(0, buttons.size() - 1) / Math.max(1, slots.size())) + 1;
 	}
 	
@@ -207,8 +186,7 @@ public final class PaginationGui
 	 *
 	 * @param slot The slot to add
 	 */
-	public void addSlot(int slot)
-	{
+	public void addSlot(int slot) {
 		slots.add(slot);
 		updatePage();
 	}
@@ -219,10 +197,8 @@ public final class PaginationGui
 	 * @param start The start index of slots to add, inclusive
 	 * @param end The end index of slots to add, exclusive
 	 */
-	public void addSlots(int start, int end)
-	{
-		for(int i = start; i < end; i++)
-		{
+	public void addSlots(int start, int end) {
+		for(int i = start; i < end; i++){
 			slots.add(i);
 		}
 		updatePage();
@@ -236,12 +212,9 @@ public final class PaginationGui
 	 * @param x2 The ending X of slots to add, exclusive
 	 * @param y2 The ending Y of slots to add, exclusive
 	 */
-	public void addSlots(int x1, int y1, int x2, int y2)
-	{
-		for(int x = x1; x < x2; x++)
-		{
-			for(int y = y1; y < y2; y++)
-			{
+	public void addSlots(int x1, int y1, int x2, int y2) {
+		for(int x = x1; x < x2; x++){
+			for(int y = y1; y < y2; y++){
 				slots.add(y * maxRows + x);
 			}
 		}
@@ -253,8 +226,7 @@ public final class PaginationGui
 	 *
 	 * @param slot The slot to remove
 	 */
-	public void removeSlot(int slot)
-	{
+	public void removeSlot(int slot) {
 		slots.forEach(gui::clearSlot);
 		slots.remove(slot);
 		updatePage();
@@ -266,11 +238,9 @@ public final class PaginationGui
 	 * @param start The start index of slots to remove, inclusive
 	 * @param end The end index of slots to remove, exclusive
 	 */
-	public void removeSlots(int start, int end)
-	{
+	public void removeSlots(int start, int end) {
 		slots.forEach(gui::clearSlot);
-		for(int i = start; i < end; i++)
-		{
+		for(int i = start; i < end; i++){
 			slots.remove(i);
 		}
 		updatePage();
@@ -284,13 +254,10 @@ public final class PaginationGui
 	 * @param x2 The ending X of slots to remove, exclusive
 	 * @param y2 The ending Y of slots to remove, exclusive
 	 */
-	public void removeSlots(int x1, int y1, int x2, int y2)
-	{
+	public void removeSlots(int x1, int y1, int x2, int y2) {
 		slots.forEach(gui::clearSlot);
-		for(int x = x1; x < x2; x++)
-		{
-			for(int y = y1; y < y2; y++)
-			{
+		for(int x = x1; x < x2; x++){
+			for(int y = y1; y < y2; y++){
 				slots.remove(y * maxRows + x);
 			}
 		}
@@ -300,20 +267,17 @@ public final class PaginationGui
 	/**
 	 * Updates the elements displayed on the current page
 	 */
-	public void updatePage()
-	{
+	public void updatePage() {
 		slots.forEach(gui::clearSlot);
 		slots.forEach(i -> gui.getInventory().setItem(i, fillerItem));
-		if(getPageSize() == 0 || buttons.size() == 0)
-		{
+		if(getPageSize() == 0 || buttons.size() == 0){
 			onUpdate.run();
 			return;
 		}
 		int start = (page - 1) * getPageSize();
 		int end = Math.min(buttons.size(), page * getPageSize());
 		Iterator<Integer> iter = slots.iterator();
-		for(int i = start; i < end; i++)
-		{
+		for(int i = start; i < end; i++){
 			buttons.get(i).accept(iter.next());
 		}
 		onUpdate.run();
@@ -324,10 +288,8 @@ public final class PaginationGui
 	 *
 	 * @param page The page to set
 	 */
-	public void setPage(int page)
-	{
-		if(page < 1 || page > getMaxPage())
-		{
+	public void setPage(int page) {
+		if(page < 1 || page > getMaxPage()){
 			throw new IllegalArgumentException("Invalid page: " + page);
 		}
 		this.page = page;
@@ -337,8 +299,7 @@ public final class PaginationGui
 	/**
 	 * Removes all items and buttons from the panel
 	 */
-	public void clear()
-	{
+	public void clear() {
 		buttons.clear();
 		items.clear();
 		updatePage();
@@ -347,24 +308,21 @@ public final class PaginationGui
 	/**
 	 * @return All ItemStacks added to this panel
 	 */
-	public List<ItemStack> getItems()
-	{
+	public List<ItemStack> getItems() {
 		return items.keySet().stream().filter(ItemStack.class::isInstance).map(ItemStack.class::cast).collect(Collectors.toList());
 	}
 	
 	/**
 	 * @return All ItemButtons added to this panel
 	 */
-	public List<Button> getButtons()
-	{
+	public List<Button> getButtons() {
 		return items.keySet().stream().filter(Button.class::isInstance).map(Button.class::cast).collect(Collectors.toList());
 	}
 	
 	/**
 	 * Navigates to the next page, if there is one
 	 */
-	public void nextPage()
-	{
+	public void nextPage() {
 		page = Math.min(page + 1, getMaxPage());
 		updatePage();
 	}
@@ -372,8 +330,7 @@ public final class PaginationGui
 	/**
 	 * Navigates to the previous page, if there is one
 	 */
-	public void prevPage()
-	{
+	public void prevPage() {
 		page = Math.max(1, page - 1);
 		updatePage();
 	}
@@ -381,16 +338,14 @@ public final class PaginationGui
 	/**
 	 * Sets the filler item
 	 */
-	public void setFillerItem(ItemStack item)
-	{
+	public void setFillerItem(ItemStack item) {
 		this.fillerItem = item;
 	}
 	
 	/**
 	 * Gets the filler item
 	 */
-	public ItemStack getFillerItem()
-	{
+	public ItemStack getFillerItem() {
 		return fillerItem;
 	}
 }

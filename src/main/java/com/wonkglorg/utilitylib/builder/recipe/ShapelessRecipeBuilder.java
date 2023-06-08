@@ -14,30 +14,25 @@ import java.util.Map;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class ShapelessRecipeBuilder extends RecipeBuilder
-{
+public final class ShapelessRecipeBuilder extends RecipeBuilder{
 	
 	/**
 	 * Constructs a new ShapelessRecipeBuilder for the specified result
 	 *
 	 * @param result result {@link ItemStack}
 	 */
-	public ShapelessRecipeBuilder(NamespacedKey key, ItemStack result)
-	{
+	public ShapelessRecipeBuilder(NamespacedKey key, ItemStack result) {
 		super(key, result);
 	}
 	
 	@Override
-	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
-	{
-		if(recipe == null)
-		{
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result) {
+		if(recipe == null){
 			recipe = new ShapedRecipe(key, result);
 		}
 	}
 	
-	private ShapelessRecipe getRecipe()
-	{
+	private ShapelessRecipe getRecipe() {
 		return (ShapelessRecipe) recipe;
 	}
 	
@@ -45,14 +40,11 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link Material}
-	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(Material... ingredients)
-	{
+	public ShapelessRecipeBuilder addIngredient(Material... ingredients) {
 		validateInit();
-		for(Material ingredient : ingredients)
-		{
+		for(Material ingredient : ingredients){
 			getRecipe().addIngredient(ingredient);
 		}
 		return this;
@@ -63,11 +55,9 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param count amount of the ingredient
 	 * @param ingredient ingredient {@link Material}
-	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(int count, Material ingredient)
-	{
+	public ShapelessRecipeBuilder addIngredient(int count, Material ingredient) {
 		validateInit();
 		getRecipe().addIngredient(count, ingredient);
 		return this;
@@ -77,14 +67,11 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link Material}
-	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(Map<Material, Integer> ingredients)
-	{
+	public ShapelessRecipeBuilder addIngredient(Map<Material, Integer> ingredients) {
 		validateInit();
-		for(Material material : ingredients.keySet())
-		{
+		for(Material material : ingredients.keySet()){
 			getRecipe().addIngredient(ingredients.get(material), material);
 		}
 		return this;
@@ -94,22 +81,18 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 * Adds an ingredient to the recipe
 	 *
 	 * @param ingredients ingredient {@link ItemStack}
-	 *
 	 * @return the ShapelessRecipeBuilder
 	 */
-	public ShapelessRecipeBuilder addIngredient(ItemStack... ingredients)
-	{
+	public ShapelessRecipeBuilder addIngredient(ItemStack... ingredients) {
 		validateInit();
-		for(ItemStack ingredient : ingredients)
-		{
+		for(ItemStack ingredient : ingredients){
 			getRecipe().addIngredient(ingredient);
 			
 		}
 		return this;
 	}
 	
-	public ShapelessRecipeBuilder setCategory(CraftingBookCategory category)
-	{
+	public ShapelessRecipeBuilder setCategory(CraftingBookCategory category) {
 		validateInit();
 		getRecipe().setCategory(category);
 		return this;
@@ -120,16 +103,14 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
-	public ShapelessRecipeBuilder setGroup(String group)
-	{
+	public ShapelessRecipeBuilder setGroup(String group) {
 		validateInit();
 		getRecipe().setGroup(group);
 		return this;
 	}
 	
 	@Override
-	public ShapelessRecipe build()
-	{
+	public ShapelessRecipe build() {
 		return (ShapelessRecipe) super.build();
 	}
 	

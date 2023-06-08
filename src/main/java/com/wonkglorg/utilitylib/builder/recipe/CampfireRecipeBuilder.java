@@ -14,24 +14,19 @@ import java.util.Objects;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class CampfireRecipeBuilder extends RecipeBuilder
-{
-	public CampfireRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result)
-	{
+public final class CampfireRecipeBuilder extends RecipeBuilder{
+	public CampfireRecipeBuilder(@NotNull NamespacedKey key, @NotNull ItemStack result) {
 		super(key, result);
 	}
 	
 	@Override
-	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result)
-	{
-		if(recipe == null)
-		{
+	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result) {
+		if(recipe == null){
 			recipe = new CampfireRecipe(key, result, Material.BARRIER, 0.0f, 10);
 		}
 	}
 	
-	private CampfireRecipe getRecipe()
-	{
+	private CampfireRecipe getRecipe() {
 		return (CampfireRecipe) this.recipe;
 	}
 	
@@ -39,11 +34,9 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link ItemStack} input.
 	 *
 	 * @param input {@link ItemStack} to be smelted
-	 *
 	 * @return {@link CampfireRecipeBuilder}
 	 */
-	public CampfireRecipeBuilder setInput(@NotNull final ItemStack... input)
-	{
+	public CampfireRecipeBuilder setInput(@NotNull final ItemStack... input) {
 		validateInit();
 		getRecipe().setInputChoice(new ExactChoice(Objects.requireNonNull(input)));
 		return this;
@@ -53,11 +46,9 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	 * Sets the {@link Material} to be smelted
 	 *
 	 * @param input {@link Material} to be smelted
-	 *
 	 * @return {@link  CampfireRecipeBuilder}
 	 */
-	public CampfireRecipeBuilder setInput(@NotNull final Material input)
-	{
+	public CampfireRecipeBuilder setInput(@NotNull final Material input) {
 		validateInit();
 		getRecipe().setInput(Objects.requireNonNull(input));
 		return this;
@@ -67,11 +58,9 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	 * Sets the time needed to cook the time
 	 *
 	 * @param ticks amount in ticks
-	 *
 	 * @return {@link BlastingRecipeBuilder}
 	 */
-	public CampfireRecipeBuilder setCookTime(final int ticks)
-	{
+	public CampfireRecipeBuilder setCookTime(final int ticks) {
 		validateInit();
 		getRecipe().setCookingTime(ticks);
 		return this;
@@ -81,18 +70,15 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	 * Sets the experience gained from cooking
 	 *
 	 * @param experience as {@link Float}
-	 *
 	 * @return {@link CampfireRecipeBuilder}
 	 */
-	public CampfireRecipeBuilder setExperience(final float experience)
-	{
+	public CampfireRecipeBuilder setExperience(final float experience) {
 		validateInit();
 		getRecipe().setExperience(experience);
 		return this;
 	}
 	
-	public CampfireRecipeBuilder setCategory(CookingBookCategory category)
-	{
+	public CampfireRecipeBuilder setCategory(CookingBookCategory category) {
 		validateInit();
 		getRecipe().setCategory(category);
 		return this;
@@ -103,16 +89,14 @@ public final class CampfireRecipeBuilder extends RecipeBuilder
 	 *
 	 * @param group recipe group. An empty string denotes no group. May not be null.
 	 */
-	public CampfireRecipeBuilder setGroup(String group)
-	{
+	public CampfireRecipeBuilder setGroup(String group) {
 		validateInit();
 		getRecipe().setGroup(group);
 		return this;
 	}
 	
 	@Override
-	public CampfireRecipe build()
-	{
+	public CampfireRecipe build() {
 		return (CampfireRecipe) super.build();
 	}
 	

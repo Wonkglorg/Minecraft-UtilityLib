@@ -18,64 +18,52 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class ConfigManager implements Manager
-{
+public final class ConfigManager implements Manager{
 	
 	//add method to reload all configs same for ymls as an easier implementation for reload config commands
 	private final JavaPlugin plugin;
 	private boolean isStarted;
 	
-	public ConfigManager(JavaPlugin plugin)
-	{
+	public ConfigManager(JavaPlugin plugin) {
 		this.plugin = plugin;
 	}
 	
 	private final Collection<Config> configs = new ArrayList<>();
 	
-	public synchronized void add(@NotNull Config config)
-	{
+	public synchronized void add(@NotNull Config config) {
 		configs.add(config);
 		config.silentLoad();
 	}
 	
-	public synchronized void add(@NotNull Config... config)
-	{
+	public synchronized void add(@NotNull Config... config) {
 		configs.addAll(List.of(config));
 		Arrays.stream(config).toList().forEach(Config::silentLoad);
 	}
 	
-	public synchronized void add(@NotNull Collection<Config> config)
-	{
+	public synchronized void add(@NotNull Collection<Config> config) {
 		configs.addAll(config);
 		config.forEach(Config::silentLoad);
 	}
 	
-	public synchronized void load()
-	{
+	public synchronized void load() {
 		configs.forEach(Config::load);
 	}
 	
-	public synchronized void silentLoad()
-	{
+	public synchronized void silentLoad() {
 		configs.forEach(Config::silentLoad);
 	}
 	
-	public synchronized void save()
-	{
+	public synchronized void save() {
 		configs.forEach(Config::save);
 	}
 	
-	public synchronized void silentSave()
-	{
+	public synchronized void silentSave() {
 		configs.forEach(Config::silentSave);
 	}
 	
-	public synchronized Config getConfig(String name)
-	{
-		for(Config config : configs)
-		{
-			if(config.name().equalsIgnoreCase(name))
-			{
+	public synchronized Config getConfig(String name) {
+		for(Config config : configs){
+			if(config.name().equalsIgnoreCase(name)){
 				return config;
 			}
 		}
@@ -83,33 +71,26 @@ public final class ConfigManager implements Manager
 	}
 	
 	@Override
-	public void onShutdown()
-	{
-		if(!configs.isEmpty())
-		{
+	public void onShutdown() {
+		if(!configs.isEmpty()){
 			silentSave();
 			Logger.log(plugin, "Saved " + configs.size() + " configs!");
 		}
 	}
 	
 	@Override
-	public void onStartup()
-	{
-		if(isStarted)
-		{
+	public void onStartup() {
+		if(isStarted){
 			return;
 		}
 		isStarted = true;
-		if(!configs.isEmpty())
-		{
+		if(!configs.isEmpty()){
 			Logger.log(plugin, "Loaded " + configs.size() + " configs!");
 		}
 	}
 	
-	public synchronized Map<String, Config> addAllConfigsFromPath(String... paths)
-	{
-		if(paths.length == 0)
-		{
+	public synchronized Map<String, Config> addAllConfigsFromPath(String... paths) {
+		if(paths.length == 0){
 			return null;
 		}
 		String first = paths[0];
@@ -118,22 +99,17 @@ public final class ConfigManager implements Manager
 		return addAllConfigsFromPath(path);
 	}
 	
-	public synchronized Map<String, Config> addAllConfigsFromPath(Path path)
-	{
+	public synchronized Map<String, Config> addAllConfigsFromPath(Path path) {
 		File[] files = Path.of(plugin.getDataFolder().getPath(), path.toString()).toFile().listFiles();
 		Map<String, Config> tempConfigs = new HashMap<>();
-		if(files == null)
-		{
+		if(files == null){
 			return null;
 		}
-		for(File file : files)
-		{
-			if(!file.isFile())
-			{
+		for(File file : files){
+			if(!file.isFile()){
 				continue;
 			}
-			if(!file.getName().endsWith(".yml"))
-			{
+			if(!file.getName().endsWith(".yml")){
 				continue;
 			}
 			Config config = new ConfigYML(plugin, file.toPath());
@@ -144,8 +120,7 @@ public final class ConfigManager implements Manager
 		return tempConfigs;
 	}
 	
-	public Collection<Config> getConfigs()
-	{
+	public Collection<Config> getConfigs() {
 		return configs;
 	}
 }

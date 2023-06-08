@@ -11,9 +11,9 @@ import java.util.logging.Level;
 
 @SuppressWarnings({"unused", "unchecked"})
 @ThreadSafe
-public final class Logger
-{
+public final class Logger{
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
+	
 	/**
 	 * Sends a logger message in the console using your own logger and level.
 	 *
@@ -22,21 +22,18 @@ public final class Logger
 	 * @param text Text to be displayed
 	 */
 	@SuppressWarnings("rawtypes")
-	public static void log(@NotNull final java.util.logging.Logger logger, @NotNull final Level logType, @NotNull Object... text)
-	{
+	public static void log(@NotNull final java.util.logging.Logger logger, @NotNull final Level logType, @NotNull Object... text) {
 		StringBuilder builder = new StringBuilder();
-		for(Object obj : text)
-		{
+		for(Object obj : text){
 			boolean isArray = false;
-			if(obj instanceof Collection list)
-			{
+			if(obj instanceof Collection list){
 				list.forEach(o -> builder.append(",").append(o.toString()));
 			}
-			if(obj instanceof Map map)
+			if(obj instanceof Map map){
 				map.forEach((o, o2) -> builder.append(String.format(",(%s , %s)", o.toString(), o2.toString())));
+			}
 			
-			if(builder.length() > 0)
-			{
+			if(builder.length() > 0){
 				logger.log(logType, "[ " + builder.toString().replaceFirst(",", "").trim() + " ]");
 				continue;
 			}
@@ -51,8 +48,7 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void log(@NotNull JavaPlugin plugin, @NotNull Object... text)
-	{
+	public static void log(@NotNull JavaPlugin plugin, @NotNull Object... text) {
 		log(plugin.getLogger(), Level.INFO, text);
 	}
 	
@@ -61,8 +57,7 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void log(@NotNull Object... text)
-	{
+	public static void log(@NotNull Object... text) {
 		log(logger, Level.INFO, text);
 	}
 	
@@ -71,8 +66,7 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void logWarn(@NotNull JavaPlugin plugin, @NotNull Object... text)
-	{
+	public static void logWarn(@NotNull JavaPlugin plugin, @NotNull Object... text) {
 		log(plugin.getLogger(), Level.WARNING, text);
 	}
 	
@@ -81,8 +75,7 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void logWarn(@NotNull Object... text)
-	{
+	public static void logWarn(@NotNull Object... text) {
 		log(logger, Level.WARNING, text);
 	}
 	
@@ -91,8 +84,7 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void logFatal(@NotNull JavaPlugin plugin, @NotNull Object... text)
-	{
+	public static void logFatal(@NotNull JavaPlugin plugin, @NotNull Object... text) {
 		log(plugin.getLogger(), Level.SEVERE, text);
 	}
 	
@@ -101,13 +93,11 @@ public final class Logger
 	 *
 	 * @param text message to display.
 	 */
-	public static void logFatal(@NotNull Object... text)
-	{
+	public static void logFatal(@NotNull Object... text) {
 		log(logger, Level.SEVERE, text);
 	}
 	
-	private enum LogType
-	{
+	private enum LogType{
 		INFO,
 		WARN,
 		FATAL,

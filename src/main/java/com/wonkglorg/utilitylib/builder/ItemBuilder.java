@@ -8,26 +8,22 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public class ItemBuilder implements Cloneable
-{
+public class ItemBuilder implements Cloneable{
 	private ItemStack item;
 	private final Material material;
 	private int amount;
@@ -49,8 +45,7 @@ public class ItemBuilder implements Cloneable
 					   int durability,
 					   ItemMeta meta,
 					   List<ItemFlag> flags,
-					   Map<Enchantment, Integer> enchantments)
-	{
+					   Map<Enchantment, Integer> enchantments) {
 		super();
 		this.material = material;
 		this.amount = amount;
@@ -62,89 +57,72 @@ public class ItemBuilder implements Cloneable
 		this.enchantments = enchantments;
 	}
 	
-	public ItemBuilder(Material material)
-	{
+	public ItemBuilder(Material material) {
 		this(material, 1);
 	}
 	
-	public ItemBuilder(Material material, ItemFlag... itemFlags)
-	{
+	public ItemBuilder(Material material, ItemFlag... itemFlags) {
 		this(material, 1, null, null, 0, null, List.of(itemFlags), null);
 	}
 	
-	public ItemBuilder(Material material, String name)
-	{
+	public ItemBuilder(Material material, String name) {
 		this(material, 1, name);
 	}
 	
-	public ItemBuilder(Material material, List<String> description)
-	{
+	public ItemBuilder(Material material, List<String> description) {
 		this(material, 1, null, description);
 	}
 	
-	public ItemBuilder(Material material, int amount)
-	{
+	public ItemBuilder(Material material, int amount) {
 		this(material, amount, null);
 	}
 	
-	public ItemBuilder(Material material, int amount, String name)
-	{
+	public ItemBuilder(Material material, int amount, String name) {
 		this(material, amount, name, null);
 	}
 	
-	public ItemBuilder(Material material, int amount, String name, List<String> description)
-	{
+	public ItemBuilder(Material material, int amount, String name, List<String> description) {
 		
 		this(material, amount, name, description, 0, null, null, null);
 	}
 	
-	public ItemBuilder(ItemStack item)
-	{
+	public ItemBuilder(ItemStack item) {
 		meta = item.getItemMeta();
 		material = item.getType();
 		amount = item.getAmount();
 	}
 	
-	
-	public ItemStack build()
-	{
+	public ItemStack build() {
 		item = item != null ? item : new ItemStack(material, amount);
 		
 		meta = meta != null ? meta : item.getItemMeta();
 		
-		if(flags != null)
-		{
+		if(flags != null){
 			flags.forEach(flag -> meta.addItemFlags(flag));
 		}
 		
-		if(name != null)
-		{
+		if(name != null){
 			meta.displayName(Message.color(name));
 		}
 		
-		if(lore != null)
-		{
+		if(lore != null){
 			meta.lore(Message.color(lore));
 		}
 		
 		meta.setUnbreakable(unbreakable);
 		
-		if(enchantments != null)
-		{
+		if(enchantments != null){
 			enchantments.forEach((e, l) -> meta.addEnchant(e, l, true));
 		}
 		
-		if(modifiers != null)
-		{
+		if(modifiers != null){
 			meta.setAttributeModifiers(modifiers);
 		}
-		if(customModelData != 0)
-		{
+		if(customModelData != 0){
 			meta.setCustomModelData(customModelData);
 		}
 		
-		if(durability != 0 && item instanceof Damageable damageable)
-		{
+		if(durability != 0 && item instanceof Damageable damageable){
 			damageable.setDamage(durability);
 		}
 		item.setItemMeta(meta);
@@ -156,13 +134,10 @@ public class ItemBuilder implements Cloneable
 	 *
 	 * @param enchantment
 	 * @param value
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder addEnchant(Enchantment enchantment, int value)
-	{
-		if(enchantments == null)
-		{
+	public ItemBuilder addEnchant(Enchantment enchantment, int value) {
+		if(enchantments == null){
 			enchantments = new HashMap<>();
 		}
 		enchantments.put(enchantment, value);
@@ -171,46 +146,37 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param name
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setName(String name)
-	{
+	public ItemBuilder setName(String name) {
 		this.name = name;
 		return this;
 	}
 	
 	/**
 	 * @param name
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setName(int name)
-	{
+	public ItemBuilder setName(int name) {
 		this.name = String.valueOf(name);
 		return this;
 	}
 	
 	/**
 	 * @param durability
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder durability(int durability)
-	{
+	public ItemBuilder durability(int durability) {
 		this.durability = durability;
 		return this;
 	}
 	
 	/**
 	 * @param flag
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setFlag(ItemFlag flag)
-	{
-		if(flags == null)
-		{
+	public ItemBuilder setFlag(ItemFlag flag) {
+		if(flags == null){
 			flags = new ArrayList<>();
 		}
 		this.flags.add(flag);
@@ -219,24 +185,19 @@ public class ItemBuilder implements Cloneable
 	
 	/**
 	 * @param lore
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setLore(String... lore)
-	{
+	public ItemBuilder setLore(String... lore) {
 		this.lore = Arrays.asList(lore);
 		return this;
 	}
 	
 	/**
 	 * @param format
-	 *
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder addLoreLine(String format)
-	{
-		if(lore == null)
-		{
+	public ItemBuilder addLoreLine(String format) {
+		if(lore == null){
 			lore = new ArrayList<String>();
 		}
 		lore.add(format);
@@ -246,31 +207,26 @@ public class ItemBuilder implements Cloneable
 	/**
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder glow()
-	{
+	public ItemBuilder glow() {
 		addEnchant(Enchantment.LUCK, 1);
 		setFlag(ItemFlag.HIDE_ENCHANTS);
 		return this;
 	}
 	
-	public ItemBuilder unbreakable(boolean unbreakable)
-	{
+	public ItemBuilder unbreakable(boolean unbreakable) {
 		this.unbreakable = unbreakable;
 		return this;
 	}
 	
-	public ItemBuilder addAttribute(Attribute attribute, double amount, Operation operation)
-	{
-		if(modifiers == null)
-		{
+	public ItemBuilder addAttribute(Attribute attribute, double amount, Operation operation) {
+		if(modifiers == null){
 			modifiers = ArrayListMultimap.create();
 		}
 		modifiers.put(attribute, new AttributeModifier(attribute.toString(), amount, operation));
 		return this;
 	}
 	
-	public ItemBuilder setCustomModelData(int customModelData)
-	{
+	public ItemBuilder setCustomModelData(int customModelData) {
 		this.customModelData = customModelData;
 		return this;
 	}
@@ -284,120 +240,95 @@ public class ItemBuilder implements Cloneable
 	 */
 	
 	@Override
-	public ItemBuilder clone()
-	{
-		try
-		{
+	public ItemBuilder clone() {
+		try{
 			return (ItemBuilder) super.clone();
-		} catch(CloneNotSupportedException e)
-		{
+		} catch(CloneNotSupportedException e){
 			throw new AssertionError();
 		}
 	}
 	
-	public ItemStack getItem()
-	{
+	public ItemStack getItem() {
 		return item;
 	}
 	
-	public void setItem(ItemStack item)
-	{
+	public void setItem(ItemStack item) {
 		this.item = item;
 	}
 	
-	public Material getMaterial()
-	{
+	public Material getMaterial() {
 		return material;
 	}
 	
-	public int getAmount()
-	{
+	public int getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(int amount)
-	{
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 	
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 	
-	public List<String> getLore()
-	{
+	public List<String> getLore() {
 		return lore;
 	}
 	
-	public void setLore(List<String> lore)
-	{
+	public void setLore(List<String> lore) {
 		this.lore = lore;
 	}
 	
-	public int getDurability()
-	{
+	public int getDurability() {
 		return durability;
 	}
 	
-	public void setDurability(int durability)
-	{
+	public void setDurability(int durability) {
 		this.durability = durability;
 	}
 	
-	public ItemMeta getMeta()
-	{
+	public ItemMeta getMeta() {
 		return meta;
 	}
 	
-	public void setMeta(ItemMeta meta)
-	{
+	public void setMeta(ItemMeta meta) {
 		this.meta = meta;
 	}
 	
-	public List<ItemFlag> getFlags()
-	{
+	public List<ItemFlag> getFlags() {
 		return flags;
 	}
 	
-	public void setFlags(List<ItemFlag> flags)
-	{
+	public void setFlags(List<ItemFlag> flags) {
 		this.flags = flags;
 	}
 	
-	public Map<Enchantment, Integer> getEnchantments()
-	{
+	public Map<Enchantment, Integer> getEnchantments() {
 		return enchantments;
 	}
 	
-	public void setEnchantments(Map<Enchantment, Integer> enchantments)
-	{
+	public void setEnchantments(Map<Enchantment, Integer> enchantments) {
 		this.enchantments = enchantments;
 	}
 	
-	public boolean isUnbreakable()
-	
-	{
+	public boolean isUnbreakable() {
 		return unbreakable;
 	}
 	
-	public void setUnbreakable(boolean unbreakable)
-	{
+	public void setUnbreakable(boolean unbreakable) {
 		this.unbreakable = unbreakable;
 	}
 	
-	public int getCustomModelData()
-	{
+	public int getCustomModelData() {
 		return customModelData;
 	}
 	
-	public Multimap<Attribute, AttributeModifier> getModifiers()
-	{
+	public Multimap<Attribute, AttributeModifier> getModifiers() {
 		return modifiers;
 	}
 	
-	public void setModifiers(Multimap<Attribute, AttributeModifier> modifiers)
-	{
+	public void setModifiers(Multimap<Attribute, AttributeModifier> modifiers) {
 		this.modifiers = modifiers;
 	}
 }

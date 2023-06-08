@@ -23,8 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class PluginManager
-{
+public final class PluginManager{
 	
 	private final Map<ManagerValues, Manager> managerMap = new ConcurrentHashMap<>();
 	private final JavaPlugin plugin;
@@ -35,8 +34,7 @@ public final class PluginManager
 	 *
 	 * @param plugin the plugin
 	 */
-	public PluginManager(@NotNull JavaPlugin plugin)
-	{
+	public PluginManager(@NotNull JavaPlugin plugin) {
 		this.plugin = plugin;
 		addManagers();
 	}
@@ -47,48 +45,39 @@ public final class PluginManager
 	 * @param producer action to perform on shutdown for example saving them to a config file
 	 * @param consumer action to perform on startup for example loading it from a config file
 	 */
-	public void addCooldownManager(Consumer<Map<String, Map<UUID, Long>>> producer, Consumer<Map<String, Map<UUID, Long>>> consumer)
-	{
+	public void addCooldownManager(Consumer<Map<String, Map<UUID, Long>>> producer, Consumer<Map<String, Map<UUID, Long>>> consumer) {
 		managerMap.put(ManagerValues.COOLDOWN, new CooldownManager(producer, consumer));
 	}
 	
-	public synchronized void onStartup()
-	{
+	public synchronized void onStartup() {
 		managerMap.values().forEach(Manager::onStartup);
 	}
 	
-	public synchronized void onShutdown()
-	{
+	public synchronized void onShutdown() {
 		managerMap.values().forEach(Manager::onShutdown);
 	}
 	
-	public synchronized void add(Listener... listener)
-	{
+	public synchronized void add(Listener... listener) {
 		getEventManager().add(listener);
 	}
 	
-	public synchronized void add(Command... command)
-	{
+	public synchronized void add(Command... command) {
 		getCommandManager().add(command);
 	}
 	
-	public synchronized void add(Config... config)
-	{
+	public synchronized void add(Config... config) {
 		getConfigManager().add(config);
 	}
 	
-	public synchronized void add(Recipe... recipe)
-	{
+	public synchronized void add(Recipe... recipe) {
 		getRecipeManager().add(recipe);
 	}
 	
-	public synchronized void add(Enchantment... enchantment)
-	{
+	public synchronized void add(Enchantment... enchantment) {
 		getEnchantManager().add(enchantment);
 	}
 	
-	public synchronized void add(String name, Database database)
-	{
+	public synchronized void add(String name, Database database) {
 		getDatabaseManager().add(name, database);
 	}
 	
@@ -97,11 +86,9 @@ public final class PluginManager
 	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
-	 *
 	 * @return is plugin existing
 	 */
-	public synchronized boolean checkDepend(Plugin targetPlugin, boolean shutdown)
-	{
+	public synchronized boolean checkDepend(Plugin targetPlugin, boolean shutdown) {
 		return checkDepend(targetPlugin.getName(), shutdown);
 	}
 	
@@ -110,16 +97,12 @@ public final class PluginManager
 	 *
 	 * @param targetPlugin the plugin to check for
 	 * @param shutdown if enabled shutdown plugin on error
-	 *
 	 * @return is plugin existing
 	 */
-	public synchronized boolean checkDepend(String targetPlugin, boolean shutdown)
-	{
+	public synchronized boolean checkDepend(String targetPlugin, boolean shutdown) {
 		Plugin pluginToCheck = plugin.getServer().getPluginManager().getPlugin(targetPlugin);
-		if(pluginToCheck == null || !pluginToCheck.isEnabled())
-		{
-			if(shutdown)
-			{
+		if(pluginToCheck == null || !pluginToCheck.isEnabled()){
+			if(shutdown){
 				plugin.getServer().getPluginManager().disablePlugin(plugin);
 				return false;
 			}
@@ -130,18 +113,15 @@ public final class PluginManager
 		return true;
 	}
 	
-	public synchronized void addLang(Locale locale, Config config)
-	{
+	public synchronized void addLang(Locale locale, Config config) {
 		getLangManager().addLanguage(locale, config);
 	}
 	
-	public synchronized void addDefaultLang(Locale locale, Config config)
-	{
+	public synchronized void addDefaultLang(Locale locale, Config config) {
 		getLangManager().setDefaultLang(locale, config);
 	}
 	
-	public synchronized Manager getManager(ManagerValues value)
-	{
+	public synchronized Manager getManager(ManagerValues value) {
 		return managerMap.get(value);
 	}
 	
@@ -150,8 +130,7 @@ public final class PluginManager
 	 *
 	 * @return the config manager
 	 */
-	public synchronized ConfigManager getConfigManager()
-	{
+	public synchronized ConfigManager getConfigManager() {
 		return (ConfigManager) getManager(ManagerValues.CONFIG);
 	}
 	
@@ -160,8 +139,7 @@ public final class PluginManager
 	 *
 	 * @return the command manager
 	 */
-	public synchronized CommandManager getCommandManager()
-	{
+	public synchronized CommandManager getCommandManager() {
 		return (CommandManager) getManager(ManagerValues.COMMAND);
 	}
 	
@@ -170,8 +148,7 @@ public final class PluginManager
 	 *
 	 * @return the event manager
 	 */
-	public synchronized EventManager getEventManager()
-	{
+	public synchronized EventManager getEventManager() {
 		return (EventManager) getManager(ManagerValues.EVENT);
 	}
 	
@@ -180,8 +157,7 @@ public final class PluginManager
 	 *
 	 * @return the lang manager
 	 */
-	public synchronized LangManager getLangManager()
-	{
+	public synchronized LangManager getLangManager() {
 		
 		return (LangManager) getManager(ManagerValues.LANG);
 	}
@@ -191,23 +167,19 @@ public final class PluginManager
 	 *
 	 * @return the database manager
 	 */
-	public synchronized DatabaseManager getDatabaseManager()
-	{
+	public synchronized DatabaseManager getDatabaseManager() {
 		return (DatabaseManager) getManager(ManagerValues.DATABASE);
 	}
 	
-	public synchronized RecipeManager getRecipeManager()
-	{
+	public synchronized RecipeManager getRecipeManager() {
 		return (RecipeManager) getManager(ManagerValues.RECIPE);
 	}
 	
-	public synchronized EnchantmentManager getEnchantManager()
-	{
+	public synchronized EnchantmentManager getEnchantManager() {
 		return (EnchantmentManager) getManager(ManagerValues.ENCHANT);
 	}
 	
-	private void addManagers()
-	{
+	private void addManagers() {
 		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.CONFIG, new ConfigManager(plugin));
@@ -218,8 +190,7 @@ public final class PluginManager
 		managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
 	}
 	
-	private enum ManagerValues
-	{
+	private enum ManagerValues{
 		CONFIG(),
 		LANG(),
 		COMMAND(),
