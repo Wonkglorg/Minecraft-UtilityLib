@@ -4,6 +4,7 @@
 
 * [Introduction](#introduction)
 * [Requirements](#requirements)
+* [Installation](#installation)
 * [Overview](#overview)
 * [Guides](#guide)
 * [Credits](#credits)
@@ -18,6 +19,27 @@ required functionality every time. Instead, letting them concentrate on the func
 * Spigot or Paper
 * Minecraft 1.16.* and above
 * JAVA 8 or above
+
+## <a name="installation"></a>Installation
+
+Repository
+
+```yml
+<repository>
+     <id>jitpack.io</id>
+     <url>https://jitpack.io</url>
+</repository>
+```
+
+
+Adding the dependency
+```yml
+<dependency>
+     <groupId>com.github.Wonkglorg</groupId>
+     <artifactId>Minecraft-UtilityLib</artifactId>
+     <version>version</version>
+</dependency>
+```
 
 ## <a name="overview"></a>Overview
 
