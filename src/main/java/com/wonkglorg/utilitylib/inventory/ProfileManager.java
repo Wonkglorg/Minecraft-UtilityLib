@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public final class ProfileManager<T extends Profile>{
+public final class ProfileManager<T extends MenuProfile>{
 	private T menu;
 	private final Map<Player, T> utilityMap = new HashMap<>();
 	

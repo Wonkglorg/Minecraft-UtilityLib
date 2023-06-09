@@ -52,7 +52,7 @@ public abstract class InventoryGUI implements Listener{
 	};
 	private final Map<Integer, Button> buttons = new HashMap<>();
 	
-	protected Profile profile;
+	protected MenuProfile profile;
 	private final int maxRows = 9;
 	private final int maxColumns = 6;
 	
@@ -64,7 +64,7 @@ public abstract class InventoryGUI implements Listener{
 	 *
 	 * @param inventory The inventory to create a GUI from
 	 */
-	public InventoryGUI(Inventory inventory, JavaPlugin plugin, Profile profile) {
+	public InventoryGUI(Inventory inventory, JavaPlugin plugin, MenuProfile profile) {
 		
 		//Add profile to constructor, avoids nullpointer exception if profile is used in constructor
 		
@@ -80,7 +80,7 @@ public abstract class InventoryGUI implements Listener{
 	 * @param size The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(int size, String name, JavaPlugin plugin, Profile profile) {
+	public InventoryGUI(int size, String name, JavaPlugin plugin, MenuProfile profile) {
 		this(Bukkit.createInventory(null, size, Message.color(name)), plugin, profile);
 	}
 	
@@ -90,7 +90,7 @@ public abstract class InventoryGUI implements Listener{
 	 * @param inventorySize The size of the inventory
 	 * @param name The name of the inventory
 	 */
-	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, Profile profile) {
+	public InventoryGUI(InventorySize inventorySize, String name, JavaPlugin plugin, MenuProfile profile) {
 		this(Bukkit.createInventory(null, inventorySize.getSize(), Message.color(name)), plugin, profile);
 	}
 	

@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.managers;
 
+import com.wonkglorg.utilitylib.UtilityPlugin;
 import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.config.ConfigYML;
 import com.wonkglorg.utilitylib.logger.Logger;
@@ -29,6 +30,7 @@ public final class LangManager implements Manager{
 	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	private String primaryColor = ChatColor.GOLD;
 	private String secondaryColor = ChatColor.YELLOW;
+	private ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
 	
 	public LangManager(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -48,12 +50,14 @@ public final class LangManager implements Manager{
 	}
 	
 	public synchronized void setDefaultLang(Locale defaultLang, Config defaultConfig) {
+		configManager.add(defaultConfig);
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
 		defaultConfig.load();
 	}
 	
 	public synchronized void addLanguage(Locale locale, Config languageConfig) {
+		configManager.add(languageConfig);
 		langMap.put(locale, languageConfig);
 		languageConfig.silentLoad();
 	}
