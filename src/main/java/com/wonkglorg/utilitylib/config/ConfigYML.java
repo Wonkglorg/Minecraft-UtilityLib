@@ -176,7 +176,7 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	 */
 	private void checkFile() {
 		if(!FILE.exists()){
-			FILE.mkdirs();
+			FILE.getParentFile().mkdirs();
 			InputStream inputStream = PLUGIN.getResource(SOURCE_PATH.toString().replaceAll("\\\\", "/"));
 			if(inputStream != null){
 				try{
