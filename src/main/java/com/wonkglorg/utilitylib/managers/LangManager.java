@@ -196,6 +196,21 @@ public final class LangManager implements Manager{
 		return null;
 	}
 	
+	public boolean reloadLang(String name) {
+		Config config = getLangByFileName(name);
+		if(config == null){
+			return false;
+		}
+		
+		config.load();
+		
+		Config defaultConfig = getDefaultLang();
+		setPrimaryColor(defaultConfig.getString("primary-color"));
+		setSecondaryColor(defaultConfig.getString("secondary-color"));
+		setPrefix(defaultConfig.getString("prefix"));
+		return true;
+	}
+	
 	public String getPrimaryColor() {
 		return primaryColor;
 	}
@@ -248,7 +263,7 @@ public final class LangManager implements Manager{
 	 *
 	 * @param name
 	 */
-	public void addPrefixNameToDefault(String name) {
+	public void setPrefixNameToDefault(String name) {
 		if(name == null || name.isEmpty()){
 			return;
 		}
