@@ -82,7 +82,7 @@ public final class LangManager implements Manager{
 	
 	@Override
 	public void onShutdown() {
-		save();
+		//save();
 	}
 	
 	@Override

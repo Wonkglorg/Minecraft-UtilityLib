@@ -12,7 +12,7 @@ import java.util.Random;
 @SuppressWarnings("unused")
 public final class WeightedRandomPicker<T>{
 	
-	private class Entry{
+	public class Entry{
 		double accumulatedWeight;
 		T object;
 	}
