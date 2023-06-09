@@ -28,6 +28,7 @@ public final class PluginManager{
 	
 	private final Map<ManagerValues, Manager> managerMap = new ConcurrentHashMap<>();
 	private final JavaPlugin plugin;
+
 	
 	/**
 	 * PluginManager is designed to make handling and using different types of common classes like configs, commands,events,languages,recipes easier
@@ -182,7 +183,7 @@ public final class PluginManager{
 	
 	private void addManagers() {
 		managerMap.putIfAbsent(ManagerValues.CONFIG, new ConfigManager(plugin));
-		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin,getConfigManager()));
 		managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.RECIPE, new RecipeManager(plugin));

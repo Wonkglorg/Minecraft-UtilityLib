@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.managers;
 
-import com.wonkglorg.utilitylib.UtilityPlugin;
 import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.config.LangConfig;
 import com.wonkglorg.utilitylib.logger.Logger;
@@ -30,20 +29,13 @@ public final class LangManager implements Manager{
 	private boolean isLoaded = false;
 	private final ConfigManager configManager;
 	
-	public LangManager(JavaPlugin plugin) {
+	public LangManager(JavaPlugin plugin, ConfigManager configManager) {
 		this.plugin = plugin;
-		configManager = UtilityPlugin.getManager().getConfigManager();
+		this.configManager = configManager;
 	}
 	
 	public void replace(String replace, String with) {
 		replacerMap.put(replace, with);
-	}
-	
-	public LangManager(Locale defaultLang, LangConfig defaultConfig, JavaPlugin plugin) {
-		this.plugin = plugin;
-		configManager = UtilityPlugin.getManager().getConfigManager();
-		langMap.put(defaultLang, defaultConfig);
-		this.defaultLang = defaultLang;
 	}
 	
 	public synchronized void setDefaultLang(Locale defaultLang, LangConfig defaultConfig) {
