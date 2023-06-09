@@ -165,7 +165,7 @@ public final class LangManager implements Manager{
 		
 		String editString = config.getString(value);
 		
-		String[] searchList = {"%primary%", "%secondary%", "prefix"};
+		String[] searchList = {"%primary%", "%secondary%", "%prefix%"};
 		String[] replacementList = {config.getPrimaryColor(), config.getSecondaryColor(), config.getPrefix()};
 		
 		String editedString = StringUtils.replaceEach(editString, searchList, replacementList);
