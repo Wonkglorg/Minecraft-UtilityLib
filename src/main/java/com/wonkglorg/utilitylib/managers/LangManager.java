@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -30,6 +30,7 @@ public final class LangManager implements Manager{
 	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	private String primaryColor = ChatColor.GOLD;
 	private String secondaryColor = ChatColor.YELLOW;
+	private String prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + " " + ChatColor.GRAY + "]" + ChatColor.Reset;
 	private ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
 	
 	public LangManager(JavaPlugin plugin) {
@@ -43,9 +44,6 @@ public final class LangManager implements Manager{
 	public LangManager(Locale defaultLang, Config defaultConfig, JavaPlugin plugin) {
 		this.plugin = plugin;
 		langMap.put(defaultLang, defaultConfig);
-		
-		replacerMap.put("%primary%", primaryColor);
-		replacerMap.put("%secondary%", secondaryColor);
 		this.defaultLang = defaultLang;
 	}
 	
@@ -170,16 +168,25 @@ public final class LangManager implements Manager{
 		}
 		
 		String editString = config != null ? config.getString(value) : defaultValue;
-		editString = editString != null ? editString : defaultValue;
 		
-		final List<String> keys = replacerMap.keySet().stream().toList();
-		final List<String> values = replacerMap.values().stream().toList();
+		//Use stringbuilder to minimize the amount of String objects created in the pool
+		StringBuilder stringBuilder = new StringBuilder(editString);
 		
-		for(int i = 0; i < keys.size(); i++){
-			editString = editString.replace(keys.get(i), values.get(i));
+		stringBuilder.replace(stringBuilder.indexOf("%primary%"), stringBuilder.indexOf("%primary%") + "%primary%".length(), primaryColor);
+		stringBuilder.replace(stringBuilder.indexOf("%secondary%"), stringBuilder.indexOf("%secondary%") + "%secondary%".length(), secondaryColor);
+		stringBuilder.replace(stringBuilder.indexOf("prefix"), stringBuilder.indexOf("prefix") + "prefix".length(), prefix);
+		
+		for(Entry<String, String> mapSet : replacerMap.entrySet()){
+			String key = mapSet.getKey();
+			String mapValue = mapSet.getValue();
+			int index = stringBuilder.indexOf(key);
+			while(index != -1){
+				stringBuilder.replace(index, index + key.length(), mapValue);
+				index = stringBuilder.indexOf(key, index + mapValue.length());
+			}
 		}
 		
-		return editString;
+		return stringBuilder.toString();
 		
 	}
 	
@@ -220,4 +227,14 @@ public final class LangManager implements Manager{
 		this.secondaryColor = secondaryColor;
 	}
 	
+	public String getPrefix() {
+		return prefix;
+	}
+	
+	public void setPrefix(String prefix) {
+		if(prefix == null || prefix.isEmpty()){
+			return;
+		}
+		this.prefix = prefix;
+	}
 }
