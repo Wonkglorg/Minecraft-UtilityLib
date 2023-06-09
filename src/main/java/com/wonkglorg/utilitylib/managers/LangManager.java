@@ -227,14 +227,36 @@ public final class LangManager implements Manager{
 		this.secondaryColor = secondaryColor;
 	}
 	
+	/**
+	 * Gets prefix
+ 	 * @return
+	 */
 	public String getPrefix() {
 		return prefix;
 	}
 	
+	/**
+	 * Sets prefix to be replaced
+	 * @param prefix
+	 */
 	public void setPrefix(String prefix) {
 		if(prefix == null || prefix.isEmpty()){
 			return;
 		}
 		this.prefix = prefix;
+	}
+	
+	/**
+	 * Sets the name for the prefix keeping the standart layout
+	 * <p>
+	 * ChatColor.GRAY + "[" + ChatColor.GOLD + name + ChatColor.GRAY + "]" + ChatColor.Reset
+	 *
+	 * @param name
+	 */
+	public void addPrefixNameToDefault(String name) {
+		if(name == null || name.isEmpty()){
+			return;
+		}
+		this.prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + name + ChatColor.GRAY + "]" + ChatColor.Reset;
 	}
 }
