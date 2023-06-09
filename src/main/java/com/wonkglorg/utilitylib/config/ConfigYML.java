@@ -176,13 +176,14 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	 */
 	private void checkFile() {
 		if(!FILE.exists()){
-			
+			FILE.mkdirs();
 			InputStream inputStream = PLUGIN.getResource(SOURCE_PATH.toString().replaceAll("\\\\", "/"));
 			if(inputStream != null){
 				try{
 					
 					//if something does not work its this!!!!!!!!!!!!
 					Files.copy(inputStream, DESTINATION_PATH);
+					
 				} catch(IOException e){
 					Logger.logFatal("Error " + NAME);
 					Logger.logWarn("Error Copying data from " + SOURCE_PATH);
