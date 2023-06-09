@@ -20,7 +20,7 @@ import java.util.Set;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public final class ConfigYML extends YamlConfiguration implements Config{
+public class ConfigYML extends YamlConfiguration implements Config{
 	
 	private final JavaPlugin PLUGIN;
 	private final String NAME;
@@ -35,7 +35,7 @@ public final class ConfigYML extends YamlConfiguration implements Config{
 	 *
 	 * @param plugin
 	 * @param sourcePath path inside the resources folder of your plugin
-	 * @param destinationPath	path to copy this file to
+	 * @param destinationPath path to copy this file to
 	 */
 	public ConfigYML(@NotNull JavaPlugin plugin, @NotNull Path sourcePath, @NotNull Path destinationPath) {
 		this.PLUGIN = plugin;

@@ -2,6 +2,7 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.command.Command;
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.config.LangConfig;
 import com.wonkglorg.utilitylib.database.Database;
 import com.wonkglorg.utilitylib.logger.Logger;
 import org.bukkit.enchantments.Enchantment;
@@ -113,11 +114,11 @@ public final class PluginManager{
 		return true;
 	}
 	
-	public synchronized void addLang(Locale locale, Config config) {
+	public synchronized void addLang(Locale locale, LangConfig config) {
 		getLangManager().addLanguage(locale, config);
 	}
 	
-	public synchronized void addDefaultLang(Locale locale, Config config) {
+	public synchronized void addDefaultLang(Locale locale, LangConfig config) {
 		getLangManager().setDefaultLang(locale, config);
 	}
 	

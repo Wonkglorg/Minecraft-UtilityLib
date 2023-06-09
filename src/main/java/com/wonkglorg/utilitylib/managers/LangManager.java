@@ -2,9 +2,8 @@ package com.wonkglorg.utilitylib.managers;
 
 import com.wonkglorg.utilitylib.UtilityPlugin;
 import com.wonkglorg.utilitylib.config.Config;
-import com.wonkglorg.utilitylib.config.ConfigYML;
+import com.wonkglorg.utilitylib.config.LangConfig;
 import com.wonkglorg.utilitylib.logger.Logger;
-import com.wonkglorg.utilitylib.message.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,15 +22,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @SuppressWarnings("unused")
 public final class LangManager implements Manager{
-	private final Map<Locale, Config> langMap = new ConcurrentHashMap<>();
+	private final Map<Locale, LangConfig> langMap = new ConcurrentHashMap<>();
 	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	private Locale defaultLang;
 	private boolean loaded = false;
 	private final JavaPlugin plugin;
 	private boolean isLoaded = false;
-	private String primaryColor = ChatColor.GOLD;
-	private String secondaryColor = ChatColor.YELLOW;
-	private String prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + " " + ChatColor.GRAY + "]" + ChatColor.Reset;
 	private final ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
 	
 	public LangManager(JavaPlugin plugin) {
@@ -42,20 +38,20 @@ public final class LangManager implements Manager{
 		replacerMap.put(replace, with);
 	}
 	
-	public LangManager(Locale defaultLang, Config defaultConfig, JavaPlugin plugin) {
+	public LangManager(Locale defaultLang, LangConfig defaultConfig, JavaPlugin plugin) {
 		this.plugin = plugin;
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
 	}
 	
-	public synchronized void setDefaultLang(Locale defaultLang, Config defaultConfig) {
+	public synchronized void setDefaultLang(Locale defaultLang, LangConfig defaultConfig) {
 		configManager.add(defaultConfig);
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
 		defaultConfig.load();
 	}
 	
-	public synchronized void addLanguage(Locale locale, Config languageConfig) {
+	public synchronized void addLanguage(Locale locale, LangConfig languageConfig) {
 		configManager.add(languageConfig);
 		langMap.put(locale, languageConfig);
 		languageConfig.silentLoad();
@@ -134,7 +130,7 @@ public final class LangManager implements Manager{
 			for(Locale locale : Locale.getAvailableLocales()){
 				if(locale.getLanguage().equalsIgnoreCase(file.getName())){
 					Logger.log(plugin, locale.getLanguage() + " has been loaded!");
-					Config config = new ConfigYML(plugin, file.toPath());
+					LangConfig config = new LangConfig(plugin, file.toPath());
 					addLanguage(locale, config);
 					
 				}
@@ -161,17 +157,22 @@ public final class LangManager implements Manager{
 			loaded = true;
 			load();
 		}
-		Config config;
+		LangConfig config;
 		if(locale == null){
 			config = langMap.get(defaultLang);
 		} else {
 			config = langMap.containsKey(locale) ? langMap.get(locale) : langMap.get(defaultLang);
 		}
 		
-		String editString = config != null ? config.getString(value) : defaultValue;
+		if(config == null){
+			Logger.logFatal("No lang file could be loaded!");
+			return defaultValue;
+		}
+		
+		String editString = config.getString(value);
 		
 		String[] searchList = {"%primary%", "%secondary%", "prefix"};
-		String[] replacementList = {primaryColor, secondaryColor, prefix};
+		String[] replacementList = {config.getPrimaryColor(), config.getSecondaryColor(), config.getPrefix()};
 		
 		String editedString = StringUtils.replaceEach(editString, searchList, replacementList);
 		
@@ -183,12 +184,12 @@ public final class LangManager implements Manager{
 		
 	}
 	
-	public synchronized Map<Locale, Config> getAllLangs() {
+	public synchronized Map<Locale, LangConfig> getAllLangs() {
 		return langMap;
 	}
 	
-	public synchronized Config getLangByFileName(String name) {
-		for(Config config : langMap.values()){
+	public synchronized LangConfig getLangByFileName(String name) {
+		for(LangConfig config : langMap.values()){
 			if(config.name().equalsIgnoreCase(name)){
 				return config;
 			}
@@ -196,77 +197,4 @@ public final class LangManager implements Manager{
 		return null;
 	}
 	
-	public boolean reloadLang(String name) {
-		Config config = getLangByFileName(name);
-		if(config == null){
-			return false;
-		}
-		
-		config.load();
-		
-		Config defaultConfig = getDefaultLang();
-		setPrimaryColor(defaultConfig.getString("primary-color"));
-		setSecondaryColor(defaultConfig.getString("secondary-color"));
-		setPrefix(defaultConfig.getString("prefix"));
-		return true;
-	}
-	
-	public String getPrimaryColor() {
-		return primaryColor;
-	}
-	
-	public void setPrimaryColor(String primaryColor) {
-		if(!primaryColor.startsWith("&")){
-			return;
-		}
-		replacerMap.put("%primary%", primaryColor);
-		this.primaryColor = primaryColor;
-	}
-	
-	public String getSecondaryColor() {
-		return secondaryColor;
-	}
-	
-	public void setSecondaryColor(String secondaryColor) {
-		if(!secondaryColor.startsWith("&")){
-			return;
-		}
-		replacerMap.put("%secondary%", secondaryColor);
-		this.secondaryColor = secondaryColor;
-	}
-	
-	/**
-	 * Gets prefix
-	 *
-	 * @return
-	 */
-	public String getPrefix() {
-		return prefix;
-	}
-	
-	/**
-	 * Sets prefix to be replaced
-	 *
-	 * @param prefix
-	 */
-	public void setPrefix(String prefix) {
-		if(prefix == null || prefix.isEmpty()){
-			return;
-		}
-		this.prefix = prefix;
-	}
-	
-	/**
-	 * Sets the name for the prefix keeping the standart layout
-	 * <p>
-	 * ChatColor.GRAY + "[" + ChatColor.GOLD + name + ChatColor.GRAY + "]" + ChatColor.Reset
-	 *
-	 * @param name
-	 */
-	public void setPrefixNameToDefault(String name) {
-		if(name == null || name.isEmpty()){
-			return;
-		}
-		this.prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + name + ChatColor.GRAY + "]" + ChatColor.Reset;
-	}
 }

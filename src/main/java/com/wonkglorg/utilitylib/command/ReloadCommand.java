@@ -2,22 +2,28 @@ package com.wonkglorg.utilitylib.command;
 
 import com.wonkglorg.utilitylib.UtilityPlugin;
 import com.wonkglorg.utilitylib.config.Config;
+import com.wonkglorg.utilitylib.logger.Logger;
 import com.wonkglorg.utilitylib.managers.ConfigManager;
-import com.wonkglorg.utilitylib.managers.LangManager;
+import com.wonkglorg.utilitylib.message.ChatColor;
+import com.wonkglorg.utilitylib.message.Message;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReloadCommand extends Command{
 	
 	private final ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
-	private final LangManager langManager = UtilityPlugin.getManager().getLangManager();
+	private final List<String> options = new ArrayList<>();
 	
 	public ReloadCommand(@NotNull JavaPlugin plugin, @NotNull String name) {
 		super(plugin, name);
+		
+		options.addAll(configManager.getConfigs().stream().map(Config::name).toList());
+		options.add("all");
 	}
 	
 	@Override
@@ -34,32 +40,26 @@ public class ReloadCommand extends Command{
 		String name = argAsString(0);
 		
 		if(name.equalsIgnoreCase("all")){
-			reloadConfigAndLangs();
+			configManager.load();
 			return true;
 		}
 		
-		Config config = getConfigByName(name);
-		if(config != null){
-			reloadConfigAndLangs();
-			config.load();
+		Config config = configManager.getConfig(name);
+		if(config == null){
+			if(player == null){
+				Logger.logWarn(name + " is not a valid config!");
+				return true;
+			}
+			Message.msgPlayer(player, ChatColor.YELLOW + name + ChatColor.GOLD + " is not a valid config!");
 			return true;
 		}
-		
+		config.load();
+		if(player == null){
+			Logger.logWarn("Reloaded " + name + "!");
+			return true;
+		}
+		Message.msgPlayer(player, ChatColor.GOLD + "Reloaded " + ChatColor.YELLOW + name + ChatColor.GOLD + "!");
 		return true;
-	}
-	
-	private void reloadConfigAndLangs() {
-		langManager.reloadLang(langManager.getDefaultLang().name());
-		configManager.load();
-	}
-	
-	private Config getConfigByName(String name) {
-		return langManager.getAllLangs()
-						  .values()
-						  .stream()
-						  .filter(config -> config.name().equalsIgnoreCase(name))
-						  .findFirst()
-						  .orElse(configManager.getConfig(name));
 	}
 	
 	@Override
