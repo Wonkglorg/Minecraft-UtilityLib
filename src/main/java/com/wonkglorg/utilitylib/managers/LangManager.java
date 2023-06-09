@@ -5,6 +5,7 @@ import com.wonkglorg.utilitylib.config.Config;
 import com.wonkglorg.utilitylib.config.ConfigYML;
 import com.wonkglorg.utilitylib.logger.Logger;
 import com.wonkglorg.utilitylib.message.ChatColor;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -23,15 +24,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("unused")
 public final class LangManager implements Manager{
 	private final Map<Locale, Config> langMap = new ConcurrentHashMap<>();
+	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	private Locale defaultLang;
 	private boolean loaded = false;
 	private final JavaPlugin plugin;
 	private boolean isLoaded = false;
-	private final Map<String, String> replacerMap = new ConcurrentHashMap<>();
 	private String primaryColor = ChatColor.GOLD;
 	private String secondaryColor = ChatColor.YELLOW;
 	private String prefix = ChatColor.GRAY + "[" + ChatColor.GOLD + " " + ChatColor.GRAY + "]" + ChatColor.Reset;
-	private ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
+	private final ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
 	
 	public LangManager(JavaPlugin plugin) {
 		this.plugin = plugin;
@@ -169,24 +170,16 @@ public final class LangManager implements Manager{
 		
 		String editString = config != null ? config.getString(value) : defaultValue;
 		
-		//Use stringbuilder to minimize the amount of String objects created in the pool
-		StringBuilder stringBuilder = new StringBuilder(editString);
+		String[] searchList = {"%primary%", "%secondary%", "prefix"};
+		String[] replacementList = {primaryColor, secondaryColor, prefix};
 		
-		stringBuilder.replace(stringBuilder.indexOf("%primary%"), stringBuilder.indexOf("%primary%") + "%primary%".length(), primaryColor);
-		stringBuilder.replace(stringBuilder.indexOf("%secondary%"), stringBuilder.indexOf("%secondary%") + "%secondary%".length(), secondaryColor);
-		stringBuilder.replace(stringBuilder.indexOf("prefix"), stringBuilder.indexOf("prefix") + "prefix".length(), prefix);
+		String editedString = StringUtils.replaceEach(editString, searchList, replacementList);
 		
-		for(Entry<String, String> mapSet : replacerMap.entrySet()){
-			String key = mapSet.getKey();
-			String mapValue = mapSet.getValue();
-			int index = stringBuilder.indexOf(key);
-			while(index != -1){
-				stringBuilder.replace(index, index + key.length(), mapValue);
-				index = stringBuilder.indexOf(key, index + mapValue.length());
-			}
+		for(Entry<String, String> mapValue : replacerMap.entrySet()){
+			editedString = StringUtils.replace(editedString, mapValue.getKey(), mapValue.getValue());
 		}
 		
-		return stringBuilder.toString();
+		return editedString;
 		
 	}
 	
@@ -229,7 +222,8 @@ public final class LangManager implements Manager{
 	
 	/**
 	 * Gets prefix
- 	 * @return
+	 *
+	 * @return
 	 */
 	public String getPrefix() {
 		return prefix;
@@ -237,6 +231,7 @@ public final class LangManager implements Manager{
 	
 	/**
 	 * Sets prefix to be replaced
+	 *
 	 * @param prefix
 	 */
 	public void setPrefix(String prefix) {
