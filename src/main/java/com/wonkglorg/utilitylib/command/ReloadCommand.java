@@ -14,13 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DO NOT USE, JUST A TEST
+ */
+@Deprecated
 public class ReloadCommand extends Command{
 	
-	private final ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
+	private final ConfigManager configManager;
 	private final List<String> options = new ArrayList<>();
 	
 	public ReloadCommand(@NotNull JavaPlugin plugin, @NotNull String name) {
 		super(plugin, name);
+		
+		configManager = UtilityPlugin.getManager().getConfigManager();
 		
 		options.addAll(configManager.getConfigs().stream().map(Config::name).toList());
 		options.add("all");

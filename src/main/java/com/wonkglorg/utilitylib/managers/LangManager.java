@@ -28,10 +28,11 @@ public final class LangManager implements Manager{
 	private boolean loaded = false;
 	private final JavaPlugin plugin;
 	private boolean isLoaded = false;
-	private final ConfigManager configManager = UtilityPlugin.getManager().getConfigManager();
+	private final ConfigManager configManager;
 	
 	public LangManager(JavaPlugin plugin) {
 		this.plugin = plugin;
+		configManager = UtilityPlugin.getManager().getConfigManager();
 	}
 	
 	public void replace(String replace, String with) {
@@ -40,6 +41,7 @@ public final class LangManager implements Manager{
 	
 	public LangManager(Locale defaultLang, LangConfig defaultConfig, JavaPlugin plugin) {
 		this.plugin = plugin;
+		configManager = UtilityPlugin.getManager().getConfigManager();
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
 	}

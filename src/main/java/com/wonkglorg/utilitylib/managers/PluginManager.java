@@ -181,14 +181,14 @@ public final class PluginManager{
 	}
 	
 	private void addManagers() {
-		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin));
-		managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.CONFIG, new ConfigManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
+		managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.RECIPE, new RecipeManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.COMMAND, new CommandManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
 		managerMap.putIfAbsent(ManagerValues.COOLDOWN, new CooldownManager());
-		managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
 	}
 	
 	private enum ManagerValues{
