@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.util.List;
 
 public class LangConfig extends ConfigYML{
 	
@@ -31,6 +32,7 @@ public class LangConfig extends ConfigYML{
 		for(LangValue langValue : LangValue.values()){
 			if(!this.isSet(langValue.path)){
 				this.set(langValue.path, langValue.getDefaultValue());
+				this.setComments(langValue.path, langValue.getComment());
 			}
 		}
 	}
@@ -69,17 +71,25 @@ public class LangConfig extends ConfigYML{
 	}
 	
 	private enum LangValue{
-		PRIMARY("primary-color", ChatColor.GOLD),
-		SECONDARY("secondary-color", ChatColor.YELLOW),
-		PREFIX("prefix", ChatColor.GRAY + "[" + LangValue.PRIMARY + " Plugin " + ChatColor.GRAY + "]" + ChatColor.Reset),
+		PRIMARY("primary-color", ChatColor.GOLD, "This can be used in any lang text under the prefix %pri%"),
+		SECONDARY("alt-color", ChatColor.YELLOW, "This can be used in any lang text under the prefix %alt%!"),
+		PREFIX("prefix",
+				ChatColor.GRAY + "[" + LangValue.PRIMARY + " Plugin " + ChatColor.GRAY + "]" + ChatColor.Reset,
+				"This can be used in any lang text under the prefix %prefix%! primary and alternate colors can be used to define the prefix colors"),
 		
 		;
 		private final String path;
 		private final String defaultValue;
+		private final String comment;
 		
-		LangValue(String path, String defaultValue) {
+		LangValue(String path, String defaultValue, String comment) {
 			this.path = path;
 			this.defaultValue = defaultValue;
+			this.comment = comment;
+		}
+		
+		public List<String> getComment() {
+			return List.of(comment);
 		}
 		
 		public String getDefaultValue() {

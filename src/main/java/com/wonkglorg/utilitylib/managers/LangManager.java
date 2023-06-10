@@ -183,6 +183,8 @@ public final class LangManager implements Manager{
 		
 	}
 	
+	//ADD JAVA DOCS
+	
 	public String getPrimaryColorKey() {
 		return primaryColorKey;
 	}
