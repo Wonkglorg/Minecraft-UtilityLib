@@ -42,13 +42,28 @@ public final class LangManager implements Manager{
 	}
 	
 	public synchronized void setDefaultLang(Locale defaultLang, LangConfig defaultConfig) {
+		setDefaultLang(defaultLang, defaultConfig, true);
+	}
+	
+	public synchronized void setDefaultLang(Locale defaultLang, LangConfig defaultConfig, boolean withDefaults) {
+		if(withDefaults){
+			defaultConfig.addDefaults();
+		}
 		configManager.add(defaultConfig);
+		
 		langMap.put(defaultLang, defaultConfig);
 		this.defaultLang = defaultLang;
-		defaultConfig.load();
+		defaultConfig.silentLoad();
 	}
 	
 	public synchronized void addLanguage(Locale locale, LangConfig languageConfig) {
+		addLanguage(locale, languageConfig, true);
+	}
+	
+	public synchronized void addLanguage(Locale locale, LangConfig languageConfig, boolean withDefaults) {
+		if(withDefaults){
+			languageConfig.addDefaults();
+		}
 		configManager.add(languageConfig);
 		langMap.put(locale, languageConfig);
 		languageConfig.silentLoad();

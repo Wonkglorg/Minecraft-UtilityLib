@@ -15,26 +15,24 @@ public class LangConfig extends ConfigYML{
 	
 	public LangConfig(@NotNull JavaPlugin plugin, @NotNull Path sourcePath, @NotNull Path destinationPath) {
 		super(plugin, sourcePath, destinationPath);
-		addDefaults();
 	}
 	
 	public LangConfig(@NotNull JavaPlugin plugin, @NotNull String name) {
 		super(plugin, name);
-		addDefaults();
 	}
 	
 	public LangConfig(@NotNull JavaPlugin plugin, @NotNull Path path) {
 		super(plugin, path);
-		addDefaults();
 	}
 	
-	private void addDefaults() {
+	public void addDefaults() {
 		for(LangValue langValue : LangValue.values()){
 			if(!this.isSet(langValue.path)){
 				this.set(langValue.path, langValue.getDefaultValue());
 				this.setComments(langValue.path, langValue.getComment());
 			}
 		}
+		silentSave();
 	}
 	
 	public @NotNull String getPrimaryColor() {
@@ -74,7 +72,7 @@ public class LangConfig extends ConfigYML{
 		PRIMARY("primary-color", ChatColor.GOLD, "This can be used in any lang text under the prefix %pri%"),
 		SECONDARY("alt-color", ChatColor.YELLOW, "This can be used in any lang text under the prefix %alt%!"),
 		PREFIX("prefix",
-				ChatColor.GRAY + "[" + LangValue.PRIMARY + " Plugin " + ChatColor.GRAY + "]" + ChatColor.Reset,
+				ChatColor.GRAY + "[" + LangValue.PRIMARY.defaultValue + " Plugin " + ChatColor.GRAY + "]" + ChatColor.Reset,
 				"This can be used in any lang text under the prefix %prefix%! primary and alternate colors can be used to define the prefix colors"),
 		
 		;
