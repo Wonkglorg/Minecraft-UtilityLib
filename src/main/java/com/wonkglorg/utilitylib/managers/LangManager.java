@@ -28,6 +28,9 @@ public final class LangManager implements Manager{
 	private final JavaPlugin plugin;
 	private boolean isLoaded = false;
 	private final ConfigManager configManager;
+	private String primaryColorKey = "%pri%";
+	private String secondaryColorKey = "%ald%";
+	private String prefixKey = "%prefix%";
 	
 	public LangManager(JavaPlugin plugin, ConfigManager configManager) {
 		this.plugin = plugin;
@@ -165,7 +168,7 @@ public final class LangManager implements Manager{
 		
 		String editString = config.getString(value);
 		
-		String[] searchList = {"%primary%", "%secondary%", "%prefix%"};
+		String[] searchList = {primaryColorKey, secondaryColorKey, prefixKey};
 		String[] replacementList = {config.getPrimaryColor(), config.getSecondaryColor(), config.getPrefix()};
 		
 		String editedString = StringUtils.replaceEach(editString, searchList, replacementList);
@@ -174,8 +177,34 @@ public final class LangManager implements Manager{
 			editedString = StringUtils.replace(editedString, mapValue.getKey(), mapValue.getValue());
 		}
 		
+		editedString = StringUtils.replaceEach(editString, searchList, replacementList);
+		
 		return editedString;
 		
+	}
+	
+	public String getPrimaryColorKey() {
+		return primaryColorKey;
+	}
+	
+	public void setPrimaryColorKey(String primaryColorKey) {
+		this.primaryColorKey = primaryColorKey;
+	}
+	
+	public String getSecondaryColorKey() {
+		return secondaryColorKey;
+	}
+	
+	public void setSecondaryColorKey(String secondaryColorKey) {
+		this.secondaryColorKey = secondaryColorKey;
+	}
+	
+	public String getPrefixKey() {
+		return prefixKey;
+	}
+	
+	public void setPrefixKey(String prefixKey) {
+		this.prefixKey = prefixKey;
 	}
 	
 	public synchronized Map<Locale, LangConfig> getAllLangs() {

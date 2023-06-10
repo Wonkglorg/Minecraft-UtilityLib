@@ -12,7 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -25,6 +27,7 @@ public abstract class Command extends Arguments implements TabExecutor{
 	 */
 	protected JavaPlugin plugin;
 	private final String name;
+	protected final Map<String, Subcommand> subcommandMap = new HashMap<>();
 	
 	/**
 	 * Instantiates a new Command.
@@ -118,6 +121,14 @@ public abstract class Command extends Arguments implements TabExecutor{
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	public Subcommand getSubcommand(String name) {
+		return subcommandMap.get(name);
+	}
+	
+	public void addSubcommand(String name, Subcommand subcommand) {
+		subcommandMap.put(name, subcommand);
 	}
 	
 	@Override
