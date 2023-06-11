@@ -2,7 +2,8 @@ package com.wonkglorg.utilitylib.builder;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.wonkglorg.utilitylib.message.Message;
+import com.wonkglorg.utilitylib.base.message.Message;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -27,8 +28,8 @@ public class ItemBuilder implements Cloneable{
 	private ItemStack item;
 	private final Material material;
 	private int amount;
-	private String name;
-	private List<String> lore;
+	private Component name;
+	private List<Component> lore;
 	private int durability;
 	private ItemMeta meta;
 	private boolean unbreakable;
@@ -40,8 +41,8 @@ public class ItemBuilder implements Cloneable{
 	
 	public ItemBuilder(Material material,
 					   int amount,
-					   String name,
-					   List<String> lore,
+					   Component name,
+					   List<Component> lore,
 					   int durability,
 					   ItemMeta meta,
 					   List<ItemFlag> flags,
@@ -58,30 +59,39 @@ public class ItemBuilder implements Cloneable{
 	}
 	
 	public ItemBuilder(Material material) {
-		this(material, 1);
+		this(material, 1, (String) null);
 	}
 	
 	public ItemBuilder(Material material, ItemFlag... itemFlags) {
 		this(material, 1, null, null, 0, null, List.of(itemFlags), null);
 	}
 	
-	public ItemBuilder(Material material, String name) {
+	public ItemBuilder(Material material, Component name) {
 		this(material, 1, name);
 	}
 	
-	public ItemBuilder(Material material, List<String> description) {
+	public ItemBuilder(Material material, List<Component> description) {
 		this(material, 1, null, description);
 	}
 	
-	public ItemBuilder(Material material, int amount) {
-		this(material, amount, null);
-	}
-	
-	public ItemBuilder(Material material, int amount, String name) {
+	public ItemBuilder(Material material, int amount, Component name) {
 		this(material, amount, name, null);
 	}
 	
 	public ItemBuilder(Material material, int amount, String name, List<String> description) {
+		
+		this(material, amount, Message.color(name), Message.color(description), 0, null, null, null);
+	}
+	
+	public ItemBuilder(Material material, String name) {
+		this(material, 1, Message.color(name));
+	}
+	
+	public ItemBuilder(Material material, int amount, String name) {
+		this(material, amount, Message.color(name), null);
+	}
+	
+	public ItemBuilder(Material material, int amount, Component name, List<Component> description) {
 		
 		this(material, amount, name, description, 0, null, null, null);
 	}
@@ -102,11 +112,11 @@ public class ItemBuilder implements Cloneable{
 		}
 		
 		if(name != null){
-			meta.displayName(Message.color(name));
+			meta.displayName(name);
 		}
 		
 		if(lore != null){
-			meta.lore(Message.color(lore));
+			meta.lore(lore);
 		}
 		
 		meta.setUnbreakable(unbreakable);
@@ -148,17 +158,8 @@ public class ItemBuilder implements Cloneable{
 	 * @param name
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setName(String name) {
+	public ItemBuilder setName(Component name) {
 		this.name = name;
-		return this;
-	}
-	
-	/**
-	 * @param name
-	 * @return {@link ItemBuilder}
-	 */
-	public ItemBuilder setName(int name) {
-		this.name = String.valueOf(name);
 		return this;
 	}
 	
@@ -187,20 +188,20 @@ public class ItemBuilder implements Cloneable{
 	 * @param lore
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder setLore(String... lore) {
+	public ItemBuilder setLore(Component... lore) {
 		this.lore = Arrays.asList(lore);
 		return this;
 	}
 	
 	/**
-	 * @param format
+	 * @param component
 	 * @return {@link ItemBuilder}
 	 */
-	public ItemBuilder addLoreLine(String format) {
+	public ItemBuilder addLoreLine(Component component) {
 		if(lore == null){
-			lore = new ArrayList<String>();
+			lore = new ArrayList<>();
 		}
-		lore.add(format);
+		lore.add(component);
 		return this;
 	}
 	
@@ -268,15 +269,15 @@ public class ItemBuilder implements Cloneable{
 		this.amount = amount;
 	}
 	
-	public String getName() {
+	public Component getName() {
 		return name;
 	}
 	
-	public List<String> getLore() {
+	public List<Component> getLore() {
 		return lore;
 	}
 	
-	public void setLore(List<String> lore) {
+	public void setLore(List<Component> lore) {
 		this.lore = lore;
 	}
 	

@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.builder;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -21,14 +22,14 @@ public final class PotionBuilder extends ItemBuilder{
 	/**
 	 *
 	 */
-	public PotionBuilder(int amount, String name, List<String> lore, List<ItemFlag> flags, Map<Enchantment, Integer> enchantments) {
+	public PotionBuilder(int amount, Component name, List<Component> lore, List<ItemFlag> flags, Map<Enchantment, Integer> enchantments) {
 		super(Material.POTION, amount, name, lore, 0, null, flags, enchantments);
 	}
 	
 	/**
 	 *
 	 */
-	public PotionBuilder(int amount, String name) {
+	public PotionBuilder(int amount, Component name) {
 		super(Material.POTION, amount, name);
 	}
 	
@@ -36,7 +37,7 @@ public final class PotionBuilder extends ItemBuilder{
 	 *
 	 */
 	public PotionBuilder(int amount) {
-		super(Material.POTION, amount);
+		super(Material.POTION, amount, (String) null);
 	}
 	
 	/**
@@ -49,14 +50,14 @@ public final class PotionBuilder extends ItemBuilder{
 	/**
 	 *
 	 */
-	public PotionBuilder(String... lore) {
+	public PotionBuilder(Component... lore) {
 		super(Material.POTION, List.of(lore));
 	}
 	
 	/**
 	 *
 	 */
-	public PotionBuilder(String name) {
+	public PotionBuilder(Component name) {
 		super(Material.POTION, name);
 	}
 	

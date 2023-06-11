@@ -21,8 +21,8 @@ public final class SmithingRecipeBuilder extends RecipeBuilder{
 	
 	private NamespacedKey key;
 	private ItemStack result = new ItemStack(Material.BARRIER);
-	private RecipeChoice baseItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
-	private RecipeChoice additionItemChoice = new RecipeChoice.MaterialChoice(Material.BARRIER);
+	private RecipeChoice baseItemChoice = new MaterialChoice(Material.BARRIER);
+	private RecipeChoice additionItemChoice = new MaterialChoice(Material.BARRIER);
 	
 	private boolean copyNbt = false;
 	

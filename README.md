@@ -1,5 +1,7 @@
 # Minecraft-UtilityLib
+
 ![alt text](https://github.com/Wonkglorg/Minecraft-UtilityLib/blob/master/Logo.png?raw=true)
+
 ## Index
 
 * [Introduction](#introduction)
@@ -31,8 +33,8 @@ Repository
 </repository>
 ```
 
-
 Adding the dependency
+
 ```yml
 <dependency>
      <groupId>com.github.Wonkglorg</groupId>

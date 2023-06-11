@@ -1,5 +1,6 @@
 package com.wonkglorg.utilitylib.builder;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -38,8 +39,8 @@ public final class BannerBuilder extends ItemBuilder{
 	 */
 	public BannerBuilder(@NotNull DyeColor color,
 						 int amount,
-						 String name,
-						 List<String> lore,
+						 Component name,
+						 List<Component> lore,
 						 int durability,
 						 ItemMeta meta,
 						 List<ItemFlag> flags,
@@ -72,7 +73,7 @@ public final class BannerBuilder extends ItemBuilder{
 	 * @param color the color
 	 * @param name the name
 	 */
-	public BannerBuilder(@NotNull DyeColor color, String name) {
+	public BannerBuilder(@NotNull DyeColor color, Component name) {
 		super(Material.valueOf(color.name() + "_BANNER"), name);
 	}
 	
@@ -82,7 +83,7 @@ public final class BannerBuilder extends ItemBuilder{
 	 * @param color the color
 	 * @param description the description
 	 */
-	public BannerBuilder(@NotNull DyeColor color, List<String> description) {
+	public BannerBuilder(@NotNull DyeColor color, List<Component> description) {
 		super(Material.valueOf(color.name() + "_BANNER"), description);
 	}
 	
@@ -93,7 +94,7 @@ public final class BannerBuilder extends ItemBuilder{
 	 * @param amount the amount
 	 */
 	public BannerBuilder(@NotNull DyeColor color, int amount) {
-		super(Material.valueOf(color.name() + "_BANNER"), amount);
+		super(Material.valueOf(color.name() + "_BANNER"), amount, (String) null);
 	}
 	
 	/**
@@ -103,7 +104,7 @@ public final class BannerBuilder extends ItemBuilder{
 	 * @param amount the amount
 	 * @param name the name
 	 */
-	public BannerBuilder(@NotNull DyeColor color, int amount, String name) {
+	public BannerBuilder(@NotNull DyeColor color, int amount, Component name) {
 		super(Material.valueOf(color.name() + "_BANNER"), amount, name);
 	}
 	
@@ -115,7 +116,7 @@ public final class BannerBuilder extends ItemBuilder{
 	 * @param name the name
 	 * @param description the description
 	 */
-	public BannerBuilder(@NotNull DyeColor color, int amount, String name, List<String> description) {
+	public BannerBuilder(@NotNull DyeColor color, int amount, Component name, List<Component> description) {
 		super(Material.valueOf(color.name() + "_BANNER"), amount, name, description);
 	}
 	

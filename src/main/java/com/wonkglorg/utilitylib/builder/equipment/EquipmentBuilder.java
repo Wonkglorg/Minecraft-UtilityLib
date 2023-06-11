@@ -54,7 +54,7 @@ public final class EquipmentBuilder{
 			return livingEntity;
 		}
 		for(EquipmentSlot equipmentSlot : equipmentMap.keySet()){
-			EquipmentItem equipmentItem = equipmentMap.get(equipmentSlot);
+			com.wonkglorg.utilitylib.builder.equipment.EquipmentItem equipmentItem = equipmentMap.get(equipmentSlot);
 			equipment.setItem(equipmentSlot, equipmentMap.get(equipmentSlot).getItemStack(), silent);
 			equipment.setDropChance(equipmentSlot, equipmentItem.getDropChance());
 		}
@@ -78,11 +78,11 @@ public final class EquipmentBuilder{
 	}
 	
 	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack) {
-		return setItem(equipmentSlot, new EquipmentItem(itemStack, 0));
+		return setItem(equipmentSlot, new com.wonkglorg.utilitylib.builder.equipment.EquipmentItem(itemStack, 0));
 	}
 	
 	public synchronized EquipmentBuilder setItem(EquipmentSlot equipmentSlot, ItemStack itemStack, float dropChance) {
-		return setItem(equipmentSlot, new EquipmentItem(itemStack, dropChance));
+		return setItem(equipmentSlot, new com.wonkglorg.utilitylib.builder.equipment.EquipmentItem(itemStack, dropChance));
 	}
 	
 	public EquipmentBuilder setItem(@NotNull EquipmentSlot equipmentSlot, @NotNull EquipmentItem equipmentItem) {

@@ -38,7 +38,7 @@ public final class FurnaceRecipeBuilder extends RecipeBuilder{
 	 * Sets the {@link ItemStack} input.
 	 *
 	 * @param input {@link ItemStack} to be smelted
-	 * @return {@link CampfireRecipeBuilder}
+	 * @return {@link com.wonkglorg.utilitylib.builder.recipe.CampfireRecipeBuilder}
 	 */
 	public FurnaceRecipeBuilder setInput(@NotNull final ItemStack... input) {
 		validateInit();
@@ -50,7 +50,7 @@ public final class FurnaceRecipeBuilder extends RecipeBuilder{
 	 * Sets the {@link Material} to be smelted
 	 *
 	 * @param input {@link Material} to be smelted
-	 * @return {@link  CampfireRecipeBuilder}
+	 * @return {@link  com.wonkglorg.utilitylib.builder.recipe.CampfireRecipeBuilder}
 	 */
 	public FurnaceRecipeBuilder setInput(@NotNull final Material input) {
 		validateInit();
