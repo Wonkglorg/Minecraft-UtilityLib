@@ -164,6 +164,15 @@ public class ItemBuilder implements Cloneable{
 	}
 	
 	/**
+	 * @param name
+	 * @return {@link ItemBuilder}
+	 */
+	public ItemBuilder setName(String name) {
+		this.name = Message.color(name);
+		return this;
+	}
+	
+	/**
 	 * @param durability
 	 * @return {@link ItemBuilder}
 	 */
@@ -194,6 +203,15 @@ public class ItemBuilder implements Cloneable{
 	}
 	
 	/**
+	 * @param lore
+	 * @return {@link ItemBuilder}
+	 */
+	public ItemBuilder setLore(String... lore) {
+		this.lore = Message.color(Arrays.stream(lore).toList());
+		return this;
+	}
+	
+	/**
 	 * @param component
 	 * @return {@link ItemBuilder}
 	 */
@@ -202,6 +220,18 @@ public class ItemBuilder implements Cloneable{
 			lore = new ArrayList<>();
 		}
 		lore.add(component);
+		return this;
+	}
+	
+	/**
+	 * @param component
+	 * @return {@link ItemBuilder}
+	 */
+	public ItemBuilder addLoreLine(String component) {
+		if(lore == null){
+			lore = new ArrayList<>();
+		}
+		lore.add(Message.color(component));
 		return this;
 	}
 	
