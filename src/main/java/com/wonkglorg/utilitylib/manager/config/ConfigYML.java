@@ -98,7 +98,27 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	
 	}
 	
-
+	public void updateFileValues() {
+		YamlConfiguration existingConfig = YamlConfiguration.loadConfiguration(FILE);
+		
+		ConfigurationSection existingSection = existingConfig.getConfigurationSection("");
+		ConfigurationSection newSection = getConfigurationSection("");
+		
+		if(existingSection != null && newSection != null){
+			Set<String> keys = existingSection.getKeys(true);
+			
+			// Check for missing keys in the new config and add them
+			for(String key : keys){
+				if(!newSection.contains(key)){
+					newSection.set(key, existingSection.get(key));
+				}
+			}
+			
+			// Save the updated config to file
+			save();
+		}
+	}
+	
 	public void load() {
 		checkFile();
 		try{

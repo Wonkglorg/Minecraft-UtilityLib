@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.base.message;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextComponent.Builder;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -18,6 +19,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
 public final class Message{
@@ -57,40 +60,40 @@ public final class Message{
 		Deque<Component> stack = new LinkedList<>();
 		stack.push(component);
 		
-		while (!stack.isEmpty()) {
+		while(!stack.isEmpty()){
 			Component current = stack.pop();
-			for (Component child : current.children()) {
+			for(Component child : current.children()){
 				Style style = child.style();
 				TextColor color = style.color();
 				
-				if (color != null) {
+				if(color != null){
 					result.append("&").append(color.asHexString());
 				}
 				
-				if (style.hasDecoration(TextDecoration.BOLD)) {
+				if(style.hasDecoration(TextDecoration.BOLD)){
 					result.append("&b");
 				}
-				if (style.hasDecoration(TextDecoration.ITALIC)) {
+				if(style.hasDecoration(TextDecoration.ITALIC)){
 					result.append("&i");
 				}
-				if (style.hasDecoration(TextDecoration.OBFUSCATED)) {
+				if(style.hasDecoration(TextDecoration.OBFUSCATED)){
 					result.append("&o");
 				}
-				if (style.hasDecoration(TextDecoration.UNDERLINED)) {
+				if(style.hasDecoration(TextDecoration.UNDERLINED)){
 					result.append("&u");
 				}
-				if (style.hasDecoration(TextDecoration.STRIKETHROUGH)) {
+				if(style.hasDecoration(TextDecoration.STRIKETHROUGH)){
 					result.append("&s");
 				}
 				
 				result.append(PlainTextComponentSerializer.plainText().serialize(child));
-				if (!child.children().isEmpty()) {
+				if(!child.children().isEmpty()){
 					stack.push(child);
 				}
 			}
 		}
 		
-		if (result.isEmpty()) {
+		if(result.isEmpty()){
 			result.append(PlainTextComponentSerializer.plainText().serialize(component));
 		}
 		
@@ -101,16 +104,32 @@ public final class Message{
 	 * Allows for & to be converted to color can be used with default minecraft color codes or hex values usage: "& #xxxxxx".
 	 *
 	 * @param text Text to be colored.
+	 * @param allowExtras allows for use of special stylings like clickable links in chat, and the like
+	 * @return Color converted text.
+	 */
+	public static Component color(String text, boolean allowExtras) {
+		if(text == null){
+			throw new NullPointerException("Input String cannot be null");
+		} else {
+			if(text.isEmpty() || text.isBlank()){
+				return Component.empty();
+			} else {
+				String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
+				Builder component = Component.text();
+				
+				return convertToComponent(texts, allowExtras, component).build();
+			}
+		}
+	}
+	
+	/**
+	 * Allows for & to be converted to color can be used with default minecraft color codes or hex values usage: "& #xxxxxx".
+	 *
+	 * @param text Text to be colored.
 	 * @return Color converted text.
 	 */
 	public static Component color(String text) {
-		if(text == null){
-			throw new NullPointerException("Input String cannot be null");
-		}
-		String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
-		Builder component = Component.text();
-		
-		return convertToComponent(texts, component).build();
+		return color(text, false);
 	}
 	
 	/**
@@ -170,7 +189,7 @@ public final class Message{
 		return builder.toString();
 	}
 	
-	private static Builder convertToComponent(String[] texts, Builder component) {
+	private static Builder convertToComponent(String[] texts, boolean allowExtras, Builder component) {
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		TextColor textColor = null;
 		for(int i = 0; i < texts.length; i += 1){
@@ -217,9 +236,59 @@ public final class Message{
 				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
 			}
 			component.append(outputComponent.build());
+			
+			//HOW TO BEST IMPLEMENT THIS??????? ALLOW FOR MORE THAN JUST LINKS???
+			// ALSO KEYBIMD PLACEHOLDERS
+			if(allowExtras){
+				if(texts[i].startsWith("@link{")){
+					String linkText = texts[i].substring(6, texts[i].length() - 1);
+					String[] linkParts = linkText.split(",", 2);
+					if(linkParts.length == 2){
+						String url = linkParts[0].trim();
+						String message = linkParts[1].trim();
+						component.append(Message.toComponent(message));
+						Builder linkComponent = Component.text(message).clickEvent(ClickEvent.openUrl(url)).toBuilder();
+						
+						component.append(linkComponent.build());
+					}
+				}
+			}
+			
 		}
 		return component;
 		
+	}
+	
+	private final Pattern pattern = Pattern.compile("@link\\{(.*?)\\}");
+	
+	public Component convertLink(String input) {
+		Builder builder = Component.text();
+		Matcher matcher = pattern.matcher(input);
+		
+		int lastMatchEnd = 0;
+		while(matcher.find()){
+			int matchStart = matcher.start();
+			int matchEnd = matcher.end();
+			
+			String beforeMatch = input.substring(lastMatchEnd, matchStart);
+			builder.append(Component.text(beforeMatch));
+			
+			String match = matcher.group(1);
+			String[] parts = match.split(",", 2);
+			if(parts.length == 2){
+				String url = parts[0].trim();
+				String message = parts[1].trim();
+				
+				builder.append(Component.text(message).clickEvent(ClickEvent.openUrl(url)));
+			}
+			
+			lastMatchEnd = matchEnd;
+		}
+		
+		String restOfMessage = input.substring(lastMatchEnd);
+		builder.append(Component.text(restOfMessage));
+		
+		return builder.build();
 	}
 	
 	/**
@@ -227,7 +296,6 @@ public final class Message{
 	 *
 	 * @param player Player to message.
 	 * @param text Text to send.
-	 *
 	 * @throws NullPointerException if the player or string is null
 	 */
 	public static void msgPlayer(Player player, @NotNull String... text) {
