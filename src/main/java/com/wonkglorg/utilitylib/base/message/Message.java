@@ -105,20 +105,16 @@ public final class Message{
 	 *
 	 * @param text Text to be colored.
 	 * @param allowExtras allows for use of special stylings like clickable links in chat, and the like
-	 * @return Color converted text.
+	 * @return Color converted text or an empty component if the string is empty or null
 	 */
 	public static Component color(String text, boolean allowExtras) {
-		if(text == null){
-			throw new NullPointerException("Input String cannot be null");
+		if(text == null || text.isBlank()){
+			return Component.empty();
 		} else {
-			if(text.isEmpty() || text.isBlank()){
-				return Component.empty();
-			} else {
-				String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
-				Builder component = Component.text();
-				
-				return convertToComponent(texts, allowExtras, component).build();
-			}
+			String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
+			Builder component = Component.text();
+			
+			return convertToComponent(texts, allowExtras, component).build();
 		}
 	}
 	
