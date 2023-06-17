@@ -37,6 +37,9 @@ public final class Convert{
 	 */
 	public static long fromTime(String timeString) {
 		long timeInMs = 0;
+		if(timeString == null || timeString.isEmpty()){
+			return 0;
+		}
 		
 		Matcher matcher = pattern.matcher(timeString);
 		while(matcher.find()){
