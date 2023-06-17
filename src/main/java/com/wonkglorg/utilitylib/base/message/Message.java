@@ -108,7 +108,11 @@ public final class Message{
 	 * @return Color converted text or an empty component if the string is empty or null
 	 */
 	public static Component color(String text, boolean allowExtras) {
-		if(text == null || text.isBlank()){
+		if(text == null){
+			return null;
+		}
+		
+		if(text.isBlank()){
 			return Component.empty();
 		} else {
 			String[] texts = text.split(String.format(WITH_DELIMITER, ChatColor.preset));
