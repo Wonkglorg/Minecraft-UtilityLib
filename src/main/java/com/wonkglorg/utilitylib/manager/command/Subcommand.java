@@ -13,6 +13,10 @@ public abstract class Subcommand extends Arguments{
 		this.subCommandNames = subCommandName;
 	}
 	
+	public String[] getSubCommandNames(){
+		return subCommandNames;
+	}
+	
 	public boolean matches(String arg) {
 		return Arrays.stream(subCommandNames).anyMatch(Predicate.isEqual(arg));
 	}
