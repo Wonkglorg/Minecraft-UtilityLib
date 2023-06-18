@@ -124,7 +124,7 @@ public abstract class Command extends Arguments implements TabExecutor{
 		return name;
 	}
 	
-	public com.wonkglorg.utilitylib.manager.command.Subcommand getSubcommand(String name) {
+	public Subcommand getSubcommand(String name) {
 		return subcommandMap.get(name);
 	}
 	
