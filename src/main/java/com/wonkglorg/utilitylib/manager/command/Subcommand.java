@@ -2,23 +2,25 @@ package com.wonkglorg.utilitylib.manager.command;
 
 import org.bukkit.command.CommandSender;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class Subcommand extends Arguments{
-	protected String[] subCommandNames;
+	protected List<String> subCommandList = new ArrayList<>();
 	
-	public Subcommand(String... subCommandName) {
-		this.subCommandNames = subCommandName;
+	public Subcommand(String first, String... subCommandName) {
+		subCommandList.add(first);
+		subCommandList.addAll(List.of(subCommandName));
+		
 	}
 	
-	public String[] getSubCommandNames(){
-		return subCommandNames;
+	public List<String> getSubCommandNames() {
+		return subCommandList;
 	}
 	
 	public boolean matches(String arg) {
-		return Arrays.stream(subCommandNames).anyMatch(Predicate.isEqual(arg));
+		return subCommandList.stream().anyMatch(Predicate.isEqual(arg));
 	}
 	
 	public abstract void execute(CommandSender sender, String[] args);
