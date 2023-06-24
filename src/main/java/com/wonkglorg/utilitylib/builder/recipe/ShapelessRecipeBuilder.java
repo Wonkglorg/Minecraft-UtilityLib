@@ -28,7 +28,7 @@ public final class ShapelessRecipeBuilder extends RecipeBuilder{
 	@Override
 	protected void initRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result) {
 		if(recipe == null){
-			recipe = new ShapedRecipe(key, result);
+			recipe = new ShapelessRecipe(key, result);
 		}
 	}
 	

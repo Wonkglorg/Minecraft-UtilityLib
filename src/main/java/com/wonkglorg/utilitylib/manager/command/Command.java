@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.manager.command;
 
-
 import com.wonkglorg.utilitylib.base.logger.Logger;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
@@ -126,6 +126,30 @@ public abstract class Command extends Arguments implements TabExecutor{
 	
 	public Subcommand getSubcommand(String name) {
 		return subcommandMap.get(name);
+	}
+	
+	public boolean handleCommand(String arg, CommandSender sender, String[] args) {
+		return subcommandMap.get(arg).execute(sender, args);
+	}
+	
+	public boolean execute(String arg, CommandSender sender, String[] args, int offset) {
+		Subcommand subcommand = subcommandMap.get(arg);
+		if(subcommand == null){
+			return false;
+		}
+		
+		return subcommand.executeCommand(sender, args, offset);
+		
+	}
+	
+	public List<String> tabComplete(String arg, String alias, String[] args, int offset) {
+		Subcommand subcommand = subcommandMap.get(arg);
+		if(subcommand == null){
+			return null;
+		}
+		
+		return subcommand.executeTabComplete(alias, args, offset);
+		
 	}
 	
 	public void addSubcommand(String name, Subcommand subcommand) {
