@@ -7,7 +7,6 @@ import com.wonkglorg.utilitylib.manager.config.ConfigYML;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.concurrent.ThreadSafe;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-@ThreadSafe
 public final class ConfigManager implements Manager{
 	private final JavaPlugin plugin;
 	private boolean isStarted;

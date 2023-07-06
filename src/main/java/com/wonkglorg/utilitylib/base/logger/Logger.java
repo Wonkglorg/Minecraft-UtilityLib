@@ -4,13 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
 
 @SuppressWarnings({"unused", "unchecked"})
-@ThreadSafe
 public final class Logger{
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
 	
