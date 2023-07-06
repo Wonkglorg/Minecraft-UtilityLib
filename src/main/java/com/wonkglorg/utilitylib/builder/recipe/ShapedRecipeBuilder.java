@@ -3,12 +3,16 @@ package com.wonkglorg.utilitylib.builder.recipe;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
+import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author Wonkglorg
@@ -24,6 +28,8 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	public ShapedRecipeBuilder(@NotNull final NamespacedKey key, ItemStack result) {
 		super(key, result);
 	}
+	
+	Map<Character, RecipeChoice> recipeChoiceMap = new HashMap<>();
 	
 	@Override
 	protected void initRecipe(@NotNull final NamespacedKey key, @NotNull final ItemStack result) {
@@ -61,7 +67,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	 */
 	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final Material ingredient) {
 		validateInit();
-		getRecipe().setIngredient(key, ingredient);
+		recipeChoiceMap.put(key, new MaterialChoice(ingredient));
 		return this;
 	}
 	
@@ -74,7 +80,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	public ShapedRecipeBuilder addIngredient(ShapedRecipeData... shapedRecipeData) {
 		validateInit();
 		for(ShapedRecipeData recipeData : shapedRecipeData){
-			getRecipe().setIngredient(recipeData.character(), recipeData.itemStack());
+			recipeChoiceMap.put(recipeData.character(), new ExactChoice(recipeData.itemStack()));
 		}
 		return this;
 	}
@@ -87,8 +93,8 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	 */
 	public ShapedRecipeBuilder addIngredient(Map<Character, ItemStack> ingredients) {
 		validateInit();
-		for(char character : ingredients.keySet()){
-			getRecipe().setIngredient(character, ingredients.get(character));
+		for(Entry<Character, ItemStack> entry : ingredients.entrySet()){
+			recipeChoiceMap.put(entry.getKey(), new ExactChoice(entry.getValue()));
 		}
 		return this;
 	}
@@ -102,20 +108,7 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	 */
 	public ShapedRecipeBuilder addIngredient(final char key, @NotNull final ItemStack ingredient) {
 		validateInit();
-		getRecipe().setIngredient(key, ingredient);
-		return this;
-	}
-	
-	/**
-	 * Assigns a shape key to an ingredient
-	 *
-	 * @param key key given in the shape
-	 * @param ingredient ingredient {@link ItemStack}
-	 * @return the ShapedRecipeBuilder
-	 */
-	public ShapedRecipeBuilder addIngredients(final char key, @NotNull final ItemStack ingredient) {
-		validateInit();
-		getRecipe().setIngredient(key, ingredient);
+		recipeChoiceMap.put(key, new ExactChoice(ingredient));
 		return this;
 	}
 	
@@ -138,6 +131,11 @@ public final class ShapedRecipeBuilder extends RecipeBuilder{
 	
 	@Override
 	public ShapedRecipe build() {
+		validateInit();
+		for(Entry<Character, RecipeChoice> entry : recipeChoiceMap.entrySet()){
+			getRecipe().setIngredient(entry.getKey(), entry.getValue());
+		}
+		//FIX SHAPE TO BE NOT RELIANTE ON ORDER
 		return (ShapedRecipe) super.build();
 	}
 }
