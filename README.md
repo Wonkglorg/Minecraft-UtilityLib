@@ -23,7 +23,7 @@ required functionality every time. Instead, letting them concentrate on the func
 * JAVA 16 or above
 
 IMPORTANT!
-To use Sqlite file copies from resource path use:
+To use Sqlite file copies from resource path include this in the pom.xml
 ```yml
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
