@@ -22,6 +22,7 @@ import java.util.Set;
 @SuppressWarnings("unused")
 public class ConfigYML extends YamlConfiguration implements Config{
 	
+	//Add version control. Keep version in yml and add all new values which do not exist yet if current version is higher than the one already existing
 	protected final JavaPlugin PLUGIN;
 	protected final String NAME;
 	protected final Path SOURCE_PATH;
@@ -97,7 +98,7 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	public void updateFiles() {
 	
 	}
-	
+	/*
 	public void updateFileValues() {
 		YamlConfiguration existingConfig = YamlConfiguration.loadConfiguration(FILE);
 		
@@ -118,7 +119,7 @@ public class ConfigYML extends YamlConfiguration implements Config{
 			save();
 		}
 	}
-	
+	 */
 	public void load() {
 		checkFile();
 		try{

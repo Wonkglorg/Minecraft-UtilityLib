@@ -42,7 +42,7 @@ public class MySqlDatabase extends Database{
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		} catch(ClassNotFoundException e){
 			Logger.logFatal("Mysql-Connector-J Could not be found");
-			Logger.logFatal("This is not an error for the plugin developer and should not be reported back to the creator of the library");
+			Logger.logFatal("This is an error for the plugin developer and should not be reported back to the creator of the library");
 			Logger.logFatal("I did not include this dependency myself to not inflate the libraries size.");
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}

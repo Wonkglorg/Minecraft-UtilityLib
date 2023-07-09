@@ -31,7 +31,6 @@ public abstract class Database{
 			try{
 				connection.close();
 			} catch(SQLException ignored){
-			
 			}
 		}
 		
