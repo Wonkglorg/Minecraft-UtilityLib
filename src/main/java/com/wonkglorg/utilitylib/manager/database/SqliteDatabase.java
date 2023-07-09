@@ -24,36 +24,35 @@ public class SqliteDatabase extends Database{
 	protected final Path DESTINATION_PATH;
 	protected final String DATABASE_NAME;
 	
-	/*
-	IF YOU WANT TO COPY EXISTING SQLITE FORMATS INCLUDE
-				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.3.1</version>
-				<configuration>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>db</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-			</plugin>
-			
-			
-			IN YOUR POM.XML OTHERWISE THE SQLITE FILE GETS FILTERED AND CORRUPTS
-	 */
-	
 	/**
 	 * * Creates a Sqlite database at the specified copyToPath.
 	 * * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
 	 * * If there is no database file it will be created at the destinationPath location.
+	 * <br>
+	 * !!IMPORTANT!!
+	 * <br>Use <br>
+	 * <pre>
+	 *     {@code
+	 * <plugin>
+	 * 	<groupId>org.apache.maven.plugins</groupId>
+	 * 	<artifactId>maven-resources-plugin</artifactId>
+	 * 	<version>3.3.1</version>
+	 * 	<configuration>
+	 * 		<nonFilteredFileExtensions>
+	 * 			<nonFilteredFileExtension>db</nonFilteredFileExtension>
+	 * 		</nonFilteredFileExtensions>
+	 * 	</configuration>
+	 * </plugin>
+	 * }
+	 * </pre>
+	 * otherwise sqlite database files will be filtered and become corrupted.
 	 *
 	 * @param sourcePath
 	 * @param destinationPath
 	 */
 	public SqliteDatabase(Path sourcePath, Path destinationPath) {
 		super(destinationPath.getFileName().toString(), DatabaseType.SQLITE);
-		//super(sourcePath.getFileName().toString(), DatabaseType.SQLITE);
 		String name = sourcePath.getFileName().toString();
-		//add the option to define your own name for it the new file too!
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		SOURCE_PATH = sourcePath;
 		DESTINATION_PATH = destinationPath;
@@ -65,6 +64,24 @@ public class SqliteDatabase extends Database{
 	 * Creates a Sqlite database inside your plugin folder with the specified name and paths.
 	 * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
 	 * If there is no database file it will be created at the destinationPath location.
+	 * <br>
+	 * !!IMPORTANT!!
+	 * <br>Use <br>
+	 * <pre>
+	 *     {@code
+	 * <plugin>
+	 * 	<groupId>org.apache.maven.plugins</groupId>
+	 * 	<artifactId>maven-resources-plugin</artifactId>
+	 * 	<version>3.3.1</version>
+	 * 	<configuration>
+	 * 		<nonFilteredFileExtensions>
+	 * 			<nonFilteredFileExtension>db</nonFilteredFileExtension>
+	 * 		</nonFilteredFileExtensions>
+	 * 	</configuration>
+	 * </plugin>
+	 * }
+	 * </pre>
+	 * otherwise sqlite database files will be filtered and become corrupted.
 	 *
 	 * @param plugin
 	 * @param sourcePath
