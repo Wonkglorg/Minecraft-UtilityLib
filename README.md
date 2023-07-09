@@ -20,10 +20,22 @@ required functionality every time. Instead, letting them concentrate on the func
 
 * Paper
 * Minecraft 1.16.* and above
-* JAVA 8 or above
+* JAVA 16 or above
 
-* 
-
+IMPORTANT!
+To use Sqlite file copies from resource path use:
+```yml
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-resources-plugin</artifactId>
+<version>3.3.1</version>
+     <configuration>
+          <nonFilteredFileExtensions>
+               <nonFilteredFileExtension>db</nonFilteredFileExtension>
+          </nonFilteredFileExtensions>
+     </configuration>
+</plugin>
+```
 ## <a name="installation"></a>Installation
 
 Repository
