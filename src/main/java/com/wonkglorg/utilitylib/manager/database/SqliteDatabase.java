@@ -136,7 +136,7 @@ public class SqliteDatabase extends Database{
 		}
 		
 		try{
-			URL url = getClass().getClassLoader().getResource(filename);
+			URL url = getClass().getClassLoader().getResource(filename.replaceAll("\\\\", "/"));
 			
 			if(url == null){
 				return null;

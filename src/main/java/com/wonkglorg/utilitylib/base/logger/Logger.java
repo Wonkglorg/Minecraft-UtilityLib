@@ -10,6 +10,8 @@ import java.util.logging.Level;
 
 @SuppressWarnings({"unused", "unchecked"})
 public final class Logger{
+	
+	//replace with component logger from adventure api
 	private static final java.util.logging.Logger logger = Bukkit.getLogger();
 	
 	/**
