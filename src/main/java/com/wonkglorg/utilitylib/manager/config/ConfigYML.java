@@ -212,7 +212,6 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	 * Checks if file exists in path, else create the file and all parent directories needed.
 	 */
 	protected void checkFile() {
-		Integer.parseInt("K");
 		if(!FILE.exists()){
 			FILE.getParentFile().mkdirs();
 			InputStream inputStream = PLUGIN.getResource(SOURCE_PATH.toString().replaceAll("\\\\", "/"));
