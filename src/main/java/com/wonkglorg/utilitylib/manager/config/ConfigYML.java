@@ -3,6 +3,7 @@ package com.wonkglorg.utilitylib.manager.config;
 import com.wonkglorg.utilitylib.base.logger.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -98,6 +100,22 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	public void updateFiles() {
 	
 	}
+	
+	//write method to copy all new values from one config to another if the version specified as a value is newer than the one in the destination config
+	//thje new config should just be temporary saved to copy all new values to it then deleted again
+	public void updateConfig() {
+		
+		FileConfiguration existing = YamlConfiguration.loadConfiguration(FILE);
+		
+		FileConfiguration newConfig = YamlConfiguration.loadConfiguration(SOURCE_PATH.toFile());
+		
+		for(Entry<String, Object> entry : newConfig.getValues(true).entrySet()){
+			if(!existing.contains(entry.getKey())){
+				existing.set(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+	
 	/*
 	public void updateFileValues() {
 		YamlConfiguration existingConfig = YamlConfiguration.loadConfiguration(FILE);
@@ -194,6 +212,7 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	 * Checks if file exists in path, else create the file and all parent directories needed.
 	 */
 	protected void checkFile() {
+		Integer.parseInt("K");
 		if(!FILE.exists()){
 			FILE.getParentFile().mkdirs();
 			InputStream inputStream = PLUGIN.getResource(SOURCE_PATH.toString().replaceAll("\\\\", "/"));

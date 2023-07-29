@@ -188,7 +188,6 @@ public final class Message{
 		}
 		return builder.toString();
 	}
-	
 	private static Builder convertToComponent(String[] texts, boolean allowExtras, Builder component) {
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		TextColor textColor = null;

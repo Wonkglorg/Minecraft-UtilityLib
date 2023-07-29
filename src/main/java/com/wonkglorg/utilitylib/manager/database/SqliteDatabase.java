@@ -52,7 +52,7 @@ public class SqliteDatabase extends Database{
 	 */
 	public SqliteDatabase(Path sourcePath, Path destinationPath) {
 		super(destinationPath.getFileName().toString(), DatabaseType.SQLITE);
-		String name = sourcePath.getFileName().toString();
+		String name = destinationPath.getFileName().toString();
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		SOURCE_PATH = sourcePath;
 		DESTINATION_PATH = destinationPath;
@@ -90,10 +90,10 @@ public class SqliteDatabase extends Database{
 	public SqliteDatabase(JavaPlugin plugin, Path sourcePath, Path destinationPath) {
 		super(destinationPath.getFileName().toString(), DatabaseType.SQLITE);
 		this.plugin = plugin;
-		String name = sourcePath.getFileName().toString();
+		String name = destinationPath.getFileName().toString();
 		DATABASE_NAME = name.endsWith(".db") ? name : name + ".db";
 		SOURCE_PATH = sourcePath;
-		DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath());
+		DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath(), destinationPath.toString());
 		connect();
 	}
 	
