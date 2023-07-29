@@ -110,7 +110,7 @@ public class SqliteDatabase extends Database{
 			if(!databaseFile.exists()){
 				copyDatabaseFile(databaseFile);
 			}
-			String connectionString = databaseType.getDriver() + SOURCE_PATH;
+			String connectionString = databaseType.getDriver() + DESTINATION_PATH;
 			connection = DriverManager.getConnection(connectionString);
 			
 		} catch(ClassNotFoundException | SQLException | IOException e){
