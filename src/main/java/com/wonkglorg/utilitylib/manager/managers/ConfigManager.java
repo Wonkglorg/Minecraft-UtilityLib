@@ -1,6 +1,5 @@
 package com.wonkglorg.utilitylib.manager.managers;
 
-
 import com.wonkglorg.utilitylib.base.logger.Logger;
 import com.wonkglorg.utilitylib.manager.config.Config;
 import com.wonkglorg.utilitylib.manager.config.ConfigYML;
@@ -58,9 +57,28 @@ public final class ConfigManager implements Manager{
 		configs.forEach(Config::silentSave);
 	}
 	
-	public synchronized Config getConfig(String name) {
+	/**
+	 * Can cause issues if you have multiple configs with the same name not recommended
+	 * @param name
+	 * @return
+	 */
+	public synchronized Config getConfigByName(String name) {
 		for(Config config : configs){
 			if(config.name().equalsIgnoreCase(name)){
+				return config;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets a congig by its path
+	 * @param path
+	 * @return
+	 */
+	public synchronized Config getConfig(String path) {
+		for(Config config : configs){
+			if(config.path().equalsIgnoreCase(path)){
 				return config;
 			}
 		}
