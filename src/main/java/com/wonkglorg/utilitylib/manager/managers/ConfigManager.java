@@ -59,6 +59,7 @@ public final class ConfigManager implements Manager{
 	
 	/**
 	 * Can cause issues if you have multiple configs with the same name not recommended
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -72,7 +73,8 @@ public final class ConfigManager implements Manager{
 	}
 	
 	/**
-	 * Gets a congig by its path
+	 * Gets a congig by its path checks for both entered path and data folder path of the plugin
+	 *
 	 * @param path
 	 * @return
 	 */
@@ -81,7 +83,11 @@ public final class ConfigManager implements Manager{
 			if(config.path().equalsIgnoreCase(path)){
 				return config;
 			}
+			if(config.path().equalsIgnoreCase(plugin.getDataFolder() + File.separator + path)){
+				return config;
+			}
 		}
+		
 		return null;
 	}
 	
