@@ -307,7 +307,7 @@ public class ItemBuilder implements Cloneable{
 		return lore;
 	}
 	
-	public void setLore(List<Component> lore) {
+	public ItemBuilder setLore(List<Component> lore) {
 		this.lore = lore;
 	}
 	

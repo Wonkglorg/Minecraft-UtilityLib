@@ -227,6 +227,12 @@ public abstract class InventoryGUI implements Listener{
 			}
 		}
 	}
+	/*
+	public Button convertStringToButton(String string) {
+
+	}
+
+	 */
 	
 	/**
 	 * Remove a button from the inventory
