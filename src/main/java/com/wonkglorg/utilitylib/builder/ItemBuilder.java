@@ -309,6 +309,7 @@ public class ItemBuilder implements Cloneable{
 	
 	public ItemBuilder setLore(List<Component> lore) {
 		this.lore = lore;
+		return this;
 	}
 	
 	public int getDurability() {
