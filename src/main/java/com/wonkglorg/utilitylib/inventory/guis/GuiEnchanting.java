@@ -29,4 +29,8 @@ public abstract class GuiEnchanting extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public EnchantingInventory getInventory(){
+        return (EnchantingInventory) super.getInventory();
+    }
+
 }

@@ -29,6 +29,12 @@ public abstract class GuiCartography extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public CartographyInventory getInventory(){
+        return (CartographyInventory) super.getInventory();
+    }
+
+
+
 
 
 

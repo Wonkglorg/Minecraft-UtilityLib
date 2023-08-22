@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.SmithingInventory;
 import org.bukkit.inventory.StonecutterInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +27,10 @@ public abstract class GuiStonecutter extends InventoryGUI {
 
     public GuiStonecutter(StonecutterInventory inventory, JavaPlugin plugin, Player player) {
         super(inventory, plugin, player);
+    }
+
+    public StonecutterInventory getInventory(){
+        return (StonecutterInventory) super.getInventory();
     }
 
 }

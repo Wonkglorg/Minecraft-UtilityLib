@@ -29,4 +29,10 @@ public abstract class GuiGrindstone extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public GrindstoneInventory getInventory(){
+        return (GrindstoneInventory) super.getInventory();
+    }
+
+
+
 }

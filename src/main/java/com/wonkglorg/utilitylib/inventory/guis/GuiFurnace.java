@@ -29,4 +29,8 @@ public abstract class GuiFurnace extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public FurnaceInventory getInventory(){
+        return (FurnaceInventory) super.getInventory();
+    }
+
 }

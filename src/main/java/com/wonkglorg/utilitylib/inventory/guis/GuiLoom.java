@@ -29,5 +29,8 @@ public abstract class GuiLoom extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public LoomInventory getInventory(){
+        return (LoomInventory) super.getInventory();
+    }
 }
 

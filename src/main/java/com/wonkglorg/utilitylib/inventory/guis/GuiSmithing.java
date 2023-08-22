@@ -30,5 +30,9 @@ public abstract class GuiSmithing extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public SmithingInventory getInventory(){
+        return (SmithingInventory) super.getInventory();
+    }
+
 }
 

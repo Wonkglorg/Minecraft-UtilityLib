@@ -29,4 +29,8 @@ import org.bukkit.plugin.java.JavaPlugin;
             super(inventory, plugin, player);
         }
 
+        public CraftingInventory getInventory(){
+            return (CraftingInventory) super.getInventory();
+        }
+
     }

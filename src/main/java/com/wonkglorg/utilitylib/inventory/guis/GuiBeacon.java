@@ -28,6 +28,11 @@ public abstract class GuiBeacon extends InventoryGUI {
         super(inventory, plugin, player);
     }
 
+    public BeaconInventory getInventory(){
+        return (BeaconInventory) super.getInventory();
+    }
+
+
     //TODO add method to handle beacon event when clicking done?
 
 }

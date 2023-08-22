@@ -31,6 +31,10 @@ public abstract class GuiBrewer extends InventoryGUI implements Listener {
         super(inventory, plugin, player);
     }
 
+    public BrewerInventory getInventory(){
+        return (BrewerInventory) super.getInventory();
+    }
+
     //not gonna work cause the listener gets destroyed on close!
     /*
     @EventHandler

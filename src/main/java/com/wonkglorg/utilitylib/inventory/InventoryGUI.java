@@ -42,7 +42,7 @@ public abstract class InventoryGUI implements Listener {
     }
 
     protected final JavaPlugin plugin;
-    protected final Inventory inventory;
+    private final Inventory inventory;
     protected final Set<Integer> openSlots = new LinkedHashSet<>();
     private Runnable onDestroy;
     private BiConsumer<InventoryClickEvent, List<Integer>> onClickOpenSlot = (e, i) -> {
@@ -579,7 +579,7 @@ public abstract class InventoryGUI implements Listener {
         onDragOpenSlot.accept(e);
     }
 
-    private Inventory getInventory(InventoryView view, int rawSlot) {
+    public Inventory getInventory(InventoryView view, int rawSlot) {
         return rawSlot < view.getTopInventory().getSize() ? view.getTopInventory() : view.getBottomInventory();
     }
 
@@ -660,6 +660,8 @@ public abstract class InventoryGUI implements Listener {
             }
         }
     }
+
+
 
     public JavaPlugin getPlugin() {
         return plugin;
