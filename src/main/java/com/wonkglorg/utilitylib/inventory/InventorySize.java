@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.inventory.chest;
+package com.wonkglorg.utilitylib.inventory;
 
 public enum InventorySize{
 	TINY(9),

@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.inventory.profile;
+package com.wonkglorg.utilitylib.inventory;
 
 import org.bukkit.entity.Player;
 

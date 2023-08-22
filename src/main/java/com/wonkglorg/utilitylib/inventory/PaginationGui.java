@@ -1,5 +1,7 @@
-package com.wonkglorg.utilitylib.inventory.chest;
+package com.wonkglorg.utilitylib.inventory;
 
+import com.wonkglorg.utilitylib.inventory.Button;
+import com.wonkglorg.utilitylib.inventory.InventoryGUI;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings("unused")
 public final class PaginationGui{
-	private final com.wonkglorg.utilitylib.inventory.chest.InventoryGUI gui;
+	private final InventoryGUI gui;
 	private int page = 1;
 	private final List<IntConsumer> buttons = new ArrayList<>();
 	private final Map<Object, IntConsumer> items = new HashMap<>();
@@ -36,7 +38,7 @@ public final class PaginationGui{
 	 *
 	 * @param gui The InventoryGUI to paginate
 	 */
-	public PaginationGui(com.wonkglorg.utilitylib.inventory.chest.InventoryGUI gui) {
+	public PaginationGui(InventoryGUI gui) {
 		this(gui, null);
 	}
 	
@@ -60,7 +62,7 @@ public final class PaginationGui{
 		this.onUpdate = onUpdate;
 	}
 	
-	private void addPagedButton0(com.wonkglorg.utilitylib.inventory.chest.Button button) {
+	private void addPagedButton0(Button button) {
 		IntConsumer setter = i -> gui.addButton(button, i);
 		items.put(button, setter);
 		buttons.add(setter);
@@ -71,7 +73,7 @@ public final class PaginationGui{
 	 *
 	 * @param button The button to add
 	 */
-	public void addPagedButton(com.wonkglorg.utilitylib.inventory.chest.Button button) {
+	public void addPagedButton(Button button) {
 		addPagedButton0(button);
 		updatePage();
 	}
@@ -97,8 +99,8 @@ public final class PaginationGui{
 	 *
 	 * @param buttons The buttons to add
 	 */
-	public void addPagedButtons(Iterable<com.wonkglorg.utilitylib.inventory.chest.Button> buttons) {
-		for(com.wonkglorg.utilitylib.inventory.chest.Button button : buttons){
+	public void addPagedButtons(Iterable<Button> buttons) {
+		for(Button button : buttons){
 			addPagedButton0(button);
 		}
 		updatePage();
@@ -131,7 +133,7 @@ public final class PaginationGui{
 	 *
 	 * @param button The button to remove
 	 */
-	public void removePagedButton(com.wonkglorg.utilitylib.inventory.chest.Button button) {
+	public void removePagedButton(Button button) {
 		buttons.remove(items.remove(button));
 		updatePage();
 	}
@@ -153,8 +155,8 @@ public final class PaginationGui{
 	 *
 	 * @param buttons The buttons to remove
 	 */
-	public void removePagedButtons(Iterable<com.wonkglorg.utilitylib.inventory.chest.Button> buttons) {
-		for(com.wonkglorg.utilitylib.inventory.chest.Button button : buttons){
+	public void removePagedButtons(Iterable<Button> buttons) {
+		for(Button button : buttons){
 			this.buttons.remove(items.remove(button));
 		}
 		updatePage();
@@ -315,8 +317,8 @@ public final class PaginationGui{
 	/**
 	 * @return All ItemButtons added to this panel
 	 */
-	public List<com.wonkglorg.utilitylib.inventory.chest.Button> getButtons() {
-		return items.keySet().stream().filter(com.wonkglorg.utilitylib.inventory.chest.Button.class::isInstance).map(Button.class::cast).collect(Collectors.toList());
+	public List<Button> getButtons() {
+		return items.keySet().stream().filter(Button.class::isInstance).map(Button.class::cast).collect(Collectors.toList());
 	}
 	
 	/**

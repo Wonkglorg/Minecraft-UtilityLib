@@ -1,4 +1,4 @@
-package com.wonkglorg.utilitylib.inventory.chest;
+package com.wonkglorg.utilitylib.inventory;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

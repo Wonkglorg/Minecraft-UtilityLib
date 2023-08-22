@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.manager.managers;
 
-import com.wonkglorg.utilitylib.inventory.profile.MenuProfile;
+import com.wonkglorg.utilitylib.inventory.MenuProfile;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

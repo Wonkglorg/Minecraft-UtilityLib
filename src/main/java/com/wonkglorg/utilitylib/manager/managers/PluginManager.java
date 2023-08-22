@@ -1,7 +1,7 @@
 package com.wonkglorg.utilitylib.manager.managers;
 
 import com.wonkglorg.utilitylib.base.logger.Logger;
-import com.wonkglorg.utilitylib.inventory.profile.MenuProfile;
+import com.wonkglorg.utilitylib.inventory.MenuProfile;
 import com.wonkglorg.utilitylib.manager.command.Command;
 import com.wonkglorg.utilitylib.manager.config.Config;
 import com.wonkglorg.utilitylib.manager.config.LangConfig;
