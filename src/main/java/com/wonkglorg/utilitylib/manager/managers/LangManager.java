@@ -49,8 +49,11 @@ public final class LangManager implements Manager{
 	}
 	
 	public synchronized void addLanguage(Locale locale, LangConfig languageConfig) {
+		if(langMap.containsKey(locale)){
+			return;
+		}
 		configManager.add(languageConfig);
-		langMap.put(locale, languageConfig);
+		langMap.putIfAbsent(locale, languageConfig);
 		languageConfig.silentLoad();
 	}
 	
