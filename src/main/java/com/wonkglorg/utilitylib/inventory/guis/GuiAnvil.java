@@ -36,7 +36,7 @@ public abstract class GuiAnvil extends InventoryGUI implements Listener {
     @EventHandler
     public void onAnvil(PrepareAnvilEvent e) {
 
-        if (e.getInventory().equals(inventory)) {
+        if (e.getInventory().equals(getInventory())) {
             onAnvilEvent(e);
         }
     }
@@ -45,7 +45,7 @@ public abstract class GuiAnvil extends InventoryGUI implements Listener {
     //todo check which raw slot and only take final output slot?
     @EventHandler
     public void onClick(InventoryClickEvent e){
-        if (e.getInventory().equals(inventory)) {
+        if (e.getInventory().equals(getInventory())) {
             onOutputClick(e);
         }
     }
