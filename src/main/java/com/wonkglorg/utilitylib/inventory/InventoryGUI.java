@@ -119,7 +119,7 @@ public abstract class InventoryGUI implements Listener {
      * @param inventory The inventory to create a GUI from
      */
     public InventoryGUI(Inventory inventory, JavaPlugin plugin, Player player) {
-        this(inventory, plugin, UtilityPlugin.getManager().getProfileManager().get(player));
+        this(inventory, plugin, UtilityPlugin.manager().getProfileManager().get(player));
 
     }
 

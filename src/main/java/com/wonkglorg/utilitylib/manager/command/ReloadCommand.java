@@ -27,9 +27,9 @@ public class ReloadCommand extends Command{
 	public ReloadCommand(@NotNull JavaPlugin plugin, @NotNull String name) {
 		super(plugin, name);
 		
-		configManager = UtilityPlugin.getManager().getConfigManager();
+		configManager = UtilityPlugin.manager().getConfigManager();
 		
-		options.addAll(configManager.getConfigs().stream().map(Config::name).toList());
+		options.addAll(configManager.getConfigMap().stream().map(Config::name).toList());
 		options.add("all");
 	}
 	
@@ -72,7 +72,7 @@ public class ReloadCommand extends Command{
 	@Override
 	public List<String> tabComplete(@NotNull Player player, String[] args) {
 		if(args.length == 1){
-			return configManager.getConfigs().stream().map(Config::name).collect(Collectors.toList());
+			return configManager.getConfigMap().stream().map(Config::name).collect(Collectors.toList());
 		}
 		return List.of();
 	}

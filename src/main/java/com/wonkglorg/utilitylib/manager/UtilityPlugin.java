@@ -33,6 +33,8 @@ public abstract class UtilityPlugin extends JavaPlugin{
 	public void onEnable() {
 		pluginStartup();
 		manager.onStartup();
+
+		getResource("config.yml");
 	}
 	
 	@Override
@@ -41,7 +43,11 @@ public abstract class UtilityPlugin extends JavaPlugin{
 		manager.onShutdown();
 	}
 	
-	public static PluginManager getManager() {
+	public static PluginManager manager() {
+		return manager;
+	}
+
+	public PluginManager getManager(){
 		return manager;
 	}
 	

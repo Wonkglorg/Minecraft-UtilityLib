@@ -33,8 +33,7 @@ public class ConfigYML extends YamlConfiguration implements Config{
 	
 	/**
 	 * Creates a new file at the specified location or copies an existing one from the resource folder based on the sourcePath,
-	 * if nothing could be found in the sourcePath it creates a new one. DestinationPath will automatically point to the base server folder
-	 * NOT your datafolder. Use "plugin.getDataFolder()" to get your default plugins data folder.
+	 * if nothing could be found in the sourcePath it creates a new one. DestinationPath will automatically point to the plugin data folder.
 	 *
 	 * @param plugin
 	 * @param sourcePath path inside the resources folder of your plugin
@@ -44,10 +43,11 @@ public class ConfigYML extends YamlConfiguration implements Config{
 		this.PLUGIN = plugin;
 		this.NAME = destinationPath.getFileName().toString();
 		this.SOURCE_PATH = sourcePath;
-		this.DESTINATION_PATH = destinationPath;
+		this.DESTINATION_PATH = destinationPath.startsWith(plugin.getDataFolder().toString()) ? destinationPath : Path.of(plugin.getDataFolder().toString(), destinationPath.toString());
 		FILE = new File(this.DESTINATION_PATH.toString());
 	}
-	
+
+
 	/**
 	 * Creates a new file at the specified location or copies an existing one from the resource folder based on the name,
 	 * if nothing could be found in the resource folder it creates a new one. name will automatically point to the base of the plugin data folder
