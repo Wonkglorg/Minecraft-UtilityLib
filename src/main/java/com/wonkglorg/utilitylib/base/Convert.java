@@ -1,9 +1,10 @@
-package com.wonkglorg.utilitylib.base.message;
+package com.wonkglorg.utilitylib.base;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -170,7 +171,7 @@ public final class Convert{
 	public static long fromBalance(String balanceString) {
 		return 0;
 	}
-	
+
 	public enum DateType{
 		MILLISECONDS("ms", 1),
 		SECONDS("s", 1000L),

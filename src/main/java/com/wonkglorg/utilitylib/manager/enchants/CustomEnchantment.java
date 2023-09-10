@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.manager.enchants;
 
-import com.wonkglorg.utilitylib.base.message.Convert;
+import com.wonkglorg.utilitylib.base.Convert;
 import com.wonkglorg.utilitylib.base.message.Message;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

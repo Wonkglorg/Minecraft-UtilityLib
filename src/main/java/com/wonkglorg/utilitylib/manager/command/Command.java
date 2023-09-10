@@ -29,7 +29,30 @@ public abstract class Command extends Arguments implements TabExecutor{
 	protected JavaPlugin plugin;
 	private final String name;
 	protected final Map<String, com.wonkglorg.utilitylib.manager.command.Subcommand> subcommandMap = new HashMap<>();
-	
+
+	/*todo
+		add brigade to the commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 */
 	/**
 	 * Instantiates a new Command.
 	 *

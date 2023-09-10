@@ -1,6 +1,6 @@
 package com.wonkglorg.utilitylib.manager.managers;
 
-import com.wonkglorg.utilitylib.base.message.Convert;
+import com.wonkglorg.utilitylib.base.Convert;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Consumer;
 
