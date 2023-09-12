@@ -130,7 +130,7 @@ public abstract class InventoryGUI implements Listener {
      * @param name The name of the inventory
      */
     public InventoryGUI(int size, String name, JavaPlugin plugin, Player player) {
-        this(Bukkit.createInventory(null, size, Component.text(name)), plugin,player);
+        this(Bukkit.createInventory(null, size, Component.text(name)), plugin, player);
     }
 
     /**
@@ -194,11 +194,19 @@ public abstract class InventoryGUI implements Listener {
      * @param slot   The slot to add the button to
      */
     public void addButton(Button button, int slot) {
-        slot = validateFitting(slot);
         button.setSlot(slot);
         inventory.setItem(slot, button.getItem());
         buttons.put(slot, button);
     }
+
+    public void addItem(ItemStack item, int slot) {
+        inventory.setItem(slot, item);
+    }
+
+    public void addItem(int slot, ItemStack item) {
+        addItem(item, slot);
+    }
+
 
     /**
      * Add a button to the GUI in the given slot
@@ -218,8 +226,6 @@ public abstract class InventoryGUI implements Listener {
      * @param y      The Y position to add the button at
      */
     public void addButton(Button button, int x, int y) {
-        x = validateX(x);
-        y = validateY(y);
         int slot = x + (y * maxRows);
         addButton(button, slot);
     }
@@ -243,8 +249,6 @@ public abstract class InventoryGUI implements Listener {
      * @param item  The item to set in these slots
      */
     public void fill(int start, int end, ItemStack item) {
-        start = validateFitting(start);
-        end = validateFitting(end);
         for (int i = start; i < end; i++) {
             inventory.setItem(i, item == null ? null : item.clone());
         }
@@ -260,12 +264,6 @@ public abstract class InventoryGUI implements Listener {
      * @param item The item to set in these slots
      */
     public void fill(int x1, int y1, int x2, int y2, ItemStack item) {
-        x1 = validateX(x1);
-        y1 = validateY(y1);
-
-        x2 = validateX(x2);
-        y2 = validateY(y2);
-
         for (int x = x1; x < x2; x++) {
             for (int y = y1; y < y2; y++) {
                 inventory.setItem(x + (y * 9), item == null ? null : item.clone());
@@ -295,7 +293,6 @@ public abstract class InventoryGUI implements Listener {
      * @param slot Slot to be removed
      */
     public void removeButton(int slot) {
-        slot = validateFitting(slot);
         inventory.setItem(slot, new ItemStack(Material.AIR));
         buttons.remove(slot);
     }
@@ -323,7 +320,6 @@ public abstract class InventoryGUI implements Listener {
      * @param slot The slot to clear
      */
     public void clearSlot(int slot) {
-        slot = validateFitting(slot);
         Button button = buttons.get(slot);
         if (button != null) {
             removeButton(button);
@@ -347,7 +343,6 @@ public abstract class InventoryGUI implements Listener {
      * @param slot The slot to open
      */
     public void openSlot(int slot) {
-        slot = validateFitting(slot);
         openSlots.add(slot);
     }
 
@@ -358,8 +353,6 @@ public abstract class InventoryGUI implements Listener {
      * @param end   The end of the open slot section, exclusive
      */
     public void openSlots(int start, int end) {
-        start = validateFitting(start);
-        end = validateFitting(end);
         for (int i = start; i < end; i++) {
             openSlots.add(i);
         }
@@ -374,12 +367,6 @@ public abstract class InventoryGUI implements Listener {
      * @param y2 The y position to open to, exclusive
      */
     public void openSlots(int x1, int y1, int x2, int y2) {
-        x1 = validateX(x1);
-        y1 = validateY(y1);
-
-        x2 = validateX(x2);
-        y2 = validateY(y2);
-
         for (int y = y1; y < y2; y++) {
             for (int x = x1; x < x2; x++) {
                 openSlots.add(y * maxRows + x);
@@ -403,9 +390,6 @@ public abstract class InventoryGUI implements Listener {
      * @param end   The end of the open closed section, exclusive
      */
     public void closeSlots(int start, int end) {
-        start = validateFitting(start);
-        end = validateFitting(end);
-
         for (int i = start; i < end; i++) {
             openSlots.remove(i);
         }
@@ -420,13 +404,6 @@ public abstract class InventoryGUI implements Listener {
      * @param y2 The y position to close to, exclusive
      */
     public void closeSlots(int x1, int y1, int x2, int y2) {
-
-        x1 = validateX(x1);
-        y1 = validateY(y1);
-
-        x2 = validateX(x2);
-        y2 = validateY(y2);
-
         for (int y = y1; y < y2; y++) {
             for (int x = x1; x < x2; x++) {
                 openSlots.remove(y * maxRows + x);
@@ -660,7 +637,6 @@ public abstract class InventoryGUI implements Listener {
             }
         }
     }
-
 
 
     public JavaPlugin getPlugin() {
