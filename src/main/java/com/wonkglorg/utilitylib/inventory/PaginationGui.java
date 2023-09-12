@@ -230,6 +230,7 @@ public final class PaginationGui{
 	 */
 	public void removeSlot(int slot) {
 		slots.forEach(gui::clearSlot);
+		slots.forEach(gui::clearSlot);
 		slots.remove(slot);
 		updatePage();
 	}

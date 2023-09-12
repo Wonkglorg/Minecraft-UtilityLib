@@ -201,6 +201,7 @@ public abstract class InventoryGUI implements Listener {
 
     public void addItem(ItemStack item, int slot) {
         inventory.setItem(slot, item);
+        buttons.put(slot, null);
     }
 
     public void addItem(int slot, ItemStack item) {
