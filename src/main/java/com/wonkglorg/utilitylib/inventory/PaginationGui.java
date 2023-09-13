@@ -344,11 +344,18 @@ public final class PaginationGui {
         return fillerItem;
     }
 
-
+    /**
+     * returns true if the next button is needed as there are more pages left
+     * @return
+     */
     public boolean needsNextButton() {
         return page < getMaxPage();
     }
 
+    /**
+     * returns true if the previous button is needed as previous pages
+     * @return
+     */
     public boolean needsPreviousButton() {
         return page > 1;
     }
