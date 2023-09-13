@@ -24,6 +24,10 @@ public final class PaginationGui {
 
     private final int maxRows = 9;
     private final int maxColumns = 6;
+    private Button previousButton;
+    private int previousButtonSlot;
+    private Button nextButton;
+    private int nextButtonSlot;
 
     /**
      * Constructs a PaginationPanel to work on a given InventoryGUI
@@ -330,6 +334,79 @@ public final class PaginationGui {
         updatePage();
     }
 
+    public void setPreviousButton(Button button, int slot) {
+        this.previousButton = button;
+        this.previousButtonSlot = slot;
+    }
+
+    public void setNextButton(Button button, int slot) {
+        this.nextButton = button;
+        this.nextButtonSlot = slot;
+    }
+
+    /**
+     * updates the page buttons based on the current page count with an itemstack
+     *
+     * @param fillerItem
+     */
+    public void updatePageButtons(ItemStack fillerItem) {
+        if (previousButton == null || nextButton == null) return;
+
+        if (getMaxPage() == 1) {
+            gui.addItem(fillerItem, previousButtonSlot);
+            gui.addItem(fillerItem, nextButtonSlot);
+            return;
+        }
+
+        if (getPage() > 1) {
+            gui.addButton(previousButton, previousButtonSlot);
+        } else {
+            gui.addItem(fillerItem, previousButtonSlot);
+        }
+
+        if (getPage() < getMaxPage()) {
+            gui.addButton(nextButton, nextButtonSlot);
+        } else {
+            gui.addItem(fillerItem, nextButtonSlot);
+        }
+        gui.update();
+    }
+
+    /**
+     * updates the page buttons based on the current page count with the default filler item
+     */
+    public void updatePageButtons() {
+        updatePageButtons(fillerItem);
+    }
+
+    /**
+     * updates the page buttons based on the current page count, set 2 buttons for previous and next to replace them if not needed
+     * @param previousButtonReplacer
+     * @param nextButtonReplacer
+     */
+    public void updatePageButtons(Button previousButtonReplacer, Button nextButtonReplacer) {
+        if (previousButton == null || nextButton == null) return;
+
+        if (getMaxPage() == 1) {
+            gui.addButton(previousButtonReplacer, previousButtonSlot);
+            gui.addButton(nextButtonReplacer, nextButtonSlot);
+            return;
+        }
+
+        if (getPage() > 1) {
+            gui.addButton(previousButton, previousButtonSlot);
+        } else {
+            gui.addButton(previousButtonReplacer, previousButtonSlot);
+        }
+
+        if (getPage() < getMaxPage()) {
+            gui.addButton(nextButton, nextButtonSlot);
+        } else {
+            gui.addButton(nextButtonReplacer, nextButtonSlot);
+        }
+        gui.update();
+    }
+
     /**
      * Sets the filler item
      */
@@ -346,6 +423,7 @@ public final class PaginationGui {
 
     /**
      * returns true if the next button is needed as there are more pages left
+     *
      * @return
      */
     public boolean needsNextButton() {
@@ -354,6 +432,7 @@ public final class PaginationGui {
 
     /**
      * returns true if the previous button is needed as previous pages
+     *
      * @return
      */
     public boolean needsPreviousButton() {
@@ -364,7 +443,7 @@ public final class PaginationGui {
         return buttons.size();
     }
 
-    public int getSlotSize(){
+    public int getSlotSize() {
         return slots.size();
     }
 }
