@@ -584,7 +584,7 @@ public final class ItemUtil {
      * @param item
      * @return returns true if item was smelted else false
      */
-    public static boolean smeltItem(ItemStack item) {
+    public static boolean smelt(ItemStack item) {
         Iterator<Recipe> iter = Bukkit.recipeIterator();
         while (iter.hasNext()) {
             Recipe recipe = iter.next();
