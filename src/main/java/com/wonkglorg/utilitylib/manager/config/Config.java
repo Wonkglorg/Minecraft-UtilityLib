@@ -19,7 +19,7 @@ public interface Config{
 	/**
 	 * Gets values from a specific section.
 	 */
-	Set<String> getSection(@NotNull String path, boolean deep);
+	Set<String> getSection(String path, boolean deep);
 	
 	@Nullable String getString(@NotNull String path);
 	

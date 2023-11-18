@@ -7,6 +7,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -120,7 +121,7 @@ public final class ItemUtil {
     public static void removeLoreLine(@NotNull final ItemStack item, @NotNull final String line) {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
-        if(!meta.hasLore()) return;
+        if (!meta.hasLore()) return;
         List<Component> lore = meta.lore();
         lore.remove(Message.color(line));
         meta.lore(lore);
@@ -136,7 +137,7 @@ public final class ItemUtil {
     public static void removeLoreLine(@NotNull final ItemStack item, final int index) {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
-        if(!meta.hasLore()) return;
+        if (!meta.hasLore()) return;
         List<Component> lore = meta.lore();
         if (index < 0 || index > lore.size()) {
             throw new IllegalArgumentException("Value out of bounds (" + index + ")");
@@ -624,6 +625,13 @@ public final class ItemUtil {
         mobHead.setItemMeta(meta);
 
         return mobHead;
+    }
+
+
+    public static ItemStack createCustomHead(@NotNull String texture) {
+        ItemStack mobHead = new ItemStack(Material.PLAYER_HEAD, 1, (byte) SkullType.PLAYER.ordinal());
+        UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
+        return Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
     }
 
     //https://api.mojang.com/users/profiles/minecraft/INSERT PLAYER NAME HERE

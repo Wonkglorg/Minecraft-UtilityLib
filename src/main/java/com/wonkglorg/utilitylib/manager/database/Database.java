@@ -33,7 +33,7 @@ public abstract class Database{
 			} catch(SQLException ignored){
 			}
 		}
-		
+
 	}
 	
 	public Connection getConnection() {

@@ -17,72 +17,73 @@ import java.util.List;
  * @author Wonkglorg
  */
 @SuppressWarnings("unused")
-public abstract class CustomEnchantment extends Enchantment{
-	private final String name;
-	
-	public CustomEnchantment(@NotNull NamespacedKey key, String name) {
-		super(key);
-		this.name = name;
-	}
-	
-	abstract List<Enchantment> conflicts();
-	
-	abstract List<Material> enchantAble();
-	
-	public abstract boolean isTradeable();
-	// HOW TO BEST IMPLEMENT THIS??????
-	public ItemStack setLevel(ItemStack itemStack, Enchantment enchantment, int level) {
-		
-		ItemMeta meta = itemStack.getItemMeta();
-		List<Component> componentOutput = new ArrayList<>();
-		List<Component> components = meta.lore();
-		
-		for(Component component : components){
-			String text = Message.convertComponentToString(component);
-			if(text.toLowerCase().contains(getName().toLowerCase())){
-				if(level == 0){
-					continue;
-				}
-				
-				componentOutput.add(displayName(level));
-				meta.addEnchant(enchantment, level, true);
-				continue;
-			}
-			componentOutput.add(component);
-			
-		}
-		
-		meta.lore(componentOutput);
-		itemStack.setItemMeta(meta);
-		return itemStack;
-	}
-	
-	public void increment(ItemStack itemStack, Enchantment enchantment) {
-		setLevel(itemStack, enchantment, itemStack.getEnchantmentLevel(enchantment) + 1);
-	}
-	
-	public void decrement(ItemStack itemStack, Enchantment enchantment) {
-		setLevel(itemStack, enchantment, itemStack.getEnchantmentLevel(enchantment) - 1);
-	}
-	
-	@Override
-	public @NotNull String getName() {
-		return name;
-	}
-	
-	@Override
-	public boolean conflictsWith(@NotNull Enchantment other) {
-		return conflicts().contains(other);
-	}
-	
-	@Override
-	public boolean canEnchantItem(@NotNull ItemStack item) {
-		return enchantAble().contains(item.getType());
-	}
-	
-	@Override
-	public @NotNull Component displayName(int level) {
-		return Message.color(getName() + " " + Convert.toRoman(level));
-	}
-	
+public abstract class CustomEnchantment extends Enchantment {
+    private final String name;
+
+    public CustomEnchantment(@NotNull NamespacedKey key, String name) {
+        super(key);
+        this.name = name;
+    }
+
+    public abstract List<Enchantment> conflicts();
+
+    public abstract List<Material> enchantAble();
+
+    public abstract boolean isTradeable();
+
+    // HOW TO BEST IMPLEMENT THIS??????
+    public ItemStack setLevel(ItemStack itemStack, Enchantment enchantment, int level) {
+
+        ItemMeta meta = itemStack.getItemMeta();
+        List<Component> componentOutput = new ArrayList<>();
+        List<Component> components = meta.lore();
+
+        for (Component component : components) {
+            String text = Message.convertComponentToString(component);
+            if (text.toLowerCase().contains(getName().toLowerCase())) {
+                if (level == 0) {
+                    continue;
+                }
+
+                componentOutput.add(displayName(level));
+                meta.addEnchant(enchantment, level, true);
+                continue;
+            }
+            componentOutput.add(component);
+
+        }
+
+        meta.lore(componentOutput);
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+
+    public void increment(ItemStack itemStack, Enchantment enchantment) {
+        setLevel(itemStack, enchantment, itemStack.getEnchantmentLevel(enchantment) + 1);
+    }
+
+    public void decrement(ItemStack itemStack, Enchantment enchantment) {
+        setLevel(itemStack, enchantment, itemStack.getEnchantmentLevel(enchantment) - 1);
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean conflictsWith(@NotNull Enchantment other) {
+        return conflicts().contains(other);
+    }
+
+    @Override
+    public boolean canEnchantItem(@NotNull ItemStack item) {
+        return enchantAble().contains(item.getType());
+    }
+
+    @Override
+    public @NotNull Component displayName(int level) {
+        return Message.color(getName() + " " + Convert.toRoman(level));
+    }
+
 }

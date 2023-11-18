@@ -189,6 +189,8 @@ public final class Message{
 		return builder.toString();
 	}
 	private static Builder convertToComponent(String[] texts, boolean allowExtras, Builder component) {
+
+		//this is horribly quick written but I ain't touching it again it works.
 		Map<TextDecoration, Boolean> decorationMap = new HashMap<>();
 		TextColor textColor = null;
 		for(int i = 0; i < texts.length; i += 1){
@@ -235,9 +237,7 @@ public final class Message{
 				outputComponent.decoration(decoration1, decorationMap.get(decoration1));
 			}
 			component.append(outputComponent.build());
-			
-			//HOW TO BEST IMPLEMENT THIS??????? ALLOW FOR MORE THAN JUST LINKS???
-			// ALSO KEYBIMD PLACEHOLDERS
+
 			if(allowExtras){
 				if(texts[i].startsWith("@link{")){
 					String linkText = texts[i].substring(6, texts[i].length() - 1);

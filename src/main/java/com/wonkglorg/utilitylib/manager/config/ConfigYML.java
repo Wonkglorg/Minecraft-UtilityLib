@@ -81,8 +81,7 @@ public class ConfigYML extends YamlConfiguration implements Config {
      * @param deep deep search to get children of children
      * @return {@link Set} of results.
      */
-    public Set<String> getSection(@NotNull String path, boolean deep) {
-
+    public Set<String> getSection(String path, boolean deep) {
         ConfigurationSection section = getConfigurationSection(path);
         if (section != null) {
             return section.getKeys(deep);
