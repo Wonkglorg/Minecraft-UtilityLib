@@ -590,9 +590,29 @@ public final class ItemUtil {
             Recipe recipe = iter.next();
             if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
 
-            if (furnaceRecipe.getInputChoice().getItemStack().getType() != item.getType()) continue;
+            if (furnaceRecipe.getInput().getType() != item.getType()) continue;
 
             item.setType(furnaceRecipe.getResult().getType());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Tries Unsmelting an item if possible by checking available smelting recipes. (Reverse of {@link ItemUtil#smelt(ItemStack)}) , may not work as intended if 2 smelting recipes lead to the same output
+     *
+     * @param item
+     * @return returns true if item was unsmelted else false
+     */
+    public static boolean unsmelt(ItemStack item) {
+        Iterator<Recipe> iter = Bukkit.recipeIterator();
+        while (iter.hasNext()) {
+            Recipe recipe = iter.next();
+            if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
+
+            if (furnaceRecipe.getResult().getType() != item.getType()) continue;
+
+            item.setType(furnaceRecipe.getInput().getType());
             return true;
         }
         return false;
