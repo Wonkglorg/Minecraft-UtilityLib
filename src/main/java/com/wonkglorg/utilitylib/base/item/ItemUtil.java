@@ -7,21 +7,14 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.BiPredicate;
 
 @SuppressWarnings("unused")
@@ -213,9 +206,7 @@ public final class ItemUtil {
      * @param attribute The Attribute to be added
      * @param modifier  The AttributeModifier to be added
      */
-    public static void addAttribute(@NotNull final ItemStack item,
-                                    @NotNull final Attribute attribute,
-                                    @NotNull final AttributeModifier modifier) {
+    public static void addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, @NotNull final AttributeModifier modifier) {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
         meta.addAttributeModifier(attribute, modifier);
@@ -230,10 +221,7 @@ public final class ItemUtil {
      * @param amount    The amount to modify it by
      * @param operation The operation by which the value will be modified
      */
-    public static void addAttribute(@NotNull final ItemStack item,
-                                    @NotNull final Attribute attribute,
-                                    final double amount,
-                                    @NotNull final Operation operation) {
+    public static void addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, final double amount, @NotNull final Operation operation) {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
         AttributeModifier modifier = new AttributeModifier(attribute.toString(), amount, operation);
@@ -589,6 +577,27 @@ public final class ItemUtil {
         armor[0] = boots;
         return armor;
     }
+
+    /**
+     * Tries Smelting an item if possible by checking available smelting recipes.
+     *
+     * @param item
+     * @return returns true if item was smelted else false
+     */
+    public static boolean smeltItem(ItemStack item) {
+        Iterator<Recipe> iter = Bukkit.recipeIterator();
+        while (iter.hasNext()) {
+            Recipe recipe = iter.next();
+            if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
+
+            if (furnaceRecipe.getInputChoice().getItemStack().getType() != item.getType()) continue;
+
+            item.setType(furnaceRecipe.getResult().getType());
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Creates a custom playerHead from a Texture String. Only enter exact value
