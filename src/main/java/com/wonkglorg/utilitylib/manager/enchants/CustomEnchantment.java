@@ -38,6 +38,10 @@ public abstract class CustomEnchantment extends Enchantment {
         List<Component> componentOutput = new ArrayList<>();
         List<Component> components = meta.lore();
 
+        if (components == null) {
+            components = new ArrayList<>();
+        }
+
         for (Component component : components) {
             String text = Message.convertComponentToString(component);
             if (text.toLowerCase().contains(getName().toLowerCase())) {
