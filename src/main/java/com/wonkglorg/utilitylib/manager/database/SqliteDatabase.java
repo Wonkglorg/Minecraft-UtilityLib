@@ -18,12 +18,12 @@ import java.sql.SQLException;
  */
 @SuppressWarnings("unused")
 public class SqliteDatabase extends Database{
-	
+
 	protected final JavaPlugin plugin;
 	protected final Path SOURCE_PATH;
 	protected final Path DESTINATION_PATH;
 	protected final String DATABASE_NAME;
-	
+
 	/**
 	 * * Creates a Sqlite database at the specified copyToPath.
 	 * * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
@@ -59,7 +59,7 @@ public class SqliteDatabase extends Database{
 		plugin = null;
 		connect();
 	}
-	
+
 	/**
 	 * Creates a Sqlite database inside your plugin folder with the specified name and paths.
 	 * The sourcePath indicates where in the project the database file can be found, it will then be copied to the destinationPath destination.
@@ -96,28 +96,28 @@ public class SqliteDatabase extends Database{
 		DESTINATION_PATH = Path.of(plugin.getDataFolder().getPath(), destinationPath.toString());
 		connect();
 	}
-	
+
 	@Override
 	public void connect() {
 		if(connection != null){
 			return;
 		}
-		
+
 		try{
 			Class.forName(databaseType.getClassLoader());
-			
+
 			File databaseFile = DESTINATION_PATH.toAbsolutePath().toFile();
 			if(!databaseFile.exists()){
 				copyDatabaseFile(databaseFile);
 			}
 			String connectionString = databaseType.getDriver() + DESTINATION_PATH;
 			connection = DriverManager.getConnection(connectionString);
-			
+
 		} catch(ClassNotFoundException | SQLException | IOException e){
 			Logger.logFatal(e.getClass().getName() + ": " + e.getMessage());
 		}
 	}
-	
+
 	private void copyDatabaseFile(File databaseFile) throws IOException {
 		try(InputStream resourceStream = getResource(SOURCE_PATH.toString())){
 			if(resourceStream != null){
@@ -127,21 +127,21 @@ public class SqliteDatabase extends Database{
 				databaseFile.createNewFile();
 			}
 		}
-		
+
 	}
-	
+
 	private InputStream getResource(String filename) {
 		if(filename == null){
 			throw new IllegalArgumentException("Filename cannot be null");
 		}
-		
+
 		try{
 			URL url = getClass().getClassLoader().getResource(filename.replaceAll("\\\\", "/"));
-			
+
 			if(url == null){
 				return null;
 			}
-			
+
 			URLConnection connection = url.openConnection();
 			connection.setUseCaches(false);
 			return connection.getInputStream();
@@ -149,5 +149,7 @@ public class SqliteDatabase extends Database{
 			return null;
 		}
 	}
+
+
 }
 	

@@ -47,7 +47,6 @@ public final class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSe
 		this.x2 = Math.max(l1.getBlockX(), l2.getBlockX()) + 1;
 		this.y2 = Math.max(l1.getBlockY(), l2.getBlockY()) + 1;
 		this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ()) + 1;
-		
 	}
 	
 	/**

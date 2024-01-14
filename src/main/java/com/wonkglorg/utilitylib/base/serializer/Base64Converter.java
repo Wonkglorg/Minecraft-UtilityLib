@@ -115,8 +115,7 @@ public class Base64Converter{
 		try(ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data))){
 			BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
 			ItemStack item;
-			
-			// Read the serialized itemStack
+
 			item = (ItemStack) dataInput.readObject();
 			
 			dataInput.close();

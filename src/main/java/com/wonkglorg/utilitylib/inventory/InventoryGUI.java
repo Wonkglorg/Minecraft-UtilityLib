@@ -64,7 +64,6 @@ public abstract class InventoryGUI implements Listener {
      * @param inventory The inventory to create a GUI from
      */
     public InventoryGUI(Inventory inventory, JavaPlugin plugin, MenuProfile profile) {
-
         //Add profile to constructor, avoids nullpointer exception if profile is used in constructor
         this.plugin = plugin;
         this.profile = profile;
