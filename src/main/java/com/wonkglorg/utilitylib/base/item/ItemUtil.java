@@ -2,19 +2,34 @@ package com.wonkglorg.utilitylib.base.item;
 
 import com.wonkglorg.utilitylib.base.message.Message;
 import net.kyori.adventure.text.Component;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.SkullType;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.FurnaceRecipe;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.BiPredicate;
 
 @SuppressWarnings("unused")
@@ -582,40 +597,44 @@ public final class ItemUtil {
      * Tries Smelting an item if possible by checking available smelting recipes.
      *
      * @param item
-     * @return returns true if item was smelted else false
+     * @return returns the smelted item or an empty optional
      */
-    public static boolean smelt(ItemStack item) {
+		@Contract(pure = true)
+    public static @NotNull Optional<ItemStack> smelt(@NotNull final ItemStack item) {
         Iterator<Recipe> iter = Bukkit.recipeIterator();
+        ItemStack newItem = item.clone();
         while (iter.hasNext()) {
             Recipe recipe = iter.next();
             if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
 
-            if (furnaceRecipe.getInput().getType() != item.getType()) continue;
+            if (furnaceRecipe.getInput().getType() != newItem.getType()) continue;
 
-            item.setType(furnaceRecipe.getResult().getType());
-            return true;
+            newItem.setType(furnaceRecipe.getResult().getType());
+            return Optional.of(newItem);
         }
-        return false;
+        return Optional.empty();
     }
 
     /**
      * Tries Unsmelting an item if possible by checking available smelting recipes. (Reverse of {@link ItemUtil#smelt(ItemStack)}) , may not work as intended if 2 smelting recipes lead to the same output
      *
-     * @param item
-     * @return returns true if item was unsmelted else false
+     * @param item the item to check
+     * @return returns a copy of the item unsmelted empty otherwise
      */
-    public static boolean unsmelt(ItemStack item) {
+				@Contract(pure = true)
+    public static @NotNull Optional<ItemStack> unsmelt(@NotNull final ItemStack item) {
         Iterator<Recipe> iter = Bukkit.recipeIterator();
+				        ItemStack newItem = item.clone();
         while (iter.hasNext()) {
             Recipe recipe = iter.next();
             if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
 
-            if (furnaceRecipe.getResult().getType() != item.getType()) continue;
+            if (furnaceRecipe.getResult().getType() != newItem.getType()) continue;
 
-            item.setType(furnaceRecipe.getInput().getType());
-            return true;
+            newItem.setType(furnaceRecipe.getInput().getType());
+            return Optional.of(newItem);
         }
-        return false;
+        return Optional.empty();
     }
 
 
@@ -626,6 +645,7 @@ public final class ItemUtil {
      * @param name    Name of the head.
      * @return {@link ItemStack}.
      */
+		@Contract(pure = true)
     public static ItemStack createCustomHead(String texture, String name, String... description) {
         return createCustomHead(texture, name, List.of(description));
     }
@@ -637,6 +657,7 @@ public final class ItemUtil {
      * @param name    Name of the head.
      * @return {@link ItemStack}.
      */
+		@Contract(pure = true)
     public static ItemStack createCustomHead(String texture, String name, List<String> description) {
         ItemStack mobHead = new ItemStack(Material.PLAYER_HEAD, 1, (byte) SkullType.PLAYER.ordinal());
         if (texture == null || texture.isEmpty() || texture.contains(" ")) {
