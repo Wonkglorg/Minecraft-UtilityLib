@@ -21,7 +21,7 @@ public abstract class CustomEnchantment extends Enchantment {
     private final String name;
 
     public CustomEnchantment(@NotNull NamespacedKey key, String name) {
-        super(key);
+        //super(key);
         this.name = name;
     }
 

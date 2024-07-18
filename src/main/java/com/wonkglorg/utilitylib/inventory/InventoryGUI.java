@@ -570,7 +570,7 @@ public abstract class InventoryGUI implements Listener {
             return;
         }
         if (!inventory.equals(e.getClickedInventory()) && e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-            if (openSlots.size() > 0) {
+            if (!openSlots.isEmpty()) {
                 Map<Integer, ItemStack> slots = new HashMap<>();
                 int amount = Objects.requireNonNull(e.getCurrentItem()).getAmount();
                 for (int slot : openSlots) {
@@ -595,7 +595,7 @@ public abstract class InventoryGUI implements Listener {
                         slots.put(slot, clone);
                     }
                 }
-                if (slots.size() == 0) {
+                if (slots.isEmpty()) {
                     return;
                 }
                 onClickOpenSlot.accept(e, new ArrayList<>(slots.keySet()));

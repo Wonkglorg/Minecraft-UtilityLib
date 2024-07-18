@@ -1,0 +1,96 @@
+package com.wonkglorg.utilitylib.builder.structure;
+
+import org.bukkit.Material;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Builder class for creating structures in a recipe styled way
+ */
+public class StructureBuilder {
+    private final Structure structure;
+    private final Map<Character, Material> materialMapper = new HashMap<>();
+
+    public StructureBuilder() {
+        structure = new Structure();
+    }
+
+    /**
+     * Asigns a character to a material (space cannot be asigned automatically gets treated as any block valid at this location)
+     *
+     * @param key      the char to use
+     * @param material the material to asign
+     * @return the builder
+     */
+    public StructureBuilder addMaterial(char key, Material material) {
+        materialMapper.put(key, material);
+        return this;
+    }
+
+    /**
+     * Adds a layer to the structure above the current highest layer based on the pattern. Space gets interpreted as any block is valid, if it should be air assign Material.air to a character
+     * <p>
+     * Format:
+     * <pre>
+     * cae
+     * b e
+     * cae
+     * </pre>
+     *
+     * @param pattern the pattern to add
+     * @return the structure builder
+     */
+    public StructureBuilder addLayerAbove(String[] pattern) {
+        structure.addLayerAbove(convertPatternToMaterials(pattern));
+        return this;
+    }
+
+    /**
+     * Adds a layer to the structure below the current lowest layer based on the pattern. Space gets interpreted as any block is valid, if it should be air assign Material.air to a character
+     * <p>
+     * Format:
+     * <pre>
+     * cae
+     * bxe
+     * cae
+     * </pre>
+     *
+     * @param pattern the pattern to add
+     * @return the structure builder
+     */
+    public StructureBuilder addLayerBelow(String[] pattern) {
+        structure.addLayerBelow(convertPatternToMaterials(pattern));
+        return this;
+    }
+
+    private Material[][] convertPatternToMaterials(String[] pattern) {
+        if (pattern.length == 0) {
+            throw new IllegalArgumentException("Pattern must have at least one row.");
+        }
+
+        int rowLength = pattern[0].length();
+        for (String row : pattern) {
+            if (row.length() != rowLength) {
+                throw new IllegalArgumentException("All rows in the pattern must have the same length.");
+            }
+        }
+
+        Material[][] materialPattern = new Material[pattern.length][rowLength];
+        for (int i = 0; i < pattern.length; i++) {
+            for (int j = 0; j < pattern[i].length(); j++) {
+                char key = pattern[i].charAt(j);
+                materialPattern[i][j] = (key == ' ') ? null : materialMapper.get(key);
+
+                if (materialPattern[i][j] == null && key != ' ') {
+                    throw new IllegalArgumentException("No material mapped for key: " + key);
+                }
+            }
+        }
+        return materialPattern;
+    }
+
+    public Structure build() {
+        return structure;
+    }
+}
