@@ -2,6 +2,7 @@ package com.wonkglorg.utilitylib.manager.database;
 
 
 import com.wonkglorg.utilitylib.base.logger.Logger;
+import org.bukkit.Material;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,7 +47,6 @@ public class MySqlDatabase extends Database {
     public void releaseConnection(Connection connection) {
         connectionPool.offer(connection);
     }
-
 
     /**
      * Unused handled by connection pool

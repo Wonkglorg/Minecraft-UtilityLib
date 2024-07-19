@@ -6,6 +6,7 @@ import com.wonkglorg.utilitylib.manager.command.Command;
 import com.wonkglorg.utilitylib.manager.config.Config;
 import com.wonkglorg.utilitylib.manager.config.LangConfig;
 import com.wonkglorg.utilitylib.manager.database.Database;
+import com.wonkglorg.utilitylib.manager.enchants.EnchantmentManager;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;

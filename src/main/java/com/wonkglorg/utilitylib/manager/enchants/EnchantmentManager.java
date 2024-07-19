@@ -1,7 +1,7 @@
-package com.wonkglorg.utilitylib.manager.managers;
+package com.wonkglorg.utilitylib.manager.enchants;
 
 import com.wonkglorg.utilitylib.base.logger.Logger;
-import com.wonkglorg.utilitylib.manager.enchants.CustomEnchantment;
+import com.wonkglorg.utilitylib.manager.managers.Manager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -67,6 +67,7 @@ public final class EnchantmentManager implements Manager {
         if (!enchantmentList.isEmpty()) {
             Logger.log(plugin, "Loaded " + enchantmentList.size() + " enchants!");
         }
+
     }
 
     public synchronized void registerEnchantments() {
@@ -78,7 +79,7 @@ public final class EnchantmentManager implements Manager {
             Field f = Enchantment.class.getDeclaredField("acceptingNew");
             f.setAccessible(true);
             f.set(null, true);
-            Enchantment.registerEnchantment(enchantment);
+            //Enchantment.registerEnchantment(enchantment);
         } catch (Exception e) {
             e.printStackTrace();
         }
