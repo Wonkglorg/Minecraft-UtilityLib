@@ -6,13 +6,10 @@ import com.wonkglorg.utilitylib.manager.command.Command;
 import com.wonkglorg.utilitylib.manager.config.Config;
 import com.wonkglorg.utilitylib.manager.config.LangConfig;
 import com.wonkglorg.utilitylib.manager.database.Database;
-import com.wonkglorg.utilitylib.manager.enchants.EnchantmentManager;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.ThreadSafe;
@@ -20,6 +17,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 /**
  * The type Plugin manager.
@@ -49,7 +47,7 @@ public final class PluginManager {
      * @param consumer action to perform on startup for example loading it from a config file
      */
     public void addCooldownManager(Consumer<Map<String, Map<UUID, Long>>> producer, Consumer<Map<String, Map<UUID, Long>>> consumer) {
-        managerMap.put(ManagerValues.COOLDOWN, new CooldownManager(producer, consumer));
+        managerMap.put(ManagerValues.COOLDOWN, new CooldownManager());
     }
 
     public synchronized void onStartup() {
@@ -74,10 +72,6 @@ public final class PluginManager {
 
     public synchronized void add(Recipe... recipe) {
         getRecipeManager().add(recipe);
-    }
-
-    public synchronized void add(Enchantment... enchantment) {
-        getEnchantManager().add(enchantment);
     }
 
     public synchronized void add(String name, Database database) {
@@ -178,10 +172,6 @@ public final class PluginManager {
         return (RecipeManager) getManager(ManagerValues.RECIPE);
     }
 
-    public synchronized EnchantmentManager getEnchantManager() {
-        return (EnchantmentManager) getManager(ManagerValues.ENCHANT);
-    }
-
     public synchronized CooldownManager getCooldownManager() {
         return (CooldownManager) getManager(ManagerValues.COOLDOWN);
     }
@@ -198,7 +188,6 @@ public final class PluginManager {
         managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
         managerMap.putIfAbsent(ManagerValues.RECIPE, new RecipeManager(plugin));
         managerMap.putIfAbsent(ManagerValues.COMMAND, new CommandManager(plugin));
-        managerMap.putIfAbsent(ManagerValues.ENCHANT, new EnchantmentManager(plugin));
         managerMap.putIfAbsent(ManagerValues.COOLDOWN, new CooldownManager());
         managerMap.putIfAbsent(ManagerValues.MENU_PROFILE, new ProfileManager<>(new MenuProfile(null)));
     }

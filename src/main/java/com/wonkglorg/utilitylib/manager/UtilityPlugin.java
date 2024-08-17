@@ -2,7 +2,6 @@ package com.wonkglorg.utilitylib.manager;
 
 import com.wonkglorg.utilitylib.manager.managers.PluginManager;
 import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,12 +22,6 @@ public abstract class UtilityPlugin extends JavaPlugin {
      * Executes on plugin shutdown
      */
     public abstract void pluginShutdown();
-	
-	
-	/*
-	MAKE PLUGINMANAGER A MAP WITH PLUGINS AS THE KEY, ALLOWS FOR 1 JAR TO HANDLE ALL THE DIFFERENT PLUGINS WHO MIGHT ACCESS IT WHEN IT IS A PROVIDED DEPENDENCY
-	REMEMBER FOR LATER ALSO IMPROVE API
-	 */
 
     @Override
     public void onEnable() {
@@ -71,6 +64,7 @@ public abstract class UtilityPlugin extends JavaPlugin {
         if (corePlug == null) {
             return false;
         }
+
         Plugin corePlugin = Bukkit.getPluginManager().getPlugin(corePlug);
         return corePlugin != null;
     }

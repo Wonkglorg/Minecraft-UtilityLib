@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class CooldownManager {
+public final class CooldownManager implements Manager {
     //maybe rework how the cooldowns are applied?
     /**
      * A cooldown map that is split into different cooldowns, ehere each entry is a list of players and an entry of "time of addition + cooldown"
@@ -145,4 +145,13 @@ public final class CooldownManager {
         return cooldowns;
     }
 
+    @Override
+    public void onShutdown() {
+        cooldowns.clear();
+    }
+
+    @Override
+    public void onStartup() {
+
+    }
 }
