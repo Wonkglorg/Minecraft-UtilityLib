@@ -2,21 +2,12 @@ package com.wonkglorg.utilitylib.base.item;
 
 import com.wonkglorg.utilitylib.base.message.Message;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.SkullType;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.FurnaceRecipe;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -24,12 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.BiPredicate;
 
 @SuppressWarnings("unused")
@@ -599,7 +585,7 @@ public final class ItemUtil {
      * @param item
      * @return returns the smelted item or an empty optional
      */
-		@Contract(pure = true)
+    @Contract(pure = true)
     public static @NotNull Optional<ItemStack> smelt(@NotNull final ItemStack item) {
         Iterator<Recipe> iter = Bukkit.recipeIterator();
         ItemStack newItem = item.clone();
@@ -621,10 +607,10 @@ public final class ItemUtil {
      * @param item the item to check
      * @return returns a copy of the item unsmelted empty otherwise
      */
-				@Contract(pure = true)
+    @Contract(pure = true)
     public static @NotNull Optional<ItemStack> unsmelt(@NotNull final ItemStack item) {
         Iterator<Recipe> iter = Bukkit.recipeIterator();
-				        ItemStack newItem = item.clone();
+        ItemStack newItem = item.clone();
         while (iter.hasNext()) {
             Recipe recipe = iter.next();
             if (!(recipe instanceof FurnaceRecipe furnaceRecipe)) continue;
@@ -637,7 +623,6 @@ public final class ItemUtil {
         return Optional.empty();
     }
 
-
     /**
      * Creates a custom playerHead from a Texture String. Only enter exact value
      *
@@ -645,9 +630,9 @@ public final class ItemUtil {
      * @param name    Name of the head.
      * @return {@link ItemStack}.
      */
-		@Contract(pure = true)
+    @Contract(pure = true)
     public static ItemStack createCustomHead(String texture, String name, String... description) {
-        return createCustomHead(texture, name, List.of(description));
+        return createCustomHead(texture, name, null, List.of(description));
     }
 
     /**
@@ -657,15 +642,41 @@ public final class ItemUtil {
      * @param name    Name of the head.
      * @return {@link ItemStack}.
      */
-		@Contract(pure = true)
-    public static ItemStack createCustomHead(String texture, String name, List<String> description) {
+    @Contract(pure = true)
+    public static ItemStack createCustomHead(String texture, String name, Sound sound, String... description) {
+        return createCustomHead(texture, name, sound.getKey(), List.of(description));
+    }
+
+    /**
+     * Creates a custom playerHead from a Texture String. Only enter exact value
+     *
+     * @param texture Texture string of the head.
+     * @param name    Name of the head.
+     * @return {@link ItemStack}.
+     */
+    @Contract(pure = true)
+    public static ItemStack createCustomHead(String texture, String name, NamespacedKey soundKey, String... description) {
+        return createCustomHead(texture, name, soundKey, List.of(description));
+    }
+
+    /**
+     * Creates a custom playerHead from a Texture String. Only enter exact value
+     *
+     * @param texture Texture string of the head.
+     * @param name    Name of the head.
+     * @param sound   {@link Sound} to play when the head is set on a note block
+     * @return {@link ItemStack}.
+     */
+    @Contract(pure = true)
+    public static ItemStack createCustomHead(String texture, String name, NamespacedKey sound, List<String> description) {
         ItemStack mobHead = new ItemStack(Material.PLAYER_HEAD, 1, (byte) SkullType.PLAYER.ordinal());
         if (texture == null || texture.isEmpty() || texture.contains(" ")) {
             texture = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWM5MGNhNTA3M2M0OWI4OThhNmY4Y2RiYzcyZTZhY2EwYTQyNWVjODNiYzQzNTVlM2I4MzRmZDg1OTI4MmJkZCJ9fX0=";
         }
         UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
         Bukkit.getUnsafe().modifyItemStack(mobHead, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
-        ItemMeta meta = mobHead.getItemMeta();//
+        SkullMeta meta = (SkullMeta) mobHead.getItemMeta();//
+        if (sound != null) meta.setNoteBlockSound(sound);
         if (name != null) {
             meta.displayName(Message.color(name));
         }
