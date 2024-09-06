@@ -13,12 +13,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * Represents a structure of blocks that can be checked for completion
  */
 public class Structure {
 	private final List<MaterialFunction[][]> structureLayers = new ArrayList<>();
+	private final BiConsumer<Player,Block> onCompletion = null;
 	private final Set<Material> containedBlockMaterials = new HashSet<>();
 	private final Map<Class<? extends MaterialFunction>, Boolean> containedEvents = new HashMap();
 
@@ -150,6 +152,10 @@ public class Structure {
 
 	public boolean hasBlockEvent() {
 		return containedEvents.containsKey(ItemDropFunction.class);
+	}
+
+	public void setActionOnCompletion(BiConsumer<Player,Block> function){
+		this.onCompletion = function;
 	}
 
 	@Override
