@@ -13,32 +13,32 @@ import java.util.Set;
  * Represents a structure of blocks that can be checked for completion
  */
 public class Structure {
-    private final List<Material[][]> structureLayers = new ArrayList<>();
+    private final List<MaterialFunction[][]> structureLayers = new ArrayList<>();
     private final Set<Material> containedBlockMaterials = new HashSet<>();
 
     public Structure() {
     }
 
-    public void addLayerBelow(Material[][] layer) {
+    public void addLayerBelow(MaterialFunction[][] layer) {
         structureLayers.add(0, layer);
         updateContainedBlockMaterials();
     }
 
-    public void addLayerAbove(Material[][] layer) {
+    public void addLayerAbove(MaterialFunction[][] layer) {
         structureLayers.add(layer);
         updateContainedBlockMaterials();
     }
 
-    public void setLayer(int index, Material[][] layer) {
+    public void setLayer(int index, MaterialFunction[][] layer) {
         structureLayers.set(index, layer);
         updateContainedBlockMaterials();
     }
 
-    public Material[][] getLayer(int index) {
+    public MaterialFunction[][] getLayer(int index) {
         return structureLayers.get(index);
     }
 
-    public List<Material[][]> getStructureLayers() {
+    public List<MaterialFunction[][]> getStructureLayers() {
         return structureLayers;
     }
 
@@ -49,11 +49,11 @@ public class Structure {
     //updates the list of materials contained used for optimizing when to even check for the structure
     private void updateContainedBlockMaterials() {
         containedBlockMaterials.clear();
-        for (Material[][] layer : structureLayers) {
-            for (Material[] row : layer) {
-                for (Material material : row) {
+        for (MaterialFunction[][] layer : structureLayers) {
+            for (MaterialFunction[] row : layer) {
+                for (MaterialFunction material : row) {
                     if (material != null) {
-                        containedBlockMaterials.add(material);
+                        containedBlockMaterials.add(material.material());
                     }
                 }
             }
@@ -77,7 +77,7 @@ public class Structure {
     //checks if all blocks are in a valid position
     private boolean isStructureComplete(Location placedLocation) {
         for (int yOffset = 0; yOffset < structureLayers.size(); yOffset++) {
-            Material[][] layer = structureLayers.get(yOffset);
+            MaterialFunction[][] layer = structureLayers.get(yOffset);
             for (int row = 0; row < layer.length; row++) {
                 for (int col = 0; col < layer[row].length; col++) {
                     if (layer[row][col] != null) {
@@ -95,15 +95,15 @@ public class Structure {
     //checks if the structure matches the structure at the origin
     private boolean doesStructureMatch(Location origin) {
         for (int layerIndex = 0; layerIndex < structureLayers.size(); layerIndex++) {
-            Material[][] layer = structureLayers.get(layerIndex);
+            MaterialFunction[][] layer = structureLayers.get(layerIndex);
             for (int row = 0; row < layer.length; row++) {
                 for (int col = 0; col < layer[row].length; col++) {
-                    Material expectedMaterial = layer[row][col];
+                    MaterialFunction expectedMaterial = layer[row][col];
                     Location checkLocation = origin.clone().add(col, layerIndex, row);
                     Block actualBlock = checkLocation.getBlock();
 
                     if (expectedMaterial != null) {
-                        if (actualBlock.getType() != expectedMaterial) {
+                        if (actualBlock.getType() != expectedMaterial.material()) {
                             return false;
                         }
                     }
@@ -112,6 +112,7 @@ public class Structure {
         }
         return true;
     }
+
 
     @Override
     public String toString() {
