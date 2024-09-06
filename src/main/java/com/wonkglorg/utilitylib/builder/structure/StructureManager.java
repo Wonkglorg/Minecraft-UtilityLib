@@ -35,8 +35,19 @@ public class StructureManager {
 	//checks all valid locations if they would intercept with this players current position, if yes
 	// execute an action assigned to this block / structure
 	public void onPlayerMoveInto() {
-		for (Structure structure : structureLocations.keySet()) {
-			if(structure.)
+		for (Map.Entry<Structure, List<Cuboid>> structureEntry : structureLocations.entrySet()) {
+			Structure structure = structureEntry.getKey();
+			List<Cuboid> cuboids = structureEntry.getValue();
+
+			if (!structure.hasPlayerEvent()) {
+				continue;
+			}
+
+			for (Cuboid cuboid : cuboids) {
+				//if location within cuboid, do x if it is in the right block continue else, return entirely
+
+				//if its not in the cuboid continue checking.
+			}
 		}
 		//players current post
 		//loads each structure, checks if a structure type contains such an event, if not skipt o next

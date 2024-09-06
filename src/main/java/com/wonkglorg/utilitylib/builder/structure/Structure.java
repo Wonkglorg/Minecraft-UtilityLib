@@ -1,6 +1,8 @@
 package com.wonkglorg.utilitylib.builder.structure;
 
+import com.wonkglorg.utilitylib.builder.structure.function.ItemDropFunction;
 import com.wonkglorg.utilitylib.builder.structure.function.MaterialFunction;
+import com.wonkglorg.utilitylib.builder.structure.function.MoveFunction;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -143,11 +145,11 @@ public class Structure {
 	}
 
 	public boolean hasPlayerEvent() {
-		return containsPlayerEvent;
+		return containedEvents.containsKey(MoveFunction.class);
 	}
 
 	public boolean hasBlockEvent() {
-		return containsBlockEvent;
+		return containedEvents.containsKey(ItemDropFunction.class);
 	}
 
 	@Override
