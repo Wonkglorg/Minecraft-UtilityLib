@@ -643,6 +643,18 @@ public final class ItemUtil {
      * @return {@link ItemStack}.
      */
     @Contract(pure = true)
+    public static ItemStack createCustomHead(String texture, String name, List<String> description) {
+        return createCustomHead(texture, name, null, description);
+    }
+
+    /**
+     * Creates a custom playerHead from a Texture String. Only enter exact value
+     *
+     * @param texture Texture string of the head.
+     * @param name    Name of the head.
+     * @return {@link ItemStack}.
+     */
+    @Contract(pure = true)
     public static ItemStack createCustomHead(String texture, String name, Sound sound, String... description) {
         return createCustomHead(texture, name, sound.getKey(), List.of(description));
     }
