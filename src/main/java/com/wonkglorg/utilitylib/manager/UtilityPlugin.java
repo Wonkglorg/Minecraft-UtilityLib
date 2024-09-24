@@ -27,7 +27,6 @@ public abstract class UtilityPlugin extends JavaPlugin {
     public void onEnable() {
         pluginStartup();
         manager.onStartup();
-        getResource("config.yml");
     }
 
 

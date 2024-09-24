@@ -20,20 +20,6 @@ import java.util.function.BiPredicate;
 
 @SuppressWarnings("unused")
 public final class ItemUtil {
-
-    /**
-     * Renames an ItemStack, functionally identical to {@link ItemUtil#setName(ItemStack, String)} but kept for legacy reasons
-     *
-     * @param item The ItemStack to be renamed
-     * @param name The name to give the ItemStack
-     */
-    public static void rename(@NotNull final ItemStack item, @NotNull final String name) {
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
-        meta.displayName(Message.color(name));
-        item.setItemMeta(meta);
-    }
-
     /**
      * Renames an ItemStack
      *
@@ -41,7 +27,9 @@ public final class ItemUtil {
      * @param name The name to give the ItemStack
      */
     public static void setName(@NotNull final ItemStack item, @NotNull final String name) {
-        rename(item, name);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Message.color(name));
+        item.setItemMeta(meta);
     }
 
     /**
@@ -52,7 +40,6 @@ public final class ItemUtil {
      */
     public static void setLore(@NotNull final ItemStack item, @NotNull final String line) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         List<Component> lore = new ArrayList<>();
         lore.add(Message.color(line));
         meta.lore(lore);
@@ -67,7 +54,6 @@ public final class ItemUtil {
      */
     public static void setLore(@NotNull final ItemStack item, @NotNull final List<String> lore) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.lore(Message.color(lore));
         item.setItemMeta(meta);
     }
@@ -80,7 +66,6 @@ public final class ItemUtil {
      */
     public static void addLore(@NotNull final ItemStack item, @NotNull final String line) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         List<Component> lore = meta.lore();
         lore = lore == null ? new ArrayList<>() : lore;
         lore.add(Message.color(line));
@@ -96,7 +81,6 @@ public final class ItemUtil {
      */
     public static void addLore(@NotNull final ItemStack item, @NotNull final Iterable<String> lines) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         List<Component> lore = meta.lore();
         lore = lore == null ? new ArrayList<>() : lore;
         for (String line : lines) {
@@ -114,7 +98,6 @@ public final class ItemUtil {
      */
     public static void removeLoreLine(@NotNull final ItemStack item, @NotNull final String line) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         if (!meta.hasLore()) return;
         List<Component> lore = meta.lore();
         lore.remove(Message.color(line));
@@ -130,7 +113,6 @@ public final class ItemUtil {
      */
     public static void removeLoreLine(@NotNull final ItemStack item, final int index) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         if (!meta.hasLore()) return;
         List<Component> lore = meta.lore();
         if (index < 0 || index > lore.size()) {
@@ -168,7 +150,6 @@ public final class ItemUtil {
      */
     public static void setUnbreakable(@NotNull final ItemStack item, final boolean value) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.setUnbreakable(value);
         item.setItemMeta(meta);
     }
@@ -182,7 +163,6 @@ public final class ItemUtil {
      */
     public static void addEnchant(@NotNull final ItemStack item, @NotNull final Enchantment enchant, final int level) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         if (level <= 0) {
             meta.removeEnchant(enchant);
         } else {
@@ -209,7 +189,6 @@ public final class ItemUtil {
      */
     public static void addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, @NotNull final AttributeModifier modifier) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.addAttributeModifier(attribute, modifier);
         item.setItemMeta(meta);
     }
@@ -224,7 +203,6 @@ public final class ItemUtil {
      */
     public static void addAttribute(@NotNull final ItemStack item, @NotNull final Attribute attribute, final double amount, @NotNull final Operation operation) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         AttributeModifier modifier = new AttributeModifier(attribute.toString(), amount, operation);
         meta.addAttributeModifier(attribute, modifier);
         item.setItemMeta(meta);
@@ -238,7 +216,6 @@ public final class ItemUtil {
      */
     public static void addItemFlags(@NotNull final ItemStack item, final ItemFlag... flags) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.addItemFlags(flags);
         item.setItemMeta(meta);
     }
@@ -251,7 +228,6 @@ public final class ItemUtil {
      */
     public static void removeItemFlags(@NotNull final ItemStack item, @NotNull final ItemFlag... flags) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.removeItemFlags(flags);
         item.setItemMeta(meta);
     }
@@ -264,7 +240,6 @@ public final class ItemUtil {
      */
     public static void setCustomModelData(ItemStack item, int customModelData) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.setCustomModelData(customModelData);
         item.setItemMeta(meta);
     }
@@ -281,7 +256,6 @@ public final class ItemUtil {
      */
     public static <T, Z> void addPersistentTag(ItemStack item, NamespacedKey key, PersistentDataType<T, Z> type, Z data) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         meta.getPersistentDataContainer().set(key, type, data);
         item.setItemMeta(meta);
     }
@@ -297,7 +271,6 @@ public final class ItemUtil {
      */
     public static void addAttribute(ItemStack item, Attribute attribute, double amount, Operation operation, EquipmentSlot slot) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), attribute.toString(), amount, operation, slot);
         meta.addAttributeModifier(attribute, modifier);
         item.setItemMeta(meta);
@@ -312,7 +285,6 @@ public final class ItemUtil {
      */
     public static void damage(ItemStack item, int amount) {
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
         if (meta instanceof Damageable damageable) {
             damageable.setDamage(amount);
             item.setItemMeta(meta);

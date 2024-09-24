@@ -2,12 +2,9 @@ package com.wonkglorg.utilitylib.manager.managers;
 
 import com.wonkglorg.utilitylib.base.logger.Logger;
 import com.wonkglorg.utilitylib.inventory.MenuProfile;
-import com.wonkglorg.utilitylib.manager.command.Command;
 import com.wonkglorg.utilitylib.manager.config.Config;
 import com.wonkglorg.utilitylib.manager.config.LangConfig;
 import com.wonkglorg.utilitylib.manager.database.Database;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -58,20 +55,8 @@ public final class PluginManager {
         managerMap.values().forEach(Manager::onShutdown);
     }
 
-    public synchronized void add(Listener... listener) {
-        getEventManager().add(listener);
-    }
-
-    public synchronized void add(Command... command) {
-        getCommandManager().add(command);
-    }
-
     public synchronized void add(Config... config) {
         getConfigManager().add(config);
-    }
-
-    public synchronized void add(Recipe... recipe) {
-        getRecipeManager().add(recipe);
     }
 
     public synchronized void add(String name, Database database) {
@@ -131,23 +116,6 @@ public final class PluginManager {
         return (ConfigManager) getManager(ManagerValues.CONFIG);
     }
 
-    /**
-     * Gets {@link CommandManager}.
-     *
-     * @return the command manager
-     */
-    public synchronized CommandManager getCommandManager() {
-        return (CommandManager) getManager(ManagerValues.COMMAND);
-    }
-
-    /**
-     * Gets {@link EventManager}.
-     *
-     * @return the event manager
-     */
-    public synchronized EventManager getEventManager() {
-        return (EventManager) getManager(ManagerValues.EVENT);
-    }
 
     /**
      * Gets {@link LangManager}.
@@ -168,10 +136,6 @@ public final class PluginManager {
         return (DatabaseManager) getManager(ManagerValues.DATABASE);
     }
 
-    public synchronized RecipeManager getRecipeManager() {
-        return (RecipeManager) getManager(ManagerValues.RECIPE);
-    }
-
     public synchronized CooldownManager getCooldownManager() {
         return (CooldownManager) getManager(ManagerValues.COOLDOWN);
     }
@@ -185,22 +149,11 @@ public final class PluginManager {
         managerMap.putIfAbsent(ManagerValues.CONFIG, new ConfigManager(plugin));
         managerMap.putIfAbsent(ManagerValues.LANG, new LangManager(plugin, getConfigManager()));
         managerMap.putIfAbsent(ManagerValues.DATABASE, new DatabaseManager(plugin));
-        managerMap.putIfAbsent(ManagerValues.EVENT, new EventManager(plugin));
-        managerMap.putIfAbsent(ManagerValues.RECIPE, new RecipeManager(plugin));
-        managerMap.putIfAbsent(ManagerValues.COMMAND, new CommandManager(plugin));
         managerMap.putIfAbsent(ManagerValues.COOLDOWN, new CooldownManager());
         managerMap.putIfAbsent(ManagerValues.MENU_PROFILE, new ProfileManager<>(new MenuProfile(null)));
     }
 
     private enum ManagerValues {
-        CONFIG(),
-        LANG(),
-        COMMAND(),
-        ENCHANT(),
-        RECIPE(),
-        EVENT(),
-        COOLDOWN(),
-        DATABASE(),
-        MENU_PROFILE(),
+        CONFIG(), LANG(), COMMAND(), ENCHANT(), RECIPE(), EVENT(), COOLDOWN(), DATABASE(), MENU_PROFILE(),
     }
 }
