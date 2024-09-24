@@ -88,44 +88,4 @@ public class LangConfig extends ConfigYML{
 		this.updateRequest = updateRequest;
 	}
 	
-	/*
-	public Map<String, String> getSortedMap() {
-		return sortedMap;
-	}
-		UNUSED TOPOLOGIC MATCHING SORT
-	
-	private Map<String, String> topologicalSort(Map<String, String> map) {
-		Map<String, String> sortedMap = new LinkedHashMap<>();
-		Set<String> visited = new HashSet<>();
-		
-		for(Entry<String, String> entry : map.entrySet()){
-			String key = entry.getKey();
-			if(!visited.contains(key)){
-				visitNode(key, map, visited, sortedMap);
-			}
-		}
-		
-		return sortedMap;
-	}
-	
-	Pattern pattern = Pattern.compile("%(.*?)%");
-	
-	private void visitNode(String key, Map<String, String> map, Set<String> visited, Map<String, String> sortedMap) {
-		visited.add(key);
-		String value = map.get(key);
-		
-		Matcher matcher = pattern.matcher(value);
-		
-		while(matcher.find()){
-			String dependency = matcher.group(1);
-			if(map.containsKey(dependency) && !visited.contains(dependency)){
-				visitNode(dependency, map, visited, sortedMap);
-			}
-		}
-		
-		sortedMap.put(key, value);
-	}
-	*/
-	
-	
 }

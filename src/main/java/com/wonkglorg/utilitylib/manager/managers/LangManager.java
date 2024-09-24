@@ -35,11 +35,21 @@ public final class LangManager implements Manager{
 		this.plugin = plugin;
 		this.configManager = configManager;
 	}
-	
+
+	/**
+	 * Adds a value to be replaced in the lang file whenever the {@link #getValue(String)} method is called
+	 * @param replace the value to be replaced
+	 * @param with the value to replace the original value with
+	 */
 	public void replace(String replace, String with) {
 		replacerMap.put(replace, with);
 	}
-	
+
+	/**
+	 * Sets the default language and the default config
+	 * @param defaultLang the default language
+	 * @param defaultConfig the default config
+	 */
 	public synchronized void setDefaultLang(Locale defaultLang, LangConfig defaultConfig) {
 		configManager.add(defaultConfig);
 		
@@ -47,7 +57,12 @@ public final class LangManager implements Manager{
 		this.defaultLang = defaultLang;
 		defaultConfig.silentLoad();
 	}
-	
+
+	/**
+	 * Adds a language to the lang manager
+	 * @param locale the locale of the language
+	 * @param languageConfig the language config
+	 */
 	public synchronized void addLanguage(Locale locale, LangConfig languageConfig) {
 		if(langMap.containsKey(locale)){
 			return;
@@ -56,7 +71,10 @@ public final class LangManager implements Manager{
 		langMap.putIfAbsent(locale, languageConfig);
 		languageConfig.silentLoad();
 	}
-	
+
+	/**
+	 * Saves all the language files
+	 */
 	public synchronized void save() {
 		langMap.values().forEach(Config::save);
 	}
